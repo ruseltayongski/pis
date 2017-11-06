@@ -1,0 +1,62 @@
+<?php
+
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreatePersonalInformation extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('personal_information', function (Blueprint $table) {
+           $table->increments('id');
+            $table->text('userid')->nullable();
+           $table->text('fname')->nullable();
+           $table->text('lname')->nullable();
+           $table->text('mname')->nullable();
+           $table->text('name_extension')->nullable();
+           $table->text('position')->nullable();
+           $table->text('date_of_birth')->nullable();
+           $table->text('place_of_birth')->nullable();
+           $table->text('sex')->nullable();
+           $table->text('civil_status')->nullable();
+           $table->text('citizenship')->nullable();
+           $table->text('height')->nullable();
+           $table->text('weight')->nullable();
+           $table->text('blood_type')->nullable();
+           $table->text('gsis_idno')->nullable();
+           $table->text('gsis_polno')->nullable();
+           $table->text('pag_ibigno')->nullable();
+           $table->text('phicno')->nullable();
+           $table->text('sssno')->nullable();
+           $table->text('tin_no')->nullable();
+           $table->text('residential_address')->nullable();
+           $table->text('residential_municipality')->nullable();
+           $table->text('residential_province')->nullable();
+           $table->text('region_zip')->nullable();
+           $table->text('telno')->nullable();
+           $table->text('email_address')->nullable();
+           $table->text('cellno')->nullable();
+           $table->text('employee_status')->nullable();
+           $table->text('job_status')->nullable();
+           $table->text('inactive_area')->nullable(); 
+
+           $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::drop("personal_information");
+    }
+}
