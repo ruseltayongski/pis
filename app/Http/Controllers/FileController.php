@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Redirect;
 use PIS\Http\Controllers\Controller;
 use PIS\Personal_Information;
 use PIS\Family_Background;
+use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller {
     public function importExportExcelORCSV(){
@@ -15,6 +16,7 @@ class FileController extends Controller {
             $path = $request->file('personal_information')->getRealPath();
             $data = \Excel::load($path)->get();
             if($data->count()){
+
                 foreach ($data as $key => $value) {
                     $arr[] = [
                         'userid' => $value->userid,
@@ -50,10 +52,12 @@ class FileController extends Controller {
 
                     ];
                 }
+
                 if(!empty($arr)){
                     \DB::table('personal_information')->insert($arr);
                     return Redirect::back()->with('success', 'Insert Record successfully.');
                 }
+
             }
         }
 

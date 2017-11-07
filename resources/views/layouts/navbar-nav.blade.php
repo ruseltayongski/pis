@@ -1,19 +1,12 @@
 <style>
     .active-nav{
-        background-color: #0a97d6;
+        background-color: #d62b6b;
     }
 </style>
 <ul class="nav navbar-nav">
-    @if(Auth::user()->usertype)
-        <li class="{{ Request::segments()[0] == 'index' ? 'active-nav' : '' }}"><a href="{{ url('/') }}"><i class="ace-icon fa fa-home"></i> Home </a></li>
-        <li class="{{ Request::segments()[0] == 'hrhList' ? 'active-nav' : '' }}"><a href="{{ url('/hrhList') }}"><i class="ace-icon fa fa-database"></i> Hrh List</a></li>
-        <li class="{{ Request::segments()[0] == 'hrhType' ? 'active-nav' : '' }}"><a href="{{ url('/hrhType') }}"><i class="ace-icon fa fa-eye"></i> HRH Type</a></li>
-        <li class="{{ Request::segments()[0] == 'pList' ? 'active-nav' : '' }}"><a href="{{ url('/pList') }}"><i class="ace-icon fa fa-asterisk"></i> Province</a></li>
-        <li class="{{ Request::segments()[0] == 'mList' ? 'active-nav' : '' }}"><a href="{{ url('/mList') }}"><i class="ace-icon fa fa-flag"></i> Municipality</a></li>
-        <li class="{{ Request::segments()[0] == 'sList' ? 'active-nav' : '' }}"><a href="{{ url('/sList') }}"><i class="ace-icon fa fa-eye"></i> Status of Employment</a></li>
-    @else
-        <li><a href="{{ url('/profile') }}"><i class="ace-icon fa fa-certificate"></i> Profile</a></li>
-    @endif
+    <li class="{{ Request::segments()[0] == 'excel' ? 'active-nav' : '' }}"><a href="{{ url('/excel') }}"><i class="ace-icon fa fa-home"></i> Home </a></li>
+    <li class="{{ Request::segments()[0] == 'pisList' ? 'active-nav' : '' }}"><a href="{{ url('/pisList') }}"><i class="ace-icon fa fa-database"></i> PIS List</a></li>
+
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> Account<span class="caret"></span></a>
         <ul class="dropdown-menu">
