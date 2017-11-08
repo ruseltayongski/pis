@@ -5,6 +5,7 @@ namespace PIS\Http\Controllers;
 use Illuminate\Http\Request;
 use PIS\Personal_Information;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class PisController extends Controller
 {
@@ -53,6 +54,19 @@ class PisController extends Controller
         return view('pis.pisProfile',[
             "user" => $user,
         ]);
+    }
+
+    public function updatePersonalInformation(Request $request){
+
+        $id = $request->get('id');
+        $column = $request->get('column');
+        $value = $request->get('value');
+        Personal_Information::where('id',$id)->update([
+            $column => $value
+        ]);
+
+        return 'Successfully Updated';
+
     }
 
 }

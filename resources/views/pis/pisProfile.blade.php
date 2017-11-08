@@ -152,161 +152,161 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> LASTNAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span id="lname" class="editable">{{ $user->lname }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->id }}collname">{{ $user->lname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> FIRSTNAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="fname">{{ $user->fname }}</span>
+                                                                            <span class="editable personal_information" id="fname">{{ $user->fname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> MIDDLE NAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="mname">{{ $user->mname }}</span>
+                                                                            <span class="editable personal_information" id="mname">{{ $user->mname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> NAME EXTENSION(JR,,SR): </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select" id="name_extension">{{ $user->name_extension }}</span>
+                                                                            <span class="editable personal_information" id="name_extension">{{ $user->name_extension }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> DATE OF BIRTH </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_datepicker" id="date_of_birth">{{ $user->date_of_birth }}</span>
+                                                                            <span class="editable personal_information" id="date_of_birth">{{ $user->date_of_birth }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PLACE OF BIRTH </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="place_of_birth">{{ $user->place_of_birth }}</span>
+                                                                            <span class="editable personal_information" id="place_of_birth">{{ $user->place_of_birth }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SEX </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="sex">{{ $user->sex }}</span>
+                                                                            <span class="editable personal_information" id="sex">{{ $user->sex }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CIVIL STATUS </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="civil_status">{{ $user->civil_status }}</span>
+                                                                            <span class="editable personal_information" id="civil_status">{{ $user->civil_status }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> HEIGHT (m) </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="height">{{ $user->height }}</span>
+                                                                            <span class="editable personal_information" id="height">{{ $user->height }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> WEIGHT (kg) </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="weight">{{ $user->weight }}</span>
+                                                                            <span class="editable personal_information" id="weight">{{ $user->weight }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> BLOOD TYPE </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="blood_type">{{ $user->blood_type }}</span>
+                                                                            <span class="editable personal_information" id="blood_type">{{ $user->blood_type }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> GSIS ID NO </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="gsis_idno">{{ $user->gsis_idno }}</span>
+                                                                            <span class="editable personal_information" id="gsis_idno">{{ $user->gsis_idno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PAG-IBIG ID NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="pag_ibigno">{{ $user->pag_ibigno }}</span>
+                                                                            <span class="editable personal_information" id="pag_ibigno">{{ $user->pag_ibigno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SSS NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="sssno">{{ $user->sssno }}</span>
+                                                                            <span class="editable personal_information" id="sssno">{{ $user->sssno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TIN NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="tin_no">{{ $user->tin_no }}</span>
+                                                                            <span class="editable personal_information" id="tin_no">{{ $user->tin_no }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CITIZENSHIP: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio" id="citizenship">{{ $user->citizenship }}</span>
+                                                                            <span class="editable personal_information" id="citizenship">{{ $user->citizenship }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL ADDRESS: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="residential_address">{{ $user->residential_address }}</span>
+                                                                            <span class="editable personal_information" id="residential_address">{{ $user->residential_address }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL MUNICIPALITY: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="residential_municipality">{{ $user->residential_municipality }}</span>
+                                                                            <span class="editable personal_information" id="residential_municipality">{{ $user->residential_municipality }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL PROVINCE: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="residential_province">{{ $user->province }}</span>
+                                                                            <span class="editable personal_information" id="residential_province">{{ $user->province }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> ZIP CODE: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="zip_code">{{ $user->region_zip }}</span>
+                                                                            <span class="editable personal_information" id="zip_code">{{ $user->region_zip }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TELEPHONE NO: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="telno">{{ $user->telno }}</span>
+                                                                            <span class="editable personal_information" id="telno">{{ $user->telno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CELL NO: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="cellno">{{ $user->cellno }}</span>
+                                                                            <span class="editable personal_information" id="cellno">{{ $user->cellno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> EMAIL ADDRESS: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="email_address">{{ $user->email_address }}</span>
+                                                                            <span class="editable personal_information" id="email_address">{{ $user->email_address }}</span>
                                                                         </div>
                                                                     </div>
 
@@ -538,6 +538,330 @@
     </a>
 @endsection
 @section('js')
+
+    <script>
+        jQuery(function($) {
+
+            $('.rating').raty({
+                'half': true,
+                'starType' : 'i',
+                'score' : 4
+            });
+
+            //editables on first profile page
+            // inline or popup
+            $.fn.editable.defaults.mode = 'popup';
+            $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
+            $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
+                    '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+
+            // *** editable avatar *** //
+            try {//ie8 throws some harmless exceptions, so let's catch'em
+
+                //first let's add a fake appendChild method for Image element for browsers that have a problem with this
+                //because editable plugin calls appendChild, and it causes errors on IE at unpredicted points
+                try {
+                    document.createElement('IMG').appendChild(document.createElement('B'));
+                } catch(e) {
+                    Image.prototype.appendChild = function(el){}
+                }
+
+                var last_gritter
+                $('#avatar').editable({
+                    type: 'image',
+                    name: 'avatar',
+                    value: null,
+                    //onblur: 'ignore',  //don't reset or hide editable onblur?!
+                    image: {
+                        //specify ace file input plugin's options here
+                        btn_choose: 'Change Avatar',
+                        droppable: true,
+                        maxSize: 110000,//~100Kb
+
+                        //and a few extra ones here
+                        name: 'avatar',//put the field name here as well, will be used inside the custom plugin
+                        on_error : function(error_type) {//on_error function will be called when the selected file has a problem
+                            if(last_gritter) $.gritter.remove(last_gritter);
+                            if(error_type == 1) {//file format error
+                                last_gritter = $.gritter.add({
+                                    title: 'File is not an image!',
+                                    text: 'Please choose a jpg|gif|png image!',
+                                    class_name: 'gritter-error gritter-center'
+                                });
+                            } else if(error_type == 2) {//file size rror
+                                last_gritter = $.gritter.add({
+                                    title: 'File too big!',
+                                    text: 'Image size should not exceed 100Kb!',
+                                    class_name: 'gritter-error gritter-center'
+                                });
+                            }
+                            else {//other error
+                            }
+                        },
+                        on_success : function() {
+                            $.gritter.removeAll();
+                        }
+                    },
+                    url: function(params) {
+                        // ***UPDATE AVATAR HERE*** //
+                        //for a working upload example you can replace the contents of this function with
+                        //examples/profile-avatar-update.js
+
+                        var deferred = new $.Deferred
+
+                        var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
+                        if(!value || value.length == 0) {
+                            deferred.resolve();
+                            return deferred.promise();
+                        }
+
+
+                        //dummy upload
+                        setTimeout(function(){
+                            if("FileReader" in window) {
+                                //for browsers that have a thumbnail of selected image
+                                var thumb = $('#avatar').next().find('img').data('thumb');
+                                if(thumb) $('#avatar').get(0).src = thumb;
+                            }
+
+                            deferred.resolve({'status':'OK'});
+
+                            if(last_gritter) $.gritter.remove(last_gritter);
+                            last_gritter = $.gritter.add({
+                                title: 'Avatar Updated!',
+                                text: 'Uploading to server can be easily implemented. A working example is included with the template.',
+                                class_name: 'gritter-info gritter-center'
+                            });
+
+                        } , parseInt(Math.random() * 800 + 800))
+
+                        return deferred.promise();
+
+                        // ***END OF UPDATE AVATAR HERE*** //
+                    },
+
+                    success: function(response, newValue) {
+                    }
+                })
+            }catch(e) {}
+
+            /**
+             //let's display edit mode by default?
+             var blank_image = true;//somehow you determine if image is initially blank or not, or you just want to display file input at first
+             if(blank_image) {
+					$('#avatar').editable('show').on('hidden', function(e, reason) {
+						if(reason == 'onblur') {
+							$('#avatar').editable('show');
+							return;
+						}
+						$('#avatar').off('hidden');
+					})
+				}
+             */
+
+                //another option is using modals
+            $('#avatar2').on('click', function(){
+                var modal =
+                        '<div class="modal fade">\
+                          <div class="modal-dialog">\
+                           <div class="modal-content">\
+                            <div class="modal-header">\
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>\
+                                <h4 class="blue">Change Avatar</h4>\
+                            </div>\
+                            \
+                            <form class="no-margin">\
+                             <div class="modal-body">\
+                                <div class="space-4"></div>\
+                                <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+                             </div>\
+                            \
+                             <div class="modal-footer center">\
+                                <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+                             </div>\
+                            </form>\
+                          </div>\
+                         </div>\
+                        </div>';
+
+
+                var modal = $(modal);
+                modal.modal("show").on("hidden", function(){
+                    modal.remove();
+                });
+
+                var working = false;
+
+                var form = modal.find('form:eq(0)');
+                var file = form.find('input[type=file]').eq(0);
+                file.ace_file_input({
+                    style:'well',
+                    btn_choose:'Click to choose new avatar',
+                    btn_change:null,
+                    no_icon:'ace-icon fa fa-picture-o',
+                    thumbnail:'small',
+                    before_remove: function() {
+                        //don't remove/reset files while being uploaded
+                        return !working;
+                    },
+                    allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+                    allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+                });
+
+                form.on('submit', function(){
+                    if(!file.data('ace_input_files')) return false;
+
+                    file.ace_file_input('disable');
+                    form.find('button').attr('disabled', 'disabled');
+                    form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
+
+                    var deferred = new $.Deferred;
+                    working = true;
+                    deferred.done(function() {
+                        form.find('button').removeAttr('disabled');
+                        form.find('input[type=file]').ace_file_input('enable');
+                        form.find('.modal-body > :last-child').remove();
+
+                        modal.modal("hide");
+
+                        var thumb = file.next().find('img').data('thumb');
+                        if(thumb) $('#avatar2').get(0).src = thumb;
+
+                        working = false;
+                    });
+
+
+                    setTimeout(function(){
+                        deferred.resolve();
+                    } , parseInt(Math.random() * 800 + 800));
+
+                    return false;
+                });
+
+            });
+
+
+            //////////////////////////////
+            $('#profile-feed-1').ace_scroll({
+                height: '250px',
+                mouseWheelLock: true,
+                alwaysVisible : true
+            });
+
+            $('a[ data-original-title]').tooltip();
+
+            $('.easy-pie-chart.percentage').each(function(){
+                var barColor = $(this).data('color') || '#555';
+                var trackColor = '#E2E2E2';
+                var size = parseInt($(this).data('size')) || 72;
+                $(this).easyPieChart({
+                    barColor: barColor,
+                    trackColor: trackColor,
+                    scaleColor: false,
+                    lineCap: 'butt',
+                    lineWidth: parseInt(size/10),
+                    animate:false,
+                    size: size
+                }).css('color', barColor);
+            });
+
+            ///////////////////////////////////////////
+
+            //right & left position
+            //show the user info on right or left depending on its position
+            $('#user-profile-2 .memberdiv').on('mouseenter touchstart', function(){
+                var $this = $(this);
+                var $parent = $this.closest('.tab-pane');
+
+                var off1 = $parent.offset();
+                var w1 = $parent.width();
+
+                var off2 = $this.offset();
+                var w2 = $this.width();
+
+                var place = 'left';
+                if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
+
+                $this.find('.popover').removeClass('right left').addClass(place);
+            }).on('click', function(e) {
+                e.preventDefault();
+            });
+
+
+            ///////////////////////////////////////////
+            $('#user-profile-3')
+                    .find('input[type=file]').ace_file_input({
+                        style:'well',
+                        btn_choose:'Change avatar',
+                        btn_change:null,
+                        no_icon:'ace-icon fa fa-picture-o',
+                        thumbnail:'large',
+                        droppable:true,
+
+                        allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+                        allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+                    })
+                    .end().find('button[type=reset]').on(ace.click_event, function(){
+                        $('#user-profile-3 input[type=file]').ace_file_input('reset_input');
+                    })
+                    .end().find('.date-picker').datepicker().next().on(ace.click_event, function(){
+                $(this).prev().focus();
+            });
+            $('.input-mask-phone').mask('(999) 999-9999');
+
+            $('#user-profile-3').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
+
+
+            ////////////////////
+            //change profile
+            $('[data-toggle="buttons"] .btn').on('click', function(e){
+                var target = $(this).find('input[type=radio]');
+                var which = parseInt(target.val());
+                $('.user-profile').parent().addClass('hide');
+                $('#user-profile-'+which).parent().removeClass('hide');
+            });
+
+            /////////////////////////////////////
+            $(document).one('ajaxloadstart.page', function(e) {
+                //in ajax mode, remove remaining elements before leaving page
+                try {
+                    $('.editable').editable('destroy');
+                } catch(e) {}
+                $('[class*=select2]').remove();
+            });
+
+            $(".editable").each(function() {
+                $('#'+this.id).editable({
+                    type: 'text',
+                    name: this.id,
+                    emptytext: "Not Applicable",
+                    success: function(data, value) {
+                        var Class = this.className;
+                        var json,url;
+
+                        if(Class.includes('personal_information')){
+                            json = {
+                                "id" : this.id.split('col')[0],
+                                "column" : this.id.split('col')[1],
+                                "value" : value,
+                                "_token" : "<?php echo csrf_token(); ?>",
+                            };
+                            url = "{!! asset('updatePersonalInformation') !!}";
+                        }
+
+                        $.post(url,json,function(result){
+                            console.log(result);
+                        });
+                    },
+                    error: function(errors) {
+                        alert('slow internet connection..');
+                    }
+                });
+            });
+
+        });
+    </script>
 
 @endsection
 
