@@ -13,9 +13,9 @@
         .profile-info-name{
             width: 30%;
         }
-        .editable-empty{
+        /*.editable-empty{
             color: black;
-        }
+        }*/
     </style>
     <div class="main-content">
         <div class="main-content-inner">
@@ -31,13 +31,13 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#family_background">
                                     <i class="orange ace-icon fa fa-picture-o bigger-120"></i>
                                     Family Background
@@ -45,7 +45,7 @@
                             </li>
                             <li >
                                 <a data-toggle="tab" href="#educational_background">
-                                    <i class="blue ace-icon fa fa-rss bigger-120"></i>
+                                    <i class="blue ace-icon fa fa-book bigger-120"></i>
                                     Educational Background
                                 </a>
                             </li>
@@ -63,19 +63,19 @@
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#voluntary_work">
-                                    <i class="purple ace-icon fa fa-briefcase bigger-120"></i>
+                                    <i class="purple ace-icon fa fa-life-bouy bigger-120"></i>
                                     Voluntary Work
                                 </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#training_program">
-                                    <i class="green ace-icon fa fa-briefcase bigger-120"></i>
+                                    <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
                                 </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#other_information">
-                                    <i class="orange ace-icon fa fa-briefcase bigger-120"></i>
+                                    <i class="orange ace-icon fa fa-user-secret bigger-120"></i>
                                     Other Information
                                 </a>
                             </li>
@@ -142,7 +142,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
+                                                <div id="personal_information" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Personal Information</h3>
@@ -152,161 +152,161 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> LASTNAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->id }}collname">{{ $user->lname }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> FIRSTNAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="fname">{{ $user->fname }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colfname">{{ $user->fname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> MIDDLE NAME </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="mname">{{ $user->mname }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colmname">{{ $user->mname }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> NAME EXTENSION(JR,,SR): </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="name_extension">{{ $user->name_extension }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colname_extension">{{ $user->name_extension }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> DATE OF BIRTH </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="date_of_birth">{{ $user->date_of_birth }}</span>
+                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}coldate_of_birth">{{ $user->date_of_birth }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PLACE OF BIRTH </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="place_of_birth">{{ $user->place_of_birth }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colplace_of_birth">{{ $user->place_of_birth }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SEX </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="sex">{{ $user->sex }}</span>
+                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colsex">{{ $user->sex }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CIVIL STATUS </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="civil_status">{{ $user->civil_status }}</span>
+                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colcivil_status">{{ $user->civil_status }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> HEIGHT (m) </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="height">{{ $user->height }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colheight">{{ $user->height }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> WEIGHT (kg) </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="weight">{{ $user->weight }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colweight">{{ $user->weight }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> BLOOD TYPE </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="blood_type">{{ $user->blood_type }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colblood_type">{{ $user->blood_type }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> GSIS ID NO </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="gsis_idno">{{ $user->gsis_idno }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colgsis_idno">{{ $user->gsis_idno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PAG-IBIG ID NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="pag_ibigno">{{ $user->pag_ibigno }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colpag_ibigno">{{ $user->pag_ibigno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SSS NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="sssno">{{ $user->sssno }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colsssno">{{ $user->sssno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TIN NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="tin_no">{{ $user->tin_no }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}coltin_no">{{ $user->tin_no }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CITIZENSHIP: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="citizenship">{{ $user->citizenship }}</span>
+                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colcitizenship">{{ $user->citizenship }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL ADDRESS: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="residential_address">{{ $user->residential_address }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_address">{{ $user->residential_address }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL MUNICIPALITY: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="residential_municipality">{{ $user->residential_municipality }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_municipality">{{ $user->residential_municipality }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> RESIDENTIAL PROVINCE: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="residential_province">{{ $user->province }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_province">{{ $user->residential_province }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> ZIP CODE: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="zip_code">{{ $user->region_zip }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colregion_zip">{{ $user->region_zip }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TELEPHONE NO: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="telno">{{ $user->telno }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}coltelno">{{ $user->telno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CELL NO: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="cellno">{{ $user->cellno }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colcellno">{{ $user->cellno }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> EMAIL ADDRESS: </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="email_address">{{ $user->email_address }}</span>
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colemail_address">{{ $user->email_address }}</span>
                                                                         </div>
                                                                     </div>
 
@@ -318,7 +318,7 @@
 
                                                 </div><!-- /#personal information -->
 
-                                                <div id="family_background" class="tab-pane fade">
+                                                <div id="family_background" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Family Background</h3>
@@ -327,49 +327,49 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Spouse Surname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_lname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsln">{{ $user->sln }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Spouse Firstname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_fname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsfn">{{ $user->sfn }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Spouse Middlename:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_mname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsmn">{{ $user->smn }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Spouse Name Extension(JR,,SR):</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select" id="spouse_nextension"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsne">{{ $user->sne }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Occupation:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_occupation"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsoccu">{{ $user->soccu }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Employer/Business Name:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_business_name"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsbadd">{{ $user->sbadd }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Telephone No:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="spouse_telephone_no"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colstelno">{{ $user->stelno }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -399,49 +399,49 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Father Lastname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="father_lname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfln">{{ $user->fln }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Father Firstname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="father_fname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colffn">{{ $user->ffn }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Father Middle Name:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="father_mname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfmn">{{ $user->fmn }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Name Extension(JR,,SR):</div>
+                                                                        <div class="profile-info-name">Father NameExtension(JR,,SR):</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select" id="father_nextension"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfne">{{ $user->fne }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Mother Maidenname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="mother_lname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmmln">{{ $user->mmln }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Mother Firstname:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="mother_fname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmfn">{{ $user->mfn }}</span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Mother Middle Name:</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable" id="mother_mname"></span>
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmmn">{{ $user->mmn }}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -849,6 +849,15 @@
                             };
                             url = "{!! asset('updatePersonalInformation') !!}";
                         }
+                        else if(Class.includes('family_background')){
+                            json = {
+                                "userid" : this.id.split('col')[0],
+                                "column" : this.id.split('col')[1],
+                                "value" : value,
+                                "_token" : "<?php echo csrf_token(); ?>",
+                            };
+                            url = "{!! asset('updateFamilyBackground') !!}";
+                        }
 
                         $.post(url,json,function(result){
                             console.log(result);
@@ -860,7 +869,281 @@
                 });
             });
 
+            var source_radio = [{
+                "sex": [
+                    {value: 'Male', text: 'Male'},
+                    {value: 'Female', text: 'Female'}
+                ],
+                "civil_status": [
+                    {value: 'Single', text: 'Single'},
+                    {value: 'Widowed', text: 'Widowed'},
+                    {value: 'Others', text: 'Others'},
+                    {value: 'Married', text: 'Married'},
+                    {value: 'Separated', text: 'Separated'}
+                ],
+                "citizenship": [
+                    {value: 'Filipino', text: 'Filipino'},
+                    {value: 'Dual Citizenship', text: 'Dual Citizenship'},
+                    {value: 'by birth', text: 'by birth'},
+                    {value: 'by naturalization', text: 'by naturalization'}
+                ],
+                "date_of_birth": [
+                    {value:'Dummy', text:'Dummy'}
+                ]
+            }];
+
+            $(".editable_radio").each(function(index){
+                $('#'+this.id).editable({
+                    type: 'radiolist',
+                    name: this.id,
+                    source: source_radio[0][this.id.split('col')[1]],
+                    validate: function(value) {
+                        var string = this.className;
+                        if(value != null){
+                            $("#"+this.id).html(value);
+                            var json = {
+                                "id" : "<?php echo $user->piId; ?>",
+                                "column" : this.id.split('col')[1],
+                                "value" : value,
+                                "other_country" : $("#other_country").val(),
+                                "_token" : "<?php echo csrf_token(); ?>",
+                            };
+                            var url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            $.post(url,json,function(result){
+                                console.log(result);
+                            });
+                        }
+                        else if(this.id.split('col')[1] == 'date_of_birth'){
+                            var date_picker = $("#"+this.id+"input").val();
+                            $("#"+this.id).html(date_picker);
+                            var json = {
+                                "id" : "<?php echo $user->piId; ?>",
+                                "column" : this.id.split('col')[1],
+                                "value" : date_picker,
+                                "_token" : "<?php echo csrf_token(); ?>",
+                            };
+                            var url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            $.post(url,json,function(result){
+                                console.log(result);
+                            });
+                        }
+
+                    }
+                });
+            });
+
+
         });
+
+
+        (function($) {
+            //global variable
+            var todayDate = new Date();
+            var month = todayDate.getMonth()+1;
+            var day = todayDate.getDate();
+            var year = todayDate.getFullYear()-20;
+            var hours = todayDate.getDate();
+            var minutes = todayDate.getMinutes();
+            var seconds = todayDate.getSeconds();
+
+            var name = '';
+            var $value = '';
+            var Radiolist = function (options) {
+                this.init('radiolist', options, Radiolist.defaults);
+            };
+            $.fn.editableutils.inherit(Radiolist, $.fn.editabletypes.list);
+
+            $.extend(Radiolist.prototype, {
+                renderList: function() {
+                    var $label;
+                    this.$tpl.empty();
+                    if(!$.isArray(this.sourceData)) {
+                        return;
+                    }
+                    for(var i=0; i<this.sourceData.length; i++) {
+                        // There should be a better way to get name. May need to be changed for other layouts
+                        //var name = this.$input.closest('.editable_radio').find("[data-type='radiolist']").attr('id'); way gamit undefined
+                        name = this.options.scope.id;
+                        $value = $("#"+name).text();
+                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status'){
+                            $label = $('<label class="radio-inline" style="padding-right:10px;padding-top:5px;">')
+                                    .append($('<input>', {
+                                                type: 'radio',
+                                                name:  name,
+                                                value: this.sourceData[i].value
+                                            }
+                                    ));
+                            $label.append($('<span>').text(this.sourceData[i].text));
+                            // Add radio buttons to template
+                            this.$tpl.append($label);
+                        }
+                    }
+
+                   if(name.split("col")[1] == 'date_of_birth'){
+                        var value = $("#"+name).text();
+                        if(value == 'Empty')
+                           value = month+'/'+day+'/'+year;
+
+                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%'>");
+                        $("#"+name+"input").datepicker({
+                            showOtherMonths: true,
+                            selectOtherMonths: true,
+                            autoclose:true,
+                            //changeMonth: true,
+                            //changeYear: true,
+                        });
+                   }
+
+                    for(var j = 1; j<= 10; j++){
+                        var temp,value,styleInput;
+                        if(name.includes('c_id')){
+                            if($("#"+name).text() == 'Empty')
+                                value = month+'/'+day+'/'+year;
+                            else
+                                value = $("#"+name).text();
+
+                            temp = name.split('c_id')[0];
+                        }
+                        else if(name.split('sid')[0].includes('date_of_examination') || name.split('sid')[0].includes('date_of_validity')){
+                            if($("#"+name).text() == 'Empty')
+                                value = '';
+                            else
+                                value = $("#"+name).text();
+
+                            temp = name.split('sid')[0];
+                        }
+                        else {
+                            value = month+'/'+day+'/'+year;
+                            temp = name;
+                        }
+
+                        if(temp == 'childrenValue'+j || temp == 'date_of_examination'+j || temp == 'date_of_validity'+j){
+                            if(temp == 'date_of_validity')
+                                styleInput = 'margin-right:100px;';
+
+                            this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='"+styleInput+"width:100%'>");
+                            $("#"+name+"input").datepicker({
+                                showOtherMonths: true,
+                                selectOtherMonths: true,
+                                autoclose:true
+                            });
+                        }
+                    }
+
+                    $(function() {
+                        $(document).on('click', '.applyBtn', function() {
+                            return false;
+                        });
+                        $(document).on('click', '.input-mini', function(){
+                            return false;
+                        });
+                    });
+                    for (var i = 1; i <= 10; i++) {
+                        if(name.split('wid')[0] == 'inclusive_dates'+i){
+                            var element = $("#"+name);
+                            if(element.text() == 'Empty')
+                                value = '';
+                            else
+                                value = element.text();
+
+                            this.$tpl.append("<input type='text' id='" + name.split('wid')[0] + "input" + "' value='"+value+"' style='margin-right:20px;'>");
+                        }
+                        $("#inclusive_dates" + i + "input").daterangepicker();
+                    }
+
+                    this.$input = this.$tpl.find('input[type="radio"]');
+                    this.setClass();
+                },
+
+                value2str: function(value) {
+                    return $.isArray(value) ? value.sort().join($.trim(this.options.separator)) : '';
+                },
+
+                //parse separated string og mo trigger ig click sa editable
+                str2value: function(str) {
+                    //console.log("str2value");
+                    var reg, value = null;
+                    if(typeof str === 'string' && str.length) {
+                        reg = new RegExp('\\s*'+$.trim(this.options.separator)+'\\s*');
+                        value = str.split(reg);
+                    } else if($.isArray(str)) {
+                        value = str;
+                    }
+                    return value;
+                },
+
+                //set checked on required radio buttons og mo trigger ig click sa editable
+                //!!Could probably be cleaned up since this was for select multiple originally
+                value2input: function(value) {
+                    //this.$input.prop('checked', true);
+                    $("input[name="+name+"][value='"+$value+"']").prop("checked",true);
+                    if($.isArray(value) && value.length) {
+                        this.$input.each(function(i, el) {
+                            var $el = $(el);
+                            // cannot use $.inArray as it performs strict comparison
+                            $.each(value, function(j, val) {
+                                if($el.val() == val) {
+                                    $el.prop('checked', true);
+                                }
+                            });
+                        });
+                    }
+                },
+
+                input2value: function() {
+                    return this.$input.filter(':checked').val();
+                },
+
+                //collect text of checked boxes
+                value2htmlFinal: function(value, element) {
+                    console.log("value2htmlFinal");
+                    checked = $.fn.editableutils.itemsByValue(value, this.sourceData);
+                    if(checked.length) {
+                        $(element).html($.fn.editableutils.escape(value));
+                    } else {
+                        $(element).empty();
+                    }
+                },
+
+                value2submit: function(value) {
+                    console.log("value2submit");
+                    return value;
+                },
+                //og mo trigger ig click sa editable
+                activate: function() {
+                    //console.log("activate");
+                    this.$input.first().focus();
+                }
+            });
+
+            Radiolist.defaults = $.extend({}, $.fn.editabletypes.list.defaults, {
+                /**
+                 @property tpl
+                 @default <div></div>
+                 **/
+                tpl:'<label class="editable-radiolist"></label>',
+
+                /**
+                 @property inputclass
+                 @type string
+                 @default null
+                 **/
+                inputclass: '',
+
+                /**
+                 Separator of values when reading from `data-value` attribute
+
+                 @property separator
+                 @type string
+                 @default ','
+                 **/
+                separator: ','
+            });
+
+            $.fn.editabletypes.radiolist = Radiolist;
+
+        }(window.jQuery));
+
     </script>
 
 @endsection

@@ -30,6 +30,7 @@ Route::get('/pisList', 'PisController@index');
 Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
+Route::post('/updateFamilyBackground','PisController@updateFamilyBackground');
 
 Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'))->name('home');
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
