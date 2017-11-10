@@ -11,7 +11,7 @@
             font-size:11px;
         }
         .profile-info-name{
-            width: 30%;
+            width: 40%;
         }
         /*.editable-empty{
             color: black;
@@ -37,13 +37,13 @@
                                     Personal Information
                                 </a>
                             </li>
-                            <li class="active">
+                            <li >
                                 <a data-toggle="tab" href="#family_background">
                                     <i class="orange ace-icon fa fa-picture-o bigger-120"></i>
                                     Family Background
                                 </a>
                             </li>
-                            <li >
+                            <li class="active">
                                 <a data-toggle="tab" href="#educational_background">
                                     <i class="blue ace-icon fa fa-book bigger-120"></i>
                                     Educational Background
@@ -180,7 +180,7 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> DATE OF BIRTH </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}coldate_of_birth">{{ $user->date_of_birth }}</span>
+                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colpdate_of_birth">{{ $user->date_of_birth }}</span>
                                                                         </div>
                                                                     </div>
 
@@ -318,7 +318,7 @@
 
                                                 </div><!-- /#personal information -->
 
-                                                <div id="family_background" class="tab-pane fade in active">
+                                                <div id="family_background" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Family Background</h3>
@@ -377,20 +377,27 @@
 
                                                             <h5 class="lighter block blue">Name of children</h5>
                                                             <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
-                                                                    <div id="children_append">
+                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name warning"><b><i>NAME of CHILDREN (Write full name):</i></b></div>
+                                                                        <div class="profile-info-value pull-left">
+                                                                            <span class="editable_picker"><b><i>DATE OF BIRTH (mm/dd/yyyy)</i></b></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <?php $childrenCount = 0; ?>
+                                                                    @foreach($children as $row)
+                                                                        <?php $childrenCount++; ?>
                                                                         <div class="profile-info-row">
-                                                                            <div class="profile-info-name warning"><b><i>NAME of CHILDREN (Write full name):</i></b></div>
+                                                                            <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->cId }}colcname">{{ $row->cname }}</div>
                                                                             <div class="profile-info-value pull-left">
-                                                                                <span class="editable_picker"><b><i>DATE OF BIRTH (mm/dd/yyyy)</i></b></span>
+                                                                                <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->cId }}colcdate_of_birth">{{ $row->cdate_of_birth }}</span>
                                                                             </div>
                                                                         </div>
-
-                                                                    </div>
+                                                                    @endforeach
                                                                 </div>
                                                             </div>
                                                             <div style="padding-right: 3%;padding-top: 1%">
-                                                                <a href="#" class="pull-right red" onclick="addChildren();"><i class="fa fa-plus"></i> Add Children</a>
+                                                                <a href="#" class="pull-right red" id="childrenAdd"><i class="fa fa-plus"></i> Add Children</a>
                                                             </div>
 
                                                             <h5 class="lighter block blue">Name of parent</h5>
@@ -451,11 +458,130 @@
                                                         </div><!-- /.col -->
                                                     </div><!-- /.row -->
                                                 </div><!-- /#family background -->
-                                                <div id="educational_background" class="fade tab-pane">
+
+                                                <div id="educational_background" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Educational Background</h3>
                                                             <div class="hr dotted hr-8"></div>
+                                                            <?php $education_exist = array(); ?>
+                                                            @foreach($educationalBackground as $row)
+                                                                <?php $education_exist[] = $row->level; ?>
+                                                                <h5 class="lighter block blue">
+                                                                    {{ \PIS\EducationType::find($row->level)->description }}
+                                                                </h5>
+                                                                <div class="profile-user-info">
+                                                                    <div class="profile-user-info profile-user-info-striped">
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Name of School(Write in full)</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colname_of_schoollevel{{ $row->level }}">{{ $row->name_of_school }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Education/degree/course(Write in full):</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}coldegree_courselevel{{ $row->level }}">{{ $row->degree_course }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Period of attendance from:</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_fromlevel{{ $row->level }}">{{ $row->poa_from }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Period of attendance to::</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_tolevel{{ $row->level }}">{{ $row->poa_to }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Highest level/units earned(if not graduated):</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colunits_earnedlevel{{ $row->level }}">{{ $row->units_earned }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Year Graduated:</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colyear_graduatedlevel{{ $row->level }}">{{ $row->year_graduated }}</span>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="profile-info-row">
+                                                                            <div class="profile-info-name">Scholarship/academic honors receive:</div>
+                                                                            <div class="profile-info-value">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colscholarshiplevel{{ $row->level }}">{{ $row->scholarship }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            @endforeach
+                                                            @foreach($education_type as $eduType)
+                                                                @if(!in_array($eduType->id,$education_exist))
+                                                                    <h5 class="lighter block blue">
+                                                                        {{ $eduType->description }}
+                                                                    </h5>
+                                                                    <div class="profile-user-info" >
+                                                                        <div class="profile-user-info profile-user-info-striped">
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Name of School(Write in full)</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolname_of_schoollevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Education/degree/course(Write in full):</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcoldegree_courselevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Period of attendance from:</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolpoa_fromlevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Period of attendance to::</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolpoa_tolevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Highest level/units earned(if not graduated):</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolunits_earnedlevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Year Graduated:</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolyear_graduatedlevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <div class="profile-info-row">
+                                                                                <div class="profile-info-name">Scholarship/academic honors receive:</div>
+                                                                                <div class="profile-info-value">
+                                                                                    <span class="editable educational_background" id="no_idcolscholarshiplevel{{ $eduType->id }}"></span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                @endif
+                                                            @endforeach
                                                         </div>
                                                     </div>
                                                 </div><!-- /#education background -->
@@ -538,9 +664,46 @@
     </a>
 @endsection
 @section('js')
-
     <script>
+
         jQuery(function($) {
+
+            var childrenCount = "<?php echo $childrenCount; ?>";
+            var childrenLimit = "<?php echo $childrenCount; ?>";
+            var childId = "<?php echo $children[count($children)-1]->cId ?>";
+            var chilBool = true;
+
+            $("#childrenAdd").on('click',function(event){
+                if(chilBool)
+                {
+                    childId++; //INCREMENT PRIMARY KEY
+                    childrenCount++;
+                    childrenLimit++;
+                    chilBool = false;
+
+                    var childrenName = 'childrenName'+childrenCount+'c_id'+childId+'colcname';
+                    var childrenDOB = 'childrenDOB'+childrenCount+'c_id'+childId+'colcdate_of_birth';
+                    var chilAnimation = childrenName + childrenDOB;
+                    event.preventDefault();
+                    var childrenAppend =
+                            '<div class="profile-info-row" id="'+chilAnimation+'">\
+                                <div class="profile-info-name editable children" id="'+childrenName+'"></div>\
+                                <div class="profile-info-value pull-left">\
+                                    <span class="editable_radio" id="'+childrenDOB+'"></span>\
+                                </div>\
+                            </div>';
+                    $("#children_append").append(childrenAppend);
+                    $("#"+chilAnimation).hide().fadeIn();
+
+                    text_editable();
+                    editable_radio();
+
+                } else {
+                    event.preventDefault();
+                    alert('Click column to input children..');
+                }
+
+            });
 
             $('.rating').raty({
                 'half': true,
@@ -831,43 +994,69 @@
                 $('[class*=select2]').remove();
             });
 
-            $(".editable").each(function() {
-                $('#'+this.id).editable({
-                    type: 'text',
-                    name: this.id,
-                    emptytext: "Not Applicable",
-                    success: function(data, value) {
-                        var Class = this.className;
-                        var json,url;
+            text_editable();
+            function text_editable(){
+                $(".editable").each(function() {
+                    $('#'+this.id).editable({
+                        type: 'text',
+                        name: this.id,
+                        emptytext: "Not Applicable",
+                        success: function(data, value) {
+                            var Class = this.className;
+                            var json,url;
 
-                        if(Class.includes('personal_information')){
-                            json = {
-                                "id" : this.id.split('col')[0],
-                                "column" : this.id.split('col')[1],
-                                "value" : value,
-                                "_token" : "<?php echo csrf_token(); ?>",
-                            };
-                            url = "{!! asset('updatePersonalInformation') !!}";
-                        }
-                        else if(Class.includes('family_background')){
-                            json = {
-                                "userid" : this.id.split('col')[0],
-                                "column" : this.id.split('col')[1],
-                                "value" : value,
-                                "_token" : "<?php echo csrf_token(); ?>",
-                            };
-                            url = "{!! asset('updateFamilyBackground') !!}";
-                        }
+                            if(Class.includes('personal_information')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updatePersonalInformation') !!}";
+                            }
+                            else if(Class.includes('family_background')){
+                                json = {
+                                    "userid" : this.id.split('col')[0],
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateFamilyBackground') !!}";
+                            }
+                            else if(Class.includes('children')){
+                                chilBool = true; // make true so can add new row
+                                json = {
+                                    "id" : this.id.split('c_id')[1].split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('colc')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateChildren') !!}";
+                            }
+                            else if(Class.includes('educational_background')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('col')[1].split('level')[0],
+                                    "level" : this.id.split('level')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateEducationalBackground') !!}";
+                            }
 
-                        $.post(url,json,function(result){
-                            console.log(result);
-                        });
-                    },
-                    error: function(errors) {
-                        alert('slow internet connection..');
-                    }
+                            $.post(url,json,function(result){
+                                console.log(result);
+                            });
+
+                        },
+                        error: function(errors) {
+                            alert('slow internet connection..');
+                        }
+                    });
                 });
-            });
+            }
 
             var source_radio = [{
                 "sex": [
@@ -887,50 +1076,70 @@
                     {value: 'by birth', text: 'by birth'},
                     {value: 'by naturalization', text: 'by naturalization'}
                 ],
-                "date_of_birth": [
+                "pdate_of_birth": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "cdate_of_birth": [
                     {value:'Dummy', text:'Dummy'}
                 ]
             }];
 
-            $(".editable_radio").each(function(index){
-                $('#'+this.id).editable({
-                    type: 'radiolist',
-                    name: this.id,
-                    source: source_radio[0][this.id.split('col')[1]],
-                    validate: function(value) {
-                        var string = this.className;
-                        if(value != null){
-                            $("#"+this.id).html(value);
-                            var json = {
-                                "id" : "<?php echo $user->piId; ?>",
-                                "column" : this.id.split('col')[1],
-                                "value" : value,
-                                "other_country" : $("#other_country").val(),
-                                "_token" : "<?php echo csrf_token(); ?>",
-                            };
-                            var url = "<?php echo asset('updatePersonalInformation'); ?>";
-                            $.post(url,json,function(result){
-                                console.log(result);
-                            });
-                        }
-                        else if(this.id.split('col')[1] == 'date_of_birth'){
-                            var date_picker = $("#"+this.id+"input").val();
-                            $("#"+this.id).html(date_picker);
-                            var json = {
-                                "id" : "<?php echo $user->piId; ?>",
-                                "column" : this.id.split('col')[1],
-                                "value" : date_picker,
-                                "_token" : "<?php echo csrf_token(); ?>",
-                            };
-                            var url = "<?php echo asset('updatePersonalInformation'); ?>";
-                            $.post(url,json,function(result){
-                                console.log(result);
-                            });
-                        }
+            editable_radio();
+            function editable_radio(){
+                $(".editable_radio").each(function(index){
+                    $('#'+this.id).editable({
+                        type: 'radiolist',
+                        name: this.id,
+                        source: source_radio[0][this.id.split('col')[1]],
+                        validate: function(value) {
+                            var json,url;
+                            if(value != null){ //personal information sex,citizenship,civil_status
+                                $("#"+this.id).html(value);
+                                json = {
+                                    "id" : "<?php echo $user->piId; ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "other_country" : $("#other_country").val(),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if(this.id.split('col')[1] == 'pdate_of_birth'){ //personal information date_of_birth
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+                                json = {
+                                    "id" : "<?php echo $user->piId; ?>",
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : 'date_of_birth',
+                                    "value" : date_picker,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if(this.id.split('col')[1] == 'cdate_of_birth'){ // children date_of_birth
+                                chilBool = true; // make true so can add new row
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+                                json = {
+                                    "id" : this.id.split('c_id')[1].split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : 'date_of_birth',
+                                    "value" : date_picker,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateChildren') !!}";
 
-                    }
+                            }
+
+                            $.post(url,json,function(result){
+                                console.log(result);
+                            });
+
+                        }
+                    });
                 });
-            });
+
+            }
 
 
         });
@@ -979,7 +1188,7 @@
                         }
                     }
 
-                   if(name.split("col")[1] == 'date_of_birth'){
+                    if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth'){
                         var value = $("#"+name).text();
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
@@ -992,64 +1201,8 @@
                             //changeMonth: true,
                             //changeYear: true,
                         });
-                   }
-
-                    for(var j = 1; j<= 10; j++){
-                        var temp,value,styleInput;
-                        if(name.includes('c_id')){
-                            if($("#"+name).text() == 'Empty')
-                                value = month+'/'+day+'/'+year;
-                            else
-                                value = $("#"+name).text();
-
-                            temp = name.split('c_id')[0];
-                        }
-                        else if(name.split('sid')[0].includes('date_of_examination') || name.split('sid')[0].includes('date_of_validity')){
-                            if($("#"+name).text() == 'Empty')
-                                value = '';
-                            else
-                                value = $("#"+name).text();
-
-                            temp = name.split('sid')[0];
-                        }
-                        else {
-                            value = month+'/'+day+'/'+year;
-                            temp = name;
-                        }
-
-                        if(temp == 'childrenValue'+j || temp == 'date_of_examination'+j || temp == 'date_of_validity'+j){
-                            if(temp == 'date_of_validity')
-                                styleInput = 'margin-right:100px;';
-
-                            this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='"+styleInput+"width:100%'>");
-                            $("#"+name+"input").datepicker({
-                                showOtherMonths: true,
-                                selectOtherMonths: true,
-                                autoclose:true
-                            });
-                        }
                     }
 
-                    $(function() {
-                        $(document).on('click', '.applyBtn', function() {
-                            return false;
-                        });
-                        $(document).on('click', '.input-mini', function(){
-                            return false;
-                        });
-                    });
-                    for (var i = 1; i <= 10; i++) {
-                        if(name.split('wid')[0] == 'inclusive_dates'+i){
-                            var element = $("#"+name);
-                            if(element.text() == 'Empty')
-                                value = '';
-                            else
-                                value = element.text();
-
-                            this.$tpl.append("<input type='text' id='" + name.split('wid')[0] + "input" + "' value='"+value+"' style='margin-right:20px;'>");
-                        }
-                        $("#inclusive_dates" + i + "input").daterangepicker();
-                    }
 
                     this.$input = this.$tpl.find('input[type="radio"]');
                     this.setClass();

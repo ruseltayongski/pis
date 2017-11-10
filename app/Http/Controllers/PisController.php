@@ -3,6 +3,9 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use PIS\Children;
+use PIS\Educational_Background;
+use PIS\EducationType;
 use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
@@ -54,13 +57,22 @@ class PisController extends Controller
 
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
+            ->leftjoin('children', 'pi.userid', '=', 'children.userid')
             ->where('pi.id',$userid)
-            ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid')
+            ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
+                'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();
+
+        $education_type = EducationType::get();
+        $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
 
         return view('pis.pisProfile',[
             "user" => $user[0],
+            "children" => $user,
+            "education_type" => $education_type,
+            "educationalBackground" => $educationalBackground,
         ]);
+
     }
 
     public function updatePersonalInformation(Request $request){
@@ -72,6 +84,22 @@ class PisController extends Controller
         return Personal_Information::where('id',$id)->update([
             $column => $value
         ]);
+    }
+
+    public function updateChildren(Request $request){
+
+        $id = $request->get('id');
+        $userid = $request->get('userid');
+        $column = $request->get('column');
+        $value = $request->get('value');
+
+        return Children::updateOrCreate(
+            ['id'=>$id],
+            [
+                'userid'=>$userid,
+                $column=>$value
+            ]
+        );
 
     }
 
@@ -90,5 +118,25 @@ class PisController extends Controller
         );
 
     }
+
+    public function updateEducationalBackground(Request $request){
+
+        $id = $request->get('id');
+        $userid = $request->get('userid');
+        $column = $request->get('column');
+        $value = $request->get('value');
+        $level = $request->get('level');
+
+        return Educational_Background::updateOrCreate(
+            ['id'=>$id],
+            [
+                'userid'=>$userid,
+                'level'=>$level,
+                $column=>$value,
+            ]
+        );
+
+    }
+
 
 }
