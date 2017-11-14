@@ -24,6 +24,7 @@ class CreateWorkExperience extends Migration
             $table->text('salary_grade')->nullable();
             $table->text('status_of_appointment')->nullable();
             $table->text('government_service')->nullable();
+            $table->text('unique_row')->nullable();
 
             $table->timestamps();
         });

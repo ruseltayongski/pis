@@ -37,13 +37,13 @@
                                     Personal Information
                                 </a>
                             </li>
-                            <li >
+                            <li>
                                 <a data-toggle="tab" href="#family_background">
                                     <i class="orange ace-icon fa fa-picture-o bigger-120"></i>
                                     Family Background
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#educational_background">
                                     <i class="blue ace-icon fa fa-book bigger-120"></i>
                                     Educational Background
@@ -55,7 +55,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -388,9 +388,9 @@
                                                                     @foreach($children as $row)
                                                                         <?php $childrenCount++; ?>
                                                                         <div class="profile-info-row">
-                                                                            <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->cId }}colcname">{{ $row->cname }}</div>
+                                                                            <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->id }}colcname">{{ $row->name }}</div>
                                                                             <div class="profile-info-value pull-left">
-                                                                                <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->cId }}colcdate_of_birth">{{ $row->cdate_of_birth }}</span>
+                                                                                <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->id }}colcdate_of_birth">{{ $row->date_of_birth }}</span>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
@@ -459,7 +459,7 @@
                                                     </div><!-- /.row -->
                                                 </div><!-- /#family background -->
 
-                                                <div id="educational_background" class="fade tab-pane in active">
+                                                <div id="educational_background" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Educational Background</h3>
@@ -529,53 +529,53 @@
                                                                         {{ $eduType->description }}
                                                                     </h5>
                                                                     <div class="profile-user-info" >
-                                                                        <div class="profile-user-info profile-user-info-striped">
+                                                                        <div class="profile-user-info profile-user-info-striped" id="education{{ str_random(10).date('Y-').$user->id.date('mdHis') }}">
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Name of School(Write in full)</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolname_of_schoollevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colname_of_schoollevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Education/degree/course(Write in full):</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcoldegree_courselevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'coldegree_courselevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Period of attendance from:</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolpoa_fromlevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colpoa_fromlevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Period of attendance to::</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolpoa_tolevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colpoa_tolevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Highest level/units earned(if not graduated):</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolunits_earnedlevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colunits_earnedlevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Year Graduated:</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolyear_graduatedlevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colyear_graduatedlevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
 
                                                                             <div class="profile-info-row">
                                                                                 <div class="profile-info-name">Scholarship/academic honors receive:</div>
                                                                                 <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="no_idcolscholarshiplevel{{ $eduType->id }}"></span>
+                                                                                    <span class="editable educational_background" id="{{ 'colscholarshiplevel'.$eduType->id }}"></span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -605,17 +605,28 @@
                                                                         <th class="center">Date of Validity</th>
                                                                     </tr>
                                                                     </thead>
-                                                                    <tbody id="service_append">
-
+                                                                    <tbody id="civil_append">
+                                                                    <?php $civilCount = 0; ?>
+                                                                    @foreach($civil_eligibility as $row)
+                                                                    <?php $civilCount++; ?>
+                                                                    <tr id="">
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
+                                                                        <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
+                                                                    </tr>
+                                                                    @endforeach
                                                                     </tbody>
                                                                 </table><br>
-                                                                <a href="#" class="pull-right red" onclick="addService()"><i class="fa fa-plus"></i> Add Service Eligibility</a>
+                                                                <a href="#" class="pull-right red" id="civilAdd"><i class="fa fa-plus"></i> Add Service Eligibility</a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane">
+                                                <div id="work_experience" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Work Experience</h3>
@@ -637,10 +648,23 @@
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody id="work_append">
-
+                                                                    <?php $workCount = 0; ?>
+                                                                    @foreach($work_experience as $row)
+                                                                        <?php $workCount++; ?>
+                                                                        <tr id="">
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
+                                                                            <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colmonthly_salary' }}" >{{ $row->monthly_salary }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colsalary_grade' }}" >{{ $row->salary_grade }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
+                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
+                                                                        </tr>
+                                                                    @endforeach
                                                                     </tbody>
                                                                 </table>
-                                                                <a href="#" class="pull-right red" onclick="addWork()"><i class="fa fa-plus"></i> Add Work Experience</a>
+                                                                <a href="#" class="pull-right red" id="workAdd"><i class="fa fa-plus"></i> Add Work Experience</a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -670,13 +694,11 @@
 
             var childrenCount = "<?php echo $childrenCount; ?>";
             var childrenLimit = "<?php echo $childrenCount; ?>";
-            var childId = "<?php echo $children[count($children)-1]->cId ?>";
+            var childId = "<?php echo DB::select("show table status like 'children'")[0]->Auto_increment; ?>";
             var chilBool = true;
-
             $("#childrenAdd").on('click',function(event){
                 if(chilBool)
                 {
-                    childId++; //INCREMENT PRIMARY KEY
                     childrenCount++;
                     childrenLimit++;
                     chilBool = false;
@@ -698,12 +720,50 @@
                     text_editable();
                     editable_radio();
 
+
                 } else {
                     event.preventDefault();
                     alert('Click column to input children..');
                 }
 
             });
+
+
+            var civilCount = "<?php echo $civilCount; ?>";
+            var civilLimit = "<?php echo $civilCount; ?>";
+
+            $("#civilAdd").on('click',function(event){
+                if(civilLimit <= 10)
+                {
+                    civilCount++;
+                    civilLimit++;
+                    var civilUnique_row = civilCount+"<?php echo 'civil'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                    event.preventDefault();
+
+                    var civilAppend =
+                            '<tr id="'+civilUnique_row+'">\
+                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolcareer_service"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolrating"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcoldate_of_examination"></span></td>\
+                                <td><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolplace_examination"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcollicense_number"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcoldate_of_validity"></span></td>\
+                            </tr>';
+                    $("#civil_append").append(civilAppend);
+                    $("#"+civilUnique_row).hide().fadeIn();
+
+                    text_editable();
+                    editable_radio();
+
+                } else {
+                    event.preventDefault();
+                    alert('Click column to input children..');
+                }
+
+            });
+
+
+
 
             $('.rating').raty({
                 'half': true,
@@ -1024,7 +1084,6 @@
                                 url = "{!! asset('updateFamilyBackground') !!}";
                             }
                             else if(Class.includes('children')){
-                                chilBool = true; // make true so can add new row
                                 json = {
                                     "id" : this.id.split('c_id')[1].split('col')[0],
                                     "userid": "<?php echo $user->userid ?>",
@@ -1032,6 +1091,15 @@
                                     "value" : value,
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
+
+                                var $trapping = this.id.replace('childrenName','childrenDOB').replace('colcname','colcdate_of_birth');
+                                if($("#"+$trapping).text() != 'Empty' && $("#"+$trapping).text() != ''){
+                                    console.log($("#"+$trapping).text());
+                                    chilBool = true; // make true so can add new row
+                                } else {
+                                    chilBool = false;
+                                }
+
                                 url = "{!! asset('updateChildren') !!}";
                             }
                             else if(Class.includes('educational_background')){
@@ -1041,13 +1109,40 @@
                                     "column" : this.id.split('col')[1].split('level')[0],
                                     "level" : this.id.split('level')[1],
                                     "value" : value,
+                                    "unique_row" : $(this).parents(':eq(2)').attr('id'),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateEducationalBackground') !!}";
                             }
-
+                            else if(Class.includes('civil_eligibility')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateCivilEligibility') !!}";
+                            }
+                            else if(Class.includes('work_experience')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            //console.log(json);
                             $.post(url,json,function(result){
                                 console.log(result);
+                                if(Class.includes('children')){
+                                    childId = result; //get the primary key
+                                    console.log(result);
+                                }
                             });
 
                         },
@@ -1084,6 +1179,7 @@
                 ]
             }];
 
+            var columnId;
             editable_radio();
             function editable_radio(){
                 $(".editable_radio").each(function(index){
@@ -1093,6 +1189,7 @@
                         source: source_radio[0][this.id.split('col')[1]],
                         validate: function(value) {
                             var json,url;
+                            columnId = this.id.split('col')[1];
                             if(value != null){ //personal information sex,citizenship,civil_status
                                 $("#"+this.id).html(value);
                                 json = {
@@ -1104,7 +1201,7 @@
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
                             }
-                            else if(this.id.split('col')[1] == 'pdate_of_birth'){ //personal information date_of_birth
+                            else if(columnId == 'pdate_of_birth'){ //personal information date_of_birth
                                 var date_picker = $("#"+this.id+"input").val();
                                 $("#"+this.id).html(date_picker);
                                 json = {
@@ -1116,7 +1213,7 @@
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
                             }
-                            else if(this.id.split('col')[1] == 'cdate_of_birth'){ // children date_of_birth
+                            else if(columnId == 'cdate_of_birth'){ // children date_of_birth
                                 chilBool = true; // make true so can add new row
                                 var date_picker = $("#"+this.id+"input").val();
                                 $("#"+this.id).html(date_picker);
@@ -1127,12 +1224,25 @@
                                     "value" : date_picker,
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
+
+                                var $trapping = this.id.replace('childrenDOB','childrenName').replace('colcdate_of_birth','colcname');
+                                if($("#"+$trapping).text() != 'Not Applicable' && $("#"+$trapping).text() != ''){
+                                    console.log($("#"+$trapping).text());
+                                    chilBool = true; // make true so can add new row
+                                } else {
+                                    chilBool = false;
+                                }
+
                                 url = "{!! asset('updateChildren') !!}";
 
                             }
 
                             $.post(url,json,function(result){
                                 console.log(result);
+                                if(columnId == 'cdate_of_birth'){
+                                    childId = result; //get the primary key
+                                    console.log(result);
+                                }
                             });
 
                         }

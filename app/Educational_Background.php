@@ -19,6 +19,7 @@ class Educational_Background extends Model
         'units_earned',
         'year_graduated',
         'scholarship',
+        'unique_row',
     ];
 
     protected $hidden = [

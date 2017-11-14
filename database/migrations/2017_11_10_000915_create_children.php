@@ -18,6 +18,7 @@ class CreateChildren extends Migration
             $table->text('userid')->nullable();
             $table->text('name')->nullable();
             $table->text('date_of_birth')->nullable();
+            $table->text('unique_row')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

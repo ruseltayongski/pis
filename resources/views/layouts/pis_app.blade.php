@@ -63,15 +63,15 @@
     <div style="background-color:#2F4054;padding:10px;">
         <div class="col-md-4">
             @if(Auth::check())
-                <span style="color: #f0ad4e;font-size: 12pt"><b>Welcome,</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ Auth::user()->fname }} T. {{ Auth::user()->lname }}</span>
+                <span style="color: #f0ad4e;font-size: 12pt"><b>Welcome,</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ Auth::user()->name }}</span>
             @else
                 <span style="color: #f0ad4e;font-size: 12pt"><b>DOH7-IT</b></span>
             @endif
         </div>
         <div class="col-md-4">
             @if(Auth::check())
-                <span class="title-info" style="color: #f0ad4e;font-size: 12pt"><b>HRH TYPE:</b></span>
-                <span class="title-desc_hrhtype" style="color: white;font-size: 12pt">@if(Auth::user()->usertype) ADMIN COORDINATOR  @else {{ hrhController::hrh_type(Auth::user()->hrh_type) }} @endif</span>
+                <span class="title-info" style="color: #f0ad4e;font-size: 12pt"><b>PIS TYPE:</b></span>
+                {{--<span class="title-desc_hrhtype" style="color: white;font-size: 12pt">@if(Auth::user()->usertype) ADMIN COORDINATOR  @else {{ hrhController::hrh_type(Auth::user()->hrh_type) }} @endif</span>--}}
             @endif
         </div>
         <div class="col-md-4">

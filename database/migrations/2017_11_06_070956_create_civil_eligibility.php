@@ -22,6 +22,7 @@ class CreateCivilEligibility extends Migration
             $table->text('place_examination')->nullable();
             $table->text('license_number')->nullable();
             $table->text('date_of_validity')->nullable();
+            $table->text('unique_row')->nullable();
 
             $table->timestamps();
         });

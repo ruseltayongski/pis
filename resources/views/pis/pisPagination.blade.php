@@ -4,6 +4,7 @@
             <thead>
             <tr class="info">
                 <th>Name</th>
+                <th>Userid</th>
                 <th>Position</th>
                 <th>Residential Address</th>
                 <th>Sex</th>
@@ -16,6 +17,9 @@
                 <tr>
                     <td>
                         <a href="#pis_info" role="button" class="green" data-backdrop="static" data-userid="{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}" data-link="{{ asset('pisInfo').'/'.$user->id }}" data-toggle="modal" ><b class="green">{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}</b></a>
+                    </td>
+                    <td>
+                        {{ $user->userid }}
                     </td>
                     <td>
                         {{ $user->position }}

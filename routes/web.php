@@ -15,12 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    
-	return "I can do it !";
-
-});
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -33,6 +27,8 @@ Route::post('/updatePersonalInformation','PisController@updatePersonalInformatio
 Route::post('/updateFamilyBackground','PisController@updateFamilyBackground');
 Route::post('/updateChildren','PisController@updateChildren');
 Route::post('/updateEducationalBackground','PisController@updateEducationalBackground');
+Route::post('/updateCivilEligibility','PisController@updateCivilEligibility');
+Route::post('/updateWorkExperience','PisController@updateWorkExperience');
 
 Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'))->name('home');
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));

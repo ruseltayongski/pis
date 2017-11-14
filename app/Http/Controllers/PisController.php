@@ -4,12 +4,14 @@ namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use PIS\Children;
+use PIS\Civil_Eligibility;
 use PIS\Educational_Background;
 use PIS\EducationType;
 use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use PIS\Work_Experience;
 use Symfony\Component\HttpFoundation\Response;
 
 class PisController extends Controller
@@ -21,7 +23,7 @@ class PisController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+        $this->middleware('auth');
     }
 
     /**
@@ -36,7 +38,8 @@ class PisController extends Controller
         $personal_information = Personal_Information::where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%");
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
             })
             ->orderBy('fname','asc')
             ->paginate(10);
@@ -65,12 +68,17 @@ class PisController extends Controller
 
         $education_type = EducationType::get();
         $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $children = Children::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $civil_eligibility = Civil_Eligibility::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $work_experience = Work_Experience::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
 
         return view('pis.pisProfile',[
             "user" => $user[0],
-            "children" => $user,
+            "children" => $children,
             "education_type" => $education_type,
             "educationalBackground" => $educationalBackground,
+            "civil_eligibility" => $civil_eligibility,
+            "work_experience" => $work_experience
         ]);
 
     }
@@ -93,7 +101,7 @@ class PisController extends Controller
         $column = $request->get('column');
         $value = $request->get('value');
 
-        return Children::updateOrCreate(
+        Children::updateOrCreate(
             ['id'=>$id],
             [
                 'userid'=>$userid,
@@ -101,6 +109,7 @@ class PisController extends Controller
             ]
         );
 
+        return DB::select("show table status like 'children'")[0]->Auto_increment;
     }
 
     public function updateFamilyBackground(Request $request){
@@ -121,21 +130,91 @@ class PisController extends Controller
 
     public function updateEducationalBackground(Request $request){
 
-        $id = $request->get('id');
-        $userid = $request->get('userid');
-        $column = $request->get('column');
-        $value = $request->get('value');
-        $level = $request->get('level');
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
 
-        return Educational_Background::updateOrCreate(
-            ['id'=>$id],
-            [
-                'userid'=>$userid,
-                'level'=>$level,
-                $column=>$value,
-            ]
-        );
+        $educational_background = Educational_Background::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
 
+        if(is_null($educational_background)){
+            Educational_Background::create([
+                'userid'=>$request->get('userid'),
+                'level'=>$request->get('level'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $educational_background->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
+
+    }
+
+    public function updateCivilEligibility(Request $request){
+
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $civil_eligibility = Civil_Eligibility::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
+
+        if(is_null($civil_eligibility)){
+            Civil_Eligibility::create([
+                'userid'=>$request->get('userid'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $civil_eligibility->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
+
+    }
+
+    public function updateWorkExperience(Request $request){
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $work_experience = Work_Experience::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
+
+        if(is_null($work_experience)){
+            Work_Experience::create([
+                'userid'=>$request->get('userid'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $work_experience->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
     }
 
 

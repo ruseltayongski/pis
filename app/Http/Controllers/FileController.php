@@ -8,6 +8,11 @@ use PIS\Family_Background;
 use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function importExportExcelORCSV(){
         return view('excel.import_export');
     }
