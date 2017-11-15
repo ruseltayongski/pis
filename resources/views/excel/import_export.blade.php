@@ -150,6 +150,25 @@
                                 {!! Form::open(array('route' => 'import-csv-excel','method'=>'POST','files'=>'true')) !!}
                                 <div class="col-xs-10 col-sm-10 col-md-10">
                                     <div class="form-group">
+                                        {!! Form::label('training_program','Training Program:',['class'=>'col-md-3']) !!}
+                                        <div class="col-md-9">
+                                            {!! Form::file('training_program', array('class' => 'form-control')) !!}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-2 col-sm-2 col-md-2 text-center">
+                                    {!! Form::submit('Upload',['class'=>'btn btn-sm btn-primary']) !!}
+                                </div>
+                                {!! Form::close() !!}
+                            </div>
+
+
+                            <div class="space-10"></div>
+                            <div class="row alert-success">
+                                <div class="space-10"></div>
+                                {!! Form::open(array('route' => 'import-csv-excel','method'=>'POST','files'=>'true')) !!}
+                                <div class="col-xs-10 col-sm-10 col-md-10">
+                                    <div class="form-group">
                                         {!! Form::label('other_information','Other Information:',['class'=>'col-md-3']) !!}
                                         <div class="col-md-9">
                                             {!! Form::file('other_information', array('class' => 'form-control')) !!}

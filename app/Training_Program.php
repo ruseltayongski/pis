@@ -4,24 +4,23 @@ namespace PIS;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Voluntary_Work extends Model
+class Training_Program extends Model
 {
-    protected $table = 'voluntary_work';
+    protected $table = 'training_program';
     protected $primaryKey = 'id';
 
     protected $fillable = [
         'userid',
-        'name_of_organization',
+        'title_of_learning',
         'date_from',
         'date_to',
         'number_of_hours',
         'type_of_id',
-        'nature_of_work',
+        'sponsored_by',
         'unique_row',
     ];
 
     protected $hidden = [
         'remember_token',
     ];
-
 }

@@ -11,6 +11,8 @@ use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use PIS\Training_Program;
+use PIS\Voluntary_Work;
 use PIS\Work_Experience;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -71,6 +73,8 @@ class PisController extends Controller
         $children = Children::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $civil_eligibility = Civil_Eligibility::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $work_experience = Work_Experience::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $training_program = Training_Program::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
 
         return view('pis.pisProfile',[
             "user" => $user[0],
@@ -78,7 +82,9 @@ class PisController extends Controller
             "education_type" => $education_type,
             "educationalBackground" => $educationalBackground,
             "civil_eligibility" => $civil_eligibility,
-            "work_experience" => $work_experience
+            "work_experience" => $work_experience,
+            "voluntary_work" => $voluntary_work,
+            "training_program" => $training_program
         ]);
 
     }
@@ -215,6 +221,65 @@ class PisController extends Controller
 
             return 'successfully updated';
         }
+    }
+
+
+    public function updateVoluntaryWork(Request $request){
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $voluntary_work = Voluntary_Work::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
+
+        if(is_null($voluntary_work)){
+            Voluntary_Work::create([
+                'userid'=>$request->get('userid'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $voluntary_work->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
+    }
+
+    public function updateTrainingProgram(Request $request){
+
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $training_program = Training_Program::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
+
+        if(is_null($training_program)){
+            Training_Program::create([
+                'userid'=>$request->get('userid'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $training_program->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
+
     }
 
 

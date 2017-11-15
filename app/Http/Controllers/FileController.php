@@ -175,6 +175,28 @@ class FileController extends Controller {
                 foreach ($data as $key => $value) {
                     $arr[] = [
                         'userid' => $value->userid,
+                        'name_of_organization' => $value->name_of_organization,
+                        'date_from' => $value->date_from,
+                        'date_to' => $value->date_to,
+                        'number_of_hours' => $value->number_of_hours,
+                        'nature_of_work' => $value->nature_of_work,
+
+                    ];
+                }
+                if(!empty($arr)){
+                    \DB::table('voluntary_work')->insert($arr);
+                    return Redirect::back()->with('success', 'Insert Record successfully.');
+                }
+            }
+        }
+
+        else if($request->hasFile('training_program')){
+            $path = $request->file('training_program')->getRealPath();
+            $data = \Excel::load($path)->get();
+            if($data->count()){
+                foreach ($data as $key => $value) {
+                    $arr[] = [
+                        'userid' => $value->userid,
                         'title_of_learning' => $value->title_of_learning,
                         'date_from' => $value->date_from,
                         'date_to' => $value->date_to,
@@ -185,7 +207,7 @@ class FileController extends Controller {
                     ];
                 }
                 if(!empty($arr)){
-                    \DB::table('voluntary_work')->insert($arr);
+                    \DB::table('training_program')->insert($arr);
                     return Redirect::back()->with('success', 'Insert Record successfully.');
                 }
             }

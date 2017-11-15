@@ -55,7 +55,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -67,7 +67,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -626,7 +626,7 @@
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane in active">
+                                                <div id="work_experience" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Work Experience</h3>
@@ -669,6 +669,85 @@
                                                         </div>
                                                     </div>
                                                 </div><!-- /#Work Experience -->
+
+                                                <div id="voluntary_work" class="fade tab-pane">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h3 class="lighter block green">Voluntary Work</h3>
+                                                            <div class="form-group table-responsive">
+                                                                <table class="table table-list table-hover table-striped">
+                                                                    <thead>
+                                                                    <tr class="info">
+                                                                        <th class="center align-middle" rowspan="2">29. Name & Address of Organization (Write in full)</th>
+                                                                        <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                        <th class="center align-middle" rowspan="2">Number of Hours</th>
+                                                                        <th class="center align-middle" rowspan="2">Position/Nature of Work</th>
+                                                                    </tr>
+                                                                    <tr class="info">
+                                                                        <th class="center">From</th>
+                                                                        <th class="center">To</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="voluntary_append">
+                                                                    <?php $voluntaryCount = 0; ?>
+                                                                    @foreach($voluntary_work as $row)
+                                                                        <?php $voluntaryCount++; ?>
+                                                                        <tr id="">
+                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colname_of_organization' }}" >{{ $row->name_of_organization }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnature_of_work' }}" >{{ $row->nature_of_work }}</span></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                                <a href="#" class="pull-right red" id="voluntaryAdd"><i class="fa fa-plus"></i> Add Voluntary Work</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /#VOLUNTARY WORK -->
+
+
+                                                <div id="training_program" class="fade tab-pane in active">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h3 class="lighter block green">Training Program</h3>
+                                                            <div class="form-group table-responsive">
+                                                                <table class="table table-list table-hover table-striped">
+                                                                    <thead>
+                                                                    <tr class="info">
+                                                                        <th class="center align-middle" rowspan="2">30. Title of Learning & Development Interventions/Training Programs(Write in full)</th>
+                                                                        <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                        <th class="center align-middle" rowspan="2">Number of Hours</th>
+                                                                        <th class="center align-middle" rowspan="2">Type of ID(Managerial/Supervisor/Technical/etc)</th>
+                                                                        <th class="center align-middle" rowspan="2">Sponsored By</th>
+                                                                    </tr>
+                                                                    <tr class="info">
+                                                                        <th class="center">From</th>
+                                                                        <th class="center">To</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="training_append">
+                                                                    <?php $trainingCount = 0; ?>
+                                                                    @foreach($training_program as $row)
+                                                                        <?php $trainingCount++; ?>
+                                                                        <tr id="">
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltitle_of_learning' }}" >{{ $row->title_of_learning }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                                <a href="#" class="pull-right red" id="voluntaryAdd"><i class="fa fa-plus"></i> Add Training Program</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /#VOLUNTARY WORK -->
 
                                             </div><!-- /tab-content -->
                                         </div><!-- /tabbable -->
@@ -729,9 +808,9 @@
             });
 
 
+            //CIVIL ELIGIBILITY ADD
             var civilCount = "<?php echo $civilCount; ?>";
             var civilLimit = "<?php echo $civilCount; ?>";
-
             $("#civilAdd").on('click',function(event){
                 if(civilLimit <= 10)
                 {
@@ -759,10 +838,72 @@
                     event.preventDefault();
                     alert('Click column to input children..');
                 }
-
             });
 
+            //WORK EXPERIENCE ADD
+            var workCount = "<?php echo $workCount; ?>";
+            var workLimit = "<?php echo $workCount; ?>";
+            $("#workAdd").on('click',function(event){
+                if(workLimit <= 10)
+                {
+                    workCount++;
+                    workLimit++;
+                    var workUnique_row = workCount+"<?php echo 'work'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                    event.preventDefault();
 
+                    var workAppend =
+                            '<tr id="'+workUnique_row+'">\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcoldate_from"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcoldate_to"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolposition_title"></span></td>\
+                                <td><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolcompany"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolmonthly_salary"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolsalary_grade"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolstatus_of_appointment"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolgovernment_service"></span></td>\
+                            </tr>';
+                    $("#work_append").append(workAppend);
+                    $("#"+workUnique_row).hide().fadeIn();
+
+                    text_editable();
+                    editable_radio();
+
+                } else {
+                    event.preventDefault();
+                    alert('Click column to input children..');
+                }
+            });
+
+            //VOLUNTARY WORK ADD
+            var voluntaryCount = "<?php echo $voluntaryCount; ?>";
+            var voluntaryLimit = "<?php echo $voluntaryCount; ?>";
+            $("#voluntaryAdd").on('click',function(event){
+                if(voluntaryLimit <= 10)
+                {
+                    voluntaryCount++;
+                    voluntaryLimit++;
+                    var voluntaryUnique_row = voluntaryCount+"<?php echo 'voluntary'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                    event.preventDefault();
+
+                    var voluntaryAppend =
+                            '<tr id="'+voluntaryUnique_row+'">\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolname_of_organization"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcoldate_from"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcoldate_to"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolnumber_of_hours"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolnature_of_work"></span></td>\
+                            </tr>';
+                    $("#voluntary_append").append(voluntaryAppend);
+                    $("#"+voluntaryUnique_row).hide().fadeIn();
+
+                    text_editable();
+                    editable_radio();
+
+                } else {
+                    event.preventDefault();
+                    alert('Click column to input children..');
+                }
+            });
 
 
             $('.rating').raty({
@@ -1135,6 +1276,28 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            else if(Class.includes('voluntary_work')){
+                                json = {
+                                    "id" : this.id.split('voluntary')[1].split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateVoluntaryWork') !!}";
+                            }
+                            else if(Class.includes('training_program')){
+                                json = {
+                                    "id" : this.id.split('training')[1].split('col')[0],
+                                    "userid": "<?php echo $user->userid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateTrainingProgram') !!}";
                             }
                             //console.log(json);
                             $.post(url,json,function(result){
