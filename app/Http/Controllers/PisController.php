@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use PIS\Training_Program;
 use PIS\Voluntary_Work;
 use PIS\Work_Experience;
+use PIS\Other_Information;
 use Symfony\Component\HttpFoundation\Response;
 
 class PisController extends Controller
@@ -59,12 +60,15 @@ class PisController extends Controller
     }
 
     public function pisProfile($userid){
+        /*return Training_Program::where('id','no_idvoluntary')
+            ->orWhere('unique_row', '1voluntary8TylTmiSqg2017-1116063120')
+            ->first();*/
 
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
             ->leftjoin('children', 'pi.userid', '=', 'children.userid')
             ->where('pi.id',$userid)
-            ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
+                ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
                 'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();
 
@@ -75,6 +79,7 @@ class PisController extends Controller
         $work_experience = Work_Experience::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $training_program = Training_Program::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
 
         return view('pis.pisProfile',[
             "user" => $user[0],
@@ -84,7 +89,8 @@ class PisController extends Controller
             "civil_eligibility" => $civil_eligibility,
             "work_experience" => $work_experience,
             "voluntary_work" => $voluntary_work,
-            "training_program" => $training_program
+            "training_program" => $training_program,
+            "other_information" => $other_information
         ]);
 
     }
@@ -167,27 +173,31 @@ class PisController extends Controller
 
     public function updateCivilEligibility(Request $request){
 
-        if(is_null($request->get('unique_row'))){
+        $id = $request->get('id');
+        $userid = $request->get('userid');
+        $unique_row = $request->get('unique_row');
+        $column = $request->get('column');
+        $value = $request->get('value');
+
+        if(is_null($unique_row)){
             $unique_row = 'no unique row';
-        } else {
-            $unique_row = $request->get('unique_row');
         }
 
-        $civil_eligibility = Civil_Eligibility::where('id',$request->get('id'))
+        $civil_eligibility = Civil_Eligibility::where('id',$id)
             ->orWhere('unique_row', $unique_row)
             ->first();
 
         if(is_null($civil_eligibility)){
             Civil_Eligibility::create([
-                'userid'=>$request->get('userid'),
-                'unique_row'=>$request->get('unique_row'),
-                $request->get('column')=>$request->get('value')
+                'userid'=>$userid,
+                'unique_row'=>$unique_row,
+                $column=>$value
             ]);
 
             return 'successfully added';
         } else {
             $civil_eligibility->update([
-                $request->get('column')=>$request->get('value')
+                $column=>$value
             ]);
 
             return 'successfully updated';
@@ -274,6 +284,36 @@ class PisController extends Controller
             return 'successfully added';
         } else {
             $training_program->update([
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully updated';
+        }
+
+    }
+
+    public function updateOtherInformation(Request $request){
+
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $other_information = Other_Information::where('id',$request->get('id'))
+            ->orWhere('unique_row', $unique_row)
+            ->first();
+
+        if(is_null($other_information)){
+            Other_Information::create([
+                'userid'=>$request->get('userid'),
+                'unique_row'=>$request->get('unique_row'),
+                $request->get('column')=>$request->get('value')
+            ]);
+
+            return 'successfully added';
+        } else {
+            $other_information->update([
                 $request->get('column')=>$request->get('value')
             ]);
 

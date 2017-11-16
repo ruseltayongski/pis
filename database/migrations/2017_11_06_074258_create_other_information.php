@@ -19,6 +19,7 @@ class CreateOtherInformation extends Migration
             $table->text('special_skills')->nullable();
             $table->text('recognition')->nullable();
             $table->text('organization')->nullable();
+            $table->text('unique_row')->nullable();
 
             $table->timestamps();
         });

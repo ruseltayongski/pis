@@ -31,7 +31,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -67,7 +67,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -142,7 +142,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade">
+                                                <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Personal Information</h3>
@@ -468,7 +468,9 @@
                                                             @foreach($educationalBackground as $row)
                                                                 <?php $education_exist[] = $row->level; ?>
                                                                 <h5 class="lighter block blue">
-                                                                    {{ \PIS\EducationType::find($row->level)->description }}
+                                                                    @if(count(\PIS\EducationType::find($row->level)) > 0)
+                                                                        {{ \PIS\EducationType::find($row->level)->description }}
+                                                                    @endif
                                                                 </h5>
                                                                 <div class="profile-user-info">
                                                                     <div class="profile-user-info profile-user-info-striped">
@@ -594,7 +596,7 @@
                                                                 <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
                                                                     <thead>
                                                                     <tr class="info">
-                                                                        <th class="center" rowspan="2">21. CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE BARANGAY ELIGIBILITY/DRIVER'S LICENCE</th>
+                                                                        <th class="center" rowspan="2">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE BARANGAY ELIGIBILITY/DRIVER'S LICENCE</th>
                                                                         <th class="center" rowspan="2">RATING (if Applicable)</th>
                                                                         <th class="center" rowspan="2">DATE OF EXAMINATION / CONFERMENT</th>
                                                                         <th class="center" rowspan="2">PLACE OF EXAMINATION / CONFERMENT</th>
@@ -634,7 +636,7 @@
                                                                 <table class="table table-list table-hover table-striped">
                                                                     <thead>
                                                                     <tr class="info">
-                                                                        <th class="center" colspan="2">22. INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                        <th class="center" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                                                                         <th class="center" rowspan="2">POSITION TITLE (Write in full/Do not abbreviate)</th>
                                                                         <th class="center" rowspan="2">DEPARTMENT / AGENCY / OFFICE / COMPANY (Write in full/Do not abrebiate)</th>
                                                                         <th class="center" rowspan="2">MONTHLY SALARY</th>
@@ -678,7 +680,7 @@
                                                                 <table class="table table-list table-hover table-striped">
                                                                     <thead>
                                                                     <tr class="info">
-                                                                        <th class="center align-middle" rowspan="2">29. Name & Address of Organization (Write in full)</th>
+                                                                        <th class="center align-middle" rowspan="2">Name & Address of Organization (Write in full)</th>
                                                                         <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                                                                         <th class="center align-middle" rowspan="2">Number of Hours</th>
                                                                         <th class="center align-middle" rowspan="2">Position/Nature of Work</th>
@@ -708,8 +710,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-
-                                                <div id="training_program" class="fade tab-pane in active">
+                                                <div id="training_program" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Training Program</h3>
@@ -717,7 +718,7 @@
                                                                 <table class="table table-list table-hover table-striped">
                                                                     <thead>
                                                                     <tr class="info">
-                                                                        <th class="center align-middle" rowspan="2">30. Title of Learning & Development Interventions/Training Programs(Write in full)</th>
+                                                                        <th class="center align-middle" rowspan="2">Title of Learning & Development Interventions/Training Programs(Write in full)</th>
                                                                         <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                                                                         <th class="center align-middle" rowspan="2">Number of Hours</th>
                                                                         <th class="center align-middle" rowspan="2">Type of ID(Managerial/Supervisor/Technical/etc)</th>
@@ -743,11 +744,43 @@
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table>
-                                                                <a href="#" class="pull-right red" id="voluntaryAdd"><i class="fa fa-plus"></i> Add Training Program</a>
+                                                                <a href="#" class="pull-right red" id="trainingAdd"><i class="fa fa-plus"></i> Add Training Program</a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div><!-- /#VOLUNTARY WORK -->
+                                                </div><!-- /#TRAINING PROGRAM -->
+
+                                                <div id="other_information" class="fade tab-pane">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <h3 class="lighter block green">Other Information</h3>
+                                                            <div class="form-group table-responsive">
+                                                                <table class="table table-list table-hover table-striped">
+                                                                    <thead>
+                                                                    <tr class="info">
+                                                                        <th class="center align-middle" >Special Skills & Hobbies</th>
+                                                                        <th class="center align-middle" >Non-Academic Distinction/Recognition(Write in full)</th>
+                                                                        <th class="center align-middle" >Membership in Association/Organinzation(Write in full)</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="other_append">
+                                                                    <?php $otherCount = 0; ?>
+                                                                    @foreach($other_information as $row)
+                                                                        <?php $otherCount++; ?>
+                                                                        <tr id="">
+                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colspecial_skills' }}" >{{ $row->special_skills }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colrecognition' }}" >{{ $row->recognition }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colorganization' }}" >{{ $row->organization }}</span></td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                                <a href="#" class="pull-right red" id="otherAdd"><i class="fa fa-plus"></i> Add Training Program</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /#OTHER INFORMATION -->
+
 
                                             </div><!-- /tab-content -->
                                         </div><!-- /tabbable -->
@@ -821,12 +854,12 @@
 
                     var civilAppend =
                             '<tr id="'+civilUnique_row+'">\
-                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolcareer_service"></span></td>\
-                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolrating"></span></td>\
-                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcoldate_of_examination"></span></td>\
-                                <td><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcolplace_examination"></span></td>\
-                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcollicense_number"></span></td>\
-                                <td class="center"><span class="editable civil_eligibility" id="'+"<?php echo str_random(10); ?>"+civilCount+'no_idcoldate_of_validity"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colcareer_service"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colrating"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_examination"></span></td>\
+                                <td><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colplace_examination"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'collicense_number"></span></td>\
+                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_validity"></span></td>\
                             </tr>';
                     $("#civil_append").append(civilAppend);
                     $("#"+civilUnique_row).hide().fadeIn();
@@ -853,14 +886,14 @@
 
                     var workAppend =
                             '<tr id="'+workUnique_row+'">\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcoldate_from"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcoldate_to"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolposition_title"></span></td>\
-                                <td><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolcompany"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolmonthly_salary"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolsalary_grade"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolstatus_of_appointment"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+"<?php echo str_random(10); ?>"+workCount+'no_idcolgovernment_service"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
+                                <td><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                             </tr>';
                     $("#work_append").append(workAppend);
                     $("#"+workUnique_row).hide().fadeIn();
@@ -875,6 +908,7 @@
             });
 
             //VOLUNTARY WORK ADD
+            //note.. carefull sa id unique.. true in where clause. (must have no-id)
             var voluntaryCount = "<?php echo $voluntaryCount; ?>";
             var voluntaryLimit = "<?php echo $voluntaryCount; ?>";
             $("#voluntaryAdd").on('click',function(event){
@@ -887,11 +921,11 @@
 
                     var voluntaryAppend =
                             '<tr id="'+voluntaryUnique_row+'">\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolname_of_organization"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcoldate_from"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcoldate_to"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolnumber_of_hours"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntary<?php echo str_random(10); ?>"+voluntaryCount+'no_idcolnature_of_work"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colname_of_organization"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_from"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_to"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnumber_of_hours"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
                             </tr>';
                     $("#voluntary_append").append(voluntaryAppend);
                     $("#"+voluntaryUnique_row).hide().fadeIn();
@@ -905,6 +939,54 @@
                 }
             });
 
+            //TRAINING PROGRAM ADD
+            //note.. carefull sa id unique.. true in where clause (must have no-id)
+            var trainingCount = "<?php echo $trainingCount; ?>";
+            $("#trainingAdd").on('click',function(event){
+
+                trainingCount++;
+                var trainingUnique_row = trainingCount+"<?php echo 'training'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                event.preventDefault();
+
+                var trainingAppend =
+                        '<tr id="'+trainingUnique_row+'">\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltitle_of_learning"></span></td>\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_from"></span></td>\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_to"></span></td>\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colnumber_of_hours"></span></td>\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltype_of_id"></span></td>\
+                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colsponsored_by"></span></td>\
+                            </tr>';
+                $("#training_append").append(trainingAppend);
+                $("#"+trainingUnique_row).hide().fadeIn();
+
+                text_editable();
+                editable_radio();
+
+            });
+
+            //OTHER INFORMATION ADD
+            //note.. carefull sa id unique.. true in where clause (must have no-id)
+            var otherCount = "<?php echo $otherCount; ?>";
+            $("#otherAdd").on('click',function(event){
+
+                otherCount++;
+                var otherUnique_row = otherCount+"<?php echo 'other'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                event.preventDefault();
+
+                var otherAppend =
+                        '<tr id="'+otherUnique_row+'">\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colspecial_skills"></span></td>\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colrecognition"></span></td>\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colorganization"></span></td>\
+                            </tr>';
+                $("#other_append").append(otherAppend);
+                $("#"+otherUnique_row).hide().fadeIn();
+
+                text_editable();
+                editable_radio();
+
+            });
 
             $('.rating').raty({
                 'half': true,
@@ -1227,7 +1309,7 @@
                             else if(Class.includes('children')){
                                 json = {
                                     "id" : this.id.split('c_id')[1].split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('colc')[1],
                                     "value" : value,
                                     "_token" : "<?php echo csrf_token(); ?>",
@@ -1246,7 +1328,7 @@
                             else if(Class.includes('educational_background')){
                                 json = {
                                     "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1].split('level')[0],
                                     "level" : this.id.split('level')[1],
                                     "value" : value,
@@ -1258,7 +1340,7 @@
                             else if(Class.includes('civil_eligibility')){
                                 json = {
                                     "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
@@ -1269,7 +1351,7 @@
                             else if(Class.includes('work_experience')){
                                 json = {
                                     "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
@@ -1280,7 +1362,7 @@
                             else if(Class.includes('voluntary_work')){
                                 json = {
                                     "id" : this.id.split('voluntary')[1].split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
@@ -1291,7 +1373,7 @@
                             else if(Class.includes('training_program')){
                                 json = {
                                     "id" : this.id.split('training')[1].split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
@@ -1299,9 +1381,20 @@
                                 };
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
-                            //console.log(json);
+                            else if(Class.includes('other_information')){
+                                json = {
+                                    "id" : this.id.split('other')[1].split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateOtherInformation') !!}";
+                            }
+                            console.log(json);
                             $.post(url,json,function(result){
-                                console.log(result);
+                                //console.log(result);
                                 if(Class.includes('children')){
                                     childId = result; //get the primary key
                                     console.log(result);
@@ -1369,7 +1462,7 @@
                                 $("#"+this.id).html(date_picker);
                                 json = {
                                     "id" : "<?php echo $user->piId; ?>",
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : 'date_of_birth',
                                     "value" : date_picker,
                                     "_token" : "<?php echo csrf_token(); ?>",
@@ -1382,7 +1475,7 @@
                                 $("#"+this.id).html(date_picker);
                                 json = {
                                     "id" : this.id.split('c_id')[1].split('col')[0],
-                                    "userid": "<?php echo $user->userid ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
                                     "column" : 'date_of_birth',
                                     "value" : date_picker,
                                     "_token" : "<?php echo csrf_token(); ?>",
