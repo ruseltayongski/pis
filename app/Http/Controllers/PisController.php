@@ -322,5 +322,15 @@ class PisController extends Controller
 
     }
 
+    public function uploadPicture(Request $request){
+        $picture = $request->file('picture');
+        $extension = $picture->getClientOriginalExtension(); // getting excel extension
+        $dir = public_path().'/upload_picture/';
+        $filename = uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
+
+
+        return $picture->move($dir, $filename);
+    }
+
 
 }

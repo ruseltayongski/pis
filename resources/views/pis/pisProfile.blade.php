@@ -86,15 +86,15 @@
                             <div id="user-profile-1" class="user-profile row">
                                 <div class="col-xs-12 col-sm-3 center">
                                     <div>
-                                <span class="profile-picture">
-                                    <img id="avatar" class="editable img-responsive" alt="Alex's Avatar" src="
-                                    <?php
-                                    if($user->sex == 'Female')
-                                        echo asset('public/assets_ace/images/avatars/female1.png');
-                                    else
-                                        echo asset('public/assets_ace/images/avatars/male1.png');
-                                    ?>" />
-                                </span>
+                                        <span class="profile-picture">
+                                            <img id="avatar2" class="img-responsive" alt="Alex's Avatar" src="
+                                            <?php
+                                            if($user->sex == 'Female')
+                                                echo asset('public/assets_ace/images/avatars/profile-pic.jpg');
+                                            else
+                                                echo asset('public/assets_ace/images/avatars/male1.png');
+                                            ?>" />
+                                        </span>
                                         <div class="rating inline"></div>
                                         <div class="space-4"></div>
                                         <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
@@ -1022,7 +1022,7 @@
                         //specify ace file input plugin's options here
                         btn_choose: 'Change Avatar',
                         droppable: true,
-                        maxSize: 110000,//~100Kb
+                        //maxSize: 110000,//~100Kb
 
                         //and a few extra ones here
                         name: 'avatar',//put the field name here as well, will be used inside the custom plugin
@@ -1087,9 +1087,11 @@
                     },
 
                     success: function(response, newValue) {
+                        console.log(response);
                     }
                 })
             }catch(e) {}
+            //mao ni upload image
 
             /**
              //let's display edit mode by default?
@@ -1116,7 +1118,7 @@
                                 <h4 class="blue">Change Avatar</h4>\
                             </div>\
                             \
-                            <form class="no-margin">\
+                            <form class="no-margin" id="uploadPicture" enctype="multipart/form-data">\
                              <div class="modal-body">\
                                 <div class="space-4"></div>\
                                 <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
@@ -1172,7 +1174,34 @@
                         modal.modal("hide");
 
                         var thumb = file.next().find('img').data('thumb');
-                        if(thumb) $('#avatar2').get(0).src = thumb;
+                        //if(thumb) $('#avatar2').get(0).src = thumb;
+
+                        //process upload
+                        var file_data = $("input[name='file-input']").prop('files')[0];
+
+                        var form_data = new FormData();
+                        form_data.append('picture', file_data);
+                        console.log(form_data);
+                        var url = "<?php echo asset('/uploadPicture'); ?>";
+                        $.ajaxSetup(
+                                {
+                                    headers:
+                                    {
+                                        'X-CSRF-Token': "<?php echo csrf_token(); ?>"
+                                    }
+                                });
+                        $.ajax({
+                            url:url,
+                            data: form_data,
+                            type: 'POST',
+                            contentType: false, // The content type used when sending data to the server.
+                            cache: false, // To unable request pages to be cached
+                            processData: false,
+                            success: function(result) {
+                                console.log(result);
+                                $('#avatar2').get(0).src = "<?php echo asset('public/upload_picture')?>"+result.split("upload_picture")[1];
+                            }
+                        });
 
                         working = false;
                     });
@@ -1187,95 +1216,6 @@
 
             });
 
-
-            //////////////////////////////
-            $('#profile-feed-1').ace_scroll({
-                height: '250px',
-                mouseWheelLock: true,
-                alwaysVisible : true
-            });
-
-            $('a[ data-original-title]').tooltip();
-
-            $('.easy-pie-chart.percentage').each(function(){
-                var barColor = $(this).data('color') || '#555';
-                var trackColor = '#E2E2E2';
-                var size = parseInt($(this).data('size')) || 72;
-                $(this).easyPieChart({
-                    barColor: barColor,
-                    trackColor: trackColor,
-                    scaleColor: false,
-                    lineCap: 'butt',
-                    lineWidth: parseInt(size/10),
-                    animate:false,
-                    size: size
-                }).css('color', barColor);
-            });
-
-            ///////////////////////////////////////////
-
-            //right & left position
-            //show the user info on right or left depending on its position
-            $('#user-profile-2 .memberdiv').on('mouseenter touchstart', function(){
-                var $this = $(this);
-                var $parent = $this.closest('.tab-pane');
-
-                var off1 = $parent.offset();
-                var w1 = $parent.width();
-
-                var off2 = $this.offset();
-                var w2 = $this.width();
-
-                var place = 'left';
-                if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) place = 'right';
-
-                $this.find('.popover').removeClass('right left').addClass(place);
-            }).on('click', function(e) {
-                e.preventDefault();
-            });
-
-
-            ///////////////////////////////////////////
-            $('#user-profile-3')
-                    .find('input[type=file]').ace_file_input({
-                        style:'well',
-                        btn_choose:'Change avatar',
-                        btn_change:null,
-                        no_icon:'ace-icon fa fa-picture-o',
-                        thumbnail:'large',
-                        droppable:true,
-
-                        allowExt: ['jpg', 'jpeg', 'png', 'gif'],
-                        allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
-                    })
-                    .end().find('button[type=reset]').on(ace.click_event, function(){
-                        $('#user-profile-3 input[type=file]').ace_file_input('reset_input');
-                    })
-                    .end().find('.date-picker').datepicker().next().on(ace.click_event, function(){
-                $(this).prev().focus();
-            });
-            $('.input-mask-phone').mask('(999) 999-9999');
-
-            $('#user-profile-3').find('input[type=file]').ace_file_input('show_file_list', [{type: 'image', name: $('#avatar').attr('src')}]);
-
-
-            ////////////////////
-            //change profile
-            $('[data-toggle="buttons"] .btn').on('click', function(e){
-                var target = $(this).find('input[type=radio]');
-                var which = parseInt(target.val());
-                $('.user-profile').parent().addClass('hide');
-                $('#user-profile-'+which).parent().removeClass('hide');
-            });
-
-            /////////////////////////////////////
-            $(document).one('ajaxloadstart.page', function(e) {
-                //in ajax mode, remove remaining elements before leaving page
-                try {
-                    $('.editable').editable('destroy');
-                } catch(e) {}
-                $('[class*=select2]').remove();
-            });
 
             text_editable();
             function text_editable(){
