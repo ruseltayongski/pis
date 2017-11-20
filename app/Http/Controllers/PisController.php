@@ -3,6 +3,7 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PIS\Children;
 use PIS\Civil_Eligibility;
 use PIS\Educational_Background;
@@ -60,9 +61,6 @@ class PisController extends Controller
     }
 
     public function pisProfile($userid){
-        /*return Training_Program::where('id','no_idvoluntary')
-            ->orWhere('unique_row', '1voluntary8TylTmiSqg2017-1116063120')
-            ->first();*/
 
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
@@ -323,13 +321,18 @@ class PisController extends Controller
     }
 
     public function uploadPicture(Request $request){
+        /*$userid = $request->get('userid');
+
         $picture = $request->file('picture');
         $extension = $picture->getClientOriginalExtension(); // getting excel extension
         $dir = public_path().'/upload_picture/';
         $filename = uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
 
+        Personal_Information::where('userid','=',$userid)->update([
+            'picture' => $filename
+        ]);
 
-        return $picture->move($dir, $filename);
+        return $picture->move($dir, $filename);*/
     }
 
 
