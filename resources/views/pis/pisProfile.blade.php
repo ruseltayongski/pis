@@ -1181,14 +1181,11 @@
 
                         //process upload
                         var url = "<?php echo asset('/uploadPicture'); ?>";
-                        var file_data = $("input[name='file-input']").prop('files')[0];
+                        var file_data = form.find('input[type=file]').eq(0).prop('files')[0];
 
                         var form_data = new FormData();
                         form_data.append('picture', file_data);
                         form_data.append('userid',"<?php echo $user->userid ?>");
-                        console.log($("input[name='file-input']").prop('files')[0]);
-                        $("input[name='file-input']").val(null)[0];
-                        console.log($("input[name='file-input']").prop('files')[0]);
                         $.ajaxSetup(
                                 {
                                     headers:
@@ -1210,7 +1207,7 @@
                                     text: 'Uploading to server.. successfully save..',
                                     class_name: 'gritter-info gritter-center',
                                 });
-                                //$('#avatar2').get(0).src = "<?php echo asset('public/upload_picture')?>"+result.split("upload_picture")[1];
+                                $('#avatar2').get(0).src = "<?php echo asset('public/upload_picture')?>"+result.split("upload_picture")[1];
                             }
                         });
                         working = false;

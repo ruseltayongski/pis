@@ -46,6 +46,10 @@ class CreatePersonalInformation extends Migration
             $table->text('employee_status')->nullable();
             $table->text('job_status')->nullable();
             $table->text('inactive_area')->nullable();
+            $table->text('case_name')->nullable();
+            $table->text('case_address')->nullable();
+            $table->text('case_contact')->nullable();
+            $table->text('remarks')->nullable();
 
             //$table->unique('userid');
 

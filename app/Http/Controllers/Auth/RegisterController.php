@@ -2,6 +2,7 @@
 
 namespace PIS\Http\Controllers\Auth;
 
+use PIS\Personal_Information;
 use PIS\User;
 use PIS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -62,10 +63,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $data['userid'];
+        $personal_information = new Personal_Information();
+        $personal_information->userid = $data['userid'];
+        $personal_information->fname = $data['fname'];
+        $personal_information->save();
+
+        /*return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-        ]);
+        ]);*/
     }
 }

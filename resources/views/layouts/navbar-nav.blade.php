@@ -4,8 +4,8 @@
     }
 </style>
 <ul class="nav navbar-nav">
-    <li class="{{ Request::segments()[0] == 'excel' ? 'active-nav' : '' }}"><a href="{{ url('/excel') }}"><i class="ace-icon fa fa-home"></i> Home </a></li>
-    <li class="{{ Request::segments()[0] == 'pisList' ? 'active-nav' : '' }}"><a href="{{ url('/pisList') }}"><i class="ace-icon fa fa-database"></i> PIS List</a></li>
+    <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'excel' ? 'active-nav' : '' }} @endif"><a href="{{ url('/excel') }}"><i class="ace-icon fa fa-home"></i> Home</a></li>
+    <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'pisList' ? 'active-nav' : '' }} @endif"><a href="{{ url('/pisList') }}"><i class="ace-icon fa fa-database"></i> PIS List</a></li>
 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs"></i> Account<span class="caret"></span></a>

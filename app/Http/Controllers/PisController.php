@@ -35,7 +35,8 @@ class PisController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+
+    public function pisList(Request $request)
     {
         Session::put('keyword',$request->input('keyword'));
         $keyword = Session::get('keyword');
@@ -258,6 +259,7 @@ class PisController extends Controller
 
             return 'successfully updated';
         }
+
     }
 
     public function updateTrainingProgram(Request $request){
@@ -321,7 +323,7 @@ class PisController extends Controller
     }
 
     public function uploadPicture(Request $request){
-        /*$userid = $request->get('userid');
+        $userid = $request->get('userid');
 
         $picture = $request->file('picture');
         $extension = $picture->getClientOriginalExtension(); // getting excel extension
@@ -332,7 +334,7 @@ class PisController extends Controller
             'picture' => $filename
         ]);
 
-        return $picture->move($dir, $filename);*/
+        return $picture->move($dir, $filename);
     }
 
 

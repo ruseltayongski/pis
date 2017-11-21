@@ -59,6 +59,7 @@
 <div class="loading"></div>
 
 <body class="skin-2">
+@if(isset(Request::segments()[0]))
 <nav class="navbar navbar-default navbar-static-top">
     <div style="background-color:#2F4054;padding:10px;">
         <div class="col-md-4">
@@ -366,12 +367,14 @@
             </div>
         </div>
     </div>
-
 </nav>
+@endif
+
 <div class="container" style="padding: 20px;">
     @yield('content')
 </div>
 
+@if(isset(Request::segments()[0]))
 <div class="footer">
     <div class="footer-inner" >
         <div class="footer-content" style="background-color: #2F4054;color: white;padding: 10px;">
@@ -382,6 +385,7 @@
     </div>
 </div>
 @include('modal')
+@endif
 
         <!-- basic scripts -->
 <script>
