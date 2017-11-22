@@ -19,6 +19,8 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','HomeController@login');
+Route::match(['GET','POST'],'/register','Auth\RegisterController@register');
+Route::post('userid_trapping','HomeController@userid_trapping');
 
 //PIS
 Route::get('/pisList', 'PisController@pisList');

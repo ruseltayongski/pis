@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
+use PIS\User_dts;
 
 class HomeController extends Controller
 {
@@ -29,5 +30,9 @@ class HomeController extends Controller
             "division" => $division,
             "section" => $section
         ]);
+    }
+
+    public function userid_trapping(Request $request){
+        return User_dts::where('username', '=', $request->get('userid'))->first();
     }
 }

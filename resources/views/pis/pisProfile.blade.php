@@ -1185,7 +1185,7 @@
 
                         var form_data = new FormData();
                         form_data.append('picture', file_data);
-                        form_data.append('userid',"<?php echo $user->userid ?>");
+                        form_data.append('userid',"<?php echo $user->piUserid ?>");
                         $.ajaxSetup(
                                 {
                                     headers:

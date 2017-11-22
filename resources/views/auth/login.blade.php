@@ -22,12 +22,12 @@
                             <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                                 {{ csrf_field() }}
                                 <fieldset>
-                                    <label class="block clearfix {{ $errors->has('email') ? ' has-error' : '' }}">
+                                    <label class="block clearfix {{ $errors->has('username') ? ' has-error' : '' }}">
                                             <span class="block input-icon input-icon-right">
-                                                <input type="text" name="text" class="form-control" placeholder="Username" />
-                                                @if ($errors->has('email'))
+                                                <input type="text" name="username" class="form-control" placeholder="Username" />
+                                                @if ($errors->has('username'))
                                                     <span class="help-block">
-                                                        <strong>{{ $errors->first('email') }}</strong>
+                                                        <strong>{{ $errors->first('username') }}</strong>
                                                     </span>
                                                 @endif
                                                 <i class="ace-icon fa fa-user"></i>
@@ -138,17 +138,18 @@
                             <p> Enter your details to begin: </p>
                             <p class="alert-danger"><i class="ace-icon fa fa-asterisk"></i> (Asterisk) indicates required field </p>
 
-                            <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                            <form class="form-horizontal form-submit" method="POST" action="{{ asset('register') }}">
                                 {{ csrf_field() }}
                                 <fieldset>
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="userid" class="form-control" placeholder="ID NO." required/>
                                         </span>
                                     </label>
+                                    <p class="alert-warning" id="userid_error"></p>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <select name="designation" class="select2" data-placeholder="Select designation." required>
                                         <option value=""></option>
                                         @foreach($designation as $row)
@@ -157,7 +158,7 @@
                                     </select>
                                     <div class="space-6"></div>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <select name="division" onchange="filter_section($(this))"  class="select2" data-placeholder="Select division." required>
                                         <option value=""></option>
                                         @foreach($division as $row)
@@ -166,34 +167,34 @@
                                     </select>
                                     <div class="space-6"></div>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <select id="section" name="section" class="select2" style="width: 100%" data-placeholder="Select section." required>
                                         <option value=""></option>
                                     </select>
                                     <div class="space-6"></div>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="fname" class="form-control" placeholder="Firstname" required/>
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="mname" class="form-control" placeholder="Middlename" required/>
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="lname" class="form-control" placeholder="Lastname" required/>
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="address" class="form-control" placeholder="Address" required/>
@@ -218,7 +219,7 @@
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="tin_no" class="form-control" placeholder="TIN No." required/>
@@ -243,17 +244,17 @@
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
                                             <input type="text" name="date_of_birth" class="form-control" placeholder="Birth Date" required/>
                                         </span>
                                     </label>
 
-                                    <i class="ace-icon fa fa-asterisk alert-danger"></i>
+                                    <i class="ace-icon fa fa-asterisk red"></i>
                                     <label class="block clearfix">
                                             <span class="block input-icon input-icon-right">
-                                                <input type="text" class="form-control" placeholder="Email" required/>
+                                                <input type="email" name="email" class="form-control" placeholder="Email" required/>
                                             </span>
                                     </label>
 
@@ -274,7 +275,7 @@
 
                                     <label class="block clearfix">
                                         <span class="block input-icon input-icon-right">
-                                            <input type="text" name="case_contact" class="form-control" placeholder="Contact #" />
+                                                <input type="text" name="case_contact" class="form-control" placeholder="Contact #" />
                                         </span>
                                     </label>
 
@@ -340,7 +341,6 @@
             ).trigger('change');
 
             $.each(<?php echo $section;?>,function(x,section){
-                console.log(section);
                 if(data.val() == section.division){
                     element.append(
                             new Option(section.description, section.id, true, true)
@@ -350,6 +350,33 @@
         }
 
         jQuery(function($) {
+
+            var userid_flag = false;
+            $("input[name='userid']").on("keyup",function(e){
+                e.preventDefault();
+                var element = $("input[name='userid']");
+                var userid = element.val();
+                $.post("<?php echo asset('userid_trapping')?>", { "userid": element.val(), "_token": "<?php echo csrf_token(); ?>" }, function(result){
+                    if(result != ''){
+                        $("#userid_error").html('ID NO : '+userid+' is already exist in the database.');
+                        userid_flag = true;
+                    } else {
+                        $("#userid_error").html('');
+                        userid_flag = false;
+                    }
+                })
+
+            });
+
+            $('.form-submit').on('submit',function(){
+                if(userid_flag){
+                    alert('ID NO already exist in the database.');
+                    $("input[name='userid']").val('');
+                    $("input[name='userid']").focus();
+                    return false;
+                }
+            });
+
             $(document).on('click', '.toolbar a[data-target]', function(e) {
                 e.preventDefault();
                 var target = $(this).data('target');

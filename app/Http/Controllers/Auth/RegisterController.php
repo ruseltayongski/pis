@@ -2,11 +2,14 @@
 
 namespace PIS\Http\Controllers\Auth;
 
+use Illuminate\Support\Facades\Redirect;
 use PIS\Personal_Information;
 use PIS\User;
 use PIS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use PIS\User_dts;
 
 class RegisterController extends Controller
 {
@@ -63,16 +66,60 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return $data['userid'];
-        $personal_information = new Personal_Information();
-        $personal_information->userid = $data['userid'];
-        $personal_information->fname = $data['fname'];
-        $personal_information->save();
-
-        /*return User::create([
+        //way gamit
+        return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-        ]);*/
+        ]);
     }
+
+    public function register(Request $request){
+        User_dts::insertIgnore([
+            'username' => $request->get('userid'),
+            'password' => bcrypt($request->get('userid')),
+            'designation' => $request->get('designation'),
+            'division' => $request->get('division'),
+            'section' => $request->get('section'),
+            'fname' => $request->get('fname'),
+            'mname' => $request->get('mname'),
+            'lname' => $request->get('lname'),
+            'user_priv' => 0,
+            'status' => 0,
+        ]);
+
+        User::insertIgnore([
+            'username' => $request->get('userid'),
+            'password' => bcrypt($request->get('userid')),
+            'usertype' => '0'
+        ]);
+        
+        Personal_Information::insertIgnore([
+            'userid' => $request->get('userid'),
+            'designation_id' => $request->get('designation'),
+            'division_id' => $request->get('division'),
+            'section_id' => $request->get('section'),
+            'fname' => $request->get('fname'),
+            'mname' => $request->get('mname'),
+            'lname' => $request->get('lname'),
+            'residential_address' => $request->get('address'),
+            'blood_type' => $request->get('blood_type'),
+            'height' => $request->get('height'),
+            'weight' => $request->get('weight'),
+            'tin_no' => $request->get('tin_no'),
+            'gsis_polno' => $request->get('gsis_polno'),
+            'gsis_idno' => $request->get('gsis_idno'),
+            'phicno' => $request->get('phicno'),
+            'date_of_birth' => $request->get('date_of_birth'),
+            'email_address' => $request->get('email'),
+            'case_name' => $request->get('case_name'),
+            'case_address' => $request->get('case_address'),
+            'case_contact' => $request->get('case_contact'),
+            'remarks' => $request->get('remarks'),
+        ]);
+
+        return Redirect::back();
+
+    }
+
 }

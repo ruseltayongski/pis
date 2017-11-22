@@ -15,7 +15,7 @@ class CreatePersonalInformation extends Migration
     {
         Schema::create('personal_information', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('userid',20);
+            $table->string('userid',50)->unique();
             $table->text('picture')->nullable();
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
@@ -49,9 +49,10 @@ class CreatePersonalInformation extends Migration
             $table->text('case_name')->nullable();
             $table->text('case_address')->nullable();
             $table->text('case_contact')->nullable();
+            $table->text('designation_id')->nullable();
+            $table->text('division_id')->nullable();
+            $table->text('section_id')->nullable();
             $table->text('remarks')->nullable();
-
-            //$table->unique('userid');
 
             $table->timestamps();
         });
