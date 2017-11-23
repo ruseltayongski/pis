@@ -26,6 +26,7 @@ Route::post('userid_trapping','HomeController@userid_trapping');
 Route::get('/pisList', 'PisController@pisList');
 Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
+Route::get('/pisProfile', 'PisController@pisProfile');
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
 Route::post('/updateFamilyBackground','PisController@updateFamilyBackground');
 Route::post('/updateChildren','PisController@updateChildren');
@@ -41,6 +42,7 @@ Route::post('/uploadPicture','PisController@uploadPicture');
 Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'))->name('home');
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
+Route::get('sync_dts','FileController@sync_dts');
 
 
 

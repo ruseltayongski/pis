@@ -279,12 +279,6 @@
                                         </span>
                                     </label>
 
-                                    <label class="block clearfix">
-                                        <span class="block input-icon input-icon-right">
-                                            <input type="text" name="remarks" class="form-control" placeholder="Remarks" />
-                                        </span>
-                                    </label>
-
                                     <label class="block">
                                         <input type="checkbox" class="ace" />
                                             <span class="lbl">

@@ -61,12 +61,18 @@ class PisController extends Controller
         ]);
     }
 
-    public function pisProfile($userid){
+    public function pisProfile($userid = null){
+        if($userid && Auth::user()->usertype){
+            $finalId = $userid;
+        }
+        else {
+            $finalId = Auth::user()->id;
+        }
 
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
             ->leftjoin('children', 'pi.userid', '=', 'children.userid')
-            ->where('pi.id',$userid)
+            ->where('pi.id',$finalId)
                 ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
                 'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();

@@ -25,6 +25,10 @@
                                 <i class="ace-icon fa fa-download bigger-230"></i>
                                 <small>Download <br>Excel CSV</small>
                             </a>
+                            <a href="{{ asset('sync_dts') }}" class="btn btn-app btn-primary">
+                                <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
+                                <small>Sync DTS <br>User</small>
+                            </a>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="row alert-success">
@@ -191,5 +195,13 @@
 
 @endsection
 @section('js')
-
+    <script>
+        @if(session()->has('sync_dts'))
+        $.gritter.add({
+            title: 'SYNC',
+            text: "<i class='fa fa-cloud-upload'></i> <?php echo session()->get('sync_dts'); ?>",
+            class_name: 'gritter-info gritter-center',
+        });
+        @endif
+    </script>
 @endsection

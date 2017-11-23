@@ -62,17 +62,27 @@
 @if(isset(Request::segments()[0]))
 <nav class="navbar navbar-default navbar-static-top">
     <div style="background-color:#2F4054;padding:10px;">
+        <?php
+            $personal_information = \PIS\Personal_Information::where('userid','=',Auth::user()->username)->first();
+        ?>
         <div class="col-md-4">
-            @if(Auth::check())
-                <span style="color: #f0ad4e;font-size: 12pt"><b>Welcome,</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ Auth::user()->name }}</span>
-            @else
-                <span style="color: #f0ad4e;font-size: 12pt"><b>DOH7-IT</b></span>
+            @if(Auth::check() && $personal_information)
+                <span style="color: #f0ad4e;font-size: 12pt"><b>Welcome,</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ $personal_information->fname.' '.$personal_information->lname }}</span>
             @endif
         </div>
         <div class="col-md-4">
-            @if(Auth::check())
+            @if(Auth::check() && $personal_information)
                 <span class="title-info" style="color: #f0ad4e;font-size: 12pt"><b>PIS TYPE:</b></span>
-                {{--<span class="title-desc_hrhtype" style="color: white;font-size: 12pt">@if(Auth::user()->usertype) ADMIN COORDINATOR  @else {{ hrhController::hrh_type(Auth::user()->hrh_type) }} @endif</span>--}}
+                <span class="title-desc_hrhtype" style="color: white;font-size: 12pt">
+                    @if($personal_information->section_id)
+                        <b>{{ \PIS\Section::where('id','=',$personal_information->section_id)->first()->description }}</b>
+                    @else
+                        @if($personal_information->section)
+                            <b>{{ $personal_information->section }}</b>
+                        @endif
+                        <b>NO SECTION</b>
+                    @endif
+                </span>
             @endif
         </div>
         <div class="col-md-4">

@@ -7,7 +7,31 @@
             </h1>
         </div><!-- /.page-header -->
         <div class="space-10"></div>
-
+        <div class="clearfix">
+            <ul class="nav nav-tabs padding-18" id="myTab">
+                <?php
+                $statusCount = 0;
+                $counter = 0;
+                $color = ['blue','orange','green','red','purple'];
+                $badge = ['primary','warning','success','danger','purple'];
+                ?>
+                @foreach(range(1,5) as $row)
+                    <?php $statusCount++; ?>
+                    <li class="@if($statusCount == 1){{ 'active' }}@endif">
+                        <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
+                            <i class="{{ $color[$counter] }} ace-icon fa fa-question-circle bigger-120"></i>
+                            {{ $row }}
+                            <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}">{{ $row }}</span>
+                            <?php
+                            $counter++;
+                            if($counter >= 5) $counter = 0;
+                            ?>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+        <div class="space-20"></div>
         <form id="searchForm" method="GET" action="{{ asset('pisList') }}">
             <div class="row">
                 <div class="col-xs-12 col-md-6">

@@ -115,7 +115,7 @@ class RegisterController extends Controller
             'case_name' => $request->get('case_name'),
             'case_address' => $request->get('case_address'),
             'case_contact' => $request->get('case_contact'),
-            'remarks' => $request->get('remarks'),
+            'remarks' => 'PIS',
         ]);
 
         return Redirect::back();

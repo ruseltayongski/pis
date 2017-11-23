@@ -1,11 +1,14 @@
 <?php
 namespace PIS\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use PIS\Http\Controllers\Controller;
 use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\DB;
+use PIS\User;
+use PIS\User_dts;
 
 class FileController extends Controller {
     public function __construct()
@@ -14,7 +17,10 @@ class FileController extends Controller {
     }
 
     public function importExportExcelORCSV(){
-        return view('excel.import_export');
+        if(Auth::user()->usertype)
+            return view('excel.import_export');
+        else
+            return Redirect::to('/pisProfile');
     }
     public function importFileIntoDB(Request $request){
         if($request->hasFile('personal_information')){
@@ -22,9 +28,33 @@ class FileController extends Controller {
             $data = \Excel::load($path)->get();
             if($data->count()){
 
+                $count = 0;
+                $useridArray['null'] = 'null';
                 foreach ($data as $key => $value) {
+                    $count++;
+                    if(empty($value->userid)){
+                        $useridFinal = $count.'no_userid';
+                    } else {
+                        $personal_information = Personal_Information::where('userid','=',$value->userid)->first();
+                        if($personal_information){
+                            $useridFinal = $value->userid.$count.'DUPLICATE';
+                        }
+                        else {
+                            $useridFinal = $value->userid;
+                        }
+                    }
+
+                    if(isset($useridArray[$useridFinal])){
+                        if($useridArray[$useridFinal] == $useridFinal){
+                            $useridFinal = $value->userid.$count.'DUPLICATE';
+                        }
+                    }
+                    else {
+                        $useridArray[$useridFinal] = $useridFinal;
+                    }
+
                     $arr[] = [
-                        'userid' => $value->userid,
+                        'userid' => $useridFinal,
                         'fname' => $value->fname, 
                         'lname' => $value->lname,
                         'mname' => $value->mname,
@@ -54,7 +84,7 @@ class FileController extends Controller {
                         'employee_status' => $value->employee_status,
                         'job_status' => $value->job_status,
                         'inactive_area' => $value->inactive_area,
-
+                        'remarks' => 'PIS'
                     ];
                 }
 
@@ -243,6 +273,30 @@ class FileController extends Controller {
                 $sheet->fromArray($personal_information);
             });
         })->download($type);
-    }      
+    }
+
+    public function sync_dts(){
+        foreach(User_dts::get() as $row){
+            $user[] = [
+                "username" => $row->username,
+                "password" => $row->password,
+                "usertype" => $row->user_priv
+            ];
+            $personal_information[] = [
+                "userid" => $row->username,
+                "fname" => $row->fname,
+                "lname" => $row->mname,
+                "designation_id" => $row->designation,
+                "division_id" => $row->division,
+                "section_id" => $row->section,
+                "remarks" => 'DTS_USER'
+            ];
+        }
+        User::insertIgnore($user);
+        Personal_Information::insertIgnore($personal_information);
+
+        return Redirect::back()->with('sync_dts','Successfully sync dts user');
+    }
+
 }
 
