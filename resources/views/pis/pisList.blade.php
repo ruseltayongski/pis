@@ -14,14 +14,15 @@
                 $counter = 0;
                 $color = ['blue','orange','green','red','purple'];
                 $badge = ['primary','warning','success','danger','purple'];
+                $status = ["ALL","DUPLICATE"]
                 ?>
-                @foreach(range(1,5) as $row)
+                @foreach($status as $row)
                     <?php $statusCount++; ?>
                     <li class="@if($statusCount == 1){{ 'active' }}@endif">
                         <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
                             <i class="{{ $color[$counter] }} ace-icon fa fa-question-circle bigger-120"></i>
                             {{ $row }}
-                            <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}">{{ $row }}</span>
+                            <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}">20</span>
                             <?php
                             $counter++;
                             if($counter >= 5) $counter = 0;
@@ -50,8 +51,11 @@
         <div class="space-10"></div>
 
         <div class="tab-content no-border no-padding">
-            <div id="test" class="tab-pane fade in active">
-                <div class="posts">
+            <?php $statusCount = 0; ?>
+            @foreach($status as $row)
+            <?php $statusCount++; ?>
+            <div id="{{ $row }}" class="tab-pane fade @if($row == "ALL"){{ 'in active' }}@endif">
+                <div class="posts_{{ $row }}">
                     <div class="row">
                         <div class="col-xs-12">
                             @include('pis.pisPagination')
@@ -59,6 +63,7 @@
                     </div>
                 </div>
             </div>
+            @endforeach
         </div>
 
     </div><!-- PAGE CONTENT ENDS -->

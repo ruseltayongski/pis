@@ -16,7 +16,7 @@
             @foreach($personal_information as $user)
                 <tr>
                     <td>
-                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-userid="{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}" data-link="{{ asset('pisInfo').'/'.$user->id }}" data-toggle="modal" ><b class="green">{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}</b></a>
+                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-userid="{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}" data-link="{{ asset('pisInfo').'/'.$user->id }}" data-toggle="modal" ><b class="green">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a>
                     </td>
                     <td>
                         {{ $user->userid }}

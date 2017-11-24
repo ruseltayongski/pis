@@ -35,64 +35,109 @@ class FileController extends Controller {
                     if(empty($value->userid)){
                         $useridFinal = $count.'no_userid';
                     } else {
-                        $personal_information = Personal_Information::where('userid','=',$value->userid)->first();
-                        if($personal_information){
-                            $useridFinal = $value->userid.$count.'DUPLICATE';
+                        $useridFinal = $value->userid;
+                    }
+
+                    $fname = $value->fname;
+                    $lname = $value->lname;
+                    $personal_information = Personal_Information::where('userid','=',$useridFinal)
+                        ->where(function($query) use ($fname,$lname ){
+                            $query->where('fname','like',"%$fname%")
+                            ->orWhere('lname','like',"%$lname%");
+                        })
+                        ->first();
+
+                    if(isset($personal_information)){
+                        if($personal_information->remarks == 'DTS_USER'){
+                            $personal_information->update([
+                                'fname' => $value->fname,
+                                'lname' => $value->lname,
+                                'mname' => $value->mname,
+                                'name_extension' => $value->name_extension,
+                                'position' => $value->position,
+                                'date_of_birth' => $value->date_of_birth,
+                                'place_of_birth' => $value->place_of_birth,
+                                'sex' => $value->sex,
+                                'civil_status' => $value->civil_status,
+                                'citizenship' => $value->citizenship,
+                                'height' => $value->height,
+                                'weight' => $value->weight,
+                                'blood_type' => $value->blood_type,
+                                'gsis_idno' => $value->gsis_idno,
+                                'gsis_polno' => $value->gsis_polno,
+                                'pag_ibigno' => $value->pag_ibigno,
+                                'phicno' => $value->phicno,
+                                'sssno' => $value->sssno,
+                                'tin_no' => $value->tin_no,
+                                'residential_address' => $value->residential_address,
+                                'residential_municipality' => $value->residential_municipality,
+                                'residential_province' => $value->residential_province,
+                                'region_zip' => $value->region_zip,
+                                'telno' => $value->telno,
+                                'email_address' => $value->email_address,
+                                'cellno' => $value->cellno,
+                                'employee_status' => $value->employee_status,
+                                'job_status' => $value->job_status,
+                                'inactive_area' => $value->inactive_area,
+                                'remarks' => 'PIS'
+                            ]);
+                        }
+                    } else {
+                        $useridCheck = Personal_Information::where("userid","=",$useridFinal)->first();
+                        if(isset($useridArray[$useridFinal])){
+                            if($useridArray[$useridFinal] == $useridFinal){
+                                $useridFinal = $value->userid.'c'.$count.'DUPLICATE1';
+                            }
+                        }
+                        elseif(isset($useridCheck)){
+                            if($useridCheck->remarks == 'DTS_USER'){
+                                $useridFinal = $value->userid.'c'.$count.'DUPLICATE2';
+                                $tempArray[] = $useridFinal;
+                            }
                         }
                         else {
-                            $useridFinal = $value->userid;
+                            $useridArray[$useridFinal] = $useridFinal;
                         }
+                        $arr[] = [
+                            'userid' => $useridFinal,
+                            'fname' => $value->fname,
+                            'lname' => $value->lname,
+                            'mname' => $value->mname,
+                            'name_extension' => $value->name_extension,
+                            'position' => $value->position,
+                            'date_of_birth' => $value->date_of_birth,
+                            'place_of_birth' => $value->place_of_birth,
+                            'sex' => $value->sex,
+                            'civil_status' => $value->civil_status,
+                            'citizenship' => $value->citizenship,
+                            'height' => $value->height,
+                            'weight' => $value->weight,
+                            'blood_type' => $value->blood_type,
+                            'gsis_idno' => $value->gsis_idno,
+                            'gsis_polno' => $value->gsis_polno,
+                            'pag_ibigno' => $value->pag_ibigno,
+                            'phicno' => $value->phicno,
+                            'sssno' => $value->sssno,
+                            'tin_no' => $value->tin_no,
+                            'residential_address' => $value->residential_address,
+                            'residential_municipality' => $value->residential_municipality,
+                            'residential_province' => $value->residential_province,
+                            'region_zip' => $value->region_zip,
+                            'telno' => $value->telno,
+                            'email_address' => $value->email_address,
+                            'cellno' => $value->cellno,
+                            'employee_status' => $value->employee_status,
+                            'job_status' => $value->job_status,
+                            'inactive_area' => $value->inactive_area,
+                            'remarks' => 'PIS'
+                        ];
                     }
 
-                    if(isset($useridArray[$useridFinal])){
-                        if($useridArray[$useridFinal] == $useridFinal){
-                            $useridFinal = $value->userid.$count.'DUPLICATE';
-                        }
-                    }
-                    else {
-                        $useridArray[$useridFinal] = $useridFinal;
-                    }
-
-                    $arr[] = [
-                        'userid' => $useridFinal,
-                        'fname' => $value->fname, 
-                        'lname' => $value->lname,
-                        'mname' => $value->mname,
-                        'name_extension' => $value->name_extension,
-                        'position' => $value->position,
-                        'date_of_birth' => $value->date_of_birth,
-                        'place_of_birth' => $value->place_of_birth,
-                        'sex' => $value->sex,
-                        'civil_status' => $value->civil_status,
-                        'citizenship' => $value->citizenship,
-                        'height' => $value->height,
-                        'weight' => $value->weight,
-                        'blood_type' => $value->blood_type,
-                        'gsis_idno' => $value->gsis_idno,
-                        'gsis_polno' => $value->gsis_polno,
-                        'pag_ibigno' => $value->pag_ibigno,
-                        'phicno' => $value->phicno,
-                        'sssno' => $value->sssno,
-                        'tin_no' => $value->tin_no,
-                        'residential_address' => $value->residential_address,
-                        'residential_municipality' => $value->residential_municipality,
-                        'residential_province' => $value->residential_province,
-                        'region_zip' => $value->region_zip,
-                        'telno' => $value->telno,
-                        'email_address' => $value->email_address,
-                        'cellno' => $value->cellno,
-                        'employee_status' => $value->employee_status,
-                        'job_status' => $value->job_status,
-                        'inactive_area' => $value->inactive_area,
-                        'remarks' => 'PIS'
-                    ];
                 }
-
                 if(!empty($arr)){
-                    \DB::table('personal_information')->insert($arr);
+                    Personal_Information::insert($arr);
                     return Redirect::back()->with('success', 'Insert Record successfully.');
                 }
-
             }
         }
 
