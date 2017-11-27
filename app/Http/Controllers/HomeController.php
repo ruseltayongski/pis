@@ -3,10 +3,12 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
 use PIS\User_dts;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -25,11 +27,16 @@ class HomeController extends Controller
         $designation = Designation::get();
         $division = Division::get();
         $section = Section::get();
-        return view('auth.login',[
-            "designation" => $designation,
-            "division" => $division,
-            "section" => $section
-        ]);
+        if(Auth::check()){
+            return Redirect::to('excel');
+        } else {
+            return view('auth.login',[
+                "designation" => $designation,
+                "division" => $division,
+                "section" => $section
+            ]);
+        }
+
     }
 
     public function userid_trapping(Request $request){

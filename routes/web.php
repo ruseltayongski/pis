@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-
+Route::get('logout', function(){
+    Auth::logout();
+    Session::flush();
+    return Redirect::to('/');
 });
 
 Auth::routes();
@@ -21,9 +23,11 @@ Auth::routes();
 Route::get('/','HomeController@login');
 Route::match(['GET','POST'],'/register','Auth\RegisterController@register');
 Route::post('userid_trapping','HomeController@userid_trapping');
+Route::get('/test','Auth\RegisterController@test');
 
 //PIS
 Route::get('/pisList', 'PisController@pisList');
+Route::get('/pisForm', 'PisController@pisForm');
 Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');

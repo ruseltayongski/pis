@@ -16,7 +16,9 @@ use PIS\Training_Program;
 use PIS\Voluntary_Work;
 use PIS\Work_Experience;
 use PIS\Other_Information;
-use Symfony\Component\HttpFoundation\Response;
+use PIS\Designation;
+use PIS\Division;
+use PIS\Section;
 
 class PisController extends Controller
 {
@@ -40,17 +42,74 @@ class PisController extends Controller
     {
         Session::put('keyword',$request->input('keyword'));
         $keyword = Session::get('keyword');
-        $personal_information = Personal_Information::where(function($q) use ($keyword){
+        if($request->get('type')){
+            $type = $request->get('type');
+        } else {
+            $type = 'ALL';
+        }
+        if ($type == 'ALL'){
+            $personal_information = Personal_Information::where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
             })
-            ->orderBy('fname','asc')
-            ->paginate(10);
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        } else {
+            $personal_information = Personal_Information::
+                where("userid",'like',"%duplicate%")
+                ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
+
+        $count_all = Personal_Information::where(function($q) use ($keyword){
+            $q->where('fname','like',"%$keyword%")
+                ->orWhere('mname','like',"%$keyword%")
+                ->orWhere('lname','like',"%$keyword%")
+                ->orWhere('userid','like',"%$keyword%");
+        })->get();
+        $count_duplicate = Personal_Information::
+            where("userid",'like',"%duplicate%")
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })->get();
+        $countArray['ALL'] = count($count_all);
+        $countArray['DUPLICATE'] = count($count_duplicate);
+
+        if ($request->ajax()) {
+            return response()->json([
+                "view" => view('pis.pisPagination', [
+                    "personal_information" => $personal_information
+                ])->render(),
+                "count_all" => count($count_all),
+                "count_duplicate" => count($count_duplicate)
+            ]);
+        }
 
         return view('pis.pisList',[
-            "personal_information" => $personal_information
+            "personal_information" => $personal_information,
+            "countArray" => $countArray
+        ]);
+    }
+
+    public function pisForm(){
+        $designation = Designation::get();
+        $division = Division::get();
+        $section = Section::get();
+        return view('pis.pisForm',[
+            "designation" => $designation,
+            "division" => $division,
+            "section" => $section
         ]);
     }
 
@@ -66,16 +125,17 @@ class PisController extends Controller
             $finalId = $userid;
         }
         else {
-            $finalId = Auth::user()->id;
+            $finalId = Auth::user()->username;
         }
 
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
             ->leftjoin('children', 'pi.userid', '=', 'children.userid')
-            ->where('pi.id',$finalId)
+            ->where('pi.userid',$finalId)
                 ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
                 'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();
+
 
         $education_type = EducationType::get();
         $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
