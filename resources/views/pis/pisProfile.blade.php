@@ -157,6 +157,20 @@
                                                                 <div class="profile-user-info profile-user-info-striped">
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Division</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldivision_id">@if($user->division_id){{ \PIS\Division::find($user->division_id)->description }}@endif</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Section</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsection_id">@if($user->section_id){{ \PIS\Section::find($user->section_id)->description }}@endif</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name"> LASTNAME </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>
@@ -882,17 +896,14 @@
 
             //WORK EXPERIENCE ADD
             var workCount = "<?php echo $workCount; ?>";
-            var workLimit = "<?php echo $workCount; ?>";
             $("#workAdd").on('click',function(event){
-                if(workLimit <= 10)
-                {
-                    workCount++;
-                    workLimit++;
-                    var workUnique_row = workCount+"<?php echo 'work'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
-                    event.preventDefault();
 
-                    var workAppend =
-                            '<tr id="'+workUnique_row+'">\
+                workCount++;
+                var workUnique_row = workCount+"<?php echo 'work'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                event.preventDefault();
+
+                var workAppend =
+                    '<tr id="'+workUnique_row+'">\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
@@ -902,16 +913,12 @@
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                             </tr>';
-                    $("#work_append").append(workAppend);
-                    $("#"+workUnique_row).hide().fadeIn();
+                $("#work_append").append(workAppend);
+                $("#"+workUnique_row).hide().fadeIn();
 
-                    text_editable();
-                    editable_radio();
+                text_editable();
+                editable_radio();
 
-                } else {
-                    event.preventDefault();
-                    alert('Click column to input children..');
-                }
             });
 
             //VOLUNTARY WORK ADD
@@ -1451,6 +1458,98 @@
                         }
                     });
                 });
+            }
+
+            function source_func($divisionId = null){
+                var division = [];
+                $.each(<?php echo $division; ?>, function(x, data) {
+                    division.push({id: data.id, text: data.description});
+                });
+
+                var section = [];
+                $.each(<?php echo $section; ?>, function(x, data) {
+                    if(data.division == $divisionId){
+                        section.push({id: data.id, text: data.description});
+                    }
+                });
+
+                return  [
+                    {
+                        "division" : division,
+                        "section" : section
+                    }
+                ];
+            }
+            console.log(source_func(6)[0].section);
+            editable_select();
+            function editable_select(){
+                $(".editable_select").each(function(index) {
+                    var source = [];
+                    if(this.id.includes('division')){
+                        source = source_func()[0].division;
+                    }
+                    else if(this.id.includes('section')){
+                        source = source_func("<?php echo $user->division_id ?>")[0].section;
+                    }
+                    $('#'+this.id).editable({
+                        name : this.id,
+                        type: 'select2',
+                        source: source,
+                        select2: {
+                            width: 300
+                        },
+                        success: function(data, value) {
+                            var string = this.className;
+                            var json,url;
+                            if(string.includes('personal_information')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updatePersonalInformation') !!}";
+                            }
+                            var id = this.id;
+                            $.post(url,json,function(result){
+                                if(json.column == 'division_id'){
+                                    filter_section(url,value,id);
+                                }
+                            });
+                        },
+                        error: function(errors) {
+                            alert('slow internet connection..');
+                        }
+                    });
+                });
+            }
+
+            function filter_section(url,divisionId,id){
+                var source = source_func(divisionId)[0].section;
+                console.log(source);
+
+                var element = $("#"+id.replace("division","section"));
+                var section = element.removeAttr('id').get(0);
+                $(section).clone().attr('id', 'section').text('Select Section').editable({
+                    type: 'select2',
+                    value: null,
+                    source: source,
+                    select2: {
+                        'width': 300
+                    },
+                    success: function (data, value) {
+                        json = {
+                            "id" : "<?php echo $user->id; ?>",
+                            "column" : this.id.split('col')[1],
+                            "value" : value,
+                            "_token" : "<?php echo csrf_token(); ?>",
+                        };
+                        $.post(url, json, function (result) {
+                            console.log(result);
+                        });
+                    }
+                }).insertAfter(section);
+                $(section).remove();
 
             }
 

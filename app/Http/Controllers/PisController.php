@@ -114,7 +114,7 @@ class PisController extends Controller
     }
 
     public function pisInfo($userid){
-        $user = Personal_Information::where('id',$userid)->first();
+        $user = Personal_Information::where('userid',$userid)->first();
         return view('pis.pisInfo',[
             "user" => $user,
         ]);
@@ -136,7 +136,8 @@ class PisController extends Controller
                 'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();
 
-
+        $section = Section::get();
+        $division = Division::get();
         $education_type = EducationType::get();
         $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $children = Children::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
@@ -147,6 +148,8 @@ class PisController extends Controller
         $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
 
         return view('pis.pisProfile',[
+            "section" => $section,
+            "division" => $division,
             "user" => $user[0],
             "children" => $children,
             "education_type" => $education_type,
@@ -162,13 +165,13 @@ class PisController extends Controller
 
     public function updatePersonalInformation(Request $request){
 
-        $id = $request->get('id');
+        /*$id = $request->get('id');
         $column = $request->get('column');
         $value = $request->get('value');
 
         return Personal_Information::where('id',$id)->update([
             $column => $value
-        ]);
+        ]);*/
     }
 
     public function updateChildren(Request $request){

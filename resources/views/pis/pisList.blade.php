@@ -105,7 +105,6 @@
         });
 
         $("input[name='keyword']").on("keyup",function(e){
-            console.log(this);
             this.focus();
             e.preventDefault();
             if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
@@ -135,6 +134,7 @@
                 }
             }
         });
+
         $(document).ready(function() {
             $(document).on('click', '.pagination a', function (e) {
                 getPosts($(this).attr('href').split('page=')[1],keyword);

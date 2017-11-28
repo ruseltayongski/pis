@@ -33,7 +33,7 @@ class FileController extends Controller {
                 foreach ($data as $key => $value) {
                     $count++;
                     if(empty($value->userid)){
-                        $useridFinal = $count.'no_userid';
+                        $useridFinal = 'pis_'.$count.'no_userid';
                     } else {
                         $useridFinal = $value->userid;
                     }
@@ -321,14 +321,21 @@ class FileController extends Controller {
     }
 
     public function sync_dts(){
+        $count = 0;
         foreach(User_dts::get() as $row){
+            $count++;
+            if($row->username == ''){
+                $finalUserid = 'dts_'.$count.'no_userid';
+            } else {
+                $finalUserid = $row->username;
+            }
             $user[] = [
-                "username" => $row->username,
+                "username" => $finalUserid,
                 "password" => $row->password,
                 "usertype" => $row->user_priv
             ];
             $personal_information[] = [
-                "userid" => $row->username,
+                "userid" => $finalUserid,
                 "fname" => $row->fname,
                 "lname" => $row->mname,
                 "designation_id" => $row->designation,

@@ -3,10 +3,10 @@
         <table id="simple-table" class="table table-bordered table-hover">
             <thead>
             <tr class="info">
+                <th>Employee ID</th>
                 <th>Name</th>
-                <th>Userid</th>
-                <th>Position</th>
-                <th>Residential Address</th>
+                <th>Designation</th>
+                <th>Section / Division</th>
                 <th>Sex</th>
                 <th>Civil Status</th>
             </tr>
@@ -16,16 +16,17 @@
             @foreach($personal_information as $user)
                 <tr>
                     <td>
-                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-userid="{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}" data-link="{{ asset('pisInfo').'/'.$user->id }}" data-toggle="modal" ><b class="green">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a>
+                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-link="{{ asset('pisInfo').'/'.$user->userid }}" data-toggle="modal" ><b class="green">{{ $user->userid }}</b></a>
                     </td>
                     <td>
-                        {{ $user->userid }}
+                        <a href="#pis_info" role="button" data-backdrop="static" data-link="{{ asset('pisInfo').'/'.$user->userid }}" data-toggle="modal" ><b class="blue">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a>
                     </td>
                     <td>
-                        {{ $user->position }}
+                        @if($user->designation_id) {{ \PIS\Designation::find($user->designation_id)->description }} @else {{ $user->position }} @endif
                     </td>
                     <td>
-                        {{ $user->residential_address }}
+                        <label class="orange">@if($user->section_id) {{ \PIS\Section::find($user->section_id)->description }} @else NO SECTION @endif</label>
+                        <small><em>(@if($user->division_id) {{ \PIS\Division::find($user->division_id)->description }} @else NO DIVISION @endif {{ ')' }}</em></small>
                     </td>
                     <td>
                         {{ $user->sex }}
@@ -42,3 +43,20 @@
 @else
     <div class="alert alert-danger" role="alert">PIS records are empty.</div>
 @endif
+
+<script>
+    //user information
+    $("a[href='#pis_info']").on('click',function(){
+        $('.modal-content').html(loadingState);
+        var url = $(this).data('link');
+        setTimeout(function(){
+            $.ajax({
+                url: url,
+                type: 'GET',
+                success: function(data) {
+                    $('.modal-content').html(data);
+                }
+            });
+        },700);
+    });
+</script>
