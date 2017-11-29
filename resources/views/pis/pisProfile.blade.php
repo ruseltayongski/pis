@@ -1510,8 +1510,10 @@
                                 };
                                 url = "{!! asset('updatePersonalInformation') !!}";
                             }
+
                             var id = this.id;
                             $.post(url,json,function(result){
+                                console.log(result);
                                 if(json.column == 'division_id'){
                                     filter_section(url,value,id);
                                 }
@@ -1526,11 +1528,10 @@
 
             function filter_section(url,divisionId,id){
                 var source = source_func(divisionId)[0].section;
-                console.log(source);
-
-                var element = $("#"+id.replace("division","section"));
+                var finalId = id.replace("division","section");
+                var element = $("#"+finalId);
                 var section = element.removeAttr('id').get(0);
-                $(section).clone().attr('id', 'section').text('Select Section').editable({
+                $(section).clone().attr('id', finalId).text('Select Section').editable({
                     type: 'select2',
                     value: null,
                     source: source,
@@ -1539,7 +1540,7 @@
                     },
                     success: function (data, value) {
                         json = {
-                            "id" : "<?php echo $user->id; ?>",
+                            "id" : this.id.split('col')[0],
                             "column" : this.id.split('col')[1],
                             "value" : value,
                             "_token" : "<?php echo csrf_token(); ?>",

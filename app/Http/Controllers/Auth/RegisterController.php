@@ -123,5 +123,43 @@ class RegisterController extends Controller
 
     }
 
+    public function addUserid(Request $request){
+        $previousId = $request->get('previousId');
+        $currentId = $request->get('currentId');
+
+        $personal_information = Personal_Information::where('userid','=',$previousId)->first();
+        $record = $personal_information;
+        $record->fname == '' ? $fnameFinal = "" : $fnameFinal = $record->fname;
+        $record->mname == '' ? $mnameFinal = "" : $mnameFinal = $record->mname;
+        $record->lname == '' ? $lnameFinal = "" : $lnameFinal = $record->lname;
+        $record->designation == '' ? $designationFinal = 0 : $designationFinal = $record->designation_id;
+        $record->division == '' ? $divisionFinal = 0 : $divisionFinal = $record->division_id;
+        $record->section == '' ? $sectionFinal = 0 : $sectionFinal = $record->section_id;
+
+        User_dts::insertIgnore([
+            "fname" => $fnameFinal,
+            "mname" => $mnameFinal,
+            "lname" => $lnameFinal,
+            "username" => $currentId,
+            "password" => bcrypt($currentId),
+            "designation" => $designationFinal,
+            "division" => $divisionFinal,
+            "section" => $sectionFinal,
+            "user_priv" => 0,
+            "status" => 0
+        ]);
+
+        User::where('username','=',$previousId)->update([
+            "username" => $currentId,
+            "password" => bcrypt($currentId)
+        ]);
+
+        $personal_information->update([
+            "userid" => $currentId
+        ]);
+
+        return Redirect::back()->with('addUserid', 'Insert Employee ID');
+    }
+
 
 }

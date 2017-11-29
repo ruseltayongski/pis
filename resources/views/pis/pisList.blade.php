@@ -73,7 +73,6 @@
 @section('js')
     <script>
         $("a[href='#document_form']").on('click',function(e){
-            //$('#form_type').modal({show: false});
             $('.modal_title').html('Add New Employee');
             $('.modal_content').html(loadingState);
             var url = $(this).data('link');
@@ -84,21 +83,6 @@
                     success: function(data) {
                         $('.modal_content').html(data);
                         $('.select2').css('width','100%').select2({allowClear:true});
-                    }
-                });
-            },700);
-        });
-
-        //user information
-        $("a[href='#pis_info']").on('click',function(){
-            $('.modal-content').html(loadingState);
-            var url = $(this).data('link');
-            setTimeout(function(){
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(data) {
-                        $('.modal-content').html(data);
                     }
                 });
             },700);
@@ -156,6 +140,8 @@
             }).fail(function (data) {
                 console.log(data);
                 alert('Posts could not be loaded.');
+                var redirect_url = "<?php echo asset('/'); ?>";
+                window.location.href = redirect_url;
             });
         }
 

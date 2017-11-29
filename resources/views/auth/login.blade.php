@@ -74,12 +74,14 @@
                                     I forgot my password
                                 </a>
                             </div>
+                            <!--
                             <div>
                                 <a href="#" data-target="#signup-box" class="user-signup-link">
                                     New Employee
                                     <i class="ace-icon fa fa-arrow-right"></i>
                                 </a>
                             </div>
+                            -->
                         </div>
                     </div><!-- /.widget-body -->
                 </div><!-- /.login-box -->
@@ -128,6 +130,7 @@
                 <div id="signup-box" class="signup-box widget-box no-border">
                     <div class="widget-body">
                         <div class="widget-main">
+
                             <h4 class="header green lighter bigger">
                                 <i class="ace-icon fa fa-users blue"></i>
                                 New Employee

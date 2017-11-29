@@ -19,11 +19,12 @@ Route::get('logout', function(){
 
 Auth::routes();
 
+
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','HomeController@login');
 Route::match(['GET','POST'],'/register','Auth\RegisterController@register');
 Route::post('userid_trapping','HomeController@userid_trapping');
-Route::get('/test','Auth\RegisterController@test');
+Route::post('/addUserid','Auth\RegisterController@addUserid');
 
 //PIS
 Route::get('/pisList', 'PisController@pisList');

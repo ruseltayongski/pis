@@ -165,13 +165,22 @@ class PisController extends Controller
 
     public function updatePersonalInformation(Request $request){
 
-        /*$id = $request->get('id');
+        $id = $request->get('id');
         $column = $request->get('column');
         $value = $request->get('value');
 
-        return Personal_Information::where('id',$id)->update([
-            $column => $value
-        ]);*/
+        if($column == 'division_id'){
+            $arrayValue = [
+                $column => $value,
+                "section_id" => Section::where('division','=',$value)->first()->id
+            ];
+        } else {
+            $arrayValue = [
+                $column => $value
+            ];
+        }
+
+        return Personal_Information::where('id',$id)->update($arrayValue);
     }
 
     public function updateChildren(Request $request){

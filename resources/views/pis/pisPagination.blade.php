@@ -47,14 +47,14 @@
 <script>
     //user information
     $("a[href='#pis_info']").on('click',function(){
-        $('.modal-content').html(loadingState);
+        $('.modal_content').html(loadingState);
         var url = $(this).data('link');
         setTimeout(function(){
             $.ajax({
                 url: url,
                 type: 'GET',
                 success: function(data) {
-                    $('.modal-content').html(data);
+                    $('.modal_content').html(data);
                 }
             });
         },700);
