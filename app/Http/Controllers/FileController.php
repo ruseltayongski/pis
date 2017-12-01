@@ -337,7 +337,8 @@ class FileController extends Controller {
             $personal_information[] = [
                 "userid" => $finalUserid,
                 "fname" => $row->fname,
-                "lname" => $row->mname,
+                "mname" => $row->mname,
+                "lname" => $row->lname,
                 "designation_id" => $row->designation,
                 "division_id" => $row->division,
                 "section_id" => $row->section,

@@ -14,7 +14,7 @@
                 $counter = 0;
                 $color = ['blue','orange','green','red','purple'];
                 $badge = ['primary','warning','success','danger','purple'];
-                $status = ["ALL","DUPLICATE"]
+                $status = ["ALL","DUPLICATE_ID","DUPLICATE_NAME"];
                 ?>
                 @foreach($status as $row)
                     <?php $statusCount++; ?>
@@ -69,81 +69,158 @@
 
     </div><!-- PAGE CONTENT ENDS -->
 
+
+    <div id="dialog-confirm" class="hide">
+        <div class="alert alert-info bigger-110">
+            These items will be permanently deleted and cannot be recovered.
+        </div>
+
+        <div class="space-6"></div>
+
+        <p class="bigger-110 bolder center grey">
+            <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
+            Are you sure?
+        </p>
+    </div><!-- #dialog-confirm -->
+
 @endsection
 @section('js')
     <script>
-        $("a[href='#document_form']").on('click',function(e){
-            $('.modal_title').html('Add New Employee');
-            $('.modal_content').html(loadingState);
-            var url = $(this).data('link');
-            setTimeout(function(){
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(data) {
-                        $('.modal_content').html(data);
-                        $('.select2').css('width','100%').select2({allowClear:true});
-                    }
-                });
-            },700);
-        });
-
-        $("input[name='keyword']").on("keyup",function(e){
-            this.focus();
-            e.preventDefault();
-            if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
-                keyword = $("input[name='keyword']").val();
-                getPosts(1,keyword);
-            }
-        });
-
-        var type = 'ALL';
-        var keyword = '';
-        $(".m-tab").each(function(index){
-            var href = $(this).attr('href');
-            $("a[href='"+href+"']").on("click",function(){
-                type = this.href.split('#')[1];
-                $('.posts_'+type).html("<span>Loading....</span>");
-                getPosts(1,keyword);
-            });
-        });
-
-        $(window).on('hashchange', function() {
-            if (window.location.hash) {
-                var page = window.location.hash.replace('#', '');
-                if (page == Number.NaN || page <= 0) {
-                    return false;
-                } else {
-                    getPosts(page,keyword);
+        jQuery(function($) {
+            $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
+                _title: function(title) {
+                    var $title = this.options.title || '&nbsp;';
+                    if( ("title_html" in this.options) && this.options.title_html == true )
+                        title.html($title);
+                    else title.text($title);
                 }
+            }));
+
+            delete_row();
+            function delete_row(){
+                $(".delete").each(function(index){
+                    $("#"+this.id).on('click', function(e) {
+                        e.preventDefault();
+                        console.log(this.id);
+                        var deleteId = this.id.split('delete')[1];
+                        var $this = $(this).parents(':eq(1)');
+                        $( "#dialog-confirm" ).removeClass('hide').dialog({
+                            resizable: false,
+                            width: '320',
+                            modal: true,
+                            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i></h4></div>",
+                            title_html: true,
+                            buttons: [
+                                {
+                                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete item",
+                                    "class" : "btn btn-danger btn-minier",
+                                    click: function() {
+                                        $( this ).dialog( "close" );
+                                        $this.remove();
+                                        Lobibox.notify('error',{
+                                            msg:'Successfully Deleted!'
+                                        });
+                                        var url = "<?php echo asset('mDelete'); ?>";
+                                        var json = {
+                                            "id": deleteId
+                                        };
+                                        console.log(json);
+                                        /*$.post(url,json,function(result){
+                                            console.log(result);
+                                        });*/
+
+                                    }
+                                }
+                                ,
+                                {
+                                    html: "<i class='ace-icon fa fa-times bigger-110'></i>&nbsp; Cancel",
+                                    "class" : "btn btn-minier",
+                                    click: function() {
+                                        $( this ).dialog( "close" );
+                                    }
+                                }
+                            ]
+                        });
+                    });
+                });
             }
-        });
 
-        $(document).ready(function() {
-            $(document).on('click', '.pagination a', function (e) {
-                getPosts($(this).attr('href').split('page=')[1],keyword);
-                e.preventDefault();
-            });
-        });
-
-        function getPosts(page,keyword) {
-            $('.posts_'+type).html("<span>Loading....</span>");
-            $.ajax({
-                url : '?page=' + page + '&keyword=' + keyword + '&type=' + type,
-                dataType: 'json',
-            }).done(function (data) {
-                //location.hash = page;
+            $("a[href='#document_form']").on('click',function(e){
+                $('.modal_title').html('Add New Employee');
+                $('.modal_content').html(loadingState);
+                var url = $(this).data('link');
                 setTimeout(function(){
-                    $('.posts_'+type).html(data.view);
-                    $("#count_"+type).html(data.personal_count);
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function(data) {
+                            $('.modal_content').html(data);
+                            $('.select2').css('width','100%').select2({allowClear:true});
+                        }
+                    });
                 },700);
-            }).fail(function (data) {
-                console.log(data);
-                alert('Posts could not be loaded.');
-                var redirect_url = "<?php echo asset('/'); ?>";
-                window.location.href = redirect_url;
             });
-        }
+
+            $("input[name='keyword']").on("keyup",function(e){
+                this.focus();
+                e.preventDefault();
+                if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
+                    keyword = $("input[name='keyword']").val();
+                    getPosts(1,keyword);
+                }
+            });
+
+            var type = 'ALL';
+            var keyword = '';
+            $(".m-tab").each(function(index){
+                var href = $(this).attr('href');
+                $("a[href='"+href+"']").on("click",function(){
+                    type = this.href.split('#')[1];
+                    $('.posts_'+type).html("<span>Loading....</span>");
+                    getPosts(1,keyword);
+                });
+            });
+
+            $(window).on('hashchange', function() {
+                if (window.location.hash) {
+                    var page = window.location.hash.replace('#', '');
+                    if (page == Number.NaN || page <= 0) {
+                        return false;
+                    } else {
+                        getPosts(page,keyword);
+                    }
+                }
+            });
+
+            $(document).ready(function() {
+                $(document).on('click', '.pagination a', function (e) {
+                    getPosts($(this).attr('href').split('page=')[1],keyword);
+                    e.preventDefault();
+                });
+            });
+
+            function getPosts(page,keyword) {
+                $('.posts_'+type).html("<span>Loading....</span>");
+
+                var url = "<?php echo asset('pisList'); ?>";
+                var json = {
+                    "page" : page,
+                    "keyword" : keyword,
+                    "type" : type,
+                    "_token" : "<?php echo csrf_token(); ?>"
+                };
+
+                $.post(url,json,function(data){
+                    setTimeout(function(){
+                        $('.posts_'+type).html(data.view);
+                        $("#count_"+type).html(data.personal_count);
+                        delete_row();
+                    },700);
+                });
+
+            }
+
+        });
 
     </script>
 @endsection

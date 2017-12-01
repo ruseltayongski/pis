@@ -59,6 +59,7 @@
 <div class="loading"></div>
 
 <body class="skin-2">
+
 @if(isset(Request::segments()[0]))
 <nav class="navbar navbar-default navbar-static-top">
     <div style="background-color:#2F4054;padding:10px;">

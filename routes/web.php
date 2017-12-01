@@ -27,7 +27,7 @@ Route::post('userid_trapping','HomeController@userid_trapping');
 Route::post('/addUserid','Auth\RegisterController@addUserid');
 
 //PIS
-Route::get('/pisList', 'PisController@pisList');
+Route::match(['GET','POST'],'/pisList', 'PisController@pisList');
 Route::get('/pisForm', 'PisController@pisForm');
 Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
@@ -48,6 +48,10 @@ Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExpo
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
 Route::get('sync_dts','FileController@sync_dts');
+
+Route::get('testView',function(){
+   return view('pis.testView');
+});
 
 
 

@@ -9,6 +9,7 @@
                 <th>Section / Division</th>
                 <th>Sex</th>
                 <th>Civil Status</th>
+                <th>Options</th>
             </tr>
             </thead>
 
@@ -33,6 +34,11 @@
                     </td>
                     <td>
                         {{ $user->civil_status }}
+                    </td>
+                    <td class="center">
+                        <a href="#" class="red delete" id="{{ 'delete'.$user->id }}">
+                            <i class="ace-icon fa fa-trash bigger-180"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

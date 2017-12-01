@@ -56,7 +56,8 @@ class PisController extends Controller
             })
                 ->orderBy('fname','asc')
                 ->paginate(10);
-        } else {
+        }
+        elseif($type == 'DUPLICATE_ID') {
             $personal_information = Personal_Information::
                 where("userid",'like',"%duplicate%")
                 ->where(function($q) use ($keyword){
@@ -64,10 +65,34 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
-            })
+                })
                 ->orderBy('fname','asc')
                 ->paginate(10);
         }
+        elseif($type == 'DUPLICATE_NAME'){
+            $personal_information = DB::table('personal_information')
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%");
+                })
+                ->whereIn('fname', function($query){
+                    $query->select('fname')
+                        ->from(with(new Personal_Information())->getTable())
+                        ->groupBy('fname')
+                        ->havingRaw('COUNT(fname)>1');
+                })
+                ->whereIn('lname', function($query){
+                    $query->select('lname')
+                        ->from(with(new Personal_Information())->getTable())
+                        ->groupBy('lname')
+                        ->havingRaw('COUNT(lname)>1');
+                })
+                ->orderBy('fname','lname','mname','asc')
+                ->paginate(10);
+        }
+
 
         $count_all = Personal_Information::where(function($q) use ($keyword){
             $q->where('fname','like',"%$keyword%")
@@ -75,7 +100,8 @@ class PisController extends Controller
                 ->orWhere('lname','like',"%$keyword%")
                 ->orWhere('userid','like',"%$keyword%");
         })->get();
-        $count_duplicate = Personal_Information::
+
+        $count_duplicateId = Personal_Information::
             where("userid",'like',"%duplicate%")
             ->where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
@@ -83,16 +109,24 @@ class PisController extends Controller
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
             })->get();
-        $countArray['ALL'] = count($count_all);
-        $countArray['DUPLICATE'] = count($count_duplicate);
+        $count_duplicateName = DB::table('personal_information')
+            ->select('fname','lname', DB::raw('COUNT(*) as `count`'))
+            ->groupBy('fname', 'lname')
+            ->havingRaw('COUNT(*) > 1')
+            ->get();
 
-        if ($request->ajax()) {
+        $countArray['ALL'] = count($count_all);
+        $countArray['DUPLICATE_ID'] = count($count_duplicateId);
+        $countArray['DUPLICATE_NAME'] = count($count_duplicateName);
+
+        if ($request->isMethod('post')) {
             return response()->json([
                 "view" => view('pis.pisPagination', [
                     "personal_information" => $personal_information
                 ])->render(),
                 "count_all" => count($count_all),
-                "count_duplicate" => count($count_duplicate)
+                "count_duplicateId" => count($count_duplicateId),
+                "count_duplicateName" => count($count_duplicateName)
             ]);
         }
 
