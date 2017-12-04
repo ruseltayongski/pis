@@ -25,6 +25,7 @@ class Family_Background extends Model
         'mmln',
         'mfn',
         'mmn',
+        'user_status'
     ];
 
     protected $hidden = [

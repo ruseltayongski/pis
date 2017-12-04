@@ -12,7 +12,8 @@ class Children extends Model
     protected $fillable = [
         'userid',
         'name',
-        'date_of_birth'
+        'date_of_birth',
+        'user_status'
     ];
 
     protected $hidden = [

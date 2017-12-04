@@ -26,6 +26,8 @@ class CreateEducationalBackground extends Migration
             $table->text('scholarship')->nullable();
             $table->text('unique_row')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -16,6 +16,8 @@ class CreateEducationType extends Migration
         Schema::create("education_type",function($table){
             $table->increments('id');
             $table->string('description')->nullable();
+
+            $table->text('user_status')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

@@ -76,27 +76,9 @@ class RegisterController extends Controller
     }
 
     public function register(Request $request){
-        User_dts::insertIgnore([
-            'username' => $request->get('userid'),
-            'password' => bcrypt($request->get('userid')),
-            'designation' => $request->get('designation'),
-            'division' => $request->get('division'),
-            'section' => $request->get('section'),
-            'fname' => $request->get('fname'),
-            'mname' => $request->get('mname'),
-            'lname' => $request->get('lname'),
-            'user_priv' => 0,
-            'status' => 0,
-        ]);
 
-        User::insertIgnore([
-            'username' => $request->get('userid'),
-            'password' => bcrypt($request->get('userid')),
-            'usertype' => '0'
-        ]);
-        
         Personal_Information::insertIgnore([
-            'userid' => $request->get('userid'),
+            'userid' => 'PIS'.uniqid().'no_userid',
             'designation_id' => $request->get('designation'),
             'division_id' => $request->get('division'),
             'section_id' => $request->get('section'),
@@ -117,9 +99,10 @@ class RegisterController extends Controller
             'case_address' => $request->get('case_address'),
             'case_contact' => $request->get('case_contact'),
             'remarks' => 'PIS',
+            'user_status' => "1"
         ]);
 
-        return Redirect::back();
+        return Redirect::back()->with('addUserid', 'Successfully Added New User');;
 
     }
 
@@ -129,12 +112,13 @@ class RegisterController extends Controller
 
         $personal_information = Personal_Information::where('userid','=',$previousId)->first();
         $record = $personal_information;
+
         $record->fname == '' ? $fnameFinal = "" : $fnameFinal = $record->fname;
         $record->mname == '' ? $mnameFinal = "" : $mnameFinal = $record->mname;
         $record->lname == '' ? $lnameFinal = "" : $lnameFinal = $record->lname;
-        $record->designation == '' ? $designationFinal = 0 : $designationFinal = $record->designation_id;
-        $record->division == '' ? $divisionFinal = 0 : $divisionFinal = $record->division_id;
-        $record->section == '' ? $sectionFinal = 0 : $sectionFinal = $record->section_id;
+        is_null($record->designation) ? $designationFinal = 0 : $designationFinal = (int)$record->designation_id;
+        is_null($record->division) == '' ? $divisionFinal = 0 : $divisionFinal = (int)$record->division_id;
+        is_null($record->section) == '' ? $sectionFinal = 0 : $sectionFinal = (int)$record->section_id;
 
         User_dts::insertIgnore([
             "fname" => $fnameFinal,
@@ -149,16 +133,18 @@ class RegisterController extends Controller
             "status" => 0
         ]);
 
-        User::where('username','=',$previousId)->update([
-            "username" => $currentId,
-            "password" => bcrypt($currentId)
+        User::insertIgnore([
+            'username' => $currentId,
+            'password' => bcrypt($currentId),
+            'usertype' => '0',
+            'user_status' => "1"
         ]);
 
         $personal_information->update([
             "userid" => $currentId
         ]);
 
-        return Redirect::back()->with('addUserid', 'Insert Employee ID');
+        return Redirect::back()->with('addUserid', 'Successfully Inserted Employee ID');
     }
 
 

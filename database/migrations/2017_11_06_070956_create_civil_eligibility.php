@@ -24,6 +24,8 @@ class CreateCivilEligibility extends Migration
             $table->text('date_of_validity')->nullable();
             $table->text('unique_row')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

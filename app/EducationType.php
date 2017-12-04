@@ -11,6 +11,7 @@ class EducationType extends Model
 
     protected $fillable = [
         'description',
+        'user_status'
     ];
 
     protected $hidden = [

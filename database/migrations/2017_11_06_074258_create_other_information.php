@@ -21,6 +21,8 @@ class CreateOtherInformation extends Migration
             $table->text('organization')->nullable();
             $table->text('unique_row')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

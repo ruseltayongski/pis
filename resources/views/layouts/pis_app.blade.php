@@ -448,15 +448,7 @@
 
 
 @section('js')
-    <script>
-        @if(session()->has('addUserid'))
-            $.gritter.add({
-                title: 'Success',
-                text: "<?php echo session()->get('success'); ?>",
-                class_name: 'gritter-info gritter-center',
-            });
-        @endif
-    </script>
+
 
 @show
 

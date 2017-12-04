@@ -46,6 +46,7 @@ class Personal_Information extends Model
         'division_id',
         'section_id',
         'remarks',
+        'user_status'
     ];
 
     protected $hidden = [

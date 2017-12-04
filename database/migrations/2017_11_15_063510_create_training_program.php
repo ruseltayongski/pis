@@ -24,6 +24,8 @@ class CreateTrainingProgram extends Migration
             $table->text('sponsored_by')->nullable();
             $table->text('unique_row')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -18,6 +18,7 @@ class Training_Program extends Model
         'type_of_id',
         'sponsored_by',
         'unique_row',
+        'user_status'
     ];
 
     protected $hidden = [

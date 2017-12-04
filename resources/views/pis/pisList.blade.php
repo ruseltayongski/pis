@@ -81,7 +81,7 @@
             <i class="ace-icon fa fa-hand-o-right blue bigger-120"></i>
             Are you sure?
         </p>
-    </div><!-- #dialog-confirm -->
+    </div>
 
 @endsection
 @section('js')
@@ -120,14 +120,14 @@
                                         Lobibox.notify('error',{
                                             msg:'Successfully Deleted!'
                                         });
-                                        var url = "<?php echo asset('mDelete'); ?>";
+                                        var url = "<?php echo asset('deletePersonalInformation'); ?>";
                                         var json = {
-                                            "id": deleteId
+                                            "userid": deleteId,
+                                            "_token": "<?php echo csrf_token(); ?>"
                                         };
-                                        console.log(json);
-                                        /*$.post(url,json,function(result){
+                                        $.post(url,json,function(result){
                                             console.log(result);
-                                        });*/
+                                        });
 
                                     }
                                 }
@@ -222,5 +222,15 @@
 
         });
 
+        @if(session()->has('addUserid'))
+            Lobibox.notify('success',{
+                msg:"<?php echo session()->get('addUserid'); ?>"
+            });
+        @endif
+        @if(session()->has('addUser'))
+        Lobibox.notify('success',{
+            msg:"<?php echo session()->get('addUser'); ?>"
+        });
+        @endif
     </script>
 @endsection

@@ -18,6 +18,7 @@ class Voluntary_Work extends Model
         'type_of_id',
         'nature_of_work',
         'unique_row',
+        'user_status'
     ];
 
     protected $hidden = [

@@ -79,7 +79,8 @@ class FileController extends Controller {
                                 'employee_status' => $value->employee_status,
                                 'job_status' => $value->job_status,
                                 'inactive_area' => $value->inactive_area,
-                                'remarks' => 'PIS'
+                                'remarks' => 'PIS',
+                                'user_status' => "1"
                             ]);
                         }
                     } else {
@@ -129,7 +130,8 @@ class FileController extends Controller {
                             'employee_status' => $value->employee_status,
                             'job_status' => $value->job_status,
                             'inactive_area' => $value->inactive_area,
-                            'remarks' => 'PIS'
+                            'remarks' => 'PIS',
+                            'user_status' => "1"
                         ];
                     }
 
@@ -342,7 +344,8 @@ class FileController extends Controller {
                 "designation_id" => $row->designation,
                 "division_id" => $row->division,
                 "section_id" => $row->section,
-                "remarks" => 'DTS_USER'
+                "remarks" => 'DTS_USER',
+                'user_status' => "1"
             ];
         }
         User::insertIgnore($user);

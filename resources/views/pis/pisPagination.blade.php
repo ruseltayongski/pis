@@ -1,3 +1,7 @@
+<?php
+    use PIS\Section;
+    use PIS\Division;
+?>
 @if(isset($personal_information) and count($personal_information) > 0)
     <div class="table-responsive">
         <table id="simple-table" class="table table-bordered table-hover">
@@ -26,8 +30,8 @@
                         @if($user->designation_id) {{ \PIS\Designation::find($user->designation_id)->description }} @else {{ $user->position }} @endif
                     </td>
                     <td>
-                        <label class="orange">@if($user->section_id) {{ \PIS\Section::find($user->section_id)->description }} @else NO SECTION @endif</label>
-                        <small><em>(@if($user->division_id) {{ \PIS\Division::find($user->division_id)->description }} @else NO DIVISION @endif {{ ')' }}</em></small>
+                        <label class="orange">@if(isset(Section::find($user->section_id)->description)) {{ Section::find($user->section_id)->description }} @else NO SECTION @endif</label>
+                        <small><em>(@if(isset(Division::find($user->division_id)->description)) {{ Division::find($user->division_id)->description }} @else NO DIVISION @endif {{ ')' }}</em></small>
                     </td>
                     <td>
                         {{ $user->sex }}
@@ -36,9 +40,13 @@
                         {{ $user->civil_status }}
                     </td>
                     <td class="center">
-                        <a href="#" class="red delete" id="{{ 'delete'.$user->id }}">
-                            <i class="ace-icon fa fa-trash bigger-180"></i>
-                        </a>
+                        @if(strpos($user->userid,'no_userid'))
+                            NO USERID
+                        @else
+                            <a href="#" class="red delete" id="{{ 'delete'.$user->userid }}">
+                                <i class="ace-icon fa fa-trash bigger-180"></i>
+                            </a>
+                        @endif
                     </td>
                 </tr>
             @endforeach

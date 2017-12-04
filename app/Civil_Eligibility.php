@@ -18,6 +18,7 @@ class Civil_Eligibility extends Model
         'license_number',
         'date_of_validity',
         'unique_row',
+        'user_status'
     ];
 
     protected $hidden = [

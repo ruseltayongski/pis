@@ -54,6 +54,8 @@ class CreatePersonalInformation extends Migration
             $table->text('section_id')->nullable();
             $table->text('remarks')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ class Other_Information extends Model
         'recognition',
         'organization',
         'unique_row',
+        'user_status'
     ];
 
     protected $hidden = [

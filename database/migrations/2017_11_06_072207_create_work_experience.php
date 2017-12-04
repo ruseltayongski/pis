@@ -26,6 +26,8 @@ class CreateWorkExperience extends Migration
             $table->text('government_service')->nullable();
             $table->text('unique_row')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

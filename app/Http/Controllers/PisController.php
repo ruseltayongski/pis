@@ -13,6 +13,7 @@ use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use PIS\Training_Program;
+use PIS\User;
 use PIS\Voluntary_Work;
 use PIS\Work_Experience;
 use PIS\Other_Information;
@@ -48,7 +49,9 @@ class PisController extends Controller
             $type = 'ALL';
         }
         if ($type == 'ALL'){
-            $personal_information = Personal_Information::where(function($q) use ($keyword){
+            $personal_information = Personal_Information::
+            where('user_status','=','1')
+            ->where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
@@ -59,7 +62,8 @@ class PisController extends Controller
         }
         elseif($type == 'DUPLICATE_ID') {
             $personal_information = Personal_Information::
-                where("userid",'like',"%duplicate%")
+                where('user_status','=','1')
+                ->where("userid",'like',"%duplicate%")
                 ->where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
@@ -70,31 +74,35 @@ class PisController extends Controller
                 ->paginate(10);
         }
         elseif($type == 'DUPLICATE_NAME'){
+            $newPersonal = new Personal_Information();
             $personal_information = DB::table('personal_information')
+                ->where('user_status','=','1')
                 ->where(function($q) use ($keyword){
                     $q->where('fname','like',"%$keyword%")
                         ->orWhere('mname','like',"%$keyword%")
                         ->orWhere('lname','like',"%$keyword%")
                         ->orWhere('userid','like',"%$keyword%");
                 })
-                ->whereIn('fname', function($query){
+                ->whereIn('fname', function($query) use($newPersonal){
                     $query->select('fname')
-                        ->from(with(new Personal_Information())->getTable())
+                        ->from(with($newPersonal)->getTable())
                         ->groupBy('fname')
                         ->havingRaw('COUNT(fname)>1');
                 })
-                ->whereIn('lname', function($query){
+                ->whereIn('lname', function($query) use($newPersonal){
                     $query->select('lname')
-                        ->from(with(new Personal_Information())->getTable())
+                        ->from(with($newPersonal)->getTable())
                         ->groupBy('lname')
                         ->havingRaw('COUNT(lname)>1');
                 })
-                ->orderBy('fname','lname','mname','asc')
+                ->orderBy('fname','ASC')
                 ->paginate(10);
         }
 
 
-        $count_all = Personal_Information::where(function($q) use ($keyword){
+        $count_all = Personal_Information::
+            where('user_status','=','1')
+            ->where(function($q) use ($keyword){
             $q->where('fname','like',"%$keyword%")
                 ->orWhere('mname','like',"%$keyword%")
                 ->orWhere('lname','like',"%$keyword%")
@@ -102,7 +110,8 @@ class PisController extends Controller
         })->get();
 
         $count_duplicateId = Personal_Information::
-            where("userid",'like',"%duplicate%")
+            where('user_status','=','1')
+            ->where("userid",'like',"%duplicate%")
             ->where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
@@ -449,5 +458,14 @@ class PisController extends Controller
         return $picture->move($dir, $filename);
     }
 
+    public function deletePersonalInformation(Request $request){
+        $userid = $request->userid;
+        Personal_Information::where('userid','=',$userid)->update([
+            "user_status" => "0"
+        ]);
+        User::where('userid','=',$userid)->update([
+           "user_status" => "0"
+        ]);
+    }
 
 }

@@ -19,7 +19,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-<div id="document_form" class="modal fade">
+<div id="document_form" class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header no-padding">

@@ -31,6 +31,8 @@ class CreateFamilyBackground extends Migration
             $table->text('mfn')->nullable();
             $table->text('mmn')->nullable();
 
+            $table->text('user_status')->nullable();
+            $table->rememberToken();
             $table->timestamps();
         });
     }

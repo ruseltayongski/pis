@@ -19,7 +19,8 @@ class Work_Experience extends Model
         'salary_grade',
         'status_of_appointment',
         'government_service',
-        'unique_row'
+        'unique_row',
+        'user_status'
     ];
 
     protected $hidden = [
