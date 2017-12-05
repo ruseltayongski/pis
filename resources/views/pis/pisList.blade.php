@@ -14,7 +14,7 @@
                 $counter = 0;
                 $color = ['blue','orange','green','red','purple'];
                 $badge = ['primary','warning','success','danger','purple'];
-                $status = ["ALL","DUPLICATE_ID","DUPLICATE_NAME"];
+                $status = ["ALL","DUPLICATE_ID","DUPLICATE_NAME","INACTIVE"];
                 ?>
                 @foreach($status as $row)
                     <?php $statusCount++; ?>
@@ -72,7 +72,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            These items will be permanently deleted and cannot be recovered.
+            This employee will be deleted
         </div>
 
         <div class="space-6"></div>
@@ -101,9 +101,9 @@
                 $(".delete").each(function(index){
                     $("#"+this.id).on('click', function(e) {
                         e.preventDefault();
-                        console.log(this.id);
                         var deleteId = this.id.split('delete')[1];
                         var $this = $(this).parents(':eq(1)');
+                        console.log(this.id);
                         $( "#dialog-confirm" ).removeClass('hide').dialog({
                             resizable: false,
                             width: '320',
@@ -112,7 +112,7 @@
                             title_html: true,
                             buttons: [
                                 {
-                                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete item",
+                                    html: "<i class='ace-icon fa fa-trash-o bigger-110'></i>&nbsp; Delete",
                                     "class" : "btn btn-danger btn-minier",
                                     click: function() {
                                         $( this ).dialog( "close" );
@@ -125,6 +125,7 @@
                                             "userid": deleteId,
                                             "_token": "<?php echo csrf_token(); ?>"
                                         };
+
                                         $.post(url,json,function(result){
                                             console.log(result);
                                         });
@@ -213,11 +214,9 @@
                 $.post(url,json,function(data){
                     setTimeout(function(){
                         $('.posts_'+type).html(data.view);
-                        $("#count_"+type).html(data.personal_count);
                         delete_row();
                     },700);
                 });
-
             }
 
         });

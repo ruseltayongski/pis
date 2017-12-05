@@ -43,7 +43,7 @@
                         @if(strpos($user->userid,'no_userid'))
                             NO USERID
                         @else
-                            <a href="#" class="red delete" id="{{ 'delete'.$user->userid }}">
+                            <a href="#" class="red delete" id="{{ $type.'delete'.$user->userid }}">
                                 <i class="ace-icon fa fa-trash bigger-180"></i>
                             </a>
                         @endif

@@ -98,6 +98,18 @@ class PisController extends Controller
                 ->orderBy('fname','ASC')
                 ->paginate(10);
         }
+        elseif ($type == 'INACTIVE'){
+            $personal_information = Personal_Information::
+            where('user_status','=','0')
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%");
+                })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
 
 
         $count_all = Personal_Information::
@@ -123,24 +135,37 @@ class PisController extends Controller
             ->groupBy('fname', 'lname')
             ->havingRaw('COUNT(*) > 1')
             ->get();
+        $count_inactive = Personal_Information::
+             where('user_status','=','0')
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })->get();
 
         $countArray['ALL'] = count($count_all);
         $countArray['DUPLICATE_ID'] = count($count_duplicateId);
         $countArray['DUPLICATE_NAME'] = count($count_duplicateName);
+        $countArray['INACTIVE'] = count($count_inactive);
 
         if ($request->isMethod('post')) {
             return response()->json([
                 "view" => view('pis.pisPagination', [
-                    "personal_information" => $personal_information
+                    "personal_information" => $personal_information,
+                    "type" => $type
                 ])->render(),
                 "count_all" => count($count_all),
                 "count_duplicateId" => count($count_duplicateId),
-                "count_duplicateName" => count($count_duplicateName)
+                "count_duplicateName" => count($count_duplicateName),
+                "count_inactive" => count($count_inactive),
+                "countArray" => $countArray
             ]);
         }
 
         return view('pis.pisList',[
             "personal_information" => $personal_information,
+            "type" => $type,
             "countArray" => $countArray
         ]);
     }
@@ -463,7 +488,7 @@ class PisController extends Controller
         Personal_Information::where('userid','=',$userid)->update([
             "user_status" => "0"
         ]);
-        User::where('userid','=',$userid)->update([
+        User::where('username','=',$userid)->update([
            "user_status" => "0"
         ]);
     }

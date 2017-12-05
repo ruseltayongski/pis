@@ -35,6 +35,25 @@
                     <div class="space-6"></div>
 
                     <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="disbursement_type" class="select2 disbursement_type" data-placeholder="Select Disbursement Type" required>
+                        <option value=""></option>
+                        <option value="ATM">ATM</option>
+                        <option value="CASH_CARD">CASH CARD</option>
+                        <option value="NO_CARDS">W/O LBP CARDS</option>
+                        <option value="UNDER_VTF">UNDER VTF</option>
+                    </select>
+                    <div class="space-6"></div>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="salary_charge" class="select2 salary_charge" data-placeholder="Select Salary Charge" required>
+                        <option value=""></option>
+                        @foreach($division as $row)
+                            <option value="{{ $row->id }}">{{ $row->description }}</option>
+                        @endforeach
+                    </select>
+                    <div class="space-6"></div>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
                             <input type="text" name="fname" class="form-control" placeholder="Firstname" required/>

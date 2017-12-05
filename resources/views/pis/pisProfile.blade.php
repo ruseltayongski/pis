@@ -171,6 +171,20 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Disbursement Type</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">{{ $user->disbursement_type }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Salary Charge</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsalary_charge">{{ \PIS\Division::find($user->salary_charge)->description }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name"> LASTNAME </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>
@@ -1476,10 +1490,19 @@
                 return  [
                     {
                         "division" : division,
-                        "section" : section
+                        "section" : section,
+                        "disbursement_type" : [
+                            {value: "ATM", text: "ATM"},
+                            {value: "CASH_CARD", text: "CASH CARD"},
+                            {value: "NO_CARDS", text: "W/O LBP CARDS"},
+                            {value: "UNDER_VTF", text: "UNDER VTF"}
+                        ]
+                        ,
+                        "salary_charge" : division
                     }
                 ];
             }
+            console.log(source_func(6)[0].disbursement_type);
             console.log(source_func(6)[0].section);
             editable_select();
             function editable_select(){
@@ -1490,6 +1513,12 @@
                     }
                     else if(this.id.includes('section')){
                         source = source_func("<?php echo $user->division_id ?>")[0].section;
+                    }
+                    else if(this.id.includes('disbursement_type')){
+                        source = source_func("<?php echo $user->disbursement_type ?>")[0].disbursement_type;
+                    }
+                    else if(this.id.includes('salary_charge')){
+                        source = source_func("<?php echo $user->salary_charge ?>")[0].salary_charge;
                     }
                     $('#'+this.id).editable({
                         name : this.id,

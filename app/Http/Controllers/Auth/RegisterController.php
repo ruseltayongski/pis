@@ -99,6 +99,8 @@ class RegisterController extends Controller
             'case_address' => $request->get('case_address'),
             'case_contact' => $request->get('case_contact'),
             'remarks' => 'PIS',
+            'disbursement_type' => $request->get('disbursement_type'),
+            'salary_charge' => $request->get('salary_charge'),
             'user_status' => "1"
         ]);
 

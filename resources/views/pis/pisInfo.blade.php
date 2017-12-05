@@ -54,9 +54,9 @@
 @if(strpos($user->userid,'no_userid'))
     <script>
         var userid_flag = false;
-        $("input[name='userid']").on("keyup",function(e){
+        $("input[name='currentId']").on("keyup",function(e){
             e.preventDefault();
-            var element = $("input[name='userid']");
+            var element = $("input[name='currentId']");
             var userid = element.val();
             $.post("<?php echo asset('userid_trapping')?>", { "userid": element.val(), "_token": "<?php echo csrf_token(); ?>" }, function(result){
                 if(result != ''){
@@ -78,8 +78,8 @@
         $('.form-submit').on('submit',function(){
             if(userid_flag){
                 alert('ID NO already exist in the database.');
-                $("input[name='userid']").val('');
-                $("input[name='userid']").focus();
+                $("input[name='currentId']").val('');
+                $("input[name='currentId']").focus();
                 return false;
             }
         });
