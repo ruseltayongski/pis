@@ -7,6 +7,7 @@
     @if(Auth::user()->usertype)
     <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'excel' ? 'active-nav' : '' }} @endif"><a href="{{ url('/excel') }}"><i class="ace-icon fa fa-home"></i> Home</a></li>
     <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'pisList' ? 'active-nav' : '' }} @endif"><a href="{{ url('/pisList') }}"><i class="ace-icon fa fa-database"></i> PIS List</a></li>
+    <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'salaryList' ? 'active-nav' : '' }} @endif"><a href="{{ url('/salaryList') }}"><i class="ace-icon fa fa-money"></i> Salary Grade</a></li>
     @else
         <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'pisProfile' ? 'active-nav' : '' }} @endif"><a href="{{ url('/pisProfile') }}"><i class="ace-icon fa fa-user"></i> Profile</a></li>
     @endif

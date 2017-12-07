@@ -54,5 +54,8 @@ Route::get('testView',function(){
    return view('pis.testView');
 });
 
+//SALARY GRADE
+Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
+
 
 

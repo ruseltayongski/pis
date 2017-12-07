@@ -104,7 +104,7 @@ class RegisterController extends Controller
             'user_status' => "1"
         ]);
 
-        return Redirect::back()->with('addUserid', 'Successfully Added New User');;
+        return Redirect::back()->with('addUserid', 'Successfully Added New User');
 
     }
 
