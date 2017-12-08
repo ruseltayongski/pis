@@ -15,7 +15,7 @@ class CreateSalaryGrade extends Migration
     {
         Schema::create('salary_grade', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('salary_tranche')->nullable();
+            $table->text('salary_tranche')->nullable();
             $table->integer('salary_grade')->nullable();
             $table->integer('salary_step')->nullable();
             $table->decimal('salary_amount',8,2)->nullable();

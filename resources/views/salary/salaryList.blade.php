@@ -43,9 +43,9 @@
                 </label>
             </div>
             <div class="col-xs-12 col-md-6">
-                <a href="#document_form" data-link="{{ asset('pisForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
+                <a href="#document_form" data-link="{{ asset('salaryForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
                     <i class="fa fa-user-plus"></i>
-                    Add User
+                    Add Salary Grade
                 </a>
             </div>
         </div>
@@ -147,7 +147,7 @@
             }
 
             $("a[href='#document_form']").on('click',function(e){
-                $('.modal_title').html('Add New Employee');
+                $('.modal_title').html('Add New Salary Grade');
                 $('.modal_content').html(loadingState);
                 var url = $(this).data('link');
                 setTimeout(function(){
@@ -221,9 +221,9 @@
 
         });
 
-        @if(session()->has('addUserid'))
+        @if(session()->has('salaryAdd'))
         Lobibox.notify('success',{
-            msg:"<?php echo session()->get('addUserid'); ?>"
+            msg:"<?php echo session()->get('salaryAdd'); ?>"
         });
         @endif
         @if(session()->has('addUser'))

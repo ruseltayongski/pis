@@ -34,7 +34,7 @@ use PIS\Division;
                         @if(strpos($salary->userid,'no_userid'))
                             NO USERID
                         @else
-                            <a href="#" class="red delete" id="{{ $type.'delete'.$salary->userid }}">
+                            <a href="#" class="red delete" id="">
                                 <i class="ace-icon fa fa-trash bigger-180"></i>
                             </a>
                         @endif
@@ -44,9 +44,9 @@ use PIS\Division;
             </tbody>
         </table>
     </div>
-    {{ $personal_information->links() }}
+    {{ $salary_grade->links() }}
 @else
-    <div class="alert alert-danger" role="alert">PIS records are empty.</div>
+    <div class="alert alert-danger" role="alert">Salary grade records are empty.</div>
 @endif
 
 <script>

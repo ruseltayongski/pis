@@ -56,6 +56,8 @@ Route::get('testView',function(){
 
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
+Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
+Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 
 
 

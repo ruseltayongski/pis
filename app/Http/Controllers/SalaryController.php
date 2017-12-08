@@ -3,7 +3,9 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use PIS\SalaryGrade;
+use Illuminate\Support\Facades\Session;
 
 class SalaryController extends Controller
 {
@@ -35,7 +37,7 @@ class SalaryController extends Controller
         }
 
         $count_all = SalaryGrade::
-        where('user_status','=','1')
+        where('status','=','1')
             ->where(function($q) use ($keyword){
                 $q->where('salary_tranche','like',"%$keyword%")
                     ->orWhere('salary_grade','like',"%$keyword%")
@@ -43,7 +45,7 @@ class SalaryController extends Controller
                     ->orWhere('salary_amount','like',"%$keyword%");
             })->get();
 
-        $countArray['ALL'] = count($count_all);
+        $countArray['Second'] = count($count_all);
 
         if ($request->isMethod('post')) {
             return response()->json([
@@ -62,8 +64,22 @@ class SalaryController extends Controller
             "count_all" => count($count_all),
             "countArray" => $countArray
         ]);
+    }
 
+    public function salaryAdd(Request $request){
+        SalaryGrade::create([
+            "salary_tranche" => $request->salary_tranche,
+            "salary_grade" => $request->salary_grade,
+            "salary_step" => $request->salary_step,
+            "salary_amount" => $request->salary_amount,
+            "status" => "1"
+        ]);
 
+        return Redirect::back()->with('salaryAdd', 'Successfully Added New User');
+    }
+
+    public function salaryForm(Request $request){
+        return view('salary.salaryForm');
     }
 
 }

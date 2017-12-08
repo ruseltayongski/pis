@@ -1,8 +1,3 @@
-<style>
-    .select2-container {
-        z-index: 2050;
-    }
-</style>
 <div id="signup-box" class="signup-box widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">
