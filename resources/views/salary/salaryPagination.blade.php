@@ -1,15 +1,10 @@
-<?php
-use PIS\Section;
-use PIS\Division;
-?>
 @if(isset($salary_grade) and count($salary_grade) > 0)
     <div class="table-responsive">
         <table id="simple-table" class="table table-bordered table-hover">
             <thead>
             <tr class="info">
                 <th>Salary Tranche</th>
-                <th>Salary Grade</th>
-                <th>Salary Step</th>
+                <th>Salary Grade / Salary Step</th>
                 <th>Salary Amount</th>
                 <th>Option</th>
             </tr>
@@ -19,25 +14,18 @@ use PIS\Division;
             @foreach($salary_grade as $salary)
                 <tr>
                     <td>
-                        {{ $salary->salary_tranche }}
+                        <b class="green">{{ $salary->salary_tranche }}</b>
                     </td>
                     <td>
-                        {{ $salary->salary_grade }}
+                        <b class="orange">{{ $salary->salary_grade }} - {{ $salary->salary_step }}</b>
                     </td>
                     <td>
-                        {{ $salary->salary_step }}
+                        <b class="blue">{{ $salary->salary_amount }}</b>
                     </td>
-                    <td>
-                        {{ $salary->salary_amount }}
-                    </td>
-                    <td class="center">
-                        @if(strpos($salary->userid,'no_userid'))
-                            NO USERID
-                        @else
-                            <a href="#" class="red delete" id="">
-                                <i class="ace-icon fa fa-trash bigger-180"></i>
-                            </a>
-                        @endif
+                    <td class="center" width="5%">
+                        <a href="#" class="red delete" id="{{ $tranche.'delete'.$salary->id }}">
+                            <i class="ace-icon fa fa-trash bigger-180"></i>
+                        </a>
                     </td>
                 </tr>
             @endforeach

@@ -50,14 +50,49 @@ Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileContr
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
 Route::get('sync_dts','FileController@sync_dts');
 
-Route::get('testView',function(){
-   return view('pis.testView');
+Route::get('test',function(){
+
+    $tranche = ["Second" => "Second","Third" => "Third","Fourth" =>"Fourth"];
+    $amount = [
+        "Second" => [
+            1 => [
+                "dummy_index",
+                "9981",
+                "10072",
+                "10165",
+                "10258",
+                "10352",
+                "10453",
+                "10543",
+                "10640"
+            ]
+        ]
+    ];
+
+    foreach($tranche as $indexTranche){
+        foreach(range(1,1) as $indexGrade){
+            foreach(range(1,8) as $indexStep){
+                $salaryArray[] = [
+                    "salary_tranche" => $tranche[$indexTranche],
+                    "salary_grade" => $indexGrade,
+                    "salary_step" => $indexStep,
+                    "salary_amount" => $amount[$indexTranche][$indexGrade][$indexStep],
+                    "status" => 1
+                ];
+            }
+        }
+
+        break;
+    }
+
+    return $salaryArray;
+
 });
 
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
 Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
-
+Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 
 

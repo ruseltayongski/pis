@@ -1,3 +1,8 @@
+<style>
+    .select2-selection__clear{
+        margin-right: 10%;
+    }
+</style>
 <div id="signup-box" class="signup-box widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">

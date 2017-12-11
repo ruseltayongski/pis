@@ -18,12 +18,12 @@ class SalaryController extends Controller
         Session::put('keyword',$request->input('keyword'));
         $keyword = Session::get('keyword');
         if($request->get('tranches')){
-            $tranche = $request->get('type');
+            $tranche = $request->get('tranches');
         } else {
-            $tranche = 'Second';
+            $tranche = 'All';
         }
 
-        if ($tranche == 'Second'){
+        if($tranche == 'All'){
             $salary_grade = SalaryGrade::
             where('status','=','1')
                 ->where(function($q) use ($keyword){
@@ -35,17 +35,55 @@ class SalaryController extends Controller
                 ->orderBy('salary_tranche','asc')
                 ->paginate(10);
         }
+        else if ($tranche == 'Second'){
+            $salary_grade = SalaryGrade::
+            where('salary_tranche','=','Second')
+            ->where('status','=','1')
+                ->where(function($q) use ($keyword){
+                    $q->where('salary_tranche','like',"%$keyword%")
+                        ->orWhere('salary_grade','like',"%$keyword%")
+                        ->orWhere('salary_step','like',"%$keyword%")
+                        ->orWhere('salary_amount','like',"%$keyword%");
+                })
+                ->orderBy('salary_tranche','asc')
+                ->paginate(10);
+        }
+        else if ($tranche == 'Third'){
+            $salary_grade = SalaryGrade::
+            where('salary_tranche','=','Third')
+                ->where('status','=','1')
+                ->where(function($q) use ($keyword){
+                    $q->where('salary_tranche','like',"%$keyword%")
+                        ->orWhere('salary_grade','like',"%$keyword%")
+                        ->orWhere('salary_step','like',"%$keyword%")
+                        ->orWhere('salary_amount','like',"%$keyword%");
+                })
+                ->orderBy('salary_tranche','asc')
+                ->paginate(10);
+        }
+        else if ($tranche == 'Fourth'){
+            $salary_grade = SalaryGrade::
+            where('salary_tranche','=','Fourth')
+                ->where('status','=','1')
+                ->where(function($q) use ($keyword){
+                    $q->where('salary_tranche','like',"%$keyword%")
+                        ->orWhere('salary_grade','like',"%$keyword%")
+                        ->orWhere('salary_step','like',"%$keyword%")
+                        ->orWhere('salary_amount','like',"%$keyword%");
+                })
+                ->orderBy('salary_tranche','asc')
+                ->paginate(10);
+        }
 
-        $count_all = SalaryGrade::
-        where('status','=','1')
-            ->where(function($q) use ($keyword){
-                $q->where('salary_tranche','like',"%$keyword%")
-                    ->orWhere('salary_grade','like',"%$keyword%")
-                    ->orWhere('salary_step','like',"%$keyword%")
-                    ->orWhere('salary_amount','like',"%$keyword%");
-            })->get();
+        $count_all = SalaryGrade::where('status','=','1')->get();
+        $count_second = SalaryGrade::where('status','=','1')->where('salary_tranche','=','Second')->get();
+        $count_third = SalaryGrade::where('status','=','1')->where('salary_tranche','=','Third')->get();
+        $count_fourth = SalaryGrade::where('status','=','1')->where('salary_tranche','=','Fourth')->get();
 
-        $countArray['Second'] = count($count_all);
+        $countArray['All'] = count($count_all);
+        $countArray['Second'] = count($count_second);
+        $countArray['Third'] = count($count_third);
+        $countArray['Fourth'] = count($count_fourth);
 
         if ($request->isMethod('post')) {
             return response()->json([
@@ -80,6 +118,12 @@ class SalaryController extends Controller
 
     public function salaryForm(Request $request){
         return view('salary.salaryForm');
+    }
+
+    public function salaryDelete(Request $request){
+        return SalaryGrade::where('id','=',$request->id)->update([
+           "status" => 0
+        ]);
     }
 
 }

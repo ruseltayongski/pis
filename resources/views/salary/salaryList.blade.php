@@ -14,14 +14,14 @@
                 $counter = 0;
                 $color = ['blue','orange','green','red','purple'];
                 $badge = ['primary','warning','success','danger','purple'];
-                $status = ["Second"];
+                $status = ["All","Second","Third","Fourth"];
                 ?>
                 @foreach($status as $row)
                     <?php $statusCount++; ?>
                     <li class="@if($statusCount == 1){{ 'active' }}@endif">
                         <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
                             <i class="{{ $color[$counter] }} ace-icon fa fa-question-circle bigger-120"></i>
-                            {{ $row }}
+                            {{ $row }} Tranche
                             <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}" id="count_{{ $row }}">{{ $countArray[$row] }}</span>
                             <?php
                             $counter++;
@@ -55,7 +55,7 @@
             <?php $statusCount = 0; ?>
             @foreach($status as $row)
                 <?php $statusCount++; ?>
-                <div id="{{ $row }}" class="tab-pane fade @if($row == "Second"){{ 'in active' }}@endif">
+                <div id="{{ $row }}" class="tab-pane fade @if($row == "All"){{ 'in active' }}@endif">
                     <div class="posts_{{ $row }}">
                         <div class="row">
                             <div class="col-xs-12">
@@ -72,7 +72,7 @@
 
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
-            This employee will be deleted
+            This salary will be deleted
         </div>
 
         <div class="space-6"></div>
@@ -120,9 +120,9 @@
                                         Lobibox.notify('error',{
                                             msg:'Successfully Deleted!'
                                         });
-                                        var url = "<?php echo asset('deletePersonalInformation'); ?>";
+                                        var url = "<?php echo asset('salaryDelete'); ?>";
                                         var json = {
-                                            "userid": deleteId,
+                                            "id": deleteId,
                                             "_token": "<?php echo csrf_token(); ?>"
                                         };
 
@@ -171,7 +171,7 @@
                 }
             });
 
-            var type = 'ALL';
+            var type = 'All';
             var keyword = '';
             $(".m-tab").each(function(index){
                 var href = $(this).attr('href');
@@ -203,16 +203,16 @@
             function getPosts(page,keyword) {
                 $('.posts_'+type).html("<span>Loading....</span>");
 
-                var url = "<?php echo asset('pisList'); ?>";
+                var url = "<?php echo asset('salaryList'); ?>";
                 var json = {
                     "page" : page,
                     "keyword" : keyword,
-                    "type" : type,
+                    "tranches" : type,
                     "_token" : "<?php echo csrf_token(); ?>"
                 };
-
                 $.post(url,json,function(data){
                     setTimeout(function(){
+                        console.log(type);
                         $('.posts_'+type).html(data.view);
                         delete_row();
                     },700);
@@ -224,11 +224,6 @@
         @if(session()->has('salaryAdd'))
         Lobibox.notify('success',{
             msg:"<?php echo session()->get('salaryAdd'); ?>"
-        });
-        @endif
-        @if(session()->has('addUser'))
-        Lobibox.notify('success',{
-            msg:"<?php echo session()->get('addUser'); ?>"
         });
         @endif
     </script>
