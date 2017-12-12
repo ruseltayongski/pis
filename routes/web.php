@@ -38,7 +38,6 @@ Route::post('/updateChildren','PisController@updateChildren');
 Route::post('/updateEducationalBackground','PisController@updateEducationalBackground');
 Route::post('/updateCivilEligibility','PisController@updateCivilEligibility');
 Route::post('/updateWorkExperience','PisController@updateWorkExperience');
-Route::post('/updateWorkExperience','PisController@updateWorkExperience');
 Route::post('/updateVoluntaryWork','PisController@updateVoluntaryWork');
 Route::post('/updateTrainingProgram','PisController@updateTrainingProgram');
 Route::post('/updateOtherInformation','PisController@updateOtherInformation');
@@ -51,47 +50,29 @@ Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileC
 Route::get('sync_dts','FileController@sync_dts');
 
 Route::get('test',function(){
+    include "./vendor/autoload.php";
 
-    $tranche = ["Second" => "Second","Third" => "Third","Fourth" =>"Fourth"];
-    $amount = [
-        "Second" => [
-            1 => [
-                "dummy_index",
-                "9981",
-                "10072",
-                "10165",
-                "10258",
-                "10352",
-                "10453",
-                "10543",
-                "10640"
-            ]
-        ]
-    ];
+    $directory = getcwd();
+    $fullfile = asset('public/sample.pdf');
+    $content = '';
+    $out = '';
+    $parser = new \Smalot\PdfParser\Parser();
 
-    foreach($tranche as $indexTranche){
-        foreach(range(1,1) as $indexGrade){
-            foreach(range(1,8) as $indexStep){
-                $salaryArray[] = [
-                    "salary_tranche" => $tranche[$indexTranche],
-                    "salary_grade" => $indexGrade,
-                    "salary_step" => $indexStep,
-                    "salary_amount" => $amount[$indexTranche][$indexGrade][$indexStep],
-                    "status" => 1
-                ];
-            }
-        }
-
-        break;
-    }
-
-    return $salaryArray;
-
+    $document = $parser->parseFile($fullfile);
+    $pages    = $document->getPages();
+    $page     = $pages[6];
+    $content  = $page->getText();
+    $out      = explode(' ',$content);
+    echo '<pre>' . nl2br($out[0]) . '</pre>';
+    /*foreach($out as $row){
+        echo '<pre>' . $row . '</pre>';
+    }*/
 });
 
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
 Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
+Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 

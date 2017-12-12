@@ -32,7 +32,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -56,7 +56,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -149,7 +149,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
+                                                <div id="personal_information" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Personal Information</h3>
@@ -173,14 +173,25 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Disbursement Type</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">{{ $user->disbursement_type }}</span>
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">
+                                                                                <?php
+                                                                                    if($user->disbursement_type == 'CASH_CARD')
+                                                                                        echo 'CASH CARD';
+                                                                                    elseif ($user->disbursement_type == 'NO_CARDS')
+                                                                                        echo 'W/O LBP CARDS';
+                                                                                    elseif ($user->disbursement_type == 'UNDER_VTF')
+                                                                                        echo 'UNDER VTF';
+                                                                                    else
+                                                                                        echo $user->disbursement_type;
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Salary Charge</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsalary_charge">{{ \PIS\Division::find($user->salary_charge)->description }}</span>
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsalary_charge">@if($user->salary_charge){{ \PIS\Division::find($user->salary_charge)->description }}@endif</span>
                                                                         </div>
                                                                     </div>
 
@@ -663,7 +674,7 @@
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane">
+                                                <div id="work_experience" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Work Experience</h3>
@@ -689,12 +700,12 @@
                                                                     @foreach($work_experience as $row)
                                                                         <?php $workCount++; ?>
                                                                         <tr id="">
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                                                                             <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colmonthly_salary' }}" >{{ $row->monthly_salary }}</span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colsalary_grade' }}" >{{ $row->salary_grade }}</span></td>
+                                                                            <td class="center"><b class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >{{ $row->monthly_salary }}</b></td>
+                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colsalary_grade' }}" >{{ $row->salary_grade }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
                                                                         </tr>
@@ -918,12 +929,12 @@
 
                 var workAppend =
                     '<tr id="'+workUnique_row+'">\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
+                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
+                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                                 <td><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
+                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                             </tr>';
@@ -1351,7 +1362,7 @@
                             }
                             else if(Class.includes('other_information')){
                                 json = {
-                                    "id" : this.id.split('other')[1].split('col')[0],
+                                    "id" : this.id.split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
@@ -1399,6 +1410,15 @@
                     {value:'Dummy', text:'Dummy'}
                 ],
                 "cdate_of_birth": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "salary_grade": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_to": [
                     {value:'Dummy', text:'Dummy'}
                 ]
             }];
@@ -1458,14 +1478,60 @@
                                 }
 
                                 url = "{!! asset('updateChildren') !!}";
-
                             }
+                            else if(columnId == 'salary_grade'){
+                                chilBool = true; // make true so can add new row
+                                var salary_grade = $("#salary_grade").val()+'-'+$("#salary_step").val();
+                                var monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
+                                $("#"+this.id).html(salary_grade);
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : 'salary_grade',
+                                    "salary_tranche" : $("#salary_tranche").val(),
+                                    "salary_grade" : $("#salary_grade").val(),
+                                    "salary_step" : $("#salary_step").val(),
+                                    "value" : $("#salary_tranche").val()+"|"+salary_grade,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+
+                                var $trapping = this.id.replace('childrenDOB','childrenName').replace('colcdate_of_birth','colcname');
+                                if($("#"+$trapping).text() != 'Not Applicable' && $("#"+$trapping).text() != ''){
+                                    console.log($("#"+$trapping).text());
+                                    chilBool = true; // make true so can add new row
+                                } else {
+                                    chilBool = false;
+                                }
+
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            else if(columnId == 'date_from' || columnId == 'date_to'){
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).css('color','black').html(date_picker);
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : date_picker,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+
+                            console.log(json);
 
                             $.post(url,json,function(result){
                                 console.log(result);
                                 if(columnId == 'cdate_of_birth'){
                                     childId = result; //get the primary key
                                     console.log(result);
+                                }
+                                else if (columnId == "salary_grade"){
+                                    console.log(monthlySalaryId);
+                                    $("#"+monthlySalaryId).css('color','black').html(result);
                                 }
                             });
 
@@ -1592,7 +1658,7 @@
             var todayDate = new Date();
             var month = todayDate.getMonth()+1;
             var day = todayDate.getDate();
-            var year = todayDate.getFullYear()-20;
+            var year = todayDate.getFullYear();
             var hours = todayDate.getDate();
             var minutes = todayDate.getMinutes();
             var seconds = todayDate.getSeconds();
@@ -1629,8 +1695,8 @@
                             this.$tpl.append($label);
                         }
                     }
-
-                    if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth'){
+                    console.log(name);
+                    if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to'){
                         var value = $("#"+name).text();
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
@@ -1640,8 +1706,14 @@
                             showOtherMonths: true,
                             selectOtherMonths: true,
                             autoclose:true,
-                            //changeMonth: true,
-                            //changeYear: true,
+                            changeMonth: true,
+                            changeYear: true,
+                        });
+                    }
+                    else if (name.split('col')[1] == 'salary_grade'){
+                        var salary_append = this.$tpl;
+                        $.get("<?php echo asset('salaryGrade'); ?>",function(result){
+                            salary_append.append(result+"<br>");
                         });
                     }
 

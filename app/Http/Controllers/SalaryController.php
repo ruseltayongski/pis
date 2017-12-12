@@ -126,4 +126,8 @@ class SalaryController extends Controller
         ]);
     }
 
+    public function salaryGrade(){
+        return view('append.salaryGrade');
+    }
+
 }

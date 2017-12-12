@@ -33,6 +33,7 @@
             </ul>
         </div>
         <div class="space-20"></div>
+        <p class="alert alert-info"><i class="ace-icon fa fa-info"></i> type only to seach keyword</p>
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <label class="block clearfix">
@@ -164,11 +165,11 @@
 
             $("input[name='keyword']").on("keyup",function(e){
                 this.focus();
-                e.preventDefault();
                 if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
                     keyword = $("input[name='keyword']").val();
                     getPosts(1,keyword);
                 }
+                e.preventDefault();
             });
 
             var type = 'ALL';

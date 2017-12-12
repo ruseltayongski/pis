@@ -12,6 +12,7 @@ use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use PIS\SalaryGrade;
 use PIS\Training_Program;
 use PIS\User;
 use PIS\Voluntary_Work;
@@ -357,24 +358,52 @@ class PisController extends Controller
             $unique_row = $request->get('unique_row');
         }
 
-        $work_experience = Work_Experience::where('id',$request->get('id'))
-            ->orWhere('unique_row', $unique_row)
-            ->first();
+        if ($request->get('column') == 'salary_grade'){
+            $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                                ->where('salary_grade','=',$request->get('salary_grade'))
+                                ->where('salary_step','=',$request->get('salary_step'))
+                                ->first()
+                                ->salary_amount;
+            $work_experience = Work_Experience::where('id','=',$request->get('id'))
+                                                ->orWhere('unique_row',$unique_row)
+                                                ->first();
+            if(is_null($work_experience)){
+                Work_Experience::create([
+                    'userid'=>$request->get('userid'),
+                    'unique_row'=>$request->get('unique_row'),
+                    $request->get('column')=>$request->get('value')
+                ]);
+            }
+            else {
+                $work_experience->update([
+                    "salary_grade" => $request->get('value'),//value instead of salary grade kay lahi nag format ang salary grade
+                    "monthly_salary" => $salary_amount
+                ]);
+            }
 
-        if(is_null($work_experience)){
-            Work_Experience::create([
-                'userid'=>$request->get('userid'),
-                'unique_row'=>$request->get('unique_row'),
-                $request->get('column')=>$request->get('value')
-            ]);
+            return $salary_amount;
+        }
+        else {
+            $work_experience = Work_Experience::where('id',$request->get('id'))
+                ->orWhere('unique_row', $unique_row)
+                ->first();
 
-            return 'successfully added';
-        } else {
-            $work_experience->update([
-                $request->get('column')=>$request->get('value')
-            ]);
+            if(is_null($work_experience)){
+                Work_Experience::create([
+                    'userid'=>$request->get('userid'),
+                    'unique_row'=>$request->get('unique_row'),
+                    $request->get('column')=>$request->get('value')
+                ]);
 
-            return 'successfully updated';
+                return 'Successfully Added';
+            }
+            else {
+                $work_experience->update([
+                    $request->get('column')=>$request->get('value')
+                ]);
+
+                return 'Successfully Updated';
+            }
         }
     }
 
