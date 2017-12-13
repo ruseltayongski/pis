@@ -932,9 +932,9 @@
                                 <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
                                 <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
-                                <td><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
-                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
+                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
+                                <td class="center monthly_salary"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
+                                <td class="center"><span class="editable_radio work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                             </tr>';
@@ -1482,7 +1482,18 @@
                             else if(columnId == 'salary_grade'){
                                 chilBool = true; // make true so can add new row
                                 var salary_grade = $("#salary_grade").val()+'-'+$("#salary_step").val();
-                                var monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
+                                var monthlySalaryId;
+
+                                console.log();
+                                if(this.className.includes('workAdd')){
+                                    console.log("true");
+                                    monthlySalaryId = $(this).parents(':eq(0)').siblings('td .month_salary').children().context.id;
+                                }
+                                else {
+                                    console.log("false");
+                                    monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
+                                }
+
                                 $("#"+this.id).html(salary_grade);
                                 json = {
                                     "id" : this.id.split('col')[0],

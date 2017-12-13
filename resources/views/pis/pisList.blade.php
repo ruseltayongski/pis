@@ -33,7 +33,7 @@
             </ul>
         </div>
         <div class="space-20"></div>
-        <p class="alert alert-info"><i class="ace-icon fa fa-info"></i> type only to seach keyword</p>
+        <p class="alert alert-info"><i class="ace-icon fa fa-info"></i> type only to search keyword</p>
         <div class="row">
             <div class="col-xs-12 col-md-6">
                 <label class="block clearfix">
