@@ -32,7 +32,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -56,7 +56,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -149,7 +149,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade">
+                                                <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Personal Information</h3>
@@ -674,7 +674,7 @@
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane in active">
+                                                <div id="work_experience" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <h3 class="lighter block green">Work Experience</h3>
@@ -933,7 +933,7 @@
                                 <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                                <td class="center monthly_salary"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
+                                <td class="center monthly_salary"><span class="work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
                                 <td class="center"><span class="editable_radio work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                                 <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
@@ -1484,10 +1484,9 @@
                                 var salary_grade = $("#salary_grade").val()+'-'+$("#salary_step").val();
                                 var monthlySalaryId;
 
-                                console.log();
                                 if(this.className.includes('workAdd')){
                                     console.log("true");
-                                    monthlySalaryId = $(this).parents(':eq(0)').siblings('td .month_salary').children().context.id;
+                                    monthlySalaryId = $(this).parents(':eq(0)').siblings('.monthly_salary').children().get(0).id;
                                 }
                                 else {
                                     console.log("false");
@@ -1507,13 +1506,8 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
 
-                                var $trapping = this.id.replace('childrenDOB','childrenName').replace('colcdate_of_birth','colcname');
-                                if($("#"+$trapping).text() != 'Not Applicable' && $("#"+$trapping).text() != ''){
-                                    console.log($("#"+$trapping).text());
-                                    chilBool = true; // make true so can add new row
-                                } else {
-                                    chilBool = false;
-                                }
+
+                                console.log(monthlySalaryId);
 
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
@@ -1542,7 +1536,7 @@
                                 }
                                 else if (columnId == "salary_grade"){
                                     console.log(monthlySalaryId);
-                                    $("#"+monthlySalaryId).css('color','black').html(result);
+                                    $("#"+monthlySalaryId).css('color','black').html("<b class='blue'>"+result+"</b>");
                                 }
                             });
 
@@ -1723,9 +1717,13 @@
                     }
                     else if (name.split('col')[1] == 'salary_grade'){
                         var salary_append = this.$tpl;
-                        $.get("<?php echo asset('salaryGrade'); ?>",function(result){
+                        salary_append.append(<?php
+                            $tranche = ["Second","Third","Fourth"];
+                            ?>
+                        '<select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%" required> <option value="">Select Tranche</option>@foreach($tranche as $trancheIndex)<option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>@endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required>\<option value="">Select Salary Grade\</option>@foreach(range(1,33) as $salaryGradeIndex)\<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}\</option>@endforeach\</select>\<div class="space-6">\</div>\<select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required>\<option value="">Select Salary Step\</option>@foreach(range(1,8) as $salaryStepIndex)\<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}\</option>@endforeach\</select>');
+                        /*$.get("<?php echo asset('salaryGrade'); ?>",function(result){
                             salary_append.append(result+"<br>");
-                        });
+                        });*/
                     }
 
 

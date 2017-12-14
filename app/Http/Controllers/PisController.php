@@ -111,6 +111,32 @@ class PisController extends Controller
                 ->orderBy('fname','asc')
                 ->paginate(10);
         }
+        elseif ($type == 'PERMANENT'){
+            $personal_information = Personal_Information::
+            where('user_status','=','1')
+                ->where('job_status','=','Permanent')
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%");
+                })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
+        elseif ($type == 'JOB_ORDER'){
+            $personal_information = Personal_Information::
+            where('user_status','=','1')
+                ->where('job_status','=','Job Order')
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%");
+                })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
 
 
         $count_all = Personal_Information::
@@ -144,11 +170,31 @@ class PisController extends Controller
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
             })->get();
+        $count_permanent = Personal_Information::
+        where('user_status','=','1')
+            ->where('job_status','=','Permanent')
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })->get();
+        $count_jobOrder = Personal_Information::
+        where('user_status','=','1')
+            ->where('job_status','=','Job Order')
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })->get();
 
         $countArray['ALL'] = count($count_all);
         $countArray['DUPLICATE_ID'] = count($count_duplicateId);
         $countArray['DUPLICATE_NAME'] = count($count_duplicateName);
         $countArray['INACTIVE'] = count($count_inactive);
+        $countArray['PERMANENT'] = count($count_permanent);
+        $countArray['JOB_ORDER'] = count($count_jobOrder);
 
         if ($request->isMethod('post')) {
             return response()->json([
@@ -371,6 +417,7 @@ class PisController extends Controller
                 Work_Experience::create([
                     'userid'=>$request->get('userid'),
                     'unique_row'=>$request->get('unique_row'),
+                    'monthly_salary'=>$salary_amount,
                     $request->get('column')=>$request->get('value')
                 ]);
             }
