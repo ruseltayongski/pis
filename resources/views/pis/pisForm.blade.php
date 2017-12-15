@@ -6,6 +6,15 @@
                 {{ csrf_field() }}
                 <fieldset>
                     <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="job_status" class="select2 job_status" data-placeholder="Select Job Status" required>
+                        <option value=""></option>
+                        <option value="Job Order">Job Order</option>
+                        <option value="Permanent">Permanent</option>
+                        <option value="Casual">Casual</option>
+                    </select>
+                    <div class="space-6"></div>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
                     <select name="designation" class="select2" data-placeholder="Select designation." required>
                         <option value=""></option>
                         @foreach($designation as $row)

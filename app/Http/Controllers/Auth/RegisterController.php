@@ -79,6 +79,7 @@ class RegisterController extends Controller
 
         Personal_Information::insertIgnore([
             'userid' => 'PIS'.uniqid().'no_userid',
+            'job_status' => $request->get('job_status'),
             'designation_id' => $request->get('designation'),
             'division_id' => $request->get('division'),
             'section_id' => $request->get('section'),
