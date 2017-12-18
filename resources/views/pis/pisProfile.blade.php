@@ -196,6 +196,13 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Source of Fund</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colsource_fund">{{ $user->source_fund }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name"> LASTNAME </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>

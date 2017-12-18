@@ -46,10 +46,15 @@ class Personal_Information extends Model
         'division_id',
         'section_id',
         'remarks',
+        'disbursement_type',
+        'salary_charge',
+        'source_fund',
         'user_status'
     ];
 
     protected $hidden = [
-        'password', 'remember_token',
+        'password','remember_token','created_at','updated_at',
     ];
+
+
 }

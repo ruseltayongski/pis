@@ -148,6 +148,7 @@ class PisController extends Controller
                 ->orWhere('userid','like',"%$keyword%");
         })->get();
 
+        $newPersonal = new Personal_Information();
         $count_duplicateId = Personal_Information::
             where('user_status','=','1')
             ->where("userid",'like',"%duplicate%")
@@ -158,10 +159,26 @@ class PisController extends Controller
                     ->orWhere('userid','like',"%$keyword%");
             })->get();
         $count_duplicateName = DB::table('personal_information')
-            ->select('fname','lname', DB::raw('COUNT(*) as `count`'))
-            ->groupBy('fname', 'lname')
-            ->havingRaw('COUNT(*) > 1')
-            ->get();
+            ->where('user_status','=','1')
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })
+            ->whereIn('fname', function($query) use($newPersonal){
+                $query->select('fname')
+                    ->from(with($newPersonal)->getTable())
+                    ->groupBy('fname')
+                    ->havingRaw('COUNT(fname)>1');
+            })
+            ->whereIn('lname', function($query) use($newPersonal){
+                $query->select('lname')
+                    ->from(with($newPersonal)->getTable())
+                    ->groupBy('lname')
+                    ->havingRaw('COUNT(lname)>1');
+            })->get();
+
         $count_inactive = Personal_Information::
              where('user_status','=','0')
             ->where(function($q) use ($keyword){

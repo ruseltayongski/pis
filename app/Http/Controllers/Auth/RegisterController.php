@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use PIS\User_dts;
+use PIS\Work_Experience;
+use PIS\SalaryGrade;
 
 class RegisterController extends Controller
 {
@@ -77,8 +79,9 @@ class RegisterController extends Controller
 
     public function register(Request $request){
 
+        $userid = 'PIS'.uniqid().'no_userid';
         Personal_Information::insertIgnore([
-            'userid' => 'PIS'.uniqid().'no_userid',
+            'userid' => $userid,
             'job_status' => $request->get('job_status'),
             'designation_id' => $request->get('designation'),
             'division_id' => $request->get('division'),
@@ -102,11 +105,23 @@ class RegisterController extends Controller
             'remarks' => 'PIS',
             'disbursement_type' => $request->get('disbursement_type'),
             'salary_charge' => $request->get('salary_charge'),
+            'source_fund' => $request->get('source_fund'),
             'user_status' => "1"
         ]);
 
-        return Redirect::back()->with('addUserid', 'Successfully Added New User');
+        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+            ->where('salary_grade','=',$request->get('salary_grade'))
+            ->where('salary_step','=',$request->get('salary_step'))
+            ->first()
+            ->salary_amount;
 
+        Work_Experience::create([
+            'userid'=>$userid,
+            'monthly_salary'=>$salary_amount,
+            'salary_grade'=>$request->get('salary_tranche').'|'.$request->get('salary_grade')
+        ]);
+
+        return Redirect::back()->with('addUserid', 'Successfully Added New User');
     }
 
     public function addUserid(Request $request){
@@ -114,6 +129,7 @@ class RegisterController extends Controller
         $currentId = $request->get('currentId');
 
         $personal_information = Personal_Information::where('userid','=',$previousId)->first();
+        $work_experience = Work_Experience::where('userid','=',$previousId)->first();
         $record = $personal_information;
 
         $record->fname == '' ? $fnameFinal = "" : $fnameFinal = $record->fname;
@@ -144,6 +160,10 @@ class RegisterController extends Controller
         ]);
 
         $personal_information->update([
+            "userid" => $currentId
+        ]);
+
+        $work_experience->update([
             "userid" => $currentId
         ]);
 

@@ -1,3 +1,8 @@
+<style>
+    .select2-selection__clear{
+        margin-right: 10%;
+    }
+</style>
 <div id="signup-box" class="signup-box widget-box no-border">
     <div class="widget-body">
         <div class="widget-main">
@@ -5,6 +10,38 @@
             <form class="form-horizontal form-submit" method="POST" action="{{ asset('/register') }}">
                 {{ csrf_field() }}
                 <fieldset>
+
+                    <?php
+                    $tranche = ["Second","Third","Fourth"];
+                    ?>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="salary_tranche" class="select2 salary_tranche" data-placeholder="Select Tranche" required>
+                        <option value=""></option>
+                        @foreach($tranche as $trancheIndex)
+                            <option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>
+                        @endforeach
+                    </select>
+                    <div class="space-6"></div>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="salary_grade" class="select2 salary_grade" data-placeholder="Select Salary Grade" required>
+                        <option value=""></option>
+                        @foreach(range(1,33) as $salaryGradeIndex)
+                            <option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>
+                        @endforeach
+                    </select>
+                    <div class="space-6"></div>
+
+                    <i class="ace-icon fa fa-asterisk red"></i>
+                    <select name="salary_step" class="select2 salary_step" data-placeholder="Select Salary Step" required>
+                        <option value=""></option>
+                        @foreach(range(1,8) as $salaryStepIndex)
+                            <option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>
+                        @endforeach
+                    </select>
+                    <div class="space-6"></div>
+
                     <i class="ace-icon fa fa-asterisk red"></i>
                     <select name="job_status" class="select2 job_status" data-placeholder="Select Job Status" required>
                         <option value=""></option>
@@ -56,6 +93,12 @@
                         @endforeach
                     </select>
                     <div class="space-6"></div>
+
+                    <label class="block clearfix">
+                    <span class="block input-icon input-icon-right">
+                        <input type="text" name="source_fund" class="form-control" placeholder="Source of Fund" required/>
+                    </span>
+                    </label>
 
                     <i class="ace-icon fa fa-asterisk red"></i>
                     <label class="block clearfix">

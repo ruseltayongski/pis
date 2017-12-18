@@ -313,12 +313,65 @@ class FileController extends Controller {
         return Redirect::back()->with('error', 'Request data does not have any files to import.');
     } 
     public function downloadExcelFile($type){
-        $personal_information = Personal_Information::get()->except(['id'])->toArray();
-        return \Excel::create('personal_information', function($excel) use ($personal_information) {
-            $excel->sheet('personal_information', function($sheet) use ($personal_information)
+
+        \Excel::create('personal_information', function($excel) {
+            $count_all = Personal_Information::where('user_status','=','1')->get()->except(['id'])->toArray();
+
+            $count_duplicateId = Personal_Information::where('user_status','=','1')
+                ->where("userid",'like',"%duplicate%")->get()->except(['id'])->toArray();
+
+            $newPersonal = new Personal_Information();
+            $count_duplicateName = Personal_Information::where('user_status','=','1')
+                ->whereIn('fname', function($query) use($newPersonal){
+                    $query->select('fname')
+                        ->from(with($newPersonal)->getTable())
+                        ->groupBy('fname')
+                        ->havingRaw('COUNT(fname)>1');
+                })
+                ->whereIn('lname', function($query) use($newPersonal){
+                    $query->select('lname')
+                        ->from(with($newPersonal)->getTable())
+                        ->groupBy('lname')
+                        ->havingRaw('COUNT(lname)>1');
+                })->get()->except(['id'])->toArray();
+
+            $count_inactive = Personal_Information::where('user_status','=','0')->get()->except(['id'])->toArray();
+
+            $count_permanent = Personal_Information::where('user_status','=','1')->where('job_status','=','Permanent')->get()->except(['id'])->toArray();
+
+            $count_jobOrder = Personal_Information::where('user_status','=','1')->where('job_status','=','Job Order')->get()->except(['id'])->toArray();
+
+            $excel->sheet('ALL', function($sheet) use ($count_all)
             {
-                $sheet->fromArray($personal_information);
+                $sheet->fromArray($count_all);
             });
+
+            $excel->sheet('DUPLICATE_ID', function($sheet) use ($count_duplicateId)
+            {
+                $sheet->fromArray($count_duplicateId);
+            });
+
+            $excel->sheet('DUPLICATE_NAME', function($sheet) use ($count_duplicateName)
+            {
+                $sheet->fromArray($count_duplicateName);
+            });
+
+            $excel->sheet('INACTIVE', function($sheet) use ($count_inactive)
+            {
+                $sheet->fromArray($count_inactive);
+            });
+
+            $excel->sheet('PERMANENT', function($sheet) use ($count_permanent)
+            {
+                $sheet->fromArray($count_permanent);
+            });
+
+            $excel->sheet('JOB_ORDER', function($sheet) use ($count_jobOrder)
+            {
+                $sheet->fromArray($count_jobOrder);
+            });
+
+
         })->download($type);
     }
 
