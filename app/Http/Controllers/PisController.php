@@ -4,6 +4,7 @@ namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 use PIS\Children;
 use PIS\Civil_Eligibility;
 use PIS\Educational_Background;
@@ -21,6 +22,7 @@ use PIS\Other_Information;
 use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
+use Illuminate\Support\Facades\App;
 
 class PisController extends Controller
 {
@@ -566,7 +568,7 @@ class PisController extends Controller
 
         $picture = $request->file('picture');
         $extension = $picture->getClientOriginalExtension(); // getting excel extension
-        $dir = public_path().'/upload_picture/';
+        $dir = public_path().'/upload_picture/picture';
         $filename = uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
 
         Personal_Information::where('userid','=',$userid)->update([
@@ -584,6 +586,16 @@ class PisController extends Controller
         User::where('username','=',$userid)->update([
            "user_status" => "0"
         ]);
+    }
+
+    public function pisId($userid = null){
+        $user = Personal_Information::where('userid','=',$userid)->first();
+        $view = view('pis.pisId',[
+            "user" => $user
+        ]);
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view);
+        return $pdf->stream();
     }
 
 }

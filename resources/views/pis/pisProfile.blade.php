@@ -23,9 +23,16 @@
             <div class="page-content">
 
                 <div class="page-header">
-                    <h1>
-                        User Profile Page
-                    </h1>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h1>
+                                User Profile Page
+                            </h1>
+                        </div>
+                        <div class="col-md-9">
+                            <a href="{{ url('pisId').'/'.$user->piUserid  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE </a>
+                        </div>
+                    </div>
                 </div><!-- /.page-header -->
 
                 <div class="row">
@@ -89,10 +96,10 @@
                                     <div>
                                         <span class="profile-picture">
                                             <a href="#">
-                                            <img id="avatar2" class="img-responsive" alt="Alex's Avatar" src="
+                                            <img id="avatar_picture" class="img-responsive" alt="Alex's Avatar" src="
                                             <?php
                                             if(isset($user->picture)){
-                                                echo asset('public/upload_picture').'/'.$user->picture;
+                                                echo asset('public/upload_picture/picture').'/'.$user->picture;
                                             } else {
                                                 if($user->sex == 'Female')
                                                     echo asset('public/assets_ace/images/avatars/female1.png');
@@ -100,6 +107,12 @@
                                                     echo asset('public/assets_ace/images/avatars/male1.png');
                                             }
                                             ?>" />
+                                            </a>
+                                        </span>
+                                        <div class="space-6"></div>
+                                        <span class="profile-picture">
+                                            <a href="#">
+                                            <img id="avatar_signature" class="img-responsive" alt="Alex's Avatar" src="{{ asset('public/img/signature1.jpg') }}" />
                                             </a>
                                         </span>
                                         <div class="rating inline"></div>
@@ -1141,7 +1154,7 @@
 
 
             //another option is using modals
-            $('#avatar2').on('click', function(){
+            $('#avatar_picture').on('click', function(){
                 var last_gritter;
                 var modal =
                         '<div class="modal fade">\
@@ -1232,6 +1245,127 @@
                                         'X-CSRF-Token': "<?php echo csrf_token(); ?>"
                                     }
                                 });
+                        $.ajax({
+                            url:url,
+                            data: form_data,
+                            type: 'POST',
+                            contentType: false, // The content type used when sending data to the server.
+                            cache: false, // To unable request pages to be cached
+                            processData: false,
+                            success: function(result) {
+                                console.log(result);
+                                last_gritter = $.gritter.add({
+                                    title: 'Picture Updated!',
+                                    text: 'Uploading to server.. successfully save..',
+                                    class_name: 'gritter-info gritter-center',
+                                });
+                                $('#avatar_picture').get(0).src = "<?php echo asset('public/upload_picture/picture')?>"+result.split("upload_picture")[1];
+                            }
+                        });
+                        working = false;
+                    });
+
+
+                    setTimeout(function(){
+                        deferred.resolve();
+                    } , parseInt(Math.random() * 800 + 800));
+
+                    return false;
+                });
+
+            });
+
+            $('#avatar_signature').on('click', function(){
+                var last_gritter;
+                var modal =
+                    '<div class="modal fade">\
+                      <div class="modal-dialog">\
+                       <div class="modal-content">\
+                        <div class="modal-header">\
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>\
+                            <h4 class="blue">Change Signature</h4>\
+                        </div>\
+                        \
+                        <form class="no-margin" id="uploadPicture" enctype="multipart/form-data">\
+                         <div class="modal-body">\
+                            <div class="space-4"></div>\
+                            <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
+                         </div>\
+                        \
+                         <div class="modal-footer center">\
+                            <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                            <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+                         </div>\
+                        </form>\
+                      </div>\
+                     </div>\
+                    </div>';
+
+
+                var modal = $(modal);
+                modal.modal("show").on("hidden", function(){
+                    modal.remove();
+                });
+
+                var working = false;
+
+                var form = modal.find('form:eq(0)');
+                var file = form.find('input[type=file]').eq(0);
+                file.ace_file_input({
+                    style:'well',
+                    btn_choose:'Click to choose new picture',
+                    btn_change:null,
+                    no_icon:'ace-icon fa fa-picture-o',
+                    thumbnail:'small',
+                    before_remove: function() {
+                        //don't remove/reset files while being uploaded
+                        return !working;
+                    },
+                    allowExt: ['jpg', 'jpeg', 'png', 'gif'],
+                    allowMime: ['image/jpg', 'image/jpeg', 'image/png', 'image/gif']
+                });
+
+                form.on('submit', function(){
+                    if(!file.data('ace_input_files')) {
+                        last_gritter = $.gritter.add({
+                            title: 'no image!',
+                            text: 'Please choose a jpg|gif|png image!',
+                            class_name: 'gritter-error gritter-center'
+                        });
+                        console.log($("input[name='file-input']").prop('files')[0]);
+                        return false;
+                    }
+
+                    file.ace_file_input('disable');
+                    form.find('button').attr('disabled', 'disabled');
+                    form.find('.modal-body').append("<div class='center'><i class='ace-icon fa fa-spinner fa-spin bigger-150 orange'></i></div>");
+
+                    var deferred = new $.Deferred;
+                    working = true;
+                    deferred.done(function() {
+                        form.find('button').removeAttr('disabled');
+                        form.find('input[type=file]').ace_file_input('enable');
+                        form.find('.modal-body > :last-child').remove();
+
+                        modal.modal("hide");
+
+                        var thumb = file.next().find('img').data('thumb');
+                        //if(thumb) $('#avatar2').get(0).src = thumb;
+
+                        //process upload
+                        var url = "<?php echo asset('/uploadPicture'); ?>";
+                        var file_data = form.find('input[type=file]').eq(0).prop('files')[0];
+
+                        var form_data = new FormData();
+                        form_data.append('picture', file_data);
+                        form_data.append('userid',"<?php echo $user->piUserid ?>");
+                        $.ajaxSetup(
+                            {
+                                headers:
+                                    {
+                                        'X-CSRF-Token': "<?php echo csrf_token(); ?>"
+                                    }
+                            });
                         $.ajax({
                             url:url,
                             data: form_data,

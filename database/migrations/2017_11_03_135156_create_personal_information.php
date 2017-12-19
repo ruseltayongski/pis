@@ -17,6 +17,7 @@ class CreatePersonalInformation extends Migration
             $table->increments('id');
             $table->string('userid',50)->unique();
             $table->text('picture')->nullable();
+            $table->text('signature')->nullabe();
             $table->string('fname')->nullable();
             $table->string('lname')->nullable();
             $table->string('mname')->nullable();
