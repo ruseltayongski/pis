@@ -30,7 +30,9 @@
                             </h1>
                         </div>
                         <div class="col-md-9">
-                            <a href="{{ url('pisId').'/'.$user->piUserid  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE </a>
+                            <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
+                            &nbsp;
+                            <a href="{{ url('pisId').'/'.$user->piUserid.'/portrait'  }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-image"></i> ID PICTURE | PORTRAIT </a>
                         </div>
                     </div>
                 </div><!-- /.page-header -->
@@ -1259,7 +1261,7 @@
                                     text: 'Uploading to server.. successfully save..',
                                     class_name: 'gritter-info gritter-center',
                                 });
-                                $('#avatar_picture').get(0).src = "<?php echo asset('public/upload_picture/picture')?>"+result.split("upload_picture")[1];
+                                $('#avatar_picture').get(0).src = "<?php echo asset('public/upload_picture/picture')?>"+result.split("upload_picture/picture")[1];
                             }
                         });
                         working = false;

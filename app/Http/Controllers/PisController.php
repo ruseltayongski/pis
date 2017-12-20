@@ -588,13 +588,22 @@ class PisController extends Controller
         ]);
     }
 
-    public function pisId($userid = null){
+    public function pisId($userid = null,$paper = null){
         $user = Personal_Information::where('userid','=',$userid)->first();
-        $view = view('pis.pisId',[
-            "user" => $user
-        ]);
+
+        if($paper == 'landscape'){
+            $view = view('pis.pisId_landscape',[
+                "user" => $user
+            ]);
+        }
+        else {
+            $view = view('pis.pisId_portrait',[
+                "user" => $user
+            ]);
+        }
+
         $pdf = App::make('dompdf.wrapper');
-        $pdf->loadHTML($view);
+        $pdf->loadHTML($view)->setPaper('a4', $paper);
         return $pdf->stream();
     }
 
