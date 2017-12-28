@@ -280,6 +280,7 @@ class PisController extends Controller
         $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $training_program = Training_Program::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $designation = Designation::get();
 
         return view('pis.pisProfile',[
             "section" => $section,
@@ -292,7 +293,8 @@ class PisController extends Controller
             "work_experience" => $work_experience,
             "voluntary_work" => $voluntary_work,
             "training_program" => $training_program,
-            "other_information" => $other_information
+            "other_information" => $other_information,
+            "designation" => $designation
         ]);
 
     }
@@ -590,9 +592,17 @@ class PisController extends Controller
 
     public function pisId($userid = null,$paper = null){
         $user = Personal_Information::where('userid','=',$userid)->first();
-
+        $name = $user->fname.' '.$user->mname.' '.$user->lname;
+        if(strlen($name) == 17){
+            $widthScale = 17;
+        }
+        $widthScale = 17;
+        $fontSize = 20;
         if($paper == 'landscape'){
             $view = view('pis.pisId_landscape',[
+                "name" => $name,
+                "fontSize" => $fontSize,
+                "widthScale" => $widthScale,
                 "user" => $user
             ]);
         }
@@ -605,6 +615,36 @@ class PisController extends Controller
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($view)->setPaper('a4', $paper);
         return $pdf->stream();
+    }
+
+    public function sirBong(){
+        $keyword = "";
+        $newPersonal = new Personal_Information();
+        $personal_information = DB::table('personal_information')
+            ->where('user_status','=','1')
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%");
+            })
+            ->whereIn('fname', function($query) use($newPersonal){
+                $query->select('fname')
+                    ->from(with($newPersonal)->getTable())
+                    ->groupBy('fname')
+                    ->havingRaw('COUNT(fname)>1');
+            })
+            ->whereIn('lname', function($query) use($newPersonal){
+                $query->select('lname')
+                    ->from(with($newPersonal)->getTable())
+                    ->groupBy('lname')
+                    ->havingRaw('COUNT(lname)>1');
+            })
+            ->orderBy('fname','ASC')->get();
+
+        return view('welcome',[
+            "personal_information" => $personal_information
+        ]);
     }
 
 }

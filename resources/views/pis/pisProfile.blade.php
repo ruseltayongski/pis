@@ -172,6 +172,20 @@
                                                                 <div class="profile-user-info profile-user-info-striped">
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Designation</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldesignation_id">{{ \PIS\Designation::find($user->designation_id)->description  }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Job Status</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coljob_status">{{ $user->job_status }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name">Division</div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable_select personal_information" id="{{ $user->piId }}coldivision_id">@if($user->division_id){{ \PIS\Division::find($user->division_id)->description }}@endif</span>
@@ -1701,6 +1715,11 @@
                     }
                 });
 
+                var designation = [];
+                $.each(<?php echo $designation; ?>, function(x, data) {
+                    designation.push({id: data.id, text: data.description});
+                });
+
                 return  [
                     {
                         "division" : division,
@@ -1712,12 +1731,18 @@
                             {value: "UNDER_VTF", text: "UNDER VTF"}
                         ]
                         ,
-                        "salary_charge" : division
+                        "salary_charge" : division,
+                        "job_status" : [
+                            {value: "Permanent", text: "Permanent"},
+                            {value: "Job Order", text: "Job Order"},
+                            {value: "Casual", text: "Casual"}
+                        ],
+                        "designation": designation
                     }
                 ];
             }
             console.log(source_func(6)[0].disbursement_type);
-            console.log(source_func(6)[0].section);
+            console.log(source_func("designation")[0].designation);
             editable_select();
             function editable_select(){
                 $(".editable_select").each(function(index) {
@@ -1733,6 +1758,12 @@
                     }
                     else if(this.id.includes('salary_charge')){
                         source = source_func("<?php echo $user->salary_charge ?>")[0].salary_charge;
+                    }
+                    else if(this.id.includes('job_status')){
+                        source = source_func("<?php echo $user->job_status ?>")[0].job_status;
+                    }
+                    else if(this.id.includes('designation_id')){
+                        source = source_func("designation")[0].designation;
                     }
                     $('#'+this.id).editable({
                         name : this.id,

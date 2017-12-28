@@ -77,4 +77,6 @@ Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 
+Route::get('/sirBong','PisController@sirBong');
+
 

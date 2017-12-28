@@ -25,7 +25,7 @@
                             <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}" id="count_{{ $row }}">{{ $countArray[$row] }}</span>
                             <?php
                             $counter++;
-                            if($counter >= 5) $counter = 0;
+                            if($counter > 4) $counter = 0;
                             ?>
                         </a>
                     </li>
@@ -46,7 +46,7 @@
             <div class="col-xs-12 col-md-6">
                 <a href="#document_form" data-link="{{ asset('pisForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
                     <i class="fa fa-user-plus"></i>
-                    Add User
+                    Add Employee
                 </a>
             </div>
         </div>
@@ -160,7 +160,7 @@
                             $('.select2').css('width','100%').select2({allowClear:true});
                         }
                     });
-                },700);
+                },500);
             });
 
             $("input[name='keyword']").on("keyup",function(e){

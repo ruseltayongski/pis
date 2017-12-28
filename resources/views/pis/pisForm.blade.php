@@ -95,9 +95,9 @@
                     <div class="space-6"></div>
 
                     <label class="block clearfix">
-                    <span class="block input-icon input-icon-right">
-                        <input type="text" name="source_fund" class="form-control" placeholder="Source of Fund" required/>
-                    </span>
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" name="source_fund" class="form-control" placeholder="Source of Fund"/>
+                        </span>
                     </label>
 
                     <i class="ace-icon fa fa-asterisk red"></i>
@@ -153,15 +153,16 @@
                         </span>
                     </label>
 
+                    <i class="ace-icon fa fa-asterisk red"></i>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="text" name="gsis_polno" class="form-control" placeholder="GSIS Policy #" />
+                            <input type="text" name="pag_ibigno" class="form-control" placeholder="Pag-ibig No." required/>
                         </span>
                     </label>
 
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="text" name="gsis_idno" class="form-control" placeholder="GSIS ID #" />
+                            <input type="text" name="gsis_idno" class="form-control" placeholder="GSIS BP No" />
                         </span>
                     </label>
 

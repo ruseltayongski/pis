@@ -53,36 +53,23 @@
         .name1
         {
             position:absolute;
-            left:3%;
-            top:63%;
+            top:58%;
             z-index:-1;
-            height: 40px;
             color: white;
-            font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-            font-size: <?php
-                            $name = $user->fname.' '.$user->mname.' '.$user->lname;
-                            strlen($name);
-                        ?>20pt;
-            font-style: normal;
-            font-variant: normal;
-            font-weight: 800;
+            font-family: 'myFirstFont', sans-serif;
+            font-size: {{ $fontSize }}pt;
+            transform: scale(.9, 3);
         }
         .name2
         {
             position:absolute;
-            left:53%;
+            left:49%;
+            top:58%;
             z-index:-1;
-            height: 40px;
-            font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-            font-size: <?php
-                            $name = $user->fname.' '.$user->mname.' '.$user->lname;
-                            strlen($name);
-                        ?>20pt;
-            font-style: normal;
-            top:63%;
-            font-variant: normal;
-            font-weight: 800;
             color: white;
+            font-family: 'myFirstFont', sans-serif;
+            font-size: {{ $fontSize }}pt;
+            transform: scale(.9, 3);
         }
         .division1
         {
@@ -109,6 +96,10 @@
             font-size: 19pt;
             font-style: normal;
             font-variant: normal;
+        }
+        @font-face {
+            font-family: myFirstFont;
+            src: url({{ asset('public/plugin/font-awesome/fonts/arial.ttf') }}) format("truetype");
         }
     </style>
 </head>

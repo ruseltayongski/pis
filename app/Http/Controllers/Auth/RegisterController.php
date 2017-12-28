@@ -94,7 +94,7 @@ class RegisterController extends Controller
             'height' => $request->get('height'),
             'weight' => $request->get('weight'),
             'tin_no' => $request->get('tin_no'),
-            'gsis_polno' => $request->get('gsis_polno'),
+            'pag_ibigno' => $request->get('pag_ibigno'),
             'gsis_idno' => $request->get('gsis_idno'),
             'phicno' => $request->get('phicno'),
             'date_of_birth' => $request->get('date_of_birth'),
