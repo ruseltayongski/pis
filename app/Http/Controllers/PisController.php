@@ -618,16 +618,10 @@ class PisController extends Controller
     }
 
     public function sirBong(){
-        $keyword = "";
         $newPersonal = new Personal_Information();
         $personal_information = DB::table('personal_information')
             ->where('user_status','=','1')
-            ->where(function($q) use ($keyword){
-                $q->where('fname','like',"%$keyword%")
-                    ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%");
-            })
+            ->whereRaw('LENGTH(userid) <= 6')
             ->whereIn('fname', function($query) use($newPersonal){
                 $query->select('fname')
                     ->from(with($newPersonal)->getTable())
