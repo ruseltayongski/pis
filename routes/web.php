@@ -50,26 +50,6 @@ Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileContr
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
 Route::get('sync_dts','FileController@sync_dts');
 
-Route::get('test',function(){
-    include "./vendor/autoload.php";
-
-    $directory = getcwd();
-    $fullfile = asset('public/sample.pdf');
-    $content = '';
-    $out = '';
-    $parser = new \Smalot\PdfParser\Parser();
-
-    $document = $parser->parseFile($fullfile);
-    $pages    = $document->getPages();
-    $page     = $pages[6];
-    $content  = $page->getText();
-    $out      = explode(' ',$content);
-    echo '<pre>' . nl2br($out[0]) . '</pre>';
-    /*foreach($out as $row){
-        echo '<pre>' . $row . '</pre>';
-    }*/
-});
-
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
 Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');

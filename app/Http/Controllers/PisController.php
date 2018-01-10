@@ -140,6 +140,14 @@ class PisController extends Controller
                 ->paginate(10);
         }
 
+        if ($request->isMethod('post')) {
+            return response()->json([
+                "view" => view('pis.pisPagination', [
+                    "personal_information" => $personal_information,
+                    "type" => $type
+                ])->render()
+            ]);
+        }
 
         $count_all = Personal_Information::
             where('user_status','=','1')
@@ -214,20 +222,6 @@ class PisController extends Controller
         $countArray['INACTIVE'] = count($count_inactive);
         $countArray['PERMANENT'] = count($count_permanent);
         $countArray['JOB_ORDER'] = count($count_jobOrder);
-
-        if ($request->isMethod('post')) {
-            return response()->json([
-                "view" => view('pis.pisPagination', [
-                    "personal_information" => $personal_information,
-                    "type" => $type
-                ])->render(),
-                "count_all" => count($count_all),
-                "count_duplicateId" => count($count_duplicateId),
-                "count_duplicateName" => count($count_duplicateName),
-                "count_inactive" => count($count_inactive),
-                "countArray" => $countArray
-            ]);
-        }
 
         return view('pis.pisList',[
             "personal_information" => $personal_information,
@@ -582,12 +576,15 @@ class PisController extends Controller
 
     public function deletePersonalInformation(Request $request){
         $userid = $request->userid;
-        Personal_Information::where('userid','=',$userid)->update([
+        Personal_Information::where('userid','=',$userid)->first()->delete();
+        User::where('username','=',$userid)->first()->delete();
+
+        /*Personal_Information::where('userid','=',$userid)->update([
             "user_status" => "0"
         ]);
         User::where('username','=',$userid)->update([
            "user_status" => "0"
-        ]);
+        ]);*/
     }
 
     public function pisId($userid = null,$paper = null){

@@ -174,7 +174,7 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Designation</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldesignation_id">{{ \PIS\Designation::find($user->designation_id)->description  }}</span>
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldesignation_id"><?php if(isset(\PIS\Designation::find($user->designation_id)->description)) echo \PIS\Designation::find($user->designation_id)->description; else echo 'NO DESIGNATION' ?></span>
                                                                         </div>
                                                                     </div>
 

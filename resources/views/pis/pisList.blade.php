@@ -164,7 +164,7 @@
             });
 
             $("input[name='keyword']").on("keyup",function(e){
-                this.focus();
+                //this.focus();
                 if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
                     keyword = $("input[name='keyword']").val();
                     getPosts(1,keyword);
@@ -212,11 +212,21 @@
                     "_token" : "<?php echo csrf_token(); ?>"
                 };
 
-                $.post(url,json,function(data){
+                /*$.post(url,json,function(data){
                     setTimeout(function(){
                         $('.posts_'+type).html(data.view);
                         delete_row();
                     },700);
+                });*/
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: json,
+                    success: function( data ) {
+                        $('.posts_'+type).html(data.view);
+                        delete_row();
+                    }
                 });
             }
 

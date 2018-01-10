@@ -4,10 +4,19 @@
 
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
+        <div class="login-logo">
+            <div class="center">
+                <h1>
+                    <img src="{{ asset('public/img/logo.png') }}" />
+                    <br>
+                    <b>DOHROH7&nbsp;</b>PIS
+                </h1>
+            </div>
+        </div>
+        <div class="space-20"></div>
+
         <div class="login-container login-layout light-login">
-
             <div class="space-6"></div>
-
             <div class="position-relative">
                 <div id="login-box" class="login-box visible widget-box no-border">
                     <div class="widget-body">
