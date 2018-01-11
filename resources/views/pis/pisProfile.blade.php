@@ -195,7 +195,7 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Section</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsection_id">@if($user->section_id){{ \PIS\Section::find($user->section_id)->description }}@endif</span>
+                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsection_id">@if(isset(\PIS\Section::find($user->section_id)->description)){{ \PIS\Section::find($user->section_id)->description }}@endif</span>
                                                                         </div>
                                                                     </div>
 
