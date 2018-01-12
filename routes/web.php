@@ -42,6 +42,7 @@ Route::post('/updateVoluntaryWork','PisController@updateVoluntaryWork');
 Route::post('/updateTrainingProgram','PisController@updateTrainingProgram');
 Route::post('/updateOtherInformation','PisController@updateOtherInformation');
 Route::post('/uploadPicture','PisController@uploadPicture');
+Route::post('/uploadSignature','PisController@uploadSignature');
 Route::post('/deletePersonalInformation','PisController@deletePersonalInformation');
 Route::get('pisId/{userid}/{paper}','pisController@pisId');
 

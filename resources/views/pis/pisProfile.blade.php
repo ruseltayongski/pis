@@ -1302,7 +1302,7 @@
                             <h4 class="blue">Change Signature</h4>\
                         </div>\
                         \
-                        <form class="no-margin" id="uploadPicture" enctype="multipart/form-data">\
+                        <form class="no-margin" id="uploadSignature" enctype="multipart/form-data">\
                          <div class="modal-body">\
                             <div class="space-4"></div>\
                             <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
@@ -1369,11 +1369,11 @@
                         //if(thumb) $('#avatar2').get(0).src = thumb;
 
                         //process upload
-                        var url = "<?php echo asset('/uploadPicture'); ?>";
+                        var url = "<?php echo asset('/uploadSignature'); ?>";
                         var file_data = form.find('input[type=file]').eq(0).prop('files')[0];
 
                         var form_data = new FormData();
-                        form_data.append('picture', file_data);
+                        form_data.append('signature', file_data);
                         form_data.append('userid',"<?php echo $user->piUserid ?>");
                         $.ajaxSetup(
                             {
@@ -1392,11 +1392,11 @@
                             success: function(result) {
                                 console.log(result);
                                 last_gritter = $.gritter.add({
-                                    title: 'Picture Updated!',
+                                    title: 'Signature Updated!',
                                     text: 'Uploading to server.. successfully save..',
-                                    class_name: 'gritter-info gritter-center',
+                                    class_name: 'gritter-warning gritter-center',
                                 });
-                                $('#avatar2').get(0).src = "<?php echo asset('public/upload_picture')?>"+result.split("upload_picture")[1];
+                                $('#avatar2').get(0).src = "<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1];
                             }
                         });
                         working = false;

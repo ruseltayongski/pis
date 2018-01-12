@@ -574,6 +574,21 @@ class PisController extends Controller
         return $picture->move($dir, $filename);
     }
 
+    public function uploadSignature(Request $request){
+        $userid = $request->get('userid');
+
+        $signature = $request->file('signature');
+        $extension = $signature->getClientOriginalExtension(); // getting excel extension
+        $dir = public_path().'/upload_picture/signature';
+        $filename = uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
+
+        Personal_Information::where('userid','=',$userid)->update([
+            'signature' => $filename
+        ]);
+
+        return $signature->move($dir, $filename);
+    }
+
     public function deletePersonalInformation(Request $request){
         $userid = $request->userid;
         Personal_Information::where('userid','=',$userid)->first()->delete();

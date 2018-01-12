@@ -401,7 +401,7 @@ class FileController extends Controller {
                 'user_status' => "1"
             ];
         }
-        User::insertIgnore($user);
+        //User::insertIgnore($user);
         Personal_Information::insertIgnore($personal_information);
 
         return Redirect::back()->with('sync_dts','Successfully sync dts user');
