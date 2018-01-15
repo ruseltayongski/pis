@@ -603,19 +603,58 @@ class PisController extends Controller
     }
 
     public function pisId($userid = null,$paper = null){
+        /*$users = Personal_Information::get();
+        $count = 0;
+        foreach($users as $user){
+            if($user->mname)
+                $middleName = $user->mname[0];
+            else
+                $middleName = '';
+
+            $userArray[$count] = $user->fname.' '.$middleName.'. '.$user->lname;
+            $count++;
+        }
+
+        $maxCharacter = 0;
+
+        foreach($userArray as $name){
+            $tempCharacter = strlen($name);
+            if($tempCharacter > $maxCharacter){
+                $maxCharacter = $tempCharacter;
+            }
+        }
+
+        return $maxCharacter;*/
+
         $user = Personal_Information::where('userid','=',$userid)->first();
-        $name = $user->fname.' '.$user->mname.' '.$user->lname;
-        if(strlen($name) == 17){
-            $widthScale = 17;
+        $name = $user->fname.' '.$user->mname[0].'. '.$user->lname;
+//21 - 20
+//37 - 15
+        if($user->division_id){
+            if($user->division_id == 3)
+                $division = 'Office of the '.\PIS\Division::find($user->division_id)->description;
+            elseif($user->division_id == 4)
+                $division = explode('LHSD - ',\PIS\Division::find($user->division_id)->description)[1];
+            elseif($user->division_id == 5)
+                $division =  explode('RLED - ',\PIS\Division::find($user->division_id)->description)[1];
+            elseif($user->division_id == 6)
+                $division =  explode('MSD - ',\PIS\Division::find($user->division_id)->description)[1];
+        }
+        else
+            $division = 'NO DIVISION';
+
+        if(strlen($name) <= 27){
+            $fontSize = 15;
         }
         $widthScale = 17;
-        $fontSize = 20;
+
         if($paper == 'landscape'){
             $view = view('pis.pisId_landscape',[
                 "name" => $name,
                 "fontSize" => $fontSize,
                 "widthScale" => $widthScale,
-                "user" => $user
+                "user" => $user,
+                "division" => $division
             ]);
         }
         else {

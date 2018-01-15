@@ -53,23 +53,24 @@
         .name1
         {
             position:absolute;
-            top:58%;
+            left: 8%;
+            top:59.4%;
             z-index:-1;
             color: white;
             font-family: 'myFirstFont', sans-serif;
             font-size: {{ $fontSize }}pt;
-            transform: scale(.9, 3);
+            transform: scale(1.5,4.2);
         }
         .name2
         {
             position:absolute;
-            left:49%;
-            top:58%;
+            left:49.3%;
+            top:59.5%;
             z-index:-1;
             color: white;
             font-family: 'myFirstFont', sans-serif;
             font-size: {{ $fontSize }}pt;
-            transform: scale(.9, 3);
+            transform: scale(.9,4.5);
         }
         .division1
         {
@@ -107,8 +108,8 @@
 <img src="{{ asset('public/img/id_template.png') }}" class="id_template">
 <img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture1" />
 <img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture2" />
-<img src="{{ asset('public/img/signature.jpg') }}" class="signature1" />
-<img src="{{ asset('public/img/signature.jpg') }}" class="signature2" />
+<img src="{{ asset('public/upload_picture/signature').'/'.$user->signature }}" class="signature1" />
+<img src="{{ asset('public/upload_picture/signature').'/'.$user->signature }}" class="signature2" />
 <div class="name1">
     {{ strtoupper($name) }}
 </div>
@@ -116,10 +117,10 @@
     {{ strtoupper($name) }}
 </div>
 <div class="division1">
-    {{ explode('MSD - ',\PIS\Division::find($user->division_id)->description)[1] }}
+    {{ $division }}
 </div>
 <div class="division2">
-    Management Support Division
+    {{ $division }}
 </div>
 </body>
 </html>

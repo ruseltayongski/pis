@@ -114,7 +114,13 @@
                                         <div class="space-6"></div>
                                         <span class="profile-picture">
                                             <a href="#">
-                                            <img id="avatar_signature" class="img-responsive" alt="Alex's Avatar" src="{{ asset('public/img/signature1.jpg') }}" />
+                                            <img id="avatar_signature" class="img-responsive" alt="Alex's Avatar" src="<?php
+                                            if($user->signature){
+                                                echo asset('public/upload_picture/signature').'/'.$user->signature;
+                                            } else {
+                                                echo asset('public/img/no_signature.png');
+                                            }
+                                            ?>" />
                                             </a>
                                         </span>
                                         <div class="rating inline"></div>
@@ -1391,12 +1397,13 @@
                             processData: false,
                             success: function(result) {
                                 console.log(result);
+                                console.log("<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1]);
                                 last_gritter = $.gritter.add({
                                     title: 'Signature Updated!',
                                     text: 'Uploading to server.. successfully save..',
                                     class_name: 'gritter-warning gritter-center',
                                 });
-                                $('#avatar2').get(0).src = "<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1];
+                                $('#avatar_signature').get(0).src = "<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1];
                             }
                         });
                         working = false;
