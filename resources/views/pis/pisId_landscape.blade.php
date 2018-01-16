@@ -53,48 +53,48 @@
         .name1
         {
             position:absolute;
-            left: 8%;
-            top:59.4%;
+            left:{{ $nameSize['left'] }}%;
+            top:{{ $nameSize['top'] }}%;
             z-index:-1;
             color: white;
             font-family: 'myFirstFont', sans-serif;
-            font-size: {{ $fontSize }}pt;
-            transform: scale(1.5,4.2);
+            font-size: {{ $nameSize['font'] }}pt;
+            transform: scale({{ $nameSize['width'] }},{{ $nameSize['height'] }});
         }
         .name2
         {
             position:absolute;
-            left:49.3%;
-            top:59.5%;
+            left: {{ (int)$nameSize['left']+50.3 }}%;
+            top:{{ $nameSize['top'] }}%;
             z-index:-1;
             color: white;
             font-family: 'myFirstFont', sans-serif;
-            font-size: {{ $fontSize }}pt;
-            transform: scale(.9,4.5);
+            font-size: {{ $nameSize['font'] }}pt;
+            transform: scale({{ $nameSize['width'] }},{{ $nameSize['height'] }});
         }
         .division1
         {
             position:absolute;
-            left:3%;
-            top:76%;
+            left:{{ $division['left'] }}%;
+            top:{{ $division['top'] }}%;
             z-index:-1;
             height: 40px;
             color: white;
             font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-            font-size: 19pt;
+            font-size: {{ $division['font'] }}pt;
             font-style: normal;
             font-variant: normal;
         }
         .division2
         {
             position:absolute;
-            left:53%;
-            top:76%;
+            left:{{ (int)$division['left']+50 }}%;
+            top:{{ $division['top'] }}%;
             z-index:-1;
             height: 40px;
             color: white;
             font-family: "Arial Black", "Arial Bold", Gadget, sans-serif;
-            font-size: 19pt;
+            font-size: {{ $division['font'] }}pt;
             font-style: normal;
             font-variant: normal;
         }
@@ -117,10 +117,10 @@
     {{ strtoupper($name) }}
 </div>
 <div class="division1">
-    {{ $division }}
+    {{ $division['desc'] }}
 </div>
 <div class="division2">
-    {{ $division }}
+    {{ $division['desc'] }}
 </div>
 </body>
 </html>

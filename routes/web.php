@@ -26,6 +26,9 @@ Route::match(['GET','POST'],'/register','Auth\RegisterController@register');
 Route::post('userid_trapping','HomeController@userid_trapping');
 Route::post('/addUserid','Auth\RegisterController@addUserid');
 
+Route::get('/change/password', 'Auth\ResetPasswordController@change_password');
+Route::post('/change/password', 'Auth\ResetPasswordController@save_changes');
+
 //PIS
 Route::match(['GET','POST'],'/pisList', 'PisController@pisList');
 Route::get('/pisForm', 'PisController@pisForm');
