@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use PIS\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class ResetPasswordController extends Controller
 {
@@ -65,10 +67,11 @@ class ResetPasswordController extends Controller
             $user->password = Hash::make($request->input('password_confirmation'));
             $user->save();
             Session::flush();
-            return redirect('/')->with('ok', 'Password succesfully changed. Login now to your account.');
+            return redirect('/')->with('passwordChange', 'Password succesfully changed. Login now to your account.');
         }
         return redirect('/change/password')->with('not_match','Current password invalid');
     }
+
     public function change()
     {
         $user = User::find(418);

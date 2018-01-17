@@ -7,6 +7,9 @@
     "require": {
         "php": ">=5.6.4",
         "barryvdh/laravel-dompdf": "^0.8.1",
+        "codedge/laravel-fpdf": "^1.2",
+        "crabbly/fpdf-laravel": "^1.0",
+        "anouar/fpdf": "1.0.2",
         "guidocella/eloquent-insert-on-duplicate-key": "^2.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",

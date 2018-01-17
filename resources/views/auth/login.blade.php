@@ -324,6 +324,11 @@
                         </div>
                     </div><!-- /.widget-body -->
                 </div><!-- /.signup-box -->
+                @if(session()->has('passwordChange'))
+                    <div class="alert alert-success">
+                        <i class="fa fa-check"></i> {{ session()->get('passwordChange') }}
+                    </div>
+                @endif
             </div><!-- /.position-relative -->
 
         </div>

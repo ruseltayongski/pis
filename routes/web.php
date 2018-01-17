@@ -63,4 +63,7 @@ Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 
 Route::get('/sirBong','PisController@sirBong');
 
+///PDF
+Route::get('pdf','PdfController@pdf');
+
 

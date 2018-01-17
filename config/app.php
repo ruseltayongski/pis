@@ -180,6 +180,9 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Crabbly\FPDF\FpdfServiceProvider::class,
+        Codedge\Fpdf\FpdfServiceProvider::class,
+        Anouar\Fpdf\FpdfServiceProvider::class,
 
     ],
 
@@ -233,7 +236,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
+        'Fpdf'	  => Anouar\Fpdf\Facades\Fpdf::class,
     ],
 
 ];
