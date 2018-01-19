@@ -13,6 +13,9 @@
         .profile-info-name{
             width: 40%;
         }
+        u{
+            color: #307bff;
+        }
         /*.editable-empty{
             color: black;
         }*/
@@ -173,10 +176,14 @@
                                                 <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Personal Information</h3>
                                                             <div class="profile-user-info">
                                                                 <div class="profile-user-info profile-user-info-striped">
-
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Designation</div>
                                                                         <div class="profile-info-value">
@@ -317,28 +324,28 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> GSIS ID NO </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colgsis_idno">{{ $user->gsis_idno }}</span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno"><?php if(Auth::user()->usertype) echo $user->gsis_idno; else echo '<u><b>'.$user->gsis_idno.'</b></u>'; ?></span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PAG-IBIG ID NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colpag_ibigno">{{ $user->pag_ibigno }}</span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno"><?php if(Auth::user()->usertype) echo $user->pag_ibigno; else echo '<u><b>'.$user->pag_ibigno.'</b></u>'; ?></span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SSS NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colsssno">{{ $user->sssno }}</span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno"><?php if(Auth::user()->usertype) echo $user->sssno; else echo '<u><b>'.$user->sssno.'</b></u>'; ?></span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TIN NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}coltin_no">{{ $user->tin_no }}</span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no"><?php if(Auth::user()->usertype) echo $user->tin_no; else echo '<u><b>'.$user->tin_no.'</b></u>'; ?></span>
                                                                         </div>
                                                                     </div>
 
@@ -409,6 +416,11 @@
                                                 <div id="family_background" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Family Background</h3>
                                                             <div class="profile-user-info">
                                                                 <div class="profile-user-info profile-user-info-striped">
@@ -550,6 +562,11 @@
                                                 <div id="educational_background" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Educational Background</h3>
                                                             <div class="hr dotted hr-8"></div>
                                                             <?php $education_exist = array(); ?>
@@ -679,6 +696,11 @@
                                                 <div id="service_eligibility" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Civil Service Eligibility</h3>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
@@ -719,6 +741,11 @@
                                                 <div id="work_experience" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Work Experience</h3>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-list table-hover table-striped">
@@ -746,8 +773,28 @@
                                                                             <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                                                                             <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
-                                                                            <td class="center"><b class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >{{ $row->monthly_salary }}</b></td>
-                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colsalary_grade' }}" >{{ $row->salary_grade }}</span></td>
+                                                                            <td class="center">
+                                                                                <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
+                                                                                    <?php
+                                                                                        if(!Auth::user()->usertype && !$row->salary_grade)
+                                                                                            echo "<span class='red'>Go to hr to update your monthly salary</span>";
+                                                                                        else
+                                                                                            echo '<b><u>'.$row->salary_grade.'</u></b>';
+                                                                                    ?>
+                                                                                </span>
+                                                                            </td>
+                                                                            <td class="center"><span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
+                                                                                    <?php
+                                                                                        if(Auth::user()->usertype)
+                                                                                            echo $row->salary_grade;
+                                                                                        else{
+                                                                                            if($row->salary_grade)
+                                                                                                echo '<b><u>'.$row->salary_grade.'</u></b>';
+                                                                                            else
+                                                                                                echo '<span class="red">'.'Go to hr to update your salary grade'.'</p>';
+                                                                                        }
+                                                                                    ?>
+                                                                            </span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
                                                                         </tr>
@@ -763,6 +810,11 @@
                                                 <div id="voluntary_work" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Voluntary Work</h3>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-list table-hover table-striped">
@@ -801,6 +853,11 @@
                                                 <div id="training_program" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Training Program</h3>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-list table-hover table-striped">
@@ -841,6 +898,11 @@
                                                 <div id="other_information" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
+                                                            <div class="alert alert-danger">
+                                                                <i class="fa fa-info"></i> Note:<br>
+                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                            </div>
                                                             <h3 class="lighter block green">Other Information</h3>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-list table-hover table-striped">
@@ -971,15 +1033,25 @@
 
                 var workAppend =
                     '<tr id="'+workUnique_row+'">\
-                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
-                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                                <td class="center monthly_salary"><span class="work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
-                                <td class="center"><span class="editable_radio work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
-                                <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
-                            </tr>';
+                        <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
+                        <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
+                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
+                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
+                        <td class="center monthly_salary"><span class="work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
+                        <td class="center"><span class="red '+"<?php
+                           if(Auth::user()->usertype)
+                               echo 'editable_radio';
+                           else
+                               echo '';
+                        ?>"+
+                        '" work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
+                            if(!Auth::user()->usertype)
+                                echo 'Go to hr to update your salary grade';
+                        ?>
+                        </span></td>\
+                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
+                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
+                    </tr>';
                 $("#work_append").append(workAppend);
                 $("#"+workUnique_row).hide().fadeIn();
 
@@ -1645,7 +1717,7 @@
                             }
                             else if(columnId == 'salary_grade'){
                                 chilBool = true; // make true so can add new row
-                                var salary_grade = $("#salary_grade").val()+'-'+$("#salary_step").val();
+                                var salary_grade = $("#salary_tranche").val()+' | '+$("#salary_grade").val()+'-'+$("#salary_step").val();
                                 var monthlySalaryId;
 
                                 if(this.className.includes('workAdd')){
@@ -1665,7 +1737,7 @@
                                     "salary_tranche" : $("#salary_tranche").val(),
                                     "salary_grade" : $("#salary_grade").val(),
                                     "salary_step" : $("#salary_step").val(),
-                                    "value" : $("#salary_tranche").val()+"|"+salary_grade,
+                                    "value" : salary_grade,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };

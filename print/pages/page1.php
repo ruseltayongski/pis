@@ -105,7 +105,7 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             $user['lname'],
-            $user['lname'],
+            $user['fname'],
             $user['mname'],
             $user['date_of_birth'],
             "",
@@ -488,18 +488,23 @@ $pdf->Cell(33,5,'',1,0,'');
         $marginTop1 = 40;
 
         for($row=1; $row<=44; $row++){
+            $pdf->SetTextColor(0,0,0);
             $border1 =  'LTRB';
             $colorFlag = false;
             $position1 = '';
             if($row == 1 || $row == 20 || $row == 35){
+                $pdf->SetTextColor(255,255,255);
                 $colorFlag = true;
-                $border1 = 'SBT';
+                $border1 = 'BT';
+            }
+            elseif(($col == 2 || $col == 3) && ($row == 2 || $row == 3 || $row == 4)){
+                $border1 = 'B';
             }
             elseif($row == 5 || $row == 6 || $row == 9 || $row == 10){
                 $border1 = 'LR';
             }
             elseif($row == 43){
-                $border1 = 'SBT';
+                $border1 = 'BT';
             }
             $pdf->SetXY($marginLeft1,$marginTop1);
             $pdf->Cell($width1[$col],$height1,$firstColumn[$col][$row],$border1,0,$position1,$colorFlag);
