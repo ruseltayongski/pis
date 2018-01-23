@@ -44,7 +44,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                            <li >
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -68,7 +68,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -173,7 +173,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
+                                                <div id="personal_information" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-danger">
@@ -738,7 +738,7 @@
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane">
+                                                <div id="work_experience" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-danger">
@@ -1762,9 +1762,10 @@
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
 
-                            console.log(json);
+                            console.log(this);
+                            console.log($(this))
 
-                            $.post(url,json,function(result){
+                            /*$.post(url,json,function(result){
                                 console.log(result);
                                 if(columnId == 'cdate_of_birth'){
                                     childId = result; //get the primary key
@@ -1774,7 +1775,7 @@
                                     console.log(monthlySalaryId);
                                     $("#"+monthlySalaryId).css('color','black').html("<b class='blue'>"+result+"</b>");
                                 }
-                            });
+                            });*/
 
                         }
                     });
@@ -1953,19 +1954,23 @@
                             this.$tpl.append($label);
                         }
                     }
-                    console.log(name);
+
+                    var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
+                    var minDate = $("#"+datepickerTrap).text();
                     if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to'){
                         var value = $("#"+name).text();
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
 
-                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%'>");
+                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%' readonly>");
+
                         $("#"+name+"input").datepicker({
                             showOtherMonths: true,
                             selectOtherMonths: true,
                             autoclose:true,
                             changeMonth: true,
                             changeYear: true,
+                            minDate: minDate,
                         });
                     }
                     else if (name.split('col')[1] == 'salary_grade'){
