@@ -16,8 +16,8 @@
         u{
             color: #307bff;
         }
-        /*.editable-empty{
-            color: black;
+       /* .popover-content{
+            width:200px;
         }*/
 
     </style>
@@ -770,7 +770,7 @@
                                                                         <?php $workCount++; ?>
                                                                         <tr id="">
                                                                             <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center td_workDateto"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
                                                                             <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                                                                             <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
                                                                             <td class="center">
@@ -779,11 +779,12 @@
                                                                                         if(!Auth::user()->usertype && !$row->salary_grade)
                                                                                             echo "<span class='red'>Go to hr to update your monthly salary</span>";
                                                                                         else
-                                                                                            echo '<b><u>'.$row->salary_grade.'</u></b>';
+                                                                                            echo '<b><u>'.$row->monthly_salary.'</u></b>';
                                                                                     ?>
                                                                                 </span>
                                                                             </td>
-                                                                            <td class="center"><span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
+                                                                            <td class="center">
+                                                                                <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
                                                                                     <?php
                                                                                         if(Auth::user()->usertype)
                                                                                             echo $row->salary_grade;
@@ -794,9 +795,10 @@
                                                                                                 echo '<span class="red">'.'Go to hr to update your salary grade'.'</p>';
                                                                                         }
                                                                                     ?>
-                                                                            </span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
+                                                                                </span>
+                                                                            </td>
+                                                                            <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
+                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -878,7 +880,7 @@
                                                                     <?php $trainingCount = 0; ?>
                                                                     @foreach($training_program as $row)
                                                                         <?php $trainingCount++; ?>
-                                                                        <tr id="">
+                                                                        <tr>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltitle_of_learning' }}" >{{ $row->title_of_learning }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
@@ -1037,7 +1039,10 @@
                         <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                        <td class="center monthly_salary"><span class="work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"></span></td>\
+                        <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
+                            if(!Auth::user()->usertype)
+                                echo 'Go to hr to update your monthly salary';
+                        ?></span></td>\
                         <td class="center"><span class="red '+"<?php
                            if(Auth::user()->usertype)
                                echo 'editable_radio';
@@ -1049,7 +1054,7 @@
                                 echo 'Go to hr to update your salary grade';
                         ?>
                         </span></td>\
-                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
+                        <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                     </tr>';
                 $("#work_append").append(workAppend);
@@ -1057,6 +1062,7 @@
 
                 text_editable();
                 editable_radio();
+                editable_select();
 
             });
 
@@ -1078,7 +1084,7 @@
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_from"></span></td>\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_to"></span></td>\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnumber_of_hours"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
+                                <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
                             </tr>';
                     $("#voluntary_append").append(voluntaryAppend);
                     $("#"+voluntaryUnique_row).hide().fadeIn();
@@ -1491,7 +1497,6 @@
 
             });
 
-
             text_editable();
             function text_editable(){
                 $(".editable").each(function() {
@@ -1656,6 +1661,10 @@
                 ],
                 "date_to": [
                     {value:'Dummy', text:'Dummy'}
+                ],
+                "government_service": [
+                    {value:'Yes', text:'Yes'},
+                    {value:'No', text:'No'},
                 ]
             }];
 
@@ -1670,7 +1679,7 @@
                         validate: function(value) {
                             var json,url;
                             columnId = this.id.split('col')[1];
-                            if(value != null){ //personal information sex,citizenship,civil_status
+                            if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status') ){ //personal information sex,citizenship,civil_status
                                 $("#"+this.id).html(value);
                                 json = {
                                     "id" : "<?php echo $user->piId; ?>",
@@ -1680,6 +1689,18 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if(columnId == 'government_service'){
+                                $("#"+this.id).html(value);
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateWorkExperience') !!}";
                             }
                             else if(columnId == 'pdate_of_birth'){ //personal information date_of_birth
                                 var date_picker = $("#"+this.id+"input").val();
@@ -1749,12 +1770,28 @@
                             }
                             else if(columnId == 'date_from' || columnId == 'date_to'){
                                 var date_picker = $("#"+this.id+"input").val();
-                                $("#"+this.id).css('color','black').html(date_picker);
+                                var toPresent = '';
+                                if($("#"+this.id+"toPresent").is(":checked")){
+                                    toPresent = $("#"+this.id+"toPresent").val();
+                                }
+                                console.log(toPresent);
+                                var pickerValue;
+                                if(toPresent)
+                                    pickerValue = toPresent;
+                                else{
+                                    pickerValue = date_picker;
+                                    if(toPresent == '')
+                                        pickerValue = '';
+                                }
+
+
+                                $("#"+this.id).css('color','black').html(pickerValue);
+
                                 json = {
                                     "id" : this.id.split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
-                                    "value" : date_picker,
+                                    "value" : pickerValue,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
@@ -1762,10 +1799,7 @@
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
 
-                            console.log(this);
-                            console.log($(this))
-
-                            /*$.post(url,json,function(result){
+                            $.post(url,json,function(result){
                                 console.log(result);
                                 if(columnId == 'cdate_of_birth'){
                                     childId = result; //get the primary key
@@ -1775,7 +1809,7 @@
                                     console.log(monthlySalaryId);
                                     $("#"+monthlySalaryId).css('color','black').html("<b class='blue'>"+result+"</b>");
                                 }
-                            });*/
+                            });
 
                         }
                     });
@@ -1821,7 +1855,7 @@
                     }
                 ];
             }
-            console.log(source_func(6)[0].disbursement_type);
+            console.log(source_func("")[0].job_status);
             console.log(source_func("designation")[0].designation);
             editable_select();
             function editable_select(){
@@ -1839,7 +1873,7 @@
                     else if(this.id.includes('salary_charge')){
                         source = source_func("<?php echo $user->salary_charge ?>")[0].salary_charge;
                     }
-                    else if(this.id.includes('job_status')){
+                    else if(this.id.includes('job_status') || this.id.includes('status_of_appointment')){
                         source = source_func("<?php echo $user->job_status ?>")[0].job_status;
                     }
                     else if(this.id.includes('designation_id')){
@@ -1863,6 +1897,17 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updatePersonalInformation') !!}";
+                            }
+                            else if(string.includes('work_experience')){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateWorkExperience') !!}";
                             }
 
                             var id = this.id;
@@ -1941,7 +1986,7 @@
                         //var name = this.$input.closest('.editable_radio').find("[data-type='radiolist']").attr('id'); way gamit undefined
                         name = this.options.scope.id;
                         $value = $("#"+name).text();
-                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status'){
+                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status' || name.split('col')[1] == 'government_service'){
                             $label = $('<label class="radio-inline" style="padding-right:10px;padding-top:5px;">')
                                     .append($('<input>', {
                                                 type: 'radio',
@@ -1955,14 +2000,71 @@
                         }
                     }
 
-                    var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
-                    var minDate = $("#"+datepickerTrap).text();
+                    if(name.split('col')[1] == 'government_service')
+                        $(".popover-content").css('width','200px');
+
                     if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to'){
                         var value = $("#"+name).text();
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
 
-                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%' readonly>");
+                        var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
+                        var minDate,attrTrap,presentValue;
+                        var presentFlag = false;
+                        var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)'>";
+                        var notePresent = "<span class='alert alert-info'>Present check use only once</span>";
+                        var extendAppend = '';
+
+
+
+                        if(name.split('col')[1] == 'date_from') {
+                            minDate = '';
+                            attrTrap = 'readonly';
+                        }
+                        else if(name.split('col')[1] == 'date_to') {
+                            extendAppend = toPresent+notePresent;
+                            minDate = $("#"+datepickerTrap).text();
+                            if(minDate == 'Empty')
+                                attrTrap = 'disabled';
+                        }
+                        //console.log(Date.parse(minDate));
+
+                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%'"+attrTrap+">"+extendAppend);
+
+                        $(".td_workDateto").each(function(){
+                            presentValue = $("#"+$(this).children('span')[0].id).text();
+                            console.log(presentValue);
+                            if(presentValue == 'Present'){
+                                presentFlag = true;
+                            }
+                        });
+
+                        $(".td_workDateto").each(function(){
+                            $("#"+$(this).children('span')[0].id).prop('disabled',true)
+                            if($("#"+$(this).children('span')[0].id).is(":checked")){
+                                $("#"+$(this).children('span')[0].id).prop('disabled',false);
+                            }
+                        });
+
+                        $(function() {
+                            $(document).on('click', '.ui-state-disabled', function() {
+                                return false;
+                            });
+
+                            var toPresent = '#'+name+'toPresent';
+                            $(document).on('click', '#'+name+'toPresent', function() {
+                                console.log(toPresent);
+                                if($(toPresent).is(":checked"))
+                                    $("#"+name+"input").attr("disabled",true);
+                                else {
+                                    $("#" + name + "input").attr("disabled", false);
+                                    $(".td_workDateto").each(function(){
+                                        $("#"+$(this).children('span')[0].id+"toPresent").prop('disabled',false);
+                                    });
+                                }
+
+                            });
+                        }); // prevent bugs in jquery wew !
 
                         $("#"+name+"input").datepicker({
                             showOtherMonths: true,
