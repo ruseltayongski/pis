@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/bootstrap-datepicker3.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/bootstrap-editable.min.css') }}" />
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/jquery-ui.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('public/assets_ace/css/dropzone.min.css') }}" />
 
     <!-- text fonts -->
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/fonts.googleapis.com.css') }}" />
@@ -410,7 +411,6 @@
 <script src="{{ asset('public/assets_ace/js/bootstrap.min.js') }}"></script>
 
 <!-- page specific plugin scripts -->
-
 <script src="{{ asset('public/assets_ace/js/jquery-ui.custom.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/jquery.ui.touch-punch.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/jquery.gritter.min.js') }}"></script>
@@ -425,6 +425,8 @@
 <script src="{{ asset('public/assets_ace/js/ace-editable.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/jquery.maskedinput.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/jquery-ui.min.js') }}"></script>
+<!-- page specific plugin scripts -->
+<script src="{{ asset('public/assets_ace/js/dropzone.min.js') }}"></script>
 
 <!-- ace scripts -->
 <script src="{{ asset('public/assets_ace/js/ace-elements.min.js') }}"></script>
@@ -435,8 +437,6 @@
 
 <script src="{{ asset('public/plugin/Lobibox old/Lobibox.js') }}"></script>
 
-<!-- page specific plugin scripts -->
-<script src="{{ asset('public/assets_ace/js/dropzone.min.js') }}"></script>
 
 <script type="text/javascript">
     if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");

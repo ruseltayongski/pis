@@ -68,7 +68,7 @@
                                     Civil Service Eligibility
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#work_experience">
                                     <i class="red ace-icon fa fa-briefcase bigger-120"></i>
                                     Work Experience
@@ -80,7 +80,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -738,7 +738,7 @@
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
-                                                <div id="work_experience" class="fade tab-pane in active">
+                                                <div id="work_experience" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-danger">
@@ -852,7 +852,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane">
+                                                <div id="training_program" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-danger">
@@ -861,6 +861,13 @@
                                                                 __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
                                                             </div>
                                                             <h3 class="lighter block green">Training Program</h3>
+                                                            <div>
+                                                                <form action="../dummy.html" class="dropzone well" id="dropzone">
+                                                                    <div class="fallback">
+                                                                        <input name="file" type="file" multiple="" />
+                                                                    </div>
+                                                                </form>
+                                                            </div>
                                                             <div class="form-group table-responsive">
                                                                 <table class="table table-list table-hover table-striped">
                                                                     <thead>
@@ -870,6 +877,7 @@
                                                                         <th class="center align-middle" rowspan="2">Number of Hours</th>
                                                                         <th class="center align-middle" rowspan="2">Type of ID(Managerial/Supervisor/Technical/etc)</th>
                                                                         <th class="center align-middle" rowspan="2">Sponsored By</th>
+                                                                        <th class="center align-middle" rowspan="2">Upload Certificate</th>
                                                                     </tr>
                                                                     <tr class="info">
                                                                         <th class="center">From</th>
@@ -887,6 +895,7 @@
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'colcertificate' }}" >{{ $row->certificate }}</span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -955,6 +964,88 @@
     <script>
 
         jQuery(function($) {
+
+            try {
+                Dropzone.autoDiscover = false;
+
+                var myDropzone = new Dropzone('#dropzone', {
+                    previewTemplate: $('#preview-template').html(),
+
+                    thumbnailHeight: 120,
+                    thumbnailWidth: 120,
+                    maxFilesize: 0.5,
+
+                    //addRemoveLinks : true,
+                    //dictRemoveFile: 'Remove',
+
+                    dictDefaultMessage :
+                        '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+                        <span class="smaller-80 grey">(or click)</span> <br /> \
+                        <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
+                    ,
+
+                    thumbnail: function(file, dataUrl) {
+                        if (file.previewElement) {
+                            $(file.previewElement).removeClass("dz-file-preview");
+                            var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
+                                var thumbnailElement = this;
+                                thumbnailElement.alt = file.name;
+                                thumbnailElement.src = dataUrl;
+                            });
+                            setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
+                        }
+                    }
+
+                });
+
+
+                //simulating upload progress
+                var minSteps = 6,
+                    maxSteps = 60,
+                    timeBetweenSteps = 100,
+                    bytesPerStep = 100000;
+
+                myDropzone.uploadFiles = function(files) {
+                    var self = this;
+
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+                        for (var step = 0; step < totalSteps; step++) {
+                            var duration = timeBetweenSteps * (step + 1);
+                            setTimeout(function(file, totalSteps, step) {
+                                return function() {
+                                    file.upload = {
+                                        progress: 100 * (step + 1) / totalSteps,
+                                        total: file.size,
+                                        bytesSent: (step + 1) * file.size / totalSteps
+                                    };
+
+                                    self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                                    if (file.upload.progress == 100) {
+                                        file.status = Dropzone.SUCCESS;
+                                        self.emit("success", file, 'success', null);
+                                        self.emit("complete", file);
+                                        self.processQueue();
+                                    }
+                                };
+                            }(file, totalSteps, step), duration);
+                        }
+                    }
+                }
+
+
+                //remove dropzone instance when leaving this page in ajax mode
+                $(document).one('ajaxloadstart.page', function(e) {
+                    try {
+                        myDropzone.destroy();
+                    } catch(e) {}
+                });
+
+            } catch(e) {
+                alert('Dropzone.js does not support older browsers!');
+            }
 
             var childrenCount = "<?php echo $childrenCount; ?>";
             var childrenLimit = "<?php echo $childrenCount; ?>";
@@ -1036,7 +1127,7 @@
                 var workAppend =
                     '<tr id="'+workUnique_row+'">\
                         <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
-                        <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
+                        <td class="center td_workDateto"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
                         <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
@@ -1055,7 +1146,7 @@
                         ?>
                         </span></td>\
                         <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
-                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
+                        <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
                     </tr>';
                 $("#work_append").append(workAppend);
                 $("#"+workUnique_row).hide().fadeIn();
@@ -1662,6 +1753,9 @@
                 "date_to": [
                     {value:'Dummy', text:'Dummy'}
                 ],
+                "certificate": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
                 "government_service": [
                     {value:'Yes', text:'Yes'},
                     {value:'No', text:'No'},
@@ -1691,7 +1785,7 @@
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
                             }
                             else if(columnId == 'government_service'){
-                                $("#"+this.id).html(value);
+                                $("#"+this.id).css('color','black').html(value);
                                 json = {
                                     "id" : this.id.split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
@@ -1774,18 +1868,23 @@
                                 if($("#"+this.id+"toPresent").is(":checked")){
                                     toPresent = $("#"+this.id+"toPresent").val();
                                 }
-                                console.log(toPresent);
                                 var pickerValue;
                                 if(toPresent)
                                     pickerValue = toPresent;
                                 else{
-                                    pickerValue = date_picker;
-                                    if(toPresent == '')
+                                    if(date_picker == 'Present'){
                                         pickerValue = '';
+                                    }
+                                    else {
+                                        pickerValue = date_picker;
+                                    }
                                 }
 
-
+                                console.log(pickerValue);
                                 $("#"+this.id).css('color','black').html(pickerValue);
+                                if(!pickerValue){
+                                    $("#"+this.id).css('color','#D14').css('font-style','italic').html('Empty');
+                                }
 
                                 json = {
                                     "id" : this.id.split('col')[0],
@@ -1798,8 +1897,19 @@
 
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
+                            else if(columnId == 'certificate'){
+                                json = {
+                                    "id" : this.id.split('training')[1].split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateTrainingProgram') !!}";
+                            }
 
-                            $.post(url,json,function(result){
+                            /*$.post(url,json,function(result){
                                 console.log(result);
                                 if(columnId == 'cdate_of_birth'){
                                     childId = result; //get the primary key
@@ -1809,7 +1919,7 @@
                                     console.log(monthlySalaryId);
                                     $("#"+monthlySalaryId).css('color','black').html("<b class='blue'>"+result+"</b>");
                                 }
-                            });
+                            });*/
 
                         }
                     });
@@ -2011,11 +2121,10 @@
                         var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
                         var minDate,attrTrap,presentValue;
                         var presentFlag = false;
-                        var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)'>";
-                        var notePresent = "<span class='alert alert-info'>Present check use only once</span>";
                         var extendAppend = '';
 
-
+                        var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)'>";
+                        var notePresent = "<span class='alert alert-info'>Present check use only once</span>";
 
                         if(name.split('col')[1] == 'date_from') {
                             minDate = '';
@@ -2024,27 +2133,33 @@
                         else if(name.split('col')[1] == 'date_to') {
                             extendAppend = toPresent+notePresent;
                             minDate = $("#"+datepickerTrap).text();
-                            if(minDate == 'Empty')
+                            if(minDate == 'Empty'){
                                 attrTrap = 'disabled';
+                            }
+                            else
+                                attrTrap = 'readonly';
                         }
-                        //console.log(Date.parse(minDate));
-
-                        this.$tpl.append("<input type='text' value='"+value+"' id='" + name + "input"+"' style='margin-right:15px;width:100%'"+attrTrap+">"+extendAppend);
+                        this.$tpl.append("<input type='text' value='"+value+"' id='"+name+ "input"+"' style='margin-right:15px;width:100%'"+attrTrap+">"+extendAppend);
 
                         $(".td_workDateto").each(function(){
                             presentValue = $("#"+$(this).children('span')[0].id).text();
-                            console.log(presentValue);
                             if(presentValue == 'Present'){
                                 presentFlag = true;
+                                return false;
                             }
+                        });
+                        $(".td_workDateto").each(function(){
+                            presentValue = $("#"+$(this).children('span')[0].id).text();
+                            if(presentValue == 'Present'){
+                                $("#"+$(this).children('span')[0].id+"toPresent").prop('checked',true);
+                                $("#"+$(this).children('span')[0].id+"input").attr("disabled",true);
+                            }
+                            else if(presentFlag || minDate == 'Empty') {
+                                $("#"+$(this).children('span')[0].id+"toPresent").prop('disabled',true)
+                            }
+                            console.log($(this).children('span')[0].id);
                         });
 
-                        $(".td_workDateto").each(function(){
-                            $("#"+$(this).children('span')[0].id).prop('disabled',true)
-                            if($("#"+$(this).children('span')[0].id).is(":checked")){
-                                $("#"+$(this).children('span')[0].id).prop('disabled',false);
-                            }
-                        });
 
                         $(function() {
                             $(document).on('click', '.ui-state-disabled', function() {
@@ -2057,7 +2172,7 @@
                                 if($(toPresent).is(":checked"))
                                     $("#"+name+"input").attr("disabled",true);
                                 else {
-                                    $("#" + name + "input").attr("disabled", false);
+                                    $("#"+name+"input").attr("disabled",false);
                                     $(".td_workDateto").each(function(){
                                         $("#"+$(this).children('span')[0].id+"toPresent").prop('disabled',false);
                                     });
@@ -2084,6 +2199,11 @@
                         /*$.get("<?php echo asset('salaryGrade'); ?>",function(result){
                             salary_append.append(result+"<br>");
                         });*/
+                    }
+                    else if(name.split('col')[1] == 'certificate'){
+                        $(".popover-content").css('width','300px');
+                        var salary_append = this.$tpl;
+                        salary_append.append("<h3>Rusel T. Tayong</h3>");
                     }
 
 

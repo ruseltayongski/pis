@@ -11,6 +11,7 @@ class Training_Program extends Model
 
     protected $fillable = [
         'userid',
+        'certificate',
         'title_of_learning',
         'date_from',
         'date_to',
