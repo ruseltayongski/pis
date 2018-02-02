@@ -9,6 +9,7 @@ use PIS\Family_Background;
 use Illuminate\Support\Facades\DB;
 use PIS\User;
 use PIS\User_dts;
+use PIS\Users;
 
 class FileController extends Controller {
     public function __construct()
@@ -403,8 +404,26 @@ class FileController extends Controller {
         }
         //User::insertIgnore($user);
         Personal_Information::insertIgnore($personal_information);
-
         return Redirect::back()->with('sync_dts','Successfully sync dts user');
+    }
+
+    public function sync_personalInformation(){
+        $count = 0;
+        foreach(Personal_Information::get() as $row){
+            if($row->userid == ''){
+                $count++;
+                $finalUserid = 'pis_'.$count.'no_userid';
+            } else {
+                $finalUserid = $row->userid;
+            }
+            $user[] = [
+                "username" => $finalUserid,
+                "password" => bcrypt($finalUserid),
+                "usertype" => 0,
+                "pin" => "1234"
+            ];
+        }
+        User::insertIgnore($user);
     }
 
 }

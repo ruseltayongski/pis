@@ -156,7 +156,8 @@ class RegisterController extends Controller
             'username' => $currentId,
             'password' => bcrypt($currentId),
             'usertype' => '0',
-            'user_status' => "1"
+            'user_status' => "1",
+            'pin' => 1234
         ]);
 
         $personal_information->update([

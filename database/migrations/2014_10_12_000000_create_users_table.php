@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->integer('usertype');
 
             $table->text('user_status')->nullable();
+            $table->text('pin')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
