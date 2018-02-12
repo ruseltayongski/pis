@@ -49,6 +49,7 @@ Route::post('/uploadSignature','PisController@uploadSignature');
 Route::post('/uploadCertificate','PisController@uploadCertificate');
 Route::post('/deletePersonalInformation','PisController@deletePersonalInformation');
 Route::get('pisId/{userid}/{paper}','pisController@pisId');
+Route::post('deleteWorkExperience','pisController@deleteWorkExperience');
 
 Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'))->name('home');
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));

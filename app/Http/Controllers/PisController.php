@@ -469,6 +469,13 @@ class PisController extends Controller
         }
     }
 
+    public function deleteWorkExperience(Request $request){
+        $id = $request->id;
+        Work_Experience::where('id','=',$id)->first()->delete();
+
+        return 'Successfully Deleted Work Experience';
+    }
+
 
     public function updateVoluntaryWork(Request $request){
         if(is_null($request->get('unique_row'))){

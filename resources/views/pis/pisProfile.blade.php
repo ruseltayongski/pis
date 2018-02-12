@@ -41,7 +41,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fagi-user bigger-120"></i>
                                     Personal Information
@@ -77,7 +77,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -173,7 +173,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
+                                                <div id="personal_information" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -758,6 +758,7 @@
                                                                         <th class="center" rowspan="2">SALARY/JOB/PAY GRADE(if applicable)(Format *00-0*)/INCREMENT</th>
                                                                         <th class="center" rowspan="2">STATUS OF APPOINTMENT</th>
                                                                         <th class="center" rowspan="2">GOV'T SERVICE(Y/N)</th>
+                                                                        <th class="center" rowspan="2">Option</th>
                                                                     </tr>
                                                                     <tr class="info">
                                                                         <th class="center">From</th>
@@ -799,6 +800,7 @@
                                                                             </td>
                                                                             <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
                                                                             <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
+                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -852,7 +854,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane">
+                                                <div id="training_program" class="fade tab-pane in active">
 
                                                     <div class="row">
                                                         <div class="col-xs-12">
@@ -1073,7 +1075,7 @@
                            else
                                echo '';
                         ?>"+
-                        '" work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
+                        ' work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
                             if(!Auth::user()->usertype)
                                 echo 'Go to hr to update your salary grade';
                         ?>
@@ -1521,6 +1523,7 @@
 
             });
 
+            var file;
             var dropzoneCount=0;
             editable_certificate();
             function editable_certificate(){
@@ -1599,7 +1602,7 @@
                                     +'</div>\
                                     \
                                      <div class="modal-footer center">\
-                                        <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                                        <button type="submit" class="btn btn-sm btn-success dropzoneSubmit"><i class="ace-icon fa fa-check"></i> Submit</button>\
                                         <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
                                      </d    iv>\
                                   </div>\
@@ -1614,15 +1617,20 @@
                                 try {
                                     Dropzone.autoDiscover = false;
 
+                                    file = '';
                                     var myDropzone = new Dropzone('#dropzone'+dropzoneCount, {
                                         previewTemplate: $('#preview-template').html(),
-
                                         thumbnailHeight: 120,
                                         thumbnailWidth: 120,
-                                        maxFilesize: 0.5,
+                                        maxFilesize: 999999999999999999,
+                                        maxFiles: 1,
+                                        maxfilesexceeded: function(result) {
+                                            this.removeAllFiles();
+                                            this.addFile(result);
+                                        },
 
-                                        //addRemoveLinks : true,
-                                        //dictRemoveFile: 'Remove',
+                                        addRemoveLinks : true,
+                                        dictRemoveFile: 'Remove',
 
                                         dictDefaultMessage :
                                             '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
@@ -1655,7 +1663,7 @@
                                         var self = this;
 
                                         for (var i = 0; i < files.length; i++) {
-                                            var file = files[i];
+                                            file = files[i];
                                             totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
 
                                             for (var step = 0; step < totalSteps; step++) {
@@ -1695,6 +1703,12 @@
                                     alert('Dropzone.js does not support older browsers!');
                                 }
 
+                            });
+
+                            $(document).on('click', '.dropzoneSubmit', function() {
+                                console.log('rtayong');
+                                console.log(file);
+                                modal.modal("hide");
                             });
 
                         });
@@ -1817,7 +1831,7 @@
                                 };
                                 url = "{!! asset('updateOtherInformation') !!}";
                             }
-                            console.log(json);
+
                             $.post(url,json,function(result){
                                 //console.log(result);
                                 if(Class.includes('children')){
@@ -1868,6 +1882,9 @@
                     {value:'Dummy', text:'Dummy'}
                 ],
                 "certificate": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "workDelete": [
                     {value:'Dummy', text:'Dummy'}
                 ],
                 "government_service": [
@@ -1957,8 +1974,7 @@
                                     console.log("false");
                                     monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
                                 }
-
-                                $("#"+this.id).html(salary_grade);
+                                $("#"+this.id).removeClass('red').removeClass('editable-empty').html(salary_grade);
                                 json = {
                                     "id" : this.id.split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
@@ -1971,9 +1987,7 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
 
-
                                 console.log(monthlySalaryId);
-
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
                             else if(columnId == 'date_from' || columnId == 'date_to'){
@@ -2023,17 +2037,34 @@
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
 
-                            $.post(url,json,function(result){
-                                console.log(result);
-                                if(columnId == 'cdate_of_birth'){
-                                    childId = result; //get the primary key
+                            if(columnId == 'workDelete'){
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+
+                                url = "{!! asset('deleteWorkExperience') !!}";
+                                $(this).parents(':eq(1)').fadeOut();
+                                $.post(url,json,function(result){
                                     console.log(result);
-                                }
-                                else if (columnId == "salary_grade"){
-                                    console.log(monthlySalaryId);
-                                    $("#"+monthlySalaryId).css('color','black').html("<b class='blue'>"+result+"</b>");
-                                }
-                            });
+                                });
+                            }
+                            else
+                            {
+                                $.post(url,json,function(result){
+                                    console.log(result);
+                                    if(columnId == 'cdate_of_birth'){
+                                        childId = result; //get the primary key
+                                        console.log(result);
+                                    }
+                                    else if (columnId == "salary_grade"){
+                                        console.log(monthlySalaryId);
+                                        $("#"+monthlySalaryId).html("<b style='color:#307bff;'>"+result+"</b>");
+                                    }
+                                });
+                            }
+
 
                         }
                     });
@@ -2079,8 +2110,7 @@
                     }
                 ];
             }
-            console.log(source_func("")[0].job_status);
-            console.log(source_func("designation")[0].designation);
+
             editable_select();
             function editable_select(){
                 $(".editable_select").each(function(index) {
@@ -2313,6 +2343,11 @@
                         /*$.get("<?php echo asset('salaryGrade'); ?>",function(result){
                             salary_append.append(result+"<br>");
                         });*/
+                    }
+                    else if(name.split('col')[1] == 'workDelete'){
+                        $(".popover-content").css('width','320px');
+                        var workDelete_append = this.$tpl;
+                        workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");
                     }
                     else if(name.split('col')[1] == 'certificate'){
 
