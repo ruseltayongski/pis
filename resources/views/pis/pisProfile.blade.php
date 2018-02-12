@@ -41,9 +41,9 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li >
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
-                                    <i class="green ace-icon fa fa-user bigger-120"></i>
+                                    <i class="green ace-icon fa fagi-user bigger-120"></i>
                                     Personal Information
                                 </a>
                             </li>
@@ -77,7 +77,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -96,6 +96,9 @@
                             <div id="user-profile-1" class="user-profile row">
                                 <div class="col-xs-12 col-sm-3 center">
                                     <div>
+                                        <div class="testAppend">
+
+                                        </div>
                                         <span class="profile-picture">
                                             <a href="#">
                                             <img id="avatar_picture" class="img-responsive" alt="Alex's Avatar" src="
@@ -170,7 +173,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade">
+                                                <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -849,7 +852,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane in active">
+                                                <div id="training_program" class="fade tab-pane">
 
                                                     <div class="row">
                                                         <div class="col-xs-12">
@@ -889,17 +892,21 @@
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
                                                                             <td class="center align-middle">
-                                                                                <span class="editable_radio training_program" id="training{{ $row->id.'colcertificate' }}" >
+                                                                                <span class="editable_certificate training_program" data-link="{{ $row->certificate }}" id="training{{ $row->id.'colcertificate' }}" >
                                                                                     @if($row->certificate)
-                                                                                    <span class="label label-info label-sm arrowed-in arrowed-in-right">
-                                                                                        <span class="inline position-relative">
-                                                                                            <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-                                                                                                <i class="ace-icon fa fa-certificate light-green"></i>
-                                                                                                &nbsp;
-                                                                                                <span class="white">View Certificate</span>
-                                                                                            </a>
+                                                                                        <span class="label label-info label-sm arrowed-in arrowed-in-right">
+                                                                                            <span class="inline position-relative">
+                                                                                                <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                                                                                    <i class="ace-icon fa fa-certificate light-green"></i>
+                                                                                                    &nbsp;
+                                                                                                    <span class="white">View Certificate</span>
+                                                                                                </a>
+                                                                                            </span>
                                                                                         </span>
-                                                                                    </span>
+                                                                                    @else
+                                                                                        <a href="#" class="user-title-label dropdown-toggle editable-empty" data-toggle="dropdown">
+                                                                                            Empty
+                                                                                        </a>
                                                                                     @endif
                                                                                 </span>
                                                                             </td>
@@ -971,6 +978,7 @@
     <script>
 
         jQuery(function($) {
+
 
             var childrenCount = "<?php echo $childrenCount; ?>";
             var childrenLimit = "<?php echo $childrenCount; ?>";
@@ -1513,65 +1521,69 @@
 
             });
 
+            var dropzoneCount=0;
             editable_certificate();
             function editable_certificate(){
-                var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
-                        "                                                                <div class=\"col-xs-12\">\n" +
-                        "                                                                    <div >\n" +
-                        "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone\">\n" +
-                        "                                                                            <div class=\"fallback\">\n" +
-                        "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
-                        "                                                                            </div>\n" +
-                        "                                                                        </form>\n" +
-                        "                                                                    </div>\n" +
-                        "\n" +
-                        "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
-                        "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
-                        "                                                                            <div class=\"dz-image\">\n" +
-                        "                                                                                <img data-dz-thumbnail=\"\" />\n" +
-                        "                                                                            </div>\n" +
-                        "\n" +
-                        "                                                                            <div class=\"dz-details\">\n" +
-                        "                                                                                <div class=\"dz-size\">\n" +
-                        "                                                                                    <span data-dz-size=\"\"></span>\n" +
-                        "                                                                                </div>\n" +
-                        "\n" +
-                        "                                                                                <div class=\"dz-filename\">\n" +
-                        "                                                                                    <span data-dz-name=\"\"></span>\n" +
-                        "                                                                                </div>\n" +
-                        "                                                                            </div>\n" +
-                        "\n" +
-                        "                                                                            <div class=\"dz-progress\">\n" +
-                        "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
-                        "                                                                            </div>\n" +
-                        "\n" +
-                        "                                                                            <div class=\"dz-error-message\">\n" +
-                        "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
-                        "                                                                            </div>\n" +
-                        "\n" +
-                        "                                                                            <div class=\"dz-success-mark\">\n" +
-                        "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                        "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                        "\n" +
-                        "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
-                        "                                                                                </span>\n" +
-                        "                                                                            </div>\n" +
-                        "\n" +
-                        "                                                                            <div class=\"dz-error-mark\">\n" +
-                        "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                        "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                        "\n" +
-                        "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
-                        "                                                                                </span>\n" +
-                        "                                                                            </div>\n" +
-                        "                                                                        </div>\n" +
-                        "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
-                        "                                                                </div><!-- /.col -->\n" +
-                        "                                     </div><div class='alert alert-warning'>Link</div><!-- /.row -->";
-
 
                     $(".editable_certificate").each(function() {
                         $('#'+this.id).on('click', function(){
+                            var certificateLink = $(this).data('link');
+                            dropzoneCount++;
+                            var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
+                                "                                                                <div class=\"col-xs-12\">\n" +
+                                "                                                                    <div >\n" +
+                                "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone"+dropzoneCount+"\">\n" +
+                                "                                                                            <div class=\"fallback\">\n" +
+                                "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
+                                "                                                                            </div>\n" +
+                                "                                                                        </form>\n" +
+                                "                                                                    </div>\n" +
+                                "\n" +
+                                "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
+                                "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
+                                "                                                                            <div class=\"dz-image\">\n" +
+                                "                                                                                <img data-dz-thumbnail=\"\" />\n" +
+                                "                                                                            </div>\n" +
+                                "\n" +
+                                "                                                                            <div class=\"dz-details\">\n" +
+                                "                                                                                <div class=\"dz-size\">\n" +
+                                "                                                                                    <span data-dz-size=\"\"></span>\n" +
+                                "                                                                                </div>\n" +
+                                "\n" +
+                                "                                                                                <div class=\"dz-filename\">\n" +
+                                "                                                                                    <span data-dz-name=\"\"></span>\n" +
+                                "                                                                                </div>\n" +
+                                "                                                                            </div>\n" +
+                                "\n" +
+                                "                                                                            <div class=\"dz-progress\">\n" +
+                                "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
+                                "                                                                            </div>\n" +
+                                "\n" +
+                                "                                                                            <div class=\"dz-error-message\">\n" +
+                                "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
+                                "                                                                            </div>\n" +
+                                "\n" +
+                                "                                                                            <div class=\"dz-success-mark\">\n" +
+                                "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                                "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                                "\n" +
+                                "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
+                                "                                                                                </span>\n" +
+                                "                                                                            </div>\n" +
+                                "\n" +
+                                "                                                                            <div class=\"dz-error-mark\">\n" +
+                                "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                                "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                                "\n" +
+                                "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
+                                "                                                                                </span>\n" +
+                                "                                                                            </div>\n" +
+                                "                                                                        </div>\n" +
+                                "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
+                                "                                                                </div><!-- /.col -->\n" +
+                                "                                     </div><div class='alert alert-warning certificate-link'>Link</div><!-- /.row -->";
+
+
                             var modal =
                                 '<div class="modal fade">\
                                   <div class="modal-dialog">\
@@ -1584,7 +1596,7 @@
                                      <div class="modal-body">\
                                         <div class="space-4"></div>'+
                                         certificateContent
-                                     +'</div>\
+                                    +'</div>\
                                     \
                                      <div class="modal-footer center">\
                                         <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
@@ -1596,130 +1608,97 @@
 
 
                             var modal = $(modal);
-                            modal.modal("show").on("hidden", function(){
-                                modal.remove();
 
-                            });
-
-                            if ($('#DropzoneElementId').length) {
-                                $("div#DropzoneElementId").dropzone({ url: "/file/post" });
-                            }
-
-                            Dropzone.autoDiscover = false;
-
-                            var myDropzone = new Dropzone('#dropzone', {
-                                previewTemplate: $('#preview-template').html(),
-
-                                thumbnailHeight: 120,
-                                thumbnailWidth: 120,
-                                maxFilesize: 0.5,
-
-                                //addRemoveLinks : true,
-                                //dictRemoveFile: 'Remove',
-
-                                dictDefaultMessage :
-                                    '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
-                                    <span class="smaller-80 grey">(or click)</span> <br /> \
-                                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
-                                ,
-
-                                thumbnail: function(file, dataUrl) {
-                                    if (file.previewElement) {
-                                        $(file.previewElement).removeClass("dz-file-preview");
-                                        var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
-                                            var thumbnailElement = this;
-                                            thumbnailElement.alt = file.name;
-                                            thumbnailElement.src = dataUrl;
-                                        });
-                                        setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
-                                    }
-                                }
-
-                            });
-
-
-                            //simulating upload progress
-                            var minSteps = 6,
-                                maxSteps = 60,
-                                timeBetweenSteps = 100,
-                                bytesPerStep = 100000;
-
-                            myDropzone.uploadFiles = function(files) {
-                                var self = this;
-
-                                for (var i = 0; i < files.length; i++) {
-                                    var file = files[i];
-                                    totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-
-                                    for (var step = 0; step < totalSteps; step++) {
-                                        var duration = timeBetweenSteps * (step + 1);
-                                        setTimeout(function(file, totalSteps, step) {
-                                            return function() {
-                                                file.upload = {
-                                                    progress: 100 * (step + 1) / totalSteps,
-                                                    total: file.size,
-                                                    bytesSent: (step + 1) * file.size / totalSteps
-                                                };
-
-                                                self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
-                                                if (file.upload.progress == 100) {
-                                                    file.status = Dropzone.SUCCESS;
-                                                    self.emit("success", file, 'success', null);
-                                                    self.emit("complete", file);
-                                                    self.processQueue();
-                                                }
-                                            };
-                                        }(file, totalSteps, step), duration);
-
-                                    }
-                                    var url = "<?php echo asset('/uploadCertificate'); ?>";
-                                    var form_data = new FormData();
-                                    form_data.append('certificate', file);
-                                    form_data.append('trainingId',name.split('col')[0].split('training')[1]);
-                                    form_data.append('userid',"<?php echo $user->piUserid ?>");
-                                    $.ajaxSetup(
-                                        {
-                                            headers:
-                                                {
-                                                    'X-CSRF-Token': "<?php echo csrf_token(); ?>"
-                                                }
-                                        });
-                                    $.ajax({
-                                        url:url,
-                                        data: form_data,
-                                        type: 'POST',
-                                        contentType: false, // The content type used when sending data to the server.
-                                        cache: false, // To unable request pages to be cached
-                                        processData: false,
-                                        success: function(result) {
-                                            console.log(result);
-                                        }
-                                    });
-                                    console.log(file);
-                                    //form.find('input[type=file]').eq(0).prop('files')[0];
-
-                                }
-                            };
-
-                            //remove dropzone instance when leaving this page in ajax mode
-                            $(document).one('ajaxloadstart.page', function(e) {
+                            modal.modal("show").on('shown.bs.modal', function (e) {
+                                $(".certificate-link").html("<li><a href=<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+" >"+certificateLink+'</a></li>');
                                 try {
-                                    myDropzone.destroy();
-                                } catch(e) {}
+                                    Dropzone.autoDiscover = false;
+
+                                    var myDropzone = new Dropzone('#dropzone'+dropzoneCount, {
+                                        previewTemplate: $('#preview-template').html(),
+
+                                        thumbnailHeight: 120,
+                                        thumbnailWidth: 120,
+                                        maxFilesize: 0.5,
+
+                                        //addRemoveLinks : true,
+                                        //dictRemoveFile: 'Remove',
+
+                                        dictDefaultMessage :
+                                            '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+                                            <span class="smaller-80 grey">(or click)</span> <br /> \
+                                            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
+                                        ,
+
+                                        thumbnail: function(file, dataUrl) {
+                                            if (file.previewElement) {
+                                                $(file.previewElement).removeClass("dz-file-preview");
+                                                var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
+                                                    var thumbnailElement = this;
+                                                    thumbnailElement.alt = file.name;
+                                                    thumbnailElement.src = dataUrl;
+                                                });
+                                                setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
+                                            }
+                                        }
+
+                                    });
+
+
+                                    //simulating upload progress
+                                    var minSteps = 6,
+                                        maxSteps = 60,
+                                        timeBetweenSteps = 100,
+                                        bytesPerStep = 100000;
+
+                                    myDropzone.uploadFiles = function(files) {
+                                        var self = this;
+
+                                        for (var i = 0; i < files.length; i++) {
+                                            var file = files[i];
+                                            totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+                                            for (var step = 0; step < totalSteps; step++) {
+                                                var duration = timeBetweenSteps * (step + 1);
+                                                setTimeout(function(file, totalSteps, step) {
+                                                    return function() {
+                                                        file.upload = {
+                                                            progress: 100 * (step + 1) / totalSteps,
+                                                            total: file.size,
+                                                            bytesSent: (step + 1) * file.size / totalSteps
+                                                        };
+
+                                                        self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                                                        if (file.upload.progress == 100) {
+                                                            file.status = Dropzone.SUCCESS;
+                                                            self.emit("success", file, 'success', null);
+                                                            self.emit("complete", file);
+                                                            self.processQueue();
+                                                        }
+                                                    };
+                                                }(file, totalSteps, step), duration);
+
+                                            }
+
+                                        }
+                                    };
+
+                                    //remove dropzone instance when leaving this page in ajax mode
+                                    $(document).one('ajaxloadstart.page', function(e) {
+                                        try {
+                                            myDropzone.destroy();
+                                        } catch(e) {}
+                                    });
+
+
+                                } catch(e) {
+                                    alert('Dropzone.js does not support older browsers!');
+                                }
+
                             });
-
-                            try {
-
-                            } catch(e) {
-                                alert('Dropzone.js does not support older browsers!');
-                            }
-
-                            console.log(this.id);
-
 
                         });
-
-                });
+                    });
             }
 
 
