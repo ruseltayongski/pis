@@ -603,13 +603,14 @@ class PisController extends Controller
         $picture = $request->file('certificate');
         $extension = $picture->getClientOriginalExtension(); // getting excel extension
         $dir = public_path().'/upload_picture/certificate';
-        $filename = uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
+        $filename = $request->file('certificate')->getClientOriginalName().'johndoe'.uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
 
         Training_Program::where('userid','=',$userid)->where('id','=',$trainingId)->update([
             'certificate' => $filename
         ]);
 
-        return $picture->move($dir, $filename);
+        $picture->move($dir, $filename);
+        return $filename;
     }
 
     public function deletePersonalInformation(Request $request){

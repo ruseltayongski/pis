@@ -1186,98 +1186,6 @@
             $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
                     '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
 
-            // *** editable avatar *** //
-            try {//ie8 throws some harmless exceptions, so let's catch'em
-
-                //first let's add a fake appendChild method for Image element for browsers that have a problem with this
-                //because editable plugin calls appendChild, and it causes errors on IE at unpredicted points
-                try {
-                    document.createElement('IMG').appendChild(document.createElement('B'));
-                } catch(e) {
-                    Image.prototype.appendChild = function(el){}
-                }
-
-                var last_gritter
-                $('#avatar').editable({
-                    type: 'image',
-                    name: 'avatar',
-                    value: null,
-                    //onblur: 'ignore',  //don't reset or hide editable onblur?!
-                    image: {
-                        //specify ace file input plugin's options here
-                        btn_choose: 'Change Avatar',
-                        droppable: true,
-                        //maxSize: 110000,//~100Kb
-
-                        //and a few extra ones here
-                        name: 'avatar',//put the field name here as well, will be used inside the custom plugin
-                        on_error : function(error_type) {//on_error function will be called when the selected file has a problem
-                            if(last_gritter) $.gritter.remove(last_gritter);
-                            if(error_type == 1) {//file format error
-                                last_gritter = $.gritter.add({
-                                    title: 'File is not an image!',
-                                    text: 'Please choose a jpg|gif|png image!',
-                                    class_name: 'gritter-error gritter-center'
-                                });
-                            } else if(error_type == 2) {//file size rror
-                                last_gritter = $.gritter.add({
-                                    title: 'File too big!',
-                                    text: 'Image size should not exceed 100Kb!',
-                                    class_name: 'gritter-error gritter-center'
-                                });
-                            }
-                            else {//other error
-                            }
-                        },
-                        on_success : function() {
-                            $.gritter.removeAll();
-                        }
-                    },
-                    url: function(params) {
-                        // ***UPDATE AVATAR HERE*** //
-                        //for a working upload example you can replace the contents of this function with
-                        //examples/profile-avatar-update.js
-
-                        var deferred = new $.Deferred
-
-                        var value = $('#avatar').next().find('input[type=hidden]:eq(0)').val();
-                        if(!value || value.length == 0) {
-                            deferred.resolve();
-                            return deferred.promise();
-                        }
-
-
-                        //dummy upload
-                        setTimeout(function(){
-                            if("FileReader" in window) {
-                                //for browsers that have a thumbnail of selected image
-                                var thumb = $('#avatar').next().find('img').data('thumb');
-                                if(thumb) $('#avatar').get(0).src = thumb;
-                            }
-
-                            deferred.resolve({'status':'OK'});
-
-                            if(last_gritter) $.gritter.remove(last_gritter);
-                            last_gritter = $.gritter.add({
-                                title: 'Avatar Updated!',
-                                text: 'Uploading to server can be easily implemented. A working example is included with the template.',
-                                class_name: 'gritter-info gritter-center'
-                            });
-
-                        } , parseInt(Math.random() * 800 + 800))
-
-                        return deferred.promise();
-
-                        // ***END OF UPDATE AVATAR HERE*** //
-                    },
-
-                    success: function(response, newValue) {
-                        console.log(response);
-                    }
-                })
-            }catch(e) {}
-            //mao ni upload image
-
 
             //another option is using modals
             $('#avatar_picture').on('click', function(){
@@ -1523,13 +1431,16 @@
 
             });
 
-            var file;
+            var file,trainingId,spancertificateId;
             var dropzoneCount=0;
+            var uploadcertificateFlag = true;
             editable_certificate();
             function editable_certificate(){
 
                     $(".editable_certificate").each(function() {
                         $('#'+this.id).on('click', function(){
+                            spancertificateId = this.id;
+                            trainingId = this.id.split('training')[1].split('col')[0];
                             var certificateLink = $(this).data('link');
                             dropzoneCount++;
                             var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
@@ -1613,7 +1524,7 @@
                             var modal = $(modal);
 
                             modal.modal("show").on('shown.bs.modal', function (e) {
-                                $(".certificate-link").html("<li><a href=<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+" >"+certificateLink+'</a></li>');
+                                $(".certificate-link").html("<li><a download='"+certificateLink.split('johndoe')[0]+"'"+" href="+"'<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+"'"+" >"+certificateLink.split('johndoe')[0]+'</a></li>');
                                 try {
                                     Dropzone.autoDiscover = false;
 
@@ -1682,6 +1593,7 @@
                                                             self.emit("success", file, 'success', null);
                                                             self.emit("complete", file);
                                                             self.processQueue();
+                                                            uploadcertificateFlag = true;
                                                         }
                                                     };
                                                 }(file, totalSteps, step), duration);
@@ -1706,9 +1618,38 @@
                             });
 
                             $(document).on('click', '.dropzoneSubmit', function() {
-                                console.log('rtayong');
-                                console.log(file);
-                                modal.modal("hide");
+                                if(uploadcertificateFlag){
+                                    console.log(trainingId);
+                                    console.log(file);
+                                    $('.modal').modal('hide');
+                                    uploadcertificateFlag = false;
+
+                                    var url = "<?php echo asset('/uploadCertificate'); ?>";
+                                    var form_data = new FormData();
+                                    form_data.append('certificate', file);
+                                    form_data.append('trainingId',trainingId);
+                                    form_data.append('userid',"<?php echo $user->piUserid ?>");
+                                    $.ajaxSetup(
+                                        {
+                                            headers:
+                                                {
+                                                    'X-CSRF-Token': "<?php echo csrf_token(); ?>"
+                                                }
+                                        });
+                                    $.ajax({
+                                        url:url,
+                                        data: form_data,
+                                        type: 'POST',
+                                        contentType: false, // The content type used when sending data to the server.
+                                        cache: false, // To unable request pages to be cached
+                                        processData: false,
+                                        success: function(result) {
+                                            console.log(result);
+                                            $('#'+spancertificateId).data('link', result);
+                                        }
+                                    });
+
+                                }
                             });
 
                         });
