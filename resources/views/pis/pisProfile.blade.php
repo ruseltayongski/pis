@@ -43,11 +43,11 @@
                         <ul class="nav nav-tabs padding-18">
                             <li>
                                 <a data-toggle="tab" href="#personal_information">
-                                    <i class="green ace-icon fa fagi-user bigger-120"></i>
+                                    <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#family_background">
                                     <i class="orange ace-icon fa fa-picture-o bigger-120"></i>
                                     Family Background
@@ -77,7 +77,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -413,7 +413,7 @@
 
                                                 </div><!-- /#personal information -->
 
-                                                <div id="family_background" class="tab-pane fade">
+                                                <div id="family_background" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -483,6 +483,9 @@
                                                                         <div class="profile-info-value pull-left">
                                                                             <span class="editable_picker"><b><i>DATE OF BIRTH (mm/dd/yyyy)</i></b></span>
                                                                         </div>
+                                                                        <div class="profile-info-value pull-right">
+                                                                            <b><i>Options</i></b>
+                                                                        </div>
                                                                     </div>
                                                                     <?php $childrenCount = 0; ?>
                                                                     @foreach($children as $row)
@@ -491,6 +494,9 @@
                                                                             <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->id }}colcname">{{ $row->name }}</div>
                                                                             <div class="profile-info-value pull-left">
                                                                                 <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->id }}colcdate_of_birth">{{ $row->date_of_birth }}</span>
+                                                                            </div>
+                                                                            <div class="pull-right" style="margin-right:5%;">
+                                                                                <span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
@@ -854,7 +860,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane in active">
+                                                <div id="training_program" class="fade tab-pane">
 
                                                     <div class="row">
                                                         <div class="col-xs-12">
@@ -1082,6 +1088,7 @@
                         </span></td>\
                         <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
                         <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colgovernment_service"></span></td>\
+                        <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colworkDelete"><i class="fa fa-close"></i></span></td>\
                     </tr>';
                 $("#work_append").append(workAppend);
                 $("#"+workUnique_row).hide().fadeIn();
@@ -1899,6 +1906,7 @@
                                 } else {
                                     chilBool = false;
                                 }
+                                $("#"+this.id).css('color','#393939');
 
                                 url = "{!! asset('updateChildren') !!}";
                             }
@@ -1985,6 +1993,7 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
 
+                                console.log(json);
                                 url = "{!! asset('deleteWorkExperience') !!}";
                                 $(this).parents(':eq(1)').fadeOut();
                                 $.post(url,json,function(result){
@@ -2203,7 +2212,6 @@
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
 
-                        var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
                         var minDate,attrTrap,presentValue;
                         var presentFlag = false;
                         var extendAppend = '';
@@ -2216,6 +2224,7 @@
                             attrTrap = 'readonly';
                         }
                         else if(name.split('col')[1] == 'date_to') {
+                            var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
                             extendAppend = toPresent+notePresent;
                             minDate = $("#"+datepickerTrap).text();
                             if(minDate == 'Empty'){
