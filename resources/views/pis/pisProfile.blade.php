@@ -47,7 +47,7 @@
                                     Personal Information
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#family_background">
                                     <i class="orange ace-icon fa fa-picture-o bigger-120"></i>
                                     Family Background
@@ -59,7 +59,7 @@
                                     Educational Background
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#service_eligibility">
                                     <i class="pink ace-icon fa fa-certificate bigger-120"></i>
                                     Civil Service Eligibility
@@ -413,7 +413,7 @@
 
                                                 </div><!-- /#personal information -->
 
-                                                <div id="family_background" class="tab-pane fade in active">
+                                                <div id="family_background" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -496,7 +496,7 @@
                                                                                 <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->id }}colcdate_of_birth">{{ $row->date_of_birth }}</span>
                                                                             </div>
                                                                             <div class="pull-right" style="margin-right:5%;">
-                                                                                <span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span>
+                                                                                <span class="editable_radio children" id="{{ 'c_id'.$row->id.'colchildrenDelete' }}"><i class="fa fa-close"></i></span>
                                                                             </div>
                                                                         </div>
                                                                     @endforeach
@@ -699,7 +699,7 @@
                                                     </div>
                                                 </div><!-- /#education background -->
 
-                                                <div id="service_eligibility" class="fade tab-pane">
+                                                <div id="service_eligibility" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -717,6 +717,7 @@
                                                                         <th class="center" rowspan="2">DATE OF EXAMINATION / CONFERMENT</th>
                                                                         <th class="center" rowspan="2">PLACE OF EXAMINATION / CONFERMENT</th>
                                                                         <th class="center" colspan="2">LICENSE (if applicable)</th>
+                                                                        <th class="center" rowspan="2">Option</th>
                                                                     </tr>
                                                                     <tr class="info">
                                                                         <th class="center">NUMBER</th>
@@ -730,10 +731,11 @@
                                                                     <tr id="">
                                                                         <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
                                                                         <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
-                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
+                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
                                                                         <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
                                                                         <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
                                                                         <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
+                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'colcivilDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                     </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -1001,6 +1003,7 @@
 
                     var childrenName = 'childrenName'+childrenCount+'c_id'+childId+'colcname';
                     var childrenDOB = 'childrenDOB'+childrenCount+'c_id'+childId+'colcdate_of_birth';
+                    var childrenDelete = childrenCount+'c_id'+childId+'colchildrenDelete';
                     var chilAnimation = childrenName + childrenDOB;
                     event.preventDefault();
                     var childrenAppend =
@@ -1008,6 +1011,9 @@
                                 <div class="profile-info-name editable children" id="'+childrenName+'"></div>\
                                 <div class="profile-info-value pull-left">\
                                     <span class="editable_radio" id="'+childrenDOB+'"></span>\
+                                </div>\
+                                <div class="pull-right" style="margin-right:5%;">\
+                                    <span class="editable_radio work_experience" id="'+childrenDelete+'"><i class="fa fa-close"></i></span>\
                                 </div>\
                             </div>';
                     $("#children_append").append(childrenAppend);
@@ -1044,6 +1050,7 @@
                                 <td><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colplace_examination"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'collicense_number"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_validity"></span></td>\
+                                <td class="center"><span class="editable_radio civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colcivilDelete"><i class="fa fa-close"></i></span></td>\
                             </tr>';
                     $("#civil_append").append(civilAppend);
                     $("#"+civilUnique_row).hide().fadeIn();
@@ -1835,9 +1842,18 @@
                 "workDelete": [
                     {value:'Dummy', text:'Dummy'}
                 ],
+                "childrenDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "civilDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_of_examination": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
                 "government_service": [
                     {value:'Yes', text:'Yes'},
-                    {value:'No', text:'No'},
+                    {value:'No', text:'No'}
                 ]
             }];
 
@@ -1886,6 +1902,21 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if( columnId == 'date_of_examination' ){
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : 'date_of_examination',
+                                    "value" : date_picker,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateCivilEligibility') !!}";
+
                             }
                             else if(columnId == 'cdate_of_birth'){ // children date_of_birth
                                 chilBool = true; // make true so can add new row
@@ -1974,6 +2005,7 @@
 
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
+
                             else if(columnId == 'certificate'){
                                 json = {
                                     "id" : this.id.split('training')[1].split('col')[0],
@@ -1986,19 +2018,46 @@
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
 
-                            if(columnId == 'workDelete'){
-                                json = {
-                                    "id" : this.id.split('col')[0],
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
+                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' ){
+                                if( columnId == 'workDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
 
-                                console.log(json);
-                                url = "{!! asset('deleteWorkExperience') !!}";
-                                $(this).parents(':eq(1)').fadeOut();
-                                $.post(url,json,function(result){
-                                    console.log(result);
-                                });
+                                    console.log(json);
+                                    url = "{!! asset('deleteWorkExperience') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    $.post(url,json,function(result){
+                                        console.log(result);
+                                    });
+                                }
+                                else if( columnId == 'childrenDelete' ){
+                                    json = {
+                                        "id" : this.id.split('c_id')[1].split('col')[0],
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteChildren') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    $.post(url,json,function(result){
+                                        console.log(result);
+                                    });
+                                }
+                                else if( columnId == 'civilDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteChildren') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    $.post(url,json,function(result){
+                                        console.log(result);
+                                    });
+                                }
+
                             }
                             else
                             {
@@ -2204,10 +2263,11 @@
                         }
                     }
 
-                    if(name.split('col')[1] == 'government_service')
+                    if( name.split('col')[1] == 'government_service' )
                         $(".popover-content").css('width','200px');
 
-                    if(name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to'){
+                    if( name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to' || name.split('col')[1] == 'date_of_examination' )
+                    {
                         var value = $("#"+name).text();
                         if(value == 'Empty')
                            value = month+'/'+day+'/'+year;
@@ -2219,11 +2279,11 @@
                         var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)'>";
                         var notePresent = "<span class='alert alert-info'>Present check use only once</span>";
 
-                        if(name.split('col')[1] == 'date_from') {
+                        if( name.split('col')[1] == 'date_from' ) {
                             minDate = '';
                             attrTrap = 'readonly';
                         }
-                        else if(name.split('col')[1] == 'date_to') {
+                        else if( name.split('col')[1] == 'date_to' ) {
                             var datepickerTrap = $("#"+name).parent(':first').siblings(':first').children()[0].id;
                             extendAppend = toPresent+notePresent;
                             minDate = $("#"+datepickerTrap).text();
@@ -2294,189 +2354,11 @@
                             salary_append.append(result+"<br>");
                         });*/
                     }
-                    else if(name.split('col')[1] == 'workDelete'){
+                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' ){
                         $(".popover-content").css('width','320px');
                         var workDelete_append = this.$tpl;
                         workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");
                     }
-                    else if(name.split('col')[1] == 'certificate'){
-
-                        $(".popover-content").css('width','300px');
-                        var salary_append = this.$tpl;
-
-                        salary_append.append("<div class=\"row\" style='height:100px;'>\n" +
-                            "                                                                <div class=\"col-xs-12\">\n" +
-                            "                                                                    <div >\n" +
-                            "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone\">\n" +
-                            "                                                                            <div class=\"fallback\">\n" +
-                            "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
-                            "                                                                            </div>\n" +
-                            "                                                                        </form>\n" +
-                            "                                                                    </div>\n" +
-                            "\n" +
-                            "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
-                            "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
-                            "                                                                            <div class=\"dz-image\">\n" +
-                            "                                                                                <img data-dz-thumbnail=\"\" />\n" +
-                            "                                                                            </div>\n" +
-                            "\n" +
-                            "                                                                            <div class=\"dz-details\">\n" +
-                            "                                                                                <div class=\"dz-size\">\n" +
-                            "                                                                                    <span data-dz-size=\"\"></span>\n" +
-                            "                                                                                </div>\n" +
-                            "\n" +
-                            "                                                                                <div class=\"dz-filename\">\n" +
-                            "                                                                                    <span data-dz-name=\"\"></span>\n" +
-                            "                                                                                </div>\n" +
-                            "                                                                            </div>\n" +
-                            "\n" +
-                            "                                                                            <div class=\"dz-progress\">\n" +
-                            "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
-                            "                                                                            </div>\n" +
-                            "\n" +
-                            "                                                                            <div class=\"dz-error-message\">\n" +
-                            "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
-                            "                                                                            </div>\n" +
-                            "\n" +
-                            "                                                                            <div class=\"dz-success-mark\">\n" +
-                            "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                            "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                            "\n" +
-                            "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
-                            "                                                                                </span>\n" +
-                            "                                                                            </div>\n" +
-                            "\n" +
-                            "                                                                            <div class=\"dz-error-mark\">\n" +
-                            "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                            "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                            "\n" +
-                            "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
-                            "                                                                                </span>\n" +
-                            "                                                                            </div>\n" +
-                            "                                                                        </div>\n" +
-                            "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
-                            "                                                                </div><!-- /.col -->\n" +
-                            "                                     </div><div class='alert alert-warning'>Link</div><!-- /.row -->");
-
-
-                        try {
-                            Dropzone.autoDiscover = false;
-
-                            var myDropzone = new Dropzone('#dropzone', {
-                                previewTemplate: $('#preview-template').html(),
-
-                                thumbnailHeight: 120,
-                                thumbnailWidth: 120,
-                                maxFilesize: 0.5,
-
-                                //addRemoveLinks : true,
-                                //dictRemoveFile: 'Remove',
-
-                                dictDefaultMessage :
-                                    '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
-                                    <span class="smaller-80 grey">(or click)</span> <br /> \
-                                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
-                                ,
-
-                                thumbnail: function(file, dataUrl) {
-                                    if (file.previewElement) {
-                                        $(file.previewElement).removeClass("dz-file-preview");
-                                        var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
-                                            var thumbnailElement = this;
-                                            thumbnailElement.alt = file.name;
-                                            thumbnailElement.src = dataUrl;
-                                        });
-                                        setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
-                                    }
-                                }
-
-                            });
-
-
-                            //simulating upload progress
-                            var minSteps = 6,
-                                maxSteps = 60,
-                                timeBetweenSteps = 100,
-                                bytesPerStep = 100000;
-
-                            myDropzone.uploadFiles = function(files) {
-                                var self = this;
-
-                                for (var i = 0; i < files.length; i++) {
-                                    var file = files[i];
-                                    totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
-
-                                    for (var step = 0; step < totalSteps; step++) {
-                                        var duration = timeBetweenSteps * (step + 1);
-                                        setTimeout(function(file, totalSteps, step) {
-                                            return function() {
-                                                file.upload = {
-                                                    progress: 100 * (step + 1) / totalSteps,
-                                                    total: file.size,
-                                                    bytesSent: (step + 1) * file.size / totalSteps
-                                                };
-
-                                                self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
-                                                if (file.upload.progress == 100) {
-                                                    file.status = Dropzone.SUCCESS;
-                                                    self.emit("success", file, 'success', null);
-                                                    self.emit("complete", file);
-                                                    self.processQueue();
-                                                }
-                                            };
-                                        }(file, totalSteps, step), duration);
-
-                                    }
-                                    var url = "<?php echo asset('/uploadCertificate'); ?>";
-                                    var form_data = new FormData();
-                                    form_data.append('certificate', file);
-                                    form_data.append('trainingId',name.split('col')[0].split('training')[1]);
-                                    form_data.append('userid',"<?php echo $user->piUserid ?>");
-                                    $.ajaxSetup(
-                                        {
-                                            headers:
-                                                {
-                                                    'X-CSRF-Token': "<?php echo csrf_token(); ?>"
-                                                }
-                                        });
-                                    $.ajax({
-                                        url:url,
-                                        data: form_data,
-                                        type: 'POST',
-                                        contentType: false, // The content type used when sending data to the server.
-                                        cache: false, // To unable request pages to be cached
-                                        processData: false,
-                                        success: function(result) {
-                                            console.log(result);
-                                        }
-                                    });
-                                    console.log(file);
-                                    //form.find('input[type=file]').eq(0).prop('files')[0];
-
-                                }
-                            };
-
-                            //remove dropzone instance when leaving this page in ajax mode
-                            $(document).one('ajaxloadstart.page', function(e) {
-                                try {
-                                    myDropzone.destroy();
-                                } catch(e) {}
-                            });
-
-
-                        } catch(e) {
-                            alert('Dropzone.js does not support older browsers!');
-                        }
-                        console.log(name);
-                        $(document).on('click', '.popover-content', function() {
-                            $('#training490colcertificate').editable('option', 'disabled', false);
-                            console.log('rtayong');
-                            return false;
-                        });
-
-
-                    }
-
 
                     this.$input = this.$tpl.find('input[type="radio"]');
                     this.setClass();

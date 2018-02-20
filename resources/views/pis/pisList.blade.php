@@ -35,20 +35,25 @@
         <div class="space-20"></div>
         <p class="alert alert-info"><i class="ace-icon fa fa-info"></i> type only to search keyword</p>
         <div class="row">
-            <div class="col-xs-12 col-md-6">
-                <label class="block clearfix">
-                    <span class="block input-icon input-icon-right">
-                        <input type="text" class="form-control" value="{{ Session::get('keyword') }}" id="search" name="keyword" placeholder="Search PIS..." autofocus/>
-                        <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
-                    </span>
-                </label>
-            </div>
-            <div class="col-xs-12 col-md-6">
-                <a href="#document_form" data-link="{{ asset('pisForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
-                    <i class="fa fa-user-plus"></i>
-                    Add Employee
-                </a>
-            </div>
+            <form action="" id="searchForm">
+                <div class="col-xs-12 col-md-6">
+                    <label class="block clearfix">
+                        <span class="block input-icon input-icon-right">
+                            <input type="text" class="form-control" value="{{ Session::get('keyword') }}" id="search" name="keyword" placeholder="Search PIS..." autofocus/>
+                            <i class="ace-icon fa fa-search icon-on-right bigger-110"></i>
+                        </span>
+                    </label>
+                </div>
+                <div class="col-xs-12 col-md-1">
+                    <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-search icon-on-right bigger-110"></i> Search</button>
+                </div>
+                <div class="col-xs-12 col-md-5">
+                    <a href="#document_form" data-link="{{ asset('pisForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
+                        <i class="fa fa-user-plus"></i>
+                        Add Employee
+                    </a>
+                </div>
+            </form>
         </div>
         <div class="space-10"></div>
 
@@ -88,6 +93,14 @@
 @section('js')
     <script>
         jQuery(function($) {
+
+            $("#searchForm").submit(function(e) {
+                keyword = $("input[name='keyword']").val();
+                getPosts(1,keyword);
+                this.focus();
+                return false;
+            });
+
             $.widget("ui.dialog", $.extend({}, $.ui.dialog.prototype, {
                 _title: function(title) {
                     var $title = this.options.title || '&nbsp;';
@@ -96,6 +109,35 @@
                     else title.text($title);
                 }
             }));
+
+            //custom autocomplete (category selection)
+            $.widget( "custom.catcomplete", $.ui.autocomplete, {
+                _create: function() {
+                    this._super();
+                    this.widget().menu( "option", "items", "> :not(.ui-autocomplete-category)" );
+                },
+                _renderMenu: function( ul, items ) {
+                    var that = this, currentCategory = "";
+                    $.each( items, function( index, item ) {
+                        that._renderItemData( ul, item );
+                        return index < 15;
+                    });
+                }
+            });
+
+            var personal_select = [];
+            $.each(<?php echo $personal_select; ?>,function(x,data){
+                personal_select.push({ label:data.fname+" "+data.lname , id:data.id });
+            });
+
+            $( "#search" ).catcomplete({
+                delay: 0,
+                source: personal_select,
+                select: function(e, ui) {
+                    keyword = ui.item.value;
+                    getPosts(1,keyword);
+                }
+            });
 
             delete_row();
             function delete_row(){
@@ -163,15 +205,6 @@
                 },500);
             });
 
-            $("input[name='keyword']").on("keyup",function(e){
-                //this.focus();
-                if(e.keyCode >= 48 && e.keyCode <= 90 || e.keyCode == 8){
-                    keyword = $("input[name='keyword']").val();
-                    getPosts(1,keyword);
-                }
-                e.preventDefault();
-            });
-
             var type = 'ALL';
             var keyword = '';
             $(".m-tab").each(function(index){
@@ -180,6 +213,7 @@
                     type = this.href.split('#')[1];
                     $('.posts_'+type).html("<span>Loading....</span>");
                     getPosts(1,keyword);
+
                 });
             });
 
@@ -211,13 +245,6 @@
                     "type" : type,
                     "_token" : "<?php echo csrf_token(); ?>"
                 };
-
-                /*$.post(url,json,function(data){
-                    setTimeout(function(){
-                        $('.posts_'+type).html(data.view);
-                        delete_row();
-                    },700);
-                });*/
 
                 $.ajax({
                     type: "POST",

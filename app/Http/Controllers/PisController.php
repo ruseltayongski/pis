@@ -45,6 +45,7 @@ class PisController extends Controller
     public function pisList(Request $request)
     {
         Session::put('keyword',$request->input('keyword'));
+        $personal_select = '';
         $keyword = Session::get('keyword');
         if($request->get('type')){
             $type = $request->get('type');
@@ -52,13 +53,15 @@ class PisController extends Controller
             $type = 'ALL';
         }
         if ($type == 'ALL'){
+            $personal_select = Personal_Information::orderBy('fname','asc')->get();
             $personal_information = Personal_Information::
             where('user_status','=','1')
             ->where(function($q) use ($keyword){
                 $q->where('fname','like',"%$keyword%")
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%");
+                    ->orWhere('userid','like',"%$keyword%")
+                    ->orWhereRaw("concat(fname, ' ', lname) like '%$keyword%' ");
             })
                 ->orderBy('fname','asc')
                 ->paginate(10);
@@ -101,7 +104,7 @@ class PisController extends Controller
                 ->orderBy('fname','ASC')
                 ->paginate(10);
         }
-        elseif ($type == 'INACTIVE'){
+        elseif($type == 'INACTIVE'){
             $personal_information = Personal_Information::
             where('user_status','=','0')
                 ->where(function($q) use ($keyword){
@@ -226,7 +229,8 @@ class PisController extends Controller
         return view('pis.pisList',[
             "personal_information" => $personal_information,
             "type" => $type,
-            "countArray" => $countArray
+            "countArray" => $countArray,
+            "personal_select" => $personal_select
         ]);
     }
 
@@ -331,6 +335,16 @@ class PisController extends Controller
         return DB::select("show table status like 'children'")[0]->Auto_increment;
     }
 
+    public function deleteChildren(Request $request){
+        $id = $request->id;
+        $children = new Children();
+        $children->setConnection('pis');
+        $children->find($id)->delete();
+
+        return 'Successfully Children Deleted';
+    }
+
+
     public function updateFamilyBackground(Request $request){
 
         $userid = $request->get('userid');
@@ -390,8 +404,8 @@ class PisController extends Controller
             $unique_row = 'no unique row';
         }
 
-        $civil_eligibility = Civil_Eligibility::where('id',$id)
-            ->orWhere('unique_row', $unique_row)
+        $civil_eligibility = Civil_Eligibility::where('id','=',$id)
+            ->orWhere('unique_row','=',$unique_row)
             ->first();
 
         if(is_null($civil_eligibility)){

@@ -3,7 +3,6 @@
 namespace PIS;
 
 use Illuminate\Database\Eloquent\Model;
-use InsertOnDuplicateKey;
 
 class User_dts extends Model
 {
