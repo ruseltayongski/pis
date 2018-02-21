@@ -59,7 +59,7 @@
                                     Educational Background
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#service_eligibility">
                                     <i class="pink ace-icon fa fa-certificate bigger-120"></i>
                                     Civil Service Eligibility
@@ -77,7 +77,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -699,7 +699,7 @@
                                                     </div>
                                                 </div><!-- /#education background -->
 
-                                                <div id="service_eligibility" class="fade tab-pane in active">
+                                                <div id="service_eligibility" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -836,6 +836,7 @@
                                                                         <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                                                                         <th class="center align-middle" rowspan="2">Number of Hours</th>
                                                                         <th class="center align-middle" rowspan="2">Position/Nature of Work</th>
+                                                                        <th class="center align-middile" rowspan="2">Option</th>
                                                                     </tr>
                                                                     <tr class="info">
                                                                         <th class="center">From</th>
@@ -848,10 +849,11 @@
                                                                         <?php $voluntaryCount++; ?>
                                                                         <tr id="">
                                                                             <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colname_of_organization' }}" >{{ $row->name_of_organization }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_to' }}" >{{ $row->date_to }}</span></td>
                                                                             <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
                                                                             <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnature_of_work' }}" >{{ $row->nature_of_work }}</span></td>
+                                                                            <td class="center"><span class="editable_radio voluntary_work" id="{{ $row->id.'colvoluntaryDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -862,7 +864,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane">
+                                                <div id="training_program" class="fade tab-pane in active">
 
                                                     <div class="row">
                                                         <div class="col-xs-12">
@@ -881,9 +883,10 @@
                                                                         <th class="center align-middle" rowspan="2">Title of Learning & Development Interventions/Training Programs(Write in full)</th>
                                                                         <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                                                                         <th class="center align-middle" rowspan="2">Number of Hours</th>
-                                                                        <th class="center align-middle" rowspan="2">Type of ID(Managerial/Supervisor/Technical/etc)</th>
+                                                                        <th class="center align-middle" rowspan="2">Type of ID<br>(Managerial/Supervisor/<br>Technical/etc)</th>
                                                                         <th class="center align-middle" rowspan="2">Sponsored By</th>
                                                                         <th class="center align-middle" rowspan="2">Upload Certificate</th>
+                                                                        <th class="center align-middle" rowspan="2">Option</th>
                                                                     </tr>
                                                                     <tr class="info">
                                                                         <th class="center">From</th>
@@ -909,7 +912,7 @@
                                                                                                 <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                                                                                                     <i class="ace-icon fa fa-certificate light-green"></i>
                                                                                                     &nbsp;
-                                                                                                    <span class="white">View Certificate</span>
+                                                                                                    <span class="white" style="font-size:5.5pt;">View Certificate</span>
                                                                                                 </a>
                                                                                             </span>
                                                                                         </span>
@@ -920,6 +923,7 @@
                                                                                     @endif
                                                                                 </span>
                                                                             </td>
+                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="{{ $row->id.'coltrainingDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -1046,7 +1050,7 @@
                             '<tr id="'+civilUnique_row+'">\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colcareer_service"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colrating"></span></td>\
-                                <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_examination"></span></td>\
+                                <td class="center"><span class="editable_radio civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_examination"></span></td>\
                                 <td><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colplace_examination"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'collicense_number"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_validity"></span></td>\
@@ -1121,10 +1125,11 @@
                     var voluntaryAppend =
                             '<tr id="'+voluntaryUnique_row+'">\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colname_of_organization"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_from"></span></td>\
-                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'coldate_to"></span></td>\
+                                <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_from"></span></td>\
+                                <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_to"></span></td>\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnumber_of_hours"></span></td>\
                                 <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
+                                <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+voluntaryCount+'colvoluntaryDelete"><i class="fa fa-close"></i></span></td>\
                             </tr>';
                     $("#voluntary_append").append(voluntaryAppend);
                     $("#"+voluntaryUnique_row).hide().fadeIn();
@@ -1142,26 +1147,33 @@
             //note.. carefull sa id unique.. true in where clause (must have no-id)
             var trainingCount = "<?php echo $trainingCount; ?>";
             $("#trainingAdd").on('click',function(event){
-
                 trainingCount++;
                 var trainingUnique_row = trainingCount+"<?php echo 'training'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
                 event.preventDefault();
 
                 var trainingAppend =
                         '<tr id="'+trainingUnique_row+'">\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltitle_of_learning"></span></td>\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_from"></span></td>\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_to"></span></td>\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colnumber_of_hours"></span></td>\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltype_of_id"></span></td>\
-                                <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colsponsored_by"></span></td>\
-                            </tr>';
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltitle_of_learning"></span></td>\
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_from"></span></td>\
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_to"></span></td>\
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colnumber_of_hours"></span></td>\
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltype_of_id"></span></td>\
+                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colsponsored_by"></span></td>\
+                            <td class="center align-middle">\
+                                <span class="editable_certificate training_program" data-link="" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colcertificate" >\
+                                    <a href="#" class="user-title-label dropdown-toggle editable-empty" data-toggle="dropdown">\
+                                        Empty\
+                                    </a>\
+                                </span>\
+                            </td>\
+                            <td class="center align-middle"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+voluntaryCount+'colvoluntaryDelete"><i class="fa fa-close"></i></span></td>\
+                        </tr>';
                 $("#training_append").append(trainingAppend);
                 $("#"+trainingUnique_row).hide().fadeIn();
 
                 text_editable();
                 editable_radio();
-
+                editable_certificate();
             });
 
             //OTHER INFORMATION ADD
@@ -1445,7 +1457,7 @@
 
             });
 
-            var file,trainingId,spancertificateId;
+            var file,trainingId,spancertificateId,certificateUnique;
             var dropzoneCount=0;
             var uploadcertificateFlag = true;
             editable_certificate();
@@ -1455,6 +1467,7 @@
                         $('#'+this.id).on('click', function(){
                             spancertificateId = this.id;
                             trainingId = this.id.split('training')[1].split('col')[0];
+                            certificateUnique = $(this).parents(':eq(1)').attr('id');
                             var certificateLink = $(this).data('link');
                             dropzoneCount++;
                             var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
@@ -1633,7 +1646,18 @@
 
                             $(document).on('click', '.dropzoneSubmit', function() {
                                 if(uploadcertificateFlag){
-                                    console.log(trainingId);
+                                    if(certificateUnique)
+                                        $('#'+spancertificateId).html('<span class="label label-info label-sm arrowed-in arrowed-in-right">\n' +
+                                            '                                 <span class="inline position-relative">\n' +
+                                            '                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">\n' +
+                                            '                                       <i class="ace-icon fa fa-certificate light-green"></i>\n' +
+                                            '                                         &nbsp;\n' +
+                                            '                                       <span class="white" style="font-size:5.5pt;">View Certificate</span>\n' +
+                                            '                                      </a>\n' +
+                                            '                                  </span>\n' +
+                                            '                         </span>');
+                                    else
+                                        console.log('false');
                                     console.log(file);
                                     $('.modal').modal('hide');
                                     uploadcertificateFlag = false;
@@ -1643,6 +1667,7 @@
                                     form_data.append('certificate', file);
                                     form_data.append('trainingId',trainingId);
                                     form_data.append('userid',"<?php echo $user->piUserid ?>");
+                                    form_data.append('unique_row',certificateUnique);
                                     $.ajaxSetup(
                                         {
                                             headers:
@@ -1827,6 +1852,15 @@
                 "cdate_of_birth": [
                     {value:'Dummy', text:'Dummy'}
                 ],
+                "vdate_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "vdate_to": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "voluntaryDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
                 "salary_grade": [
                     {value:'Dummy', text:'Dummy'}
                 ],
@@ -1903,20 +1937,34 @@
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
                             }
-                            else if( columnId == 'date_of_examination' ){
+                            else if( columnId == 'date_of_examination' || columnId == 'vdate_from' || columnId == 'vdate_to' ){
                                 var date_picker = $("#"+this.id+"input").val();
                                 $("#"+this.id).html(date_picker);
+                                $("#"+this.id).css('color','#393939');
+                                var column,rowId;
+                                if( columnId == 'date_of_examination' ) {
+                                    rowId = this.id.split('col')[0];
+                                    url = "{!! asset('updateCivilEligibility') !!}";
+                                    column = 'date_of_examination';
+                                }
+                                else{
+                                    url = "{!! asset('updateVoluntaryWork') !!}";
+                                    rowId = this.id.split('voluntary')[1].split('col')[0];
+                                    if( columnId == 'vdate_from' ){
+                                        column = 'date_from';
+                                    } else {
+                                        column = 'date_to';
+                                    }
+                                }
 
                                 json = {
-                                    "id" : this.id.split('col')[0],
+                                    "id" : rowId,
                                     "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : 'date_of_examination',
+                                    "column" : column,
                                     "value" : date_picker,
                                     "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
-                                url = "{!! asset('updateCivilEligibility') !!}";
-
                             }
                             else if(columnId == 'cdate_of_birth'){ // children date_of_birth
                                 chilBool = true; // make true so can add new row
@@ -2018,7 +2066,7 @@
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
 
-                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' ){
+                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' ){
                                 if( columnId == 'workDelete' ){
                                     json = {
                                         "id" : this.id.split('col')[0],
@@ -2029,9 +2077,7 @@
                                     console.log(json);
                                     url = "{!! asset('deleteWorkExperience') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    $.post(url,json,function(result){
-                                        console.log(result);
-                                    });
+
                                 }
                                 else if( columnId == 'childrenDelete' ){
                                     json = {
@@ -2041,22 +2087,31 @@
 
                                     url = "{!! asset('deleteChildren') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    $.post(url,json,function(result){
-                                        console.log(result);
-                                    });
                                 }
                                 else if( columnId == 'civilDelete' ){
                                     json = {
                                         "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                         "_token" : "<?php echo csrf_token(); ?>",
                                     };
 
-                                    url = "{!! asset('deleteChildren') !!}";
+                                    url = "{!! asset('deleteCivilEligibility') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    $.post(url,json,function(result){
-                                        console.log(result);
-                                    });
                                 }
+                                else if( columnId == 'voluntaryDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteVoluntaryWork') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+
+                                $.post(url,json,function(result){
+                                    console.log(result);
+                                });
 
                             }
                             else
@@ -2266,7 +2321,7 @@
                     if( name.split('col')[1] == 'government_service' )
                         $(".popover-content").css('width','200px');
 
-                    if( name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to' || name.split('col')[1] == 'date_of_examination' )
+                    if( name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to' || name.split('col')[1] == 'date_of_examination' || name.split('colv')[1] == 'date_from' || name.split('colv')[1] == 'date_to' )
                     {
                         var value = $("#"+name).text();
                         if(value == 'Empty')
@@ -2354,7 +2409,7 @@
                             salary_append.append(result+"<br>");
                         });*/
                     }
-                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' ){
+                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' ){
                         $(".popover-content").css('width','320px');
                         var workDelete_append = this.$tpl;
                         workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");

@@ -44,6 +44,7 @@ Route::post('/updateCivilEligibility','PisController@updateCivilEligibility');
 Route::post('deleteCivilEligibility','pisController@deleteCivilEligibility');
 Route::post('/updateWorkExperience','PisController@updateWorkExperience');
 Route::post('/updateVoluntaryWork','PisController@updateVoluntaryWork');
+Route::post('deleteVoluntaryWork','pisController@deleteVoluntaryWork');
 Route::post('/updateTrainingProgram','PisController@updateTrainingProgram');
 Route::post('/updateOtherInformation','PisController@updateOtherInformation');
 Route::post('/uploadPicture','PisController@uploadPicture');

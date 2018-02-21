@@ -100,7 +100,7 @@
     <div style="padding:15px;">
         <div class="container">
             <a href="{{ asset('/') }}">
-                <img src="{{ asset('public/img/pis_banner.png') }}" class="img-responsive" />
+                <img src="{{ asset('public/img/personnel_banner.png') }}" class="img-responsive" />
             </a>
         </div>
     </div>

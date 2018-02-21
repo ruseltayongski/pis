@@ -317,8 +317,8 @@ class PisController extends Controller
         return Personal_Information::where('id',$id)->update($arrayValue);
     }
 
-    public function updateChildren(Request $request){
-
+    public function updateChildren(Request $request)
+    {
         $id = $request->get('id');
         $userid = $request->get('userid');
         $column = $request->get('column');
@@ -335,7 +335,8 @@ class PisController extends Controller
         return DB::select("show table status like 'children'")[0]->Auto_increment;
     }
 
-    public function deleteChildren(Request $request){
+    public function deleteChildren(Request $request)
+    {
         $id = $request->id;
         $children = new Children();
         $children->setConnection('pis');
@@ -392,7 +393,8 @@ class PisController extends Controller
 
     }
 
-    public function updateCivilEligibility(Request $request){
+    public function updateCivilEligibility(Request $request)
+    {
 
         $id = $request->get('id');
         $userid = $request->get('userid');
@@ -425,6 +427,21 @@ class PisController extends Controller
         }
 
     }
+
+    public function deleteCivilEligibility(Request $request)
+    {
+        $id = $request->id;
+        if(is_null($request->unique_row)){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->unique_row;
+        }
+
+        Civil_Eligibility::where('id','=',$id)->orWhere("unique_row","=",$unique_row)->first()->delete();
+
+        return 'Successfully Deleted Civil Service Eligibility';
+    }
+
 
     public function updateWorkExperience(Request $request){
         if(is_null($request->get('unique_row'))){
@@ -499,6 +516,7 @@ class PisController extends Controller
 
 
     public function updateVoluntaryWork(Request $request){
+
         if(is_null($request->get('unique_row'))){
             $unique_row = 'no unique row';
         } else {
@@ -525,6 +543,20 @@ class PisController extends Controller
             return 'successfully updated';
         }
 
+    }
+
+    public function deleteVoluntaryWork(Request $request)
+    {
+        $id = $request->id;
+        if(is_null($request->unique_row)){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->unique_row;
+        }
+
+        Voluntary_Work::where('id','=',$id)->orWhere("unique_row","=",$unique_row)->first()->delete();
+
+        return 'Successfully Deleted Voluntary Work';
     }
 
     public function updateTrainingProgram(Request $request){
@@ -626,12 +658,35 @@ class PisController extends Controller
         $dir = public_path().'/upload_picture/certificate';
         $filename = $request->file('certificate')->getClientOriginalName().'johndoe'.uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
 
-        Training_Program::where('userid','=',$userid)->where('id','=',$trainingId)->update([
-            'certificate' => $filename
-        ]);
+
+        if(is_null($request->get('unique_row'))){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->get('unique_row');
+        }
+
+        $training_program = Training_Program::where('id','=',$trainingId)
+            ->orWhere('unique_row','=',$unique_row)
+            ->first();
+
+        if(is_null($training_program)){
+            Training_Program::create([
+                'userid'=>$userid,
+                'unique_row'=>$unique_row,
+                'certificate'=>$filename
+            ]);
+
+        } else {
+            Training_Program::where('userid','=',$userid)->where('id','=',$trainingId)->update([
+                'certificate' => $filename
+            ]);
+
+        }
 
         $picture->move($dir, $filename);
+
         return $filename;
+
     }
 
     public function deletePersonalInformation(Request $request){
