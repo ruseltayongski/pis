@@ -23,6 +23,7 @@ use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
 use Illuminate\Support\Facades\App;
+use File;
 
 class PisController extends Controller
 {
@@ -588,6 +589,27 @@ class PisController extends Controller
         }
 
     }
+
+    public function deleteTrainingProgram(Request $request)
+    {
+        $file = $request->path;
+        $pathtoDelete = public_path('upload_picture/certificate/'.$file);
+        if( file_exists($pathtoDelete) ){
+            File::delete($pathtoDelete);
+        }
+
+        $id = $request->id;
+        if(is_null($request->unique_row)){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->unique_row;
+        }
+
+        Training_Program::where('id','=',$id)->orWhere("unique_row","=",$unique_row)->first()->delete();
+
+        return 'Successfully Deleted Training Program';
+    }
+
 
     public function updateOtherInformation(Request $request){
 

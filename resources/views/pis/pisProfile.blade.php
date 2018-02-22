@@ -899,8 +899,8 @@
                                                                         <?php $trainingCount++; ?>
                                                                         <tr>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltitle_of_learning' }}" >{{ $row->title_of_learning }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_to' }}" >{{ $row->date_to }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
                                                                             <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
@@ -923,7 +923,7 @@
                                                                                     @endif
                                                                                 </span>
                                                                             </td>
-                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="{{ $row->id.'coltrainingDelete' }}"><i class="fa fa-close"></i></span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio training_program" data-link="{{ $row->certificate }}" id="{{ $row->id.'coltrainingDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -1154,8 +1154,8 @@
                 var trainingAppend =
                         '<tr id="'+trainingUnique_row+'">\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltitle_of_learning"></span></td>\
-                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_from"></span></td>\
-                            <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coldate_to"></span></td>\
+                            <td class="center align-middle"><span class="editable_radio training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltdate_from"></span></td>\
+                            <td class="center align-middle"><span class="editable_radio training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltdate_to"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colnumber_of_hours"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltype_of_id"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colsponsored_by"></span></td>\
@@ -1166,7 +1166,7 @@
                                     </a>\
                                 </span>\
                             </td>\
-                            <td class="center align-middle"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+voluntaryCount+'colvoluntaryDelete"><i class="fa fa-close"></i></span></td>\
+                            <td class="center align-middle trainingDelete"><span class="editable_radio training_program" id="'+'no_id'+"<?php echo str_random(10); ?>"+trainingCount+'coltrainingDelete"><i class="fa fa-close"></i></span></td>\
                         </tr>';
                 $("#training_append").append(trainingAppend);
                 $("#"+trainingUnique_row).hide().fadeIn();
@@ -1457,7 +1457,7 @@
 
             });
 
-            var file,trainingId,spancertificateId,certificateUnique;
+            var file,trainingId,spancertificateId,certificateUnique,trainingDeleteid;
             var dropzoneCount=0;
             var uploadcertificateFlag = true;
             editable_certificate();
@@ -1468,6 +1468,8 @@
                             spancertificateId = this.id;
                             trainingId = this.id.split('training')[1].split('col')[0];
                             certificateUnique = $(this).parents(':eq(1)').attr('id');
+                            trainingDeleteid = $(this).parents(':eq(0)').siblings('.trainingDelete').children().get(0).id;
+
                             var certificateLink = $(this).data('link');
                             dropzoneCount++;
                             var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
@@ -1527,7 +1529,7 @@
 
                             var modal =
                                 '<div class="modal fade">\
-                                  <div class="modal-dialog">\
+                                  <div class="modal-dialog modal-sm">\
                                    <div class="modal-content">\
                                     <div class="modal-header">\
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>\
@@ -1646,7 +1648,7 @@
 
                             $(document).on('click', '.dropzoneSubmit', function() {
                                 if(uploadcertificateFlag){
-                                    if(certificateUnique)
+                                    if(file)
                                         $('#'+spancertificateId).html('<span class="label label-info label-sm arrowed-in arrowed-in-right">\n' +
                                             '                                 <span class="inline position-relative">\n' +
                                             '                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">\n' +
@@ -1658,6 +1660,7 @@
                                             '                         </span>');
                                     else
                                         console.log('false');
+
                                     console.log(file);
                                     $('.modal').modal('hide');
                                     uploadcertificateFlag = false;
@@ -1685,6 +1688,7 @@
                                         success: function(result) {
                                             console.log(result);
                                             $('#'+spancertificateId).data('link', result);
+                                            console.log(trainingDeleteid);
                                         }
                                     });
 
@@ -1858,7 +1862,16 @@
                 "vdate_to": [
                     {value:'Dummy', text:'Dummy'}
                 ],
+                "tdate_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "tdate_to": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
                 "voluntaryDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "trainingDelete": [
                     {value:'Dummy', text:'Dummy'}
                 ],
                 "salary_grade": [
@@ -1891,7 +1904,7 @@
                 ]
             }];
 
-            var columnId;
+            var columnId,radioClassname;
             editable_radio();
             function editable_radio(){
                 $(".editable_radio").each(function(index){
@@ -1902,6 +1915,8 @@
                         validate: function(value) {
                             var json,url;
                             columnId = this.id.split('col')[1];
+                            radioClassname = this.className;
+                            $("#"+this.id).css('color','#393939');
                             if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status') ){ //personal information sex,citizenship,civil_status
                                 $("#"+this.id).html(value);
                                 json = {
@@ -1937,7 +1952,7 @@
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
                             }
-                            else if( columnId == 'date_of_examination' || columnId == 'vdate_from' || columnId == 'vdate_to' ){
+                            else if( columnId == 'date_of_examination' || columnId == 'vdate_from' || columnId == 'vdate_to' || radioClassname.includes('training_program') ){
                                 var date_picker = $("#"+this.id+"input").val();
                                 $("#"+this.id).html(date_picker);
                                 $("#"+this.id).css('color','#393939');
@@ -1946,6 +1961,15 @@
                                     rowId = this.id.split('col')[0];
                                     url = "{!! asset('updateCivilEligibility') !!}";
                                     column = 'date_of_examination';
+                                }
+                                else if( radioClassname.includes('training_program') ){
+                                    rowId = this.id.split('training')[1].split('col')[0];
+                                    url = "{!! asset('updateTrainingProgram') !!}";
+                                    if( columnId == 'tdate_from' ){
+                                        column = 'date_from';
+                                    } else {
+                                        column = 'date_to';
+                                    }
                                 }
                                 else{
                                     url = "{!! asset('updateVoluntaryWork') !!}";
@@ -1994,7 +2018,7 @@
                                 var salary_grade = $("#salary_tranche").val()+' | '+$("#salary_grade").val()+'-'+$("#salary_step").val();
                                 var monthlySalaryId;
 
-                                if(this.className.includes('workAdd')){
+                                if(radioClassname.includes('workAdd')){
                                     console.log("true");
                                     monthlySalaryId = $(this).parents(':eq(0)').siblings('.monthly_salary').children().get(0).id;
                                 }
@@ -2066,7 +2090,7 @@
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
 
-                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' ){
+                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' || columnId == 'trainingDelete' ){
                                 if( columnId == 'workDelete' ){
                                     json = {
                                         "id" : this.id.split('col')[0],
@@ -2108,11 +2132,22 @@
                                     url = "{!! asset('deleteVoluntaryWork') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
                                 }
+                                else if( columnId == 'trainingDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        'path' : $(this).data('link'),
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteTrainingProgram') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    console.log(json);
+                                }
 
                                 $.post(url,json,function(result){
                                     console.log(result);
                                 });
-
                             }
                             else
                             {
@@ -2321,7 +2356,7 @@
                     if( name.split('col')[1] == 'government_service' )
                         $(".popover-content").css('width','200px');
 
-                    if( name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to' || name.split('col')[1] == 'date_of_examination' || name.split('colv')[1] == 'date_from' || name.split('colv')[1] == 'date_to' )
+                    if( name.split("colp")[1] == 'date_of_birth' || name.split("colc")[1] == 'date_of_birth' || name.split('col')[1] == 'date_from' || name.split('col')[1] == 'date_to' || name.split('col')[1] == 'date_of_examination' || name.split('colv')[1] == 'date_from' || name.split('colv')[1] == 'date_to' || name.split('colt')[1] == 'date_from' || name.split('colt')[1] == 'date_to' )
                     {
                         var value = $("#"+name).text();
                         if(value == 'Empty')
@@ -2409,7 +2444,7 @@
                             salary_append.append(result+"<br>");
                         });*/
                     }
-                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' ){
+                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' ){
                         $(".popover-content").css('width','320px');
                         var workDelete_append = this.$tpl;
                         workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");
