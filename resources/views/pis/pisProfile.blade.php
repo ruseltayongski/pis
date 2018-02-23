@@ -41,7 +41,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -77,7 +77,7 @@
                                     Voluntary Work
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#training_program">
                                     <i class="green ace-icon fa fa-wrench bigger-120"></i>
                                     Training Program
@@ -173,7 +173,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade">
+                                                <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -864,7 +864,7 @@
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
-                                                <div id="training_program" class="fade tab-pane in active">
+                                                <div id="training_program" class="fade tab-pane">
 
                                                     <div class="row">
                                                         <div class="col-xs-12">
