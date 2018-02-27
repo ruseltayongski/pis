@@ -30,9 +30,18 @@
                             </h1>
                         </div>
                         <div class="col-md-9">
-                            <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
-                            &nbsp;
-                            <a href="{{ url('pisId').'/'.$user->piUserid.'/portrait'  }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-image"></i> ID PICTURE | PORTRAIT </a>
+                            <div class="col-md-3">
+                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="{{ url('pisId').'/'.$user->piUserid.'/portrait'  }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-image"></i> ID PICTURE | PORTRAIT </a>
+                            </div>
+                            <div class="col-md-3">
+                                <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
+                                    <input type="hidden" name="userid" value="{{ $user->piUserid }}">
+                                    <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div><!-- /.page-header -->
@@ -541,6 +550,13 @@
                                                                         <div class="profile-info-name">Mother Maidenname:</div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable family_background" id="{{ $user->piUserid }}colmmln">{{ $user->mmln }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name">Mother Surname:</div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colms">{{ $user->ms }}</span>
                                                                         </div>
                                                                     </div>
 

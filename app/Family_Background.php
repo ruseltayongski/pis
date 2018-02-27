@@ -23,6 +23,7 @@ class Family_Background extends Model
         'fmn',
         'fne',
         'mmln',
+        'ms',
         'mfn',
         'mmn',
         'user_status'
