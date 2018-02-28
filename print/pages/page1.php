@@ -61,7 +61,7 @@ $pdf->Cell(33,5,'',1,0,'');
             "3FIRST NAME",
             "4MIDDLE NAME",
             "5DATE OF BIRTH",
-            "6(mm/dd/yyyy)",
+            "6",
             "7PLACE OF BIRTH",
             "8SEX",
             "9CIVIL STATUS",
@@ -140,10 +140,10 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            $educational_background[0]['name_of_school'],
-            $educational_background[1]['name_of_school'],
-            $educational_background[2]['name_of_school'],
-            $educational_background[3]['name_of_school'],
+            $educational_background1['name_of_school'],
+            $educational_background2['name_of_school'],
+            $educational_background3['name_of_school'],
+            $educational_background4['name_of_school'],
             "",
             "",
             ""
@@ -154,6 +154,31 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
+            "CITIZENSHIP",
+            "",
+            "",
+            "",
+            "RESIDENTIAL ADDRESS",
+            "",
+            "",
+            "ZIP CODE",
+            "PERMANENT ADDRESS",
+            "",
+            "",
+            "ZIP CODE",
+            "TELEPHONE NO",
+            "MOBILE NO",
+            "E-MAIL ADDRESS (if any)",
+            "",
+            "",
+            "Name Extension (JR,SR)",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Name Extension (JR,SR)",
             "",
             "",
             "",
@@ -162,35 +187,10 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
-            "",
+            $educational_background1['degree_course'],
+            $educational_background2['degree_course'],
+            $educational_background3['degree_course'],
+            $educational_background4['degree_course'],
             "",
             "(Continue on separate sheet if necessary)",
             ""
@@ -479,7 +479,7 @@ $pdf->Cell(33,5,'',1,0,'');
         ),
     );
 
-    $width1 = [0,45,45,25,15,15,15,15,15,20]; // 210 default
+    $width1 = [0,45,45,31,13,13,13,15,15,20]; // 210 default
     $marginLeft1 = 3; // 3default
 
     for($col=1; $col<=9; $col++){
@@ -497,22 +497,203 @@ $pdf->Cell(33,5,'',1,0,'');
                 $colorFlag = true;
                 $border1 = 'BT';
             }
-            elseif(($col == 2 || $col == 3) && ($row == 2 || $row == 3 || $row == 4)){
-                $border1 = 'B';
+            elseif(($col == 2 || $col == 3) && ($row == 2 || $row == 3 )){
+                $border1 = 'BT';
+            }
+            elseif( $row == 4 ){
+                $border1 = 'BT';
+                if( $col == 1 )
+                    $border1 = 'BTRL';
             }
             elseif( $row == 5 ){
+                $border1 = 'T';
+                if( $col == 1 ){
+                    $border1 = 'TR';
+                }
+                elseif( $col == 2 ){
+                    $border1 = 'TR';
+                }
+                elseif( $col == 4 ){
+                    $border1 = 'TR';
+                }
+            }
+            elseif( $row == 6 ) {
+                $border1 = 'B';
+                if( $col == 1 ){
+                    $border1 = 'BR';
+                    $pdf->SetXY($marginLeft1+2,$marginTop1-3);
+                    $pdf->Cell($width1[$col],$height1,'(mm/dd/yyyy)',0,0,$position1,$colorFlag);
+                }
+                elseif( $col == 2 ){
+                    $border1 = 'RB';
+                }
+                elseif( $col == 3 ){
+                    $border1 = 'L';
+                }
+                elseif( $col == 4 ){
+                    $border1 = 'R';
+                }
+                elseif( $col == 5 ){
+                    $border1 = 'L';
+                }
+                elseif( $col == 6 || $col == 7 || $col == 8 || $col == 9 ) {
+                    $border1 = '0';
+                }
+            }
+            elseif( $row == 7 ) {
+                if( $col == 3 ){
+                    $border1 = 'L';
+                    $pdf->SetXY($marginLeft1+4,$marginTop1);
+                    $pdf->Cell($width1[$col],$height1,'If holder of dual citizenship.',0,0,$position1,$colorFlag);
+                }
+                elseif( $col == 4 ){
+                    $border1 = '0';
+                }
+                elseif( $col == 5 ){
+                    $border1 = 'L';
+                }
+                elseif( $col == 6 || $col == 7 || $col == 8 || $col == 9 ) {
+                    $border1 = '0';
+                }
+            }
+            elseif( $row == 8 ){
+                if( $col == 3 ){
+                    $border1 = 'LB';
+                    $pdf->SetXY($marginLeft1+5,$marginTop1);
+                    $pdf->Cell($width1[$col],$height1,'please indicate the details.',0,0,$position1,$colorFlag);
+                }
+                elseif( $col == 4 ){
+                    $border1 = 'B';
+                }
+                elseif( $col == 5 ){
+                    $border1 = 'BL';
+                }
+                elseif( $col == 6 || $col == 7 || $col == 8 || $col == 9 ) {
+                    $border1 = 'B';
+                }
+            }
+            elseif ( $row == 9 ){
+                $border1 = 'LR';
+                if( $col == 4 ){
+                    $border1 = 'TBL';
+                }
+                elseif( $col == 5 || $col == 6 || $col == 7 || $col == 8 || $col == 9 ) {
+                    $border1 = 'BT';
+                }
+            }
+            elseif ( $row == 10 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 11 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 12 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 14 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 15 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 16 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 21 ){
+                if( $col == 1 ){
+                    $border1 = 'LR';
+                }
+                elseif( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 22 ){
+                if( $col == 1 ){
+                    $border1 = 'LR';
+                }
+            }
+            elseif ( $row == 23 ){
+                if( $col == 1 ){
+                    $border1 = 'LRB';
+                }
+                elseif( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 24 ){
                 if( $col == 2 || $col == 3 ){
                     $border1 = 'TB';
                 }
             }
-            elseif( $row == 6 ) {
-
+            elseif ( $row == 25 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
             }
-            elseif ( $row == 9 ){
-                $border1 = 'LR';
+            elseif ( $row == 26 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
             }
-            elseif ( $row == 10 ){
-                $border1 = 'LR';
+            elseif ( $row == 27 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 28 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 30 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 31 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 32 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 33 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 34 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 35 ){
+                if( $col == 2 || $col == 3 ){
+                    $border1 = 'TB';
+                }
+            }
+            elseif ( $row == 38 || $row == 39 || $row == 40 || $row == 41 || $row == 42 ){
+                if( $col == 3 ){
+                    $border1 = 'TB';
+                }
+                elseif( $col == 4 ){
+                    $border1 = 'TBR';
+                }
             }
             elseif($row == 43){
                 $border1 = 'BT';
@@ -546,7 +727,7 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
                 elseif( $col == 5 ) {
                     $border1 = 'LTB';
-                    $pdf->SetXY($marginLeft1+2,$marginTop1);
+                    $pdf->SetXY($marginLeft1+1,$marginTop1);
                     $pdf->Cell($width1[$col],$height1,'Period of Attendance',0,0,$position1,$colorFlag);
                 }
                 elseif( $col == 6 ) {

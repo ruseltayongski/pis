@@ -25,12 +25,13 @@ function family_background($id){
 
     return $row;
 }
-function educational_background($id){
+
+function educational_background($userid,$level){
     $db=connect();
-    $sql="select * from educational_background where userid=?";
+    $sql="select * from educational_background where userid=? and level=?";
     $pdo=$db->prepare($sql);
-    $pdo->execute(array($id));
-    $row=$pdo->fetchAll();
+    $pdo->execute(array($userid,$level));
+    $row=$pdo->fetch();
     $db=null;
 
     return $row;
@@ -41,7 +42,10 @@ if(isset($_POST['userid'])){
 }
 $user = personal_information($_SESSION['userid']);
 $family_background = family_background($_SESSION['userid']);
-$educational_background = educational_background($_SESSION['userid']);
+$educational_background1 = educational_background($_SESSION['userid'],1);
+$educational_background2 = educational_background($_SESSION['userid'],2);
+$educational_background3 = educational_background($_SESSION['userid'],3);
+$educational_background4 = educational_background($_SESSION['userid'],4);
 
 /**
  * Created by PhpStorm.
