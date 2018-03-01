@@ -30,6 +30,23 @@ class Personal_Information extends Model
         'sssno',
         'tin_no',
         'residential_address',
+
+        "RHouseNo",
+        "RStreet",
+        "RSubdivision",
+        "RBarangay",
+        "RMunicipality",
+        "RProvince",
+        "RZip_code",
+
+        "PHouseNo",
+        "PStreet",
+        "PSubdivision",
+        "PBarangay",
+        "PMunicipality",
+        "PProvince",
+        "PZip_code",
+
         'residential_municipality',
         'residential_province',
         'region_zip',

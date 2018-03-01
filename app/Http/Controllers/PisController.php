@@ -315,7 +315,9 @@ class PisController extends Controller
             ];
         }
 
-        return Personal_Information::where('id',$id)->update($arrayValue);
+        Personal_Information::where('id',$id)->first()->update($arrayValue);
+
+        return 'Successfully Updated Personal Information';
     }
 
     public function updateChildren(Request $request)

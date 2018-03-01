@@ -365,26 +365,7 @@
                                                                         </div>
                                                                     </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> RESIDENTIAL ADDRESS: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_address">{{ $user->residential_address }}</span>
-                                                                        </div>
-                                                                    </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> RESIDENTIAL MUNICIPALITY: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_municipality">{{ $user->residential_municipality }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> RESIDENTIAL PROVINCE: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colresidential_province">{{ $user->residential_province }}</span>
-                                                                        </div>
-                                                                    </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> ZIP CODE: </div>
@@ -411,6 +392,106 @@
                                                                         <div class="profile-info-name"> EMAIL ADDRESS: </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable personal_information" id="{{ $user->piId }}colemail_address">{{ $user->email_address }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <h5 class="lighter block orange">Residential Address</h5>
+                                                            <div class="profile-user-info">
+                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> House/Block/Lot No: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRHouseNo">{{ $user->RHouseNo }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Street: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRStreet">{{ $user->RStreet}}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Subdivision/Village: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRSubdivision">{{ $user->RSubdivision }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Barangay: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRBarangay">{{ $user->RBarangay }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> City / Municipality: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRMunicipality">{{ $user->RMunicipality }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Province: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRProvince">{{ $user->RProvince }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Zip Code: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRZip_code">{{ $user->RZip_code }}</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
+                                                            <h5 class="lighter block blue">Permanent Address</h5>
+                                                            <div class="profile-user-info">
+                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> House/Block/Lot No: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPHouseNo">{{ $user->PHouseNo }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Street: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPStreet">{{ $user->PStreet }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Subdivision/Village: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPSubdivision">{{ $user->PSubdivision }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Barangay: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPBarangay">{{ $user->PBarangay }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> City / Municipality: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPMunicipality">{{ $user->PMunicipality }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Province: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPProvince">{{ $user->PProvince }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> Zip Code: </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPZip_code">{{ $user->PZip_code }}</span>
                                                                         </div>
                                                                     </div>
 

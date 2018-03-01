@@ -38,6 +38,23 @@ class CreatePersonalInformation extends Migration
             $table->text('sssno')->nullable();
             $table->text('tin_no')->nullable();
             $table->text('residential_address')->nullable();
+
+            $table->text('RHouseNo')->nullable();
+            $table->text('RStreet')->nullable();
+            $table->text('RSubdivision')->nullable();
+            $table->text('RBarangay')->nullable();
+            $table->text('RMunicipality')->nullable();
+            $table->text('RProvince')->nullable();
+            $table->text('RZip_code')->nullable();
+
+            $table->text('PHouseNo')->nullable();
+            $table->text('PStreet')->nullable();
+            $table->text('PSubdivision')->nullable();
+            $table->text('PBarangay')->nullable();
+            $table->text('PMunicipality')->nullable();
+            $table->text('PProvince')->nullable();
+            $table->text('PZip_code')->nullable();
+
             $table->text('residential_municipality')->nullable();
             $table->text('residential_province')->nullable();
             $table->text('region_zip')->nullable();
