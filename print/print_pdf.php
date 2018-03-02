@@ -37,6 +37,17 @@ function educational_background($userid,$level){
     return $row;
 }
 
+function childrens($userid){
+    $db=connect();
+    $sql="select * from children where userid=?";
+    $pdo=$db->prepare($sql);
+    $pdo->execute(array($userid));
+    $row=$pdo->fetchAll();
+    $db=null;
+
+    return $row;
+}
+
 if(isset($_POST['userid'])){
     $_SESSION['userid'] = $_POST['userid'];
 }
@@ -46,6 +57,7 @@ $educational_background1 = educational_background($_SESSION['userid'],1);
 $educational_background2 = educational_background($_SESSION['userid'],2);
 $educational_background3 = educational_background($_SESSION['userid'],3);
 $educational_background4 = educational_background($_SESSION['userid'],4);
+$childrens = childrens($_SESSION['userid']);
 
 /**
  * Created by PhpStorm.

@@ -816,11 +816,30 @@ $pdf->Cell(33,5,'',1,0,'');
                 if( $col == 1 ){
                     $border1 = 'LR';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
-                }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 3 ){
+                    $border1 = 'TBLR';
+                }
+                elseif( $col == 4 ){
+                    $border1 = '0';
+                    $marginTopChildren = $marginTop1;
+                    $childRow = 1;
+                    foreach ( $childrens as $child ) {
+                        $pdf->SetXY($marginLeft1,$marginTopChildren);
+                        $pdf->Cell($width1[$col]+41,$height1,$child['name'],1,0,$position1,$colorFlag);
+                        $marginTopChildren += 6.6;
+                        $childRow++;
+                    }
+                    for ( $i = $childRow; $i <= 13; $i++ ){
+                        $pdf->SetXY($marginLeft1,$marginTopChildren);
+                        $pdf->Cell($width1[$col]+41,$height1,'',1,0,$position1,$colorFlag);
+                        $marginTopChildren += 6.6;
+                    }
+                }
+                elseif( $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -833,11 +852,14 @@ $pdf->Cell(33,5,'',1,0,'');
                 if( $col == 1 ){
                     $border1 = 'LRB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -847,14 +869,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 24 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -864,14 +889,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 25 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -881,14 +909,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 26 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -898,14 +929,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 27 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -915,14 +949,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 28 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -932,14 +969,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 29 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBRL';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -949,14 +989,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 30 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -966,14 +1009,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 31 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -983,14 +1029,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 32 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -1000,14 +1049,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 33 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
@@ -1017,14 +1069,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 34 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'TB';
                 }
-                elseif($col == 4){
-                    $border1 = 'TBL';
+                elseif( $col == 3 ){
+                    $border1 = 'TBR';
                 }
-                elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
+                elseif( $col == 2 ){
                     $border1 = 'TB';
+                }
+                elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 ){
+                    $border1 = '0';
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';

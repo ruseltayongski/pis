@@ -400,7 +400,7 @@
 
                                                             <h5 class="lighter block orange">Residential Address</h5>
                                                             <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+                                                                <div class="profile-user-info profile-user-info-striped">
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> House/Block/Lot No: </div>
@@ -450,7 +450,7 @@
 
                                                             <h5 class="lighter block blue">Permanent Address</h5>
                                                             <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+                                                                <div class="profile-user-info profile-user-info-striped">
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> House/Block/Lot No: </div>
