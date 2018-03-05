@@ -29,6 +29,10 @@
                                 <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
                                 <small>Sync DTS <br>User</small>
                             </a>
+                            <a href="{{ asset('sync_personalInformation') }}" class="btn btn-app btn-warning">
+                                <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
+                                <small>Sync PIS <br>User</small>
+                            </a>
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="row alert-success">
@@ -200,6 +204,13 @@
         $.gritter.add({
             title: 'SYNC',
             text: "<i class='fa fa-cloud-upload'></i> <?php echo session()->get('sync_dts'); ?>",
+            class_name: 'gritter-info gritter-center',
+        });
+        @endif
+        @if(session()->has('sync_pis'))
+        $.gritter.add({
+            title: 'SYNC',
+            text: "<i class='fa fa-cloud-upload'></i> <?php echo session()->get('sync_pis'); ?>",
             class_name: 'gritter-info gritter-center',
         });
         @endif

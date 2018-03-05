@@ -390,6 +390,12 @@ class FileController extends Controller {
                 "password" => $row->password,
                 "usertype" => $row->user_priv
             ];
+            if(strlen($row->username) >= 6){
+                $job_status = 'Permanent';
+            }
+            else {
+                $job_status = "Job Order";
+            }
             $personal_information[] = [
                 "userid" => $finalUserid,
                 "fname" => $row->fname,
@@ -399,7 +405,10 @@ class FileController extends Controller {
                 "division_id" => $row->division,
                 "section_id" => $row->section,
                 "remarks" => 'DTS_USER',
-                'user_status' => "1"
+                'user_status' => "1",
+                "employee_status" => "Active",
+                "job_status" => $job_status,
+                "disbursement_type" => "NO_CARDS"
             ];
         }
         //User::insertIgnore($user);
@@ -424,6 +433,7 @@ class FileController extends Controller {
             ];
         }
         User::insertIgnore($user);
+        return Redirect::back()->with('sync_dts','Successfully sync PIS user');
     }
 
 }
