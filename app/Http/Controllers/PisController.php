@@ -965,24 +965,7 @@ class PisController extends Controller
     }
 
     public function sirBong(){
-        $newPersonal = new Personal_Information();
-        $personal_information = DB::table('personal_information')
-            ->where('user_status','=','1')
-            ->whereRaw('LENGTH(userid) <= 6')
-            ->whereIn('fname', function($query) use($newPersonal){
-                $query->select('fname')
-                    ->from(with($newPersonal)->getTable())
-                    ->groupBy('fname')
-                    ->havingRaw('COUNT(fname)>1');
-            })
-            ->whereIn('lname', function($query) use($newPersonal){
-                $query->select('lname')
-                    ->from(with($newPersonal)->getTable())
-                    ->groupBy('lname')
-                    ->havingRaw('COUNT(lname)>1');
-            })
-            ->orderBy('fname','ASC')->get();
-
+        $personal_information = Personal_Information::get();
         return view('welcome',[
             "personal_information" => $personal_information
         ]);
