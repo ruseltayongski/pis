@@ -440,7 +440,7 @@ class FileController extends Controller {
     public function sync_dtr(){
 
         $count = 0;
-        foreach(User_dts::get() as $row){
+        foreach(User_dtr::get() as $row){
             $count++;
 
             $user[] = [
