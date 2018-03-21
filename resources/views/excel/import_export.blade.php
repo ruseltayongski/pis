@@ -25,10 +25,12 @@
                                 <i class="ace-icon fa fa-download bigger-230"></i>
                                 <small>Download <br>Excel CSV</small>
                             </a>
+                            <!--
                             <a href="{{ asset('sync_dts') }}" class="btn btn-app btn-primary">
                                 <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
                                 <small>Sync DTS <br>User</small>
                             </a>
+                            -->
                             <a href="{{ asset('sync_personalInformation') }}" class="btn btn-app btn-warning">
                                 <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
                                 <small>Sync PIS <br>User</small>
