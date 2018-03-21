@@ -8,6 +8,7 @@ use PIS\Personal_Information;
 use PIS\Family_Background;
 use Illuminate\Support\Facades\DB;
 use PIS\User;
+use PIS\User_dtr;
 use PIS\User_dts;
 use PIS\Users;
 
@@ -435,6 +436,69 @@ class FileController extends Controller {
         User::insertIgnore($user);
         return Redirect::back()->with('sync_dts','Successfully sync PIS user');
     }
+
+    public function sync_dtr(){
+
+        $count = 0;
+        foreach(User_dts::get() as $row){
+            $count++;
+
+            $user[] = [
+                "username" => $row->username,
+                "password" => bcrypt($row->password),
+                "usertype" => $row->usertype,
+                "pin" => "1234"
+            ];
+
+            if(strlen($row->username) >= 6){
+                $job_status = 'Permanent';
+                $disbursement_type = 'ATM';
+            }
+            else {
+                $job_status = "Job Order";
+                $disbursement_type = 'CASH_CARD';
+            }
+            $personal_information[] = [
+                "userid" => $row->username,
+                "fname" => $row->fname,
+                "mname" => $row->mname,
+                "lname" => $row->lname,
+                "designation_id" => $row->designation,
+                "division_id" => $row->division,
+                "section_id" => $row->section,
+                "remarks" => 'DTS_USER',
+                'user_status' => "1",
+                "employee_status" => "Active",
+                "job_status" => $job_status,
+                "disbursement_type" => $disbursement_type
+            ];
+        }
+
+        User::insertIgnore($user);
+        Personal_Information::insertIgnore($personal_information);
+
+        return 'Successfully Sync DTR';
+    }
+
+
+    public function append_sched(){
+
+        foreach(User_dtr::get() as $row){
+            $personal_information = Personal_Information::where('userid','=',$row->username)->first();
+
+            if( $personal_information ) {
+                $personal_information->update([
+                   "sched" => $row->sched
+                ]);
+            }
+
+        };
+
+        return 'Sucessfully Append Sched';
+
+    }
+
+
 
 }
 

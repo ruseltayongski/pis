@@ -59,6 +59,8 @@ Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExpo
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
 Route::get('sync_dts','FileController@sync_dts');
+Route::get('sync_dtr','FileController@sync_dtr');
+Route::get('append_sched','FileController@append_sched');
 Route::get('sync_personalInformation','FileController@sync_personalInformation');
 
 //SALARY GRADE
