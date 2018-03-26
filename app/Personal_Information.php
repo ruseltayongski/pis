@@ -65,7 +65,6 @@ class Personal_Information extends Model
         'remarks',
         'disbursement_type',
         'salary_charge',
-        'source_fund',
         'bbalance_cto',
         'sched',
         'user_status'

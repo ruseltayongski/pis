@@ -73,7 +73,6 @@ class CreatePersonalInformation extends Migration
             $table->text('remarks')->nullable();
             $table->text('disbursement_type')->nullable();
             $table->text('salary_charge')->nullable();
-            $table->text('source_fund')->nullable();
             $table->text('bbalance_cto')->nullable();
 
             $table->text('user_status')->nullable();

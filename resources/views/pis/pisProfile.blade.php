@@ -203,7 +203,14 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Job Status</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coljob_status">{{ $user->job_status }}</span>
+                                                                            <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}coljob_status">
+                                                                                <?php
+                                                                                    if(!Auth::user()->usertype && !$user->job_status)
+                                                                                        echo "<span class='red'>Go to hr to update your job status</span>";
+                                                                                    else
+                                                                                        echo '<b><u>'.$user->job_status.'</u></b>';
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
@@ -240,16 +247,21 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Salary Charge</div>
+                                                                        <div class="profile-info-name">@if( Auth::user()->usertype )<small>value of salary charge will change when you change the job status </small> - @endif Salary Charge</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsalary_charge">@if($user->salary_charge){{ \PIS\Division::find($user->salary_charge)->description }}@endif</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Source of Fund</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colsource_fund">{{ $user->source_fund }}</span>
+                                                                            <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}colsalary_charge">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->salary_charge)
+                                                                                    echo "<span class='red'>Go to hr to update your salary charge</span>";
+                                                                                else
+                                                                                    if($user->salary_charge){
+                                                                                        echo '<b><u>'.$user->salary_charge.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
@@ -333,28 +345,56 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> GSIS ID NO </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno"><?php if(Auth::user()->usertype) echo $user->gsis_idno; else echo '<u><b>'.$user->gsis_idno.'</b></u>'; ?></span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->gsis_idno)
+                                                                                    echo "<span class='red'>Go to hr to update your gsis idno</span>";
+                                                                                else
+                                                                                    echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> PAG-IBIG ID NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno"><?php if(Auth::user()->usertype) echo $user->pag_ibigno; else echo '<u><b>'.$user->pag_ibigno.'</b></u>'; ?></span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->pag_ibigno)
+                                                                                    echo "<span class='red'>Go to hr to update your pag-ibig no</span>";
+                                                                                else
+                                                                                    echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> SSS NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno"><?php if(Auth::user()->usertype) echo $user->sssno; else echo '<u><b>'.$user->sssno.'</b></u>'; ?></span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->sssno)
+                                                                                    echo "<span class='red'>Go to hr to update your sss no</span>";
+                                                                                else
+                                                                                    echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> TIN NO. </div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no"><?php if(Auth::user()->usertype) echo $user->tin_no; else echo '<u><b>'.$user->tin_no.'</b></u>'; ?></span>
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->tin_no)
+                                                                                    echo "<span class='red'>Go to hr to update your TIN no</span>";
+                                                                                else
+                                                                                    echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                                ?>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
 
@@ -1913,6 +1953,11 @@
                                 url = "{!! asset('updateOtherInformation') !!}";
                             }
 
+                            if( json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no'  ){
+                                $("#"+this.id).css('color','#307bff');
+                                $("#"+this.id).css({'font-weight': 'bold'});
+                            }
+
                             $.post(url,json,function(result){
                                 //console.log(result);
                                 if(Class.includes('children')){
@@ -2294,13 +2339,29 @@
                             {value: "CASH_CARD", text: "CASH CARD"},
                             {value: "NO_CARDS", text: "W/O LBP CARDS"},
                             {value: "UNDER_VTF", text: "UNDER VTF"}
-                        ]
-                        ,
-                        "salary_charge" : division,
+                        ],
+                        "salary_chargeJO" : [
+                            {value: "HEALTH PROMOTION", text: "HEALTH PROMOTION" },
+                            {value: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)", text: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)" },
+                            {value: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES", text: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES" },
+                            {value: "SAA 2018-01-0014", text: "SAA 2018-01-0014" },
+                            {value: "SAA 2018-02-0059", text: "SAA 2018-02-0059" },
+                            {value: "SUPPORT TO OPERATIONS (STO)", text: "SUPPORT TO OPERATIONS (STO)" },
+                            {value: "PUBLIC HEALTH MANAGEMENT (PHM)", text: "PUBLIC HEALTH MANAGEMENT (PHM)" },
+                            {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
+                        ],
+                        "salary_chargePermanent" : [
+                            {value: "RD/ARD", text: "RD/ARD" },
+                            {value: "MSD", text: "MSD" },
+                            {value: "LHSD", text: "LHSD" },
+                            {value: "RLED", text: "RLED" },
+                            {value: "PDO-CEBU", text: "PDO-CEBU" },
+                            {value: "PDO-NEGROS", text: "PDO-NEGROS" },
+                            {value: "PDO-SIQUIJOR", text: "PDO-SIQUIJOR" },
+                        ],
                         "job_status" : [
                             {value: "Permanent", text: "Permanent"},
                             {value: "Job Order", text: "Job Order"},
-                            {value: "Casual", text: "Casual"}
                         ],
                         "designation": designation
                     }
@@ -2321,7 +2382,11 @@
                         source = source_func("<?php echo $user->disbursement_type ?>")[0].disbursement_type;
                     }
                     else if(this.id.includes('salary_charge')){
-                        source = source_func("<?php echo $user->salary_charge ?>")[0].salary_charge;
+                        @if( $user->job_status == 'Permanent' )
+                            source = source_func("<?php echo $user->salary_charge ?>")[0].salary_chargePermanent;
+                        @else
+                            source = source_func("<?php echo $user->salary_charge ?>")[0].salary_chargeJO;
+                        @endif
                     }
                     else if(this.id.includes('job_status') || this.id.includes('status_of_appointment')){
                         source = source_func("<?php echo $user->job_status ?>")[0].job_status;
@@ -2338,7 +2403,7 @@
                         },
                         success: function(data, value) {
                             var string = this.className;
-                            var json,url;
+                            var json,url,salaryChargeChange;
                             if(string.includes('personal_information')){
                                 json = {
                                     "id" : this.id.split('col')[0],
@@ -2347,6 +2412,21 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updatePersonalInformation') !!}";
+
+                                if( json.column == 'job_status' ){
+                                    if( value == 'Permanent' ){
+                                        salaryChargeChange = source_func("<?php echo $user->salary_charge ?>")[0].salary_chargePermanent;
+                                    }
+                                    else {
+                                        salaryChargeChange = source_func("<?php echo $user->salary_charge ?>")[0].salary_chargeJO;
+                                    }
+                                    filter_salaryCharge(url,this.id,salaryChargeChange);
+                                }
+
+                                if( json.column == 'job_status' || json.column == 'salary_charge' ){
+                                    $("#"+this.id).css('color','#307bff');
+                                    $("#"+this.id).css({'font-weight': 'bold'});
+                                }
                             }
                             else if(string.includes('work_experience')){
                                 json = {
@@ -2375,7 +2455,34 @@
                 });
             }
 
-            function filter_section(url,divisionId,id){
+            function filter_salaryCharge(url,id,salaryChargeChange){
+                var source = salaryChargeChange;
+                var finalId = id.replace("job_status","salary_charge");
+                var element = $("#"+finalId);
+                var section = element.removeAttr('id').get(0);
+                $(section).clone().attr('id', finalId).text('Select Salary Charge').editable({
+                    type: 'select2',
+                    value: null,
+                    source: source,
+                    select2: {
+                        'width': 300
+                    },
+                    success: function (data, value) {
+                        json = {
+                            "id" : this.id.split('col')[0],
+                            "column" : this.id.split('col')[1],
+                            "value" : value,
+                            "_token" : "<?php echo csrf_token(); ?>",
+                        };
+                        $.post(url, json, function (result) {
+                            console.log(result);
+                        });
+                    }
+                }).insertAfter(section);
+                $(section).remove();
+            }
+
+            function filter_section(url,id){
                 var source = source_func(divisionId)[0].section;
                 var finalId = id.replace("division","section");
                 var element = $("#"+finalId);
