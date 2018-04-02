@@ -487,7 +487,7 @@ $pdf->Cell(33,5,'',1,0,'');
         $height1 = 6.6;
         $marginTop1 = 40;
 
-        for($row=1; $row<=44; $row++){
+        for($row=1; $row<=37; $row++){
             $pdf->SetTextColor(0,0,0);
             $border1 =  'LTRB';
             $colorFlag = false;
@@ -807,6 +807,13 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
                 elseif( $col == 8 ){
                     $border1 = 'TBL';
+                    $pdf->SetFont('Arial','',6);
+                    $pdf->SetXY($marginLeft1+9,$marginTop1-1.5);
+                    $pdf->Cell($width1[$col],$height1,'DATE OF BIRTH',0,0,$position1,$colorFlag);
+
+                    $pdf->SetFont('Arial','',6);
+                    $pdf->SetXY($marginLeft1+11,$marginTop1+1);
+                    $pdf->Cell($width1[$col],$height1,'(mm/dd/yyyy)',0,0,$position1,$colorFlag);
                 }
                 elseif( $col == 9 ){
                     $border1 = 'TBR';
@@ -842,7 +849,20 @@ $pdf->Cell(33,5,'',1,0,'');
                     $border1 = '0';
                 }
                 elseif( $col == 8 ){
-                    $border1 = 'TBL';
+                    $border1 = '0';
+                    $marginTopChildren = $marginTop1;
+                    $childRow = 1;
+                    foreach ( $childrens as $child ) {
+                        $pdf->SetXY($marginLeft1,$marginTopChildren);
+                        $pdf->Cell($width1[$col]+20,$height1,$child['date_of_birth'],1,0,$position1,$colorFlag);
+                        $marginTopChildren += 6.6;
+                        $childRow++;
+                    }
+                    for ( $i = $childRow; $i <= 13; $i++ ){
+                        $pdf->SetXY($marginLeft1,$marginTopChildren);
+                        $pdf->Cell($width1[$col]+20,$height1,'',1,0,$position1,$colorFlag);
+                        $marginTopChildren += 6.6;
+                    }
                 }
                 elseif( $col == 9 ){
                     $border1 = 'TBR';
@@ -1093,24 +1113,13 @@ $pdf->Cell(33,5,'',1,0,'');
                     $border1 = 'TB';
                 }
             }
-            elseif ( $row == 38 || $row == 39 || $row == 40 || $row == 41 || $row == 42 ){
-                if( $col == 3 ){
-                    $border1 = 'TB';
-                }
-                elseif( $col == 4 ){
-                    $border1 = 'TBR';
-                }
-            }
-            elseif($row == 43){
-                $border1 = 'BT';
-            }
             elseif( $row == 36 ){
                 $border1 = 'TL';
                 if( $col == 1 ){
                     $rowLeft36 = $marginLeft1 + 17;
                     $rowTop36 = $marginTop1 + 4;
                     $pdf->SetXY($rowLeft36,$rowTop36);
-                    $pdf->Cell($width1[$col],$height1,'Level',0,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col],$height1,'Level'.'margin-left:'.$rowLeft36.'margin-top:'.$rowTop36,0,0,$position1,$colorFlag);
                 }
                 elseif( $col == 2 ){
                     $rowLeft36 = $marginLeft1 + 12;
@@ -1143,7 +1152,6 @@ $pdf->Cell(33,5,'',1,0,'');
                     $pdf->SetXY($rowLeft36,$rowTop36);
                     $pdf->Cell($width1[$col],$height1,'(Write in full)',0,0,$position1,$colorFlag);
                 }
-
             }
             elseif( $row == 37 ){
                 $border1 = 'BL';
@@ -1153,6 +1161,17 @@ $pdf->Cell(33,5,'',1,0,'');
                 elseif( $col == 4 ){
                     $border1 = 'RB';
                 }
+            }
+            elseif ( $row == 38 || $row == 39 || $row == 40 || $row == 41 || $row == 42 ){
+                if( $col == 3 ){
+                    $border1 = 'TB';
+                }
+                elseif( $col == 4 ){
+                    $border1 = 'TBR';
+                }
+            }
+            elseif($row == 43){
+                $border1 = 'BT';
             }
             $pdf->SetXY($marginLeft1,$marginTop1);
             $pdf->Cell($width1[$col],$height1,$firstColumn[$col][$row],$border1,0,$position1,$colorFlag);
