@@ -2748,7 +2748,7 @@
                 $(section).remove();
             }
 
-            function filter_section(url,id){
+            function filter_section(url,divisionId,id){
                 var source = source_func(divisionId)[0].section;
                 var finalId = id.replace("division","section");
                 var element = $("#"+finalId);

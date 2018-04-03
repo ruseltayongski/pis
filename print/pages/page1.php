@@ -1119,7 +1119,7 @@ $pdf->Cell(33,5,'',1,0,'');
                     $rowLeft36 = $marginLeft1 + 17;
                     $rowTop36 = $marginTop1 + 4;
                     $pdf->SetXY($rowLeft36,$rowTop36);
-                    $pdf->Cell($width1[$col],$height1,'Level'.'margin-left:'.$rowLeft36.'margin-top:'.$rowTop36,0,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col],$height1,'Level',0,0,$position1,$colorFlag);
                 }
                 elseif( $col == 2 ){
                     $rowLeft36 = $marginLeft1 + 12;
@@ -1220,6 +1220,62 @@ $pdf->Cell(33,5,'',1,0,'');
         $marginTop += 4.9;
         $marginTopCheck += 4.9;
     }
+
+
+    $height1 = 6.6;
+    $marginTop1 = 284;
+
+    $border1 =  '1';
+    $colorFlag = false;
+    $position1 = 'C';
+
+    $columnData = ['level','name_of_school','degree_course','','poa_from','poa_to','units_earned','year_graduated','scholarship',''];
+
+    foreach($educational_background as $row) {
+
+        $marginLeft1 = 3;
+
+        for( $j = 0; $j < count($columnData); $j++ ){
+            $rowData[$j] = $columnData[$j];
+        }
+
+        for($col=1; $col < count($columnData); $col++)
+        {
+            if( $col == 3 ){
+                $border1 = 'LTB';
+            }
+            elseif( $col == 4 ){
+                $border1 = 'TRB';
+            }
+
+            $pdf->SetFont('Arial','',7);
+            $pdf->SetXY($marginLeft1,$marginTop1);
+            if ( isset($row[$rowData[$col-1]]) )
+            {
+                $finalData = $row[$rowData[$col-1]];
+                if( $rowData[$col-1] == 'level' && education_type($finalData) ){
+                    $finalData = education_type($finalData)['description'];
+                }
+            }
+            else
+            {
+                $finalData = '';
+            }
+
+
+            $pdf->Cell($width1[$col],$height1,$finalData,$border1,0,$position1,$colorFlag);
+
+            $marginLeft1 += $width1[$col];
+
+        }
+        $marginTop1 += 6.6;
+    }
+
+
+
+
+
+
 
 
 

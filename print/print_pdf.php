@@ -15,6 +15,7 @@ function personal_information($id){
 
     return $row;
 }
+
 function family_background($id){
     $db=connect();
     $sql="select * from family_background where userid=?";
@@ -25,6 +26,29 @@ function family_background($id){
 
     return $row;
 }
+
+function educational_backgroundAll($id){
+    $db=connect();
+    $sql="select * from educational_background where userid=?";
+    $pdo=$db->prepare($sql);
+    $pdo->execute(array($id));
+    $row=$pdo->fetchAll();
+    $db=null;
+
+    return $row;
+}
+
+function education_type($id){
+    $db=connect();
+    $sql="select * from education_type where id=?";
+    $pdo=$db->prepare($sql);
+    $pdo->execute(array($id));
+    $row=$pdo->fetch();
+    $db=null;
+
+    return $row;
+}
+
 
 function educational_background($userid,$level){
     $db=connect();
@@ -57,6 +81,9 @@ $educational_background1 = educational_background($_SESSION['userid'],1);
 $educational_background2 = educational_background($_SESSION['userid'],2);
 $educational_background3 = educational_background($_SESSION['userid'],3);
 $educational_background4 = educational_background($_SESSION['userid'],4);
+
+$educational_background = educational_backgroundAll($_SESSION['userid']);
+
 $childrens = childrens($_SESSION['userid']);
 
 /**
