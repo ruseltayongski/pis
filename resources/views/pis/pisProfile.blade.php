@@ -2324,10 +2324,11 @@
                                     "id" : "<?php echo $user->piId; ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
-                                    "other_country" : $("#other_country").val(),
+                                    "indicate_country" : $("#indicateCountry").val(),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
+                                console.log(json);
                             }
                             else if(columnId == 'government_service'){
                                 $("#"+this.id).css('color','black').html(value);
@@ -2816,10 +2817,16 @@
                                         value: this.sourceData[i].value
                                     }
                                 ));
+
                             $label.append($('<span>').text(this.sourceData[i].text));
                             // Add radio buttons to template
                             this.$tpl.append($label);
                         }
+                    }
+                    var indicateCountry;
+                    if( name.split('col')[1] == 'citizenship' ){
+                        indicateCountry = "<br><br><input type='text' class='form-control' value='{{ $user->indicate_country }}' style='width:80%;' id='indicateCountry' placeholder='Pls. indicate country (OPTIONAL)' name='indicateCountry'>";
+                        this.$tpl.append(indicateCountry);
                     }
 
                     if( name.split('col')[1] == 'government_service' )

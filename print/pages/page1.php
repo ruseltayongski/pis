@@ -2,7 +2,7 @@
 
 $pdf->SetFont('Arial','B',15);
 $pdf->SetX(3);
-$pdf->Cell(210,320,'',1,0,'C');
+$pdf->Cell(210,274,'','TRL',0,'C');
 
 $pdf->SetFont('Arial','BI',8);
 $pdf->SetXY(3,12);
@@ -251,9 +251,7 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            "",
-            "",//"Cebu City",
-            "",
+            $user['indicate_country'],
             "",
             "",
             "",
@@ -281,6 +279,8 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
+            "",
+            "From",
             "",
             "",
             "",
@@ -327,7 +327,7 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            "",
+            "To",
             "",
             "",
             "",
@@ -340,7 +340,7 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            "",
+            "NAME EXTENSION (JR., SR): ".$user['name_extension'],
             "",
             "",
             "",
@@ -498,8 +498,20 @@ $pdf->Cell(33,5,'',1,0,'');
                 $colorFlag = true;
                 $border1 = 'BT';
             }
-            elseif(($col == 2 || $col == 3) && ($row == 2 || $row == 3 )){
+            elseif( $row == 2 ){
                 $border1 = 'BT';
+                if( $col == 1 ){
+                    $border1 = '1';
+                }
+            }
+            elseif( $row == 3 ){
+                $border1 = 'BT';
+                if( $col == 1 ){
+                    $border1 = '1';
+                }
+                elseif( $col == 7 ){
+                    $border1 = 'TBL';
+                }
             }
             elseif( $row == 4 ){
                 $border1 = 'BT';
@@ -1115,6 +1127,7 @@ $pdf->Cell(33,5,'',1,0,'');
             }
             elseif( $row == 36 ){
                 $border1 = 'TL';
+                $pdf->SetFont('Arial','',7);
                 if( $col == 1 ){
                     $rowLeft36 = $marginLeft1 + 17;
                     $rowTop36 = $marginTop1 + 4;
@@ -1145,6 +1158,41 @@ $pdf->Cell(33,5,'',1,0,'');
                 elseif( $col == 6 ) {
                     $border1 = 'TB';
                 }
+                elseif( $col == 7 ){
+                    $pdf->SetFont('Arial','',6);
+                    $pdf->SetXY($marginLeft1,$marginTop1-1);
+                    $pdf->Cell($width1[$col],$height1,'Highest Level/',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1,$marginTop1+2);
+                    $pdf->Cell($width1[$col],$height1,'Units Earned/',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1,$marginTop1+5);
+                    $pdf->Cell($width1[$col],$height1,'(if not gradua-',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1,$marginTop1+8);
+                    $pdf->Cell($width1[$col],$height1,'ted)',0,0,$position1,$colorFlag);
+                }
+                elseif( $col == 8 ){
+                    $pdf->SetXY($marginLeft1+3,$marginTop1+1.5);
+                    $pdf->Cell($width1[$col],$height1,'Year',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1,$marginTop1+4);
+                    $pdf->Cell($width1[$col],$height1,'Graduated',0,0,$position1,$colorFlag);
+                }
+
+                elseif( $col == 9 ){
+                    $pdf->SetXY($marginLeft1+2,$marginTop1-1);
+                    $pdf->Cell($width1[$col],$height1,'Scholarship/',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1+2,$marginTop1+2);
+                    $pdf->Cell($width1[$col],$height1,'Academic/',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1+2,$marginTop1+5);
+                    $pdf->Cell($width1[$col],$height1,'Honors',0,0,$position1,$colorFlag);
+
+                    $pdf->SetXY($marginLeft1+2,$marginTop1+8);
+                    $pdf->Cell($width1[$col],$height1,'Receive',0,0,$position1,$colorFlag);
+                }
 
                 if( $col == 2 || $col == 3){
                     $rowLeft36 = $marginLeft1 + 16;
@@ -1161,18 +1209,11 @@ $pdf->Cell(33,5,'',1,0,'');
                 elseif( $col == 4 ){
                     $border1 = 'RB';
                 }
-            }
-            elseif ( $row == 38 || $row == 39 || $row == 40 || $row == 41 || $row == 42 ){
-                if( $col == 3 ){
-                    $border1 = 'TB';
-                }
-                elseif( $col == 4 ){
-                    $border1 = 'TBR';
+                elseif( $col == 5 || $col == 6 ){
+                    $position1 = 'C';
                 }
             }
-            elseif($row == 43){
-                $border1 = 'BT';
-            }
+
             $pdf->SetXY($marginLeft1,$marginTop1);
             $pdf->Cell($width1[$col],$height1,$firstColumn[$col][$row],$border1,0,$position1,$colorFlag);
 
@@ -1222,34 +1263,62 @@ $pdf->Cell(33,5,'',1,0,'');
     }
 
 
-    $height1 = 6.6;
-    $marginTop1 = 284;
+    //checkbox
+    $marginTop = 70;
+    $marginTopCheck = 71.5;
+    $boxCell = array(
+        "",
+        array("","Filipino","Dual Citizenship"),
+        array("","by birth","by naturalization"),
+    );
+    for ( $row=1; $row<=2; $row++ ) {
+        $marginLeftBox = 150;
+        $marginLeftCheck = 149.5;
+        $marginLeftCell = 153;
+        for ( $col=1; $col<=2; $col++ ) {
+            if($col == 2 && $row == 4){
+                break;
+            }
+            $pdf->SetFont('Arial','',7);
+            $pdf->SetXY($marginLeftCell,$marginTop);
+            $pdf->Cell(3,3,$boxCell[$col][$row],0,0,'');
+
+            $pdf->SetFont('Arial','B',15);
+            $pdf->SetXY($marginLeftBox,$marginTop);
+            $pdf->Cell(3,3,'',1,0,'');
+
+            if( $user['citizenship'] == $boxCell[$col][$row] ){
+                $pdf->SetXY($marginLeftCheck,$marginTopCheck);
+                $pdf->SetFont('ZapfDingbats','', 7);
+                $pdf->Cell(0, 0, 4, 0, 0);
+            }
+
+            $marginLeftBox += 26;
+            $marginLeftCell += 26;
+            $marginLeftCheck += 26;
+
+        }
+        $marginTop += 4.9;
+        $marginTopCheck += 4.9;
+    }
+
+
 
     $border1 =  '1';
-    $colorFlag = false;
-    $position1 = 'C';
-
     $columnData = ['level','name_of_school','degree_course','','poa_from','poa_to','units_earned','year_graduated','scholarship',''];
+    $rowCount = 0;
+    $pdf->SetWidths(array(45,45,31,13,13,13,15,15,20));
+    $pdf->SetXY(3,$marginTop1);
 
     foreach($educational_background as $row) {
-
-        $marginLeft1 = 3;
-
+        $rowCount++;
         for( $j = 0; $j < count($columnData); $j++ ){
             $rowData[$j] = $columnData[$j];
         }
-
         for($col=1; $col < count($columnData); $col++)
         {
-            if( $col == 3 ){
-                $border1 = 'LTB';
-            }
-            elseif( $col == 4 ){
-                $border1 = 'TRB';
-            }
 
             $pdf->SetFont('Arial','',7);
-            $pdf->SetXY($marginLeft1,$marginTop1);
             if ( isset($row[$rowData[$col-1]]) )
             {
                 $finalData = $row[$rowData[$col-1]];
@@ -1262,14 +1331,19 @@ $pdf->Cell(33,5,'',1,0,'');
                 $finalData = '';
             }
 
-
-            $pdf->Cell($width1[$col],$height1,$finalData,$border1,0,$position1,$colorFlag);
-
-            $marginLeft1 += $width1[$col];
-
+            $multiColumn[$col-1] = $finalData;
         }
-        $marginTop1 += 6.6;
+
+        $pdf->SetLeftMargin(3);
+        $pdf->Row($multiColumn);
+
     }
+
+
+
+
+
+
 
 
 

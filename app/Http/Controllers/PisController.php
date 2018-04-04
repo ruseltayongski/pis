@@ -307,6 +307,7 @@ class PisController extends Controller
         $id = $request->get('id');
         $column = $request->get('column');
         $value = $request->get('value');
+        $indicate_country = $request->get('indicate_country');
 
         if($column == 'division_id'){
             $arrayValue = [
@@ -314,9 +315,16 @@ class PisController extends Controller
                 "section_id" => Section::where('division','=',$value)->first()->id
             ];
         } else {
-            $arrayValue = [
-                $column => $value
-            ];
+            if($indicate_country){
+                $arrayValue = [
+                    $column => $value,
+                    'indicate_country' => $indicate_country
+                ];
+            } else {
+                $arrayValue = [
+                    $column => $value
+                ];
+            }
         }
 
         Personal_Information::where('id',$id)->first()->update($arrayValue);
