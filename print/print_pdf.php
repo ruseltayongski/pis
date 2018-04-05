@@ -5,9 +5,9 @@ function connect(){
     return new PDO("mysql:host=localhost;dbname=pis",'root','');
 }
 
-function personal_information($id){
+function queryFetch($id,$table){
     $db=connect();
-    $sql="select * from personal_information where userid=?";
+    $sql= "select * from ".$table." where userid=?";
     $pdo=$db->prepare($sql);
     $pdo->execute(array($id));
     $row=$pdo->fetch();
@@ -16,20 +16,9 @@ function personal_information($id){
     return $row;
 }
 
-function family_background($id){
+function queryFetchAll($id,$table){
     $db=connect();
-    $sql="select * from family_background where userid=?";
-    $pdo=$db->prepare($sql);
-    $pdo->execute(array($id));
-    $row=$pdo->fetch();
-    $db=null;
-
-    return $row;
-}
-
-function educational_backgroundAll($id){
-    $db=connect();
-    $sql="select * from educational_background where userid=?";
+    $sql="select * from ".$table." where userid=?";
     $pdo=$db->prepare($sql);
     $pdo->execute(array($id));
     $row=$pdo->fetchAll();
@@ -50,41 +39,15 @@ function education_type($id){
 }
 
 
-function educational_background($userid,$level){
-    $db=connect();
-    $sql="select * from educational_background where userid=? and level=?";
-    $pdo=$db->prepare($sql);
-    $pdo->execute(array($userid,$level));
-    $row=$pdo->fetch();
-    $db=null;
-
-    return $row;
-}
-
-function childrens($userid){
-    $db=connect();
-    $sql="select * from children where userid=?";
-    $pdo=$db->prepare($sql);
-    $pdo->execute(array($userid));
-    $row=$pdo->fetchAll();
-    $db=null;
-
-    return $row;
-}
-
 if(isset($_POST['userid'])){
     $_SESSION['userid'] = $_POST['userid'];
 }
-$user = personal_information($_SESSION['userid']);
-$family_background = family_background($_SESSION['userid']);
-$educational_background1 = educational_background($_SESSION['userid'],1);
-$educational_background2 = educational_background($_SESSION['userid'],2);
-$educational_background3 = educational_background($_SESSION['userid'],3);
-$educational_background4 = educational_background($_SESSION['userid'],4);
-
-$educational_background = educational_backgroundAll($_SESSION['userid']);
-
-$childrens = childrens($_SESSION['userid']);
+$user = queryFetch($_SESSION['userid'],'personal_information');
+$family_background = queryFetch($_SESSION['userid'],'family_background');
+$educational_background = queryFetchAll($_SESSION['userid'],'educational_background');
+$childrens = queryFetchAll($_SESSION['userid'],'children');
+$civil_eligibility = queryFetchAll($_SESSION['userid'],'civil_eligibility');
+$work_experience = queryFetchAll($_SESSION['userid'],'work_experience');
 
 /**
  * Created by PhpStorm.
@@ -119,7 +82,14 @@ class PDF extends FPDF
         $nb=0;
         for($i=0;$i<count($data);$i++)
             $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-        $h=5*$nb;
+
+        $height = 7;
+
+        if( $nb >= 2 ){
+            $nb -= 0.5;
+        }
+
+        $h=$height*$nb;
         //Issue a page break first if needed
         $this->CheckPageBreak($h);
         //Draw the cells of the row
@@ -137,6 +107,7 @@ class PDF extends FPDF
             //Put the position to the right of the cell
             $this->SetXY($x+$w,$y);
         }
+        $GLOBALS['marginTop'] = $y+$h;
         //Go to the next line
         $this->Ln($h);
     }
@@ -206,8 +177,8 @@ $pdf = new PDF('P','mm','LEGAL');
 $pdf->AliasNbPages();
 
 $pdf->SetFont('Times','',12);
-/*$pdf->AddPage();
-include 'pages/page1.php';*/
+$pdf->AddPage();
+include 'pages/page1.php';
 $pdf->AddPage();
 include 'pages/page2.php';
 
