@@ -90,12 +90,12 @@ foreach( $civil_eligibility as $row ){
     for( $i = 0; $i < count($civilColumn); $i++ ){
         $civilData[$i] = $row[$civilColumn[$i]];
     }
-    $pdf->Row($civilData);
+    $pdf->Row($civilData,'7',5,'C');
     $civilRowCount++;
 }
 
 for( $j = $civilRowCount; $j <= 7; $j++ ){
-    $pdf->Row(['','','','','','']);
+    $pdf->Row(['','','','','',''],'7',5,'C');
     $civilRowCount++;
 }
 
@@ -246,12 +246,12 @@ foreach( $work_experience as $row ){
     for( $i = 0; $i < count($workColumn); $i++ ){
         $work_experienceData[$i] = $row[$workColumn[$i]];
     }
-    $pdf->Row($work_experienceData);
+    $pdf->Row($work_experienceData,7,5,'C');
     $work_experienceRowCount++;
 }
 
 for( $j = $work_experienceRowCount; $j <= 27; $j++ ){
-    $pdf->Row(['','','','','','','','']);
+    $pdf->Row(['','','','','','','',''],7,5,'C');
     $work_experienceRowCount++;
 }
 
@@ -261,30 +261,18 @@ $pdf->SetTextColor(237,28,36);
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $pdf->Cell(210,4,'(Continue on separate sheet if necessary)',1,0,'C',false);
 
-$pdf->SetTextColor(0,0,0);
 $GLOBALS['marginTop'] += 4;
+
+$pdf->SetFont('Arial','B',15);
+$pdf->SetTextColor(0,0,0);
+$pdf->SetWidths(array(40,75,25,70));
 $pdf->SetXY(3,$GLOBALS['marginTop']);
-$pdf->Cell(40,13,'SIGNATURE',1,0,'C',true);
+$pdf->Row(['SIGNATURE','','DATE',''],14,15,'C');
 
-$pdf->SetXY(43,$GLOBALS['marginTop']);
-$pdf->Cell(75,13,'',1,0,'',false);
 
-$pdf->SetXY(118,$GLOBALS['marginTop']);
-$pdf->Cell(25,13,'DATE',1,0,'C',true);
-
-$pdf->SetXY(143,$GLOBALS['marginTop']);
-$pdf->Cell(35,13,'',1,0,'',false);
-
-$pdf->SetXY(178,$GLOBALS['marginTop']);
-$pdf->Cell(20,13,'',1,0,'',false);
-
-$pdf->SetXY(198,$GLOBALS['marginTop']);
-$pdf->Cell(15,13,'',1,0,'',false);
-
-$GLOBALS['marginTop'] += 13;
-$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->SetWidths(array(210));
 $pdf->SetFont('Arial','',7);
-$pdf->Cell(210,5,'CS FORM 212 (Revised 2017), Page 2 of 4',1,0,'R',false);
+$pdf->Row(['CS FORM 212 (Revised 2017), Page 2 of 4'],6,7,'R');
 
 
 ?>

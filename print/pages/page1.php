@@ -1272,7 +1272,7 @@ $pdf->Cell(33,5,'',1,0,'');
         }
 
         $pdf->SetLeftMargin(3);
-        $pdf->Row($multiColumn);
+        $pdf->Row($multiColumn,7,5,'C');
 
     }
 
