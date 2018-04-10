@@ -48,6 +48,7 @@ $educational_background = queryFetchAll($_SESSION['userid'],'educational_backgro
 $childrens = queryFetchAll($_SESSION['userid'],'children');
 $civil_eligibility = queryFetchAll($_SESSION['userid'],'civil_eligibility');
 $work_experience = queryFetchAll($_SESSION['userid'],'work_experience');
+$voluntary_work = queryFetchAll($_SESSION['userid'],'voluntary_work');
 
 /**
  * Created by PhpStorm.
@@ -76,7 +77,7 @@ class PDF extends FPDF
         $this->aligns=$a;
     }
 
-    function Row($data,$height,$multicellHeight,$multicellPosition)
+    function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
     {
         //Calculate the height of the row
         $nb=0;
@@ -100,9 +101,23 @@ class PDF extends FPDF
             $x=$this->GetX();
             $y=$this->GetY();
             //Draw the border
+
+            if( isset($rectColor) ){
+                $rectCol = explode('|',$rectColor['rectCol']);
+                for( $j = 0; $j < count($rectCol); $j++ ){
+                    if( $rectCol[$j] == $i || $rectColor['rectCol'] == 'allColumn' ){
+                        if( $rectColor['rectCol'] == 'allColumn' ){
+                            $this->SetTextColor(255,255,255);
+                        }
+                        $this->SetFillColor($rectColor['r'], $rectColor['g'], $rectColor['b']);
+                        $this->Rect($x,$y,$w,$h,'F');
+                    }
+                }
+            }
+
             $this->Rect($x,$y,$w,$h);
             //Print the text
-            $this->MultiCell($w,$multicellHeight,$data[$i],0,$a);
+            $this->MultiCell($w,$multicellHeight,$data[$i],1,$a);
             //Put the position to the right of the cell
             $this->SetXY($x+$w,$y);
         }
@@ -177,9 +192,11 @@ $pdf->AliasNbPages();
 
 $pdf->SetFont('Times','',12);
 /*$pdf->AddPage();
-include 'pages/page1.php';*/
+include 'pages/page1.php';
 $pdf->AddPage();
-include 'pages/page2.php';
+include 'pages/page2.php';*/
+$pdf->AddPage();
+include 'pages/page3.php';
 
 $pdf->Output();
 
