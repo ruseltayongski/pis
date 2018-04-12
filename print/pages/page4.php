@@ -1,12 +1,12 @@
 <?php
-$marginTop = 10;
+$marginTop = 1;
 $boxWidth = 4;
 $boxHeight = 3;
 $pdf->SetFont('Arial','',8);
 
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,35,'','1',0,'L',true);
+$pdf->Cell(130,33,'','1',0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'34. Are you related by consanguinity or affinity to the appointing or recommending authority, or to the',0,0,'L',false);
@@ -20,7 +20,7 @@ $pdf->SetXY(8,$marginTop+16);
 $pdf->Cell(130,10,'b. within the fourth degree (for Local Government Unit - Career Employees)?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,35,'',1,0,'L',false);
+$pdf->Cell(80,33,'',1,0,'L',false);
 
 //BOX ROW1
 $pdf->SetXY(140,$marginTop+15);
@@ -42,10 +42,9 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+16.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',7);
 
 
-//BOX ROW2
 $pdf->SetXY(140,$marginTop+20);
 $pdf->Cell($boxWidth,$boxHeight,'',1,0,'L',false);
 $pdf->SetXY(145,$marginTop+20);
@@ -64,18 +63,17 @@ $pdf->Cell(80,10,'___________________________________________',0,0,'L',false);
 
 
 ////ROW2
-$marginTop += 35;
+$marginTop += 33;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,20,'','TLR',0,'L',true);
+$pdf->Cell(130,17,'','TLR',0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,10,'35  a. Have you ever been found guilty of any administrative offense?',0,0,'L',false);
+$pdf->Cell(130,10,'35.  a. Have you ever been found guilty of any administrative offense?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,20,'',1,0,'L',false);
+$pdf->Cell(80,17,'',1,0,'L',false);
 
-//BOX ROW3
 $pdf->SetXY(140,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'',1,0,'L',false);
 $pdf->SetXY(145,$marginTop+3);
@@ -103,18 +101,17 @@ $pdf->Cell(80,10,'if YES, give details:',0,0,'L',false);
 $pdf->SetXY(135,$marginTop+10);
 $pdf->Cell(80,10,'___________________________________________',0,0,'L',false);
 
-
 ////ROW3
-$marginTop += 20;
+$marginTop += 17;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,25,'','BLR',0,'L',true);
+$pdf->Cell(130,22,'','BLR',0,'L',true);
 
 $pdf->SetXY(8,$marginTop);
 $pdf->Cell(130,10,'b. Have you been criminally charged before any court?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,25,'',1,0,'L',false);
+$pdf->Cell(80,22,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+3);
@@ -148,16 +145,16 @@ $pdf->Cell(80,10,'Status of Case/s:__________________',0,0,'L',false);
 
 
 ////ROW4
-$marginTop += 25;
+$marginTop += 22;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,25,'',1,0,'L',true);
+$pdf->Cell(130,19,'',1,0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'36. Have you ever been convicted of any crime or violation of any law, decree, ordinance or',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,25,'',1,0,'L',false);
+$pdf->Cell(80,19,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+3);
@@ -188,10 +185,10 @@ $pdf->SetXY(135,$marginTop+11);
 $pdf->Cell(80,10,'___________________________________________',0,0,'L',false);
 
 ////ROW5
-$marginTop += 25;
+$marginTop += 19;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,25,'',1,0,'L',true);
+$pdf->Cell(130,19,'',1,0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'37. Have you ever been separated from the service in any of the following modes: resignation,',0,0,'L',false);
@@ -201,7 +198,7 @@ $pdf->SetXY(3,$marginTop+8);
 $pdf->Cell(130,10,'      out (abolition) in the public or private sector?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,25,'',1,0,'L',false);
+$pdf->Cell(80,19,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+3);
@@ -233,10 +230,10 @@ $pdf->Cell(80,10,'___________________________________________',0,0,'L',false);
 
 
 ////ROW6
-$marginTop += 25;
+$marginTop += 19;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,35,'',1,0,'L',true);
+$pdf->Cell(130,30,'',1,0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'38. a. Have you ever been a candidate in a national or local election held within the last year (except',0,0,'L',false);
@@ -248,7 +245,7 @@ $pdf->SetXY(3,$marginTop+20);
 $pdf->Cell(130,10,'      last election to promote/actively campaign for a national or local candidate?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,35,'',1,0,'L',false);
+$pdf->Cell(80,30,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+3);
@@ -296,16 +293,16 @@ $pdf->Cell(80,10,'__________________________',0,0,'L',false);
 
 
 ////ROW7
-$marginTop += 35;
+$marginTop += 30;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,25,'',1,0,'L',true);
+$pdf->Cell(130,19,'',1,0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'39. Have you acquired the status of an immigrant or permanent resident of another country?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,25,'',1,0,'L',false);
+$pdf->Cell(80,19,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+3);
@@ -337,10 +334,10 @@ $pdf->Cell(80,10,'___________________________________________',0,0,'L',false);
 
 
 ////ROW8
-$marginTop += 25;
+$marginTop += 19;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,50,'',1,0,'L',true);
+$pdf->Cell(130,44,'',1,0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,10,'40. Pursuant to: (a) Indigenous People\'s Act (RA 8371); (b) Magna Carta for Disabled Persons (RA',0,0,'L',false);
@@ -354,7 +351,7 @@ $pdf->SetXY(3,$marginTop+32);
 $pdf->Cell(130,10,'      b. Are you a solo parent?',0,0,'L',false);
 
 $pdf->SetXY(133,$marginTop);
-$pdf->Cell(80,50,'',1,0,'L',false);
+$pdf->Cell(80,44,'',1,0,'L',false);
 
 
 $pdf->SetXY(140,$marginTop+15);
@@ -403,15 +400,73 @@ $pdf->Cell(80,10,'__________________________',0,0,'L',false);
 
 
 //REFERENCES
-$marginTop += 50;
+$marginTop += 44;
 $pdf->SetFillColor(202, 202, 202); //GRAY
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(150,7,'',1,0,'L',true);
+$pdf->Cell(152,7,'',1,0,'L',true);
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(150,7,'41.  REFERENCES',1,0,'L',false);
+$pdf->Cell(152,7,'41.  REFERENCES',1,0,'L',false);
 
 $pdf->SetTextColor(237,28,36);
 $pdf->SetXY(30,$marginTop);
-$pdf->Cell(150,7,'(Person not related by consanguinity or affinity to applicant/appointee)',0,0,'L',false);
+$pdf->Cell(152,7,'(Person not related by consanguinity or affinity to applicant/appointee)',0,0,'L',false);
+$pdf->SetTextColor(0,0,0);
+
+$marginTop += 7;
+$referenceWidth = [60,60,32];
+$referenceColumn = ["NAME","ADDRESS","TEL. NO."];
+
+
+for($row=0; $row<4; $row++){
+    $referenceMarginLeft = 3;
+    for($col=0; $col<3; $col++){
+        if( $row == 0 ){
+            $content = $referenceColumn[$col];
+        } else {
+            $content = '';
+        }
+        $pdf->SetXY($referenceMarginLeft,$marginTop);
+        $pdf->Cell($referenceWidth[$col],7,$content,1,0,'C',false);
+        $referenceMarginLeft += $referenceWidth[$col];
+    }
+    $marginTop += 7;
+}
+
+$pdf->SetFillColor(202, 202, 202); //GRAY
+$pdf->SetXY(3,$marginTop);
+$pdf->Cell(152,26,'',1,0,'L',true);
+
+$contentRefrence = [
+    "I declare under oath that I have personally accomplished this Personal Data Sheet which is a true, correct and",
+    "complete statement pursuant to the provisions of pertinent laws, rules and regulations of the Republic of the Philippines.",
+    "I authorize the agency head / authorized representative to verify/validate the contents stated herein. I  agree that any",
+    "misrepresentation made in this document and its attachments shall cause the filing of administrative/criminal case/s",
+    "against me."
+];
+
+for($row=0; $row<count($contentRefrence); $row++){
+    $pdf->SetXY(3,$marginTop);
+    $pdf->Cell(152,7,$contentRefrence[$row],0,0,'L',false);
+    $marginTop += 4;
+}
+$marginTop += 8;
+
+$contentRefrence1 = [
+    "",
+    "",
+    "",
+    ""
+];
+for($row=0; $row<count($contentRefrence1); $row++){
+    $pdf->SetXY(3,$marginTop);
+    $pdf->Cell(50,7,$contentRefrence1[$row],1,0,'L',false);
+    $marginTop += 7;
+}
+
+$marginTop += 4;
+
+$pdf->SetXY(3,$marginTop);
+$pdf->Cell(50,30,'',1,0,'L',false);
+
 
 ?>
