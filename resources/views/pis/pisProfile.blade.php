@@ -207,8 +207,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->job_status)
                                                                                     echo "<span class='red'>Go to hr to update your job status</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->job_status.'</u></b>';
+                                                                                else {
+                                                                                    if($user->job_status){
+                                                                                        echo '<b><u>'.$user->job_status.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -253,13 +259,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->salary_charge)
                                                                                     echo "<span class='red'>Go to hr to update your salary charge</span>";
-                                                                                else
+                                                                                else {
                                                                                     if($user->salary_charge){
                                                                                         echo '<b><u>'.$user->salary_charge.'</u></b>';
                                                                                     }
                                                                                     else {
                                                                                         echo "<i><span class='red'>Empty</span></i>";
                                                                                     }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -349,8 +356,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->gsis_idno)
                                                                                     echo "<span class='red'>Go to hr to update your gsis idno</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->gsis_idno){
+                                                                                        echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -363,8 +376,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->pag_ibigno)
                                                                                     echo "<span class='red'>Go to hr to update your pag-ibig no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->pag_ibigno){
+                                                                                        echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -377,8 +396,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->sssno)
                                                                                     echo "<span class='red'>Go to hr to update your sss no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->sssno){
+                                                                                        echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -391,8 +416,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->tin_no)
                                                                                     echo "<span class='red'>Go to hr to update your TIN no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                                else {
+                                                                                    if($user->tin_no){
+                                                                                        echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>

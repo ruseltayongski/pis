@@ -8,7 +8,6 @@ $pdf->Row(['VI. VOLUNTARY WORK OR INVOLVEMENT IN CIVIC / NON-GOVERNMENT / PEOPLE
 
 $pdf->SetTextColor(0,0,0);
 $voluntaryWidth = ['',90,20,20,20,60];
-
 $voluntaryRow = [
     '',
     ['','NAME & ADDRESS OF ORGANIZATION','','','',''],
@@ -17,7 +16,6 @@ $voluntaryRow = [
 ];
 $position = '';
 $height = 6.6;
-
 $pdf->SetFillColor(237, 235, 236);
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $pdf->Cell(210,20,'',0,0,$position,true);
@@ -79,12 +77,10 @@ for($row = 1; $row < count($voluntaryRow); $row++){
     $GLOBALS['marginTop'] += 6.6;
 }
 
-$GLOBALS['marginTop'] += 6.6;
 
 $pdf->SetWidths(array(90,20,20,20,60));
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $pdf->SetLeftMargin(3);
-
 $voluntaryColumn = ['name_of_organization','date_from','date_to','number_of_hours','nature_of_work'];
 $voluntaryRowCount = 1;
 foreach( $voluntary_work as $row ){
@@ -95,9 +91,136 @@ foreach( $voluntary_work as $row ){
     $voluntaryRowCount++;
 }
 
-for( $j = $voluntaryRowCount; $j <= 27; $j++ ){
-    $pdf->Row(['','','','','','','',''],7,5,'C',null);
+for( $j = $voluntaryRowCount; $j <= 17; $j++ ){
+    $pdf->Row(['','','','',''],7,5,'C',null);
     $voluntaryRowCount++;
 }
+
+
+$pdf->SetFillColor(150, 150, 150);
+$pdf->SetXY(3,$GLOBALS['marginTop']-1);
+$pdf->Cell(210,13,'',1,0,'L',true);
+
+
+$pdf->SetFont('Arial','B',7);
+$pdf->SetTextColor(255,255,255);
+$pdf->SetXY(3,$GLOBALS['marginTop']-3);
+$pdf->Cell(210,13,'VII. LEARNING AND DEVELOPMENT (L&D) INTERVENTIONS/TRAINING PROGRAMS ATTENDED',0,0,'L',false);
+
+$GLOBALS['marginTop'] += 6.6;
+$pdf->SetFont('Arial','',7);
+$pdf->SetXY(3,$GLOBALS['marginTop']-5);
+$pdf->Cell(210,13,'(Start from the most recent L&D/training program and include only the relevant L&D/training taken for the last five (5) years for Division Chief/Executive/Managerial positions)',0,0,'L',false);
+$GLOBALS['marginTop'] += 5.4;
+
+
+$pdf->SetTextColor(0,0,0);
+$trainingWidth = ['',90,20,20,20,20,40];
+$trainingRow = [
+    '',
+    ['','','INCLUSIVE DATES OF','','','TYPE OF LD',''],
+    ['','TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS','ATTENDANCE','','NUMBER OF','(Managerial/','CONDUCTED/SPONSORED BY'],
+    ['','(Write in full)','(mm/dd/yyyy)','','HOURS','Supervisory/','(Write in full)'],
+    ['','','From','To','','Technician/etc)','']
+];
+$height = 6.6;
+$pdf->SetFillColor(237, 235, 236);
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->Cell(210,26.6,'',0,0,$position,true);
+for($row = 1; $row < count($trainingRow); $row++){
+    $marginLeft = 3;
+    $colorFlag = false;
+    $position = 'C';
+    for($col = 1; $col < count($trainingRow[1]); $col++){
+
+        $border = '1';
+        $marginLeftFinal = $marginLeft;
+        if( $row == 1 ){
+            $border = 'RL';
+            if( $col == 2 ){
+                $border = '0';
+                $marginLeftFinal += 10;
+            }
+            elseif( $col == 3 ){
+                $border = 'R';
+            }
+        }
+        elseif ( $row == 2 ){
+            $border = 'RL';
+            $pdf->SetFont('Arial','',7);
+            if( $col == 1 ){
+                $pdf->SetFont('Arial','',6);
+            }
+            elseif( $col == 2 ){
+                $border = '0';
+                $marginLeftFinal += 10;
+            }
+            elseif( $col == 3 ){
+                $border = 'R';
+            }
+        }
+        elseif( $row == 3 ){
+            $border = 'RL';
+            if( $col == 2 ){
+                $border = '0';
+                $marginLeftFinal += 10;
+            }
+            elseif( $col == 3 ){
+                $border = 'B';
+            }
+        }
+        elseif( $row == 4 ){
+            $border = 'RLB';
+            if( $col == 2 ){
+                $border = 'RTB';
+            }
+            elseif( $col == 3 ){
+                $border = 'LTB';
+            }
+        }
+
+
+
+        $pdf->SetXY($marginLeftFinal,$marginTop);
+        $pdf->Cell($trainingWidth[$col],$height,$trainingRow[$row][$col],$border,0,$position,$colorFlag);
+
+        $marginLeft += $trainingWidth[$col];
+    }
+    $GLOBALS['marginTop'] += 6.6;
+}
+
+
+$pdf->SetWidths(array(90,20,20,20,20,40));
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->SetLeftMargin(3);
+$training_programColumn = ['title_of_learning','date_from','date_to','number_of_hours','type_of_id','sponsored_by'];
+$training_programRowCount = 1;
+foreach( $training_program as $row ){
+    for( $i = 0; $i < count($training_programColumn); $i++ ){
+        $training_programData[$i] = $row[$training_programColumn[$i]];
+    }
+    $pdf->Row($training_programData,7,5,'C',null);
+    $training_programRowCount++;
+}
+
+for( $j = $training_programRowCount; $j <= 17; $j++ ){
+    $pdf->Row(['','','','','',''],7,5,'C',null);
+    $training_programRowCount++;
+}
+
+$pdf->SetFont('Arial','B',7);
+$pdf->SetTextColor(237,28,36);
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->Cell(210,4,'(Continue on separate sheet if necessary)',1,0,'C',false);
+$GLOBALS['marginTop'] += 4;
+$pdf->SetFont('Arial','',15);
+$pdf->SetTextColor(0,0,0);
+$pdf->SetWidths(array(40,75,25,70));
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$rectColor = ['r' => 207,'g' => 207,'b' => '207','rectCol' => '0|2'];
+$pdf->Row(['SIGNATURE','','DATE',''],14,15,'C',$rectColor);
+$pdf->SetWidths(array(210));
+$pdf->SetFont('Arial','',7);
+$pdf->Row(['CS FORM 212 (Revised 2017), Page 2 of 4'],6,7,'R',null);
 
 ?>

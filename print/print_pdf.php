@@ -49,6 +49,7 @@ $childrens = queryFetchAll($_SESSION['userid'],'children');
 $civil_eligibility = queryFetchAll($_SESSION['userid'],'civil_eligibility');
 $work_experience = queryFetchAll($_SESSION['userid'],'work_experience');
 $voluntary_work = queryFetchAll($_SESSION['userid'],'voluntary_work');
+$training_program = queryFetchAll($_SESSION['userid'],'training_program');
 
 /**
  * Created by PhpStorm.
@@ -109,6 +110,7 @@ class PDF extends FPDF
                         if( $rectColor['rectCol'] == 'allColumn' ){
                             $this->SetTextColor(255,255,255);
                         }
+                        $this->SetFont('Arial','B',7);
                         $this->SetFillColor($rectColor['r'], $rectColor['g'], $rectColor['b']);
                         $this->Rect($x,$y,$w,$h,'F');
                     }
@@ -116,8 +118,10 @@ class PDF extends FPDF
             }
 
             $this->Rect($x,$y,$w,$h);
+            //$this->Rect(100,100,100,100);
             //Print the text
-            $this->MultiCell($w,$multicellHeight,$data[$i],1,$a);
+            $this->MultiCell($w,$multicellHeight,$data[$i],0,$a);
+            $this->SetFont('Arial','',7);
             //Put the position to the right of the cell
             $this->SetXY($x+$w,$y);
         }
@@ -194,9 +198,11 @@ $pdf->SetFont('Times','',12);
 /*$pdf->AddPage();
 include 'pages/page1.php';
 $pdf->AddPage();
-include 'pages/page2.php';*/
+include 'pages/page2.php';
 $pdf->AddPage();
-include 'pages/page3.php';
+include 'pages/page3.php';*/
+$pdf->AddPage();
+include 'pages/page4.php';
 
 $pdf->Output();
 
