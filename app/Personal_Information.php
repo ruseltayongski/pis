@@ -20,6 +20,7 @@ class Personal_Information extends Model
         'sex',
         'civil_status',
         'citizenship',
+        'indicate_country',
         'height',
         'weight',
         'blood_type',

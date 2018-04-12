@@ -28,6 +28,7 @@ class CreatePersonalInformation extends Migration
             $table->text('sex')->nullable();
             $table->text('civil_status')->nullable();
             $table->text('citizenship')->nullable();
+            $table->string('indicate_country',255)->nullable();
             $table->text('height')->nullable();
             $table->text('weight')->nullable();
             $table->text('blood_type')->nullable();

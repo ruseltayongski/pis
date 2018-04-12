@@ -205,10 +205,16 @@
                                                                         <div class="profile-info-value">
                                                                             <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}coljob_status">
                                                                                 <?php
-                                                                                    if(!Auth::user()->usertype && !$user->job_status)
-                                                                                        echo "<span class='red'>Go to hr to update your job status</span>";
-                                                                                    else
+                                                                                if(!Auth::user()->usertype && !$user->job_status)
+                                                                                    echo "<span class='red'>Go to hr to update your job status</span>";
+                                                                                else {
+                                                                                    if($user->job_status){
                                                                                         echo '<b><u>'.$user->job_status.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -233,14 +239,14 @@
                                                                         <div class="profile-info-value">
                                                                             <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">
                                                                                 <?php
-                                                                                    if($user->disbursement_type == 'CASH_CARD')
-                                                                                        echo 'CASH CARD';
-                                                                                    elseif ($user->disbursement_type == 'NO_CARDS')
-                                                                                        echo 'W/O LBP CARDS';
-                                                                                    elseif ($user->disbursement_type == 'UNDER_VTF')
-                                                                                        echo 'UNDER VTF';
-                                                                                    else
-                                                                                        echo $user->disbursement_type;
+                                                                                if($user->disbursement_type == 'CASH_CARD')
+                                                                                    echo 'CASH CARD';
+                                                                                elseif ($user->disbursement_type == 'NO_CARDS')
+                                                                                    echo 'W/O LBP CARDS';
+                                                                                elseif ($user->disbursement_type == 'UNDER_VTF')
+                                                                                    echo 'UNDER VTF';
+                                                                                else
+                                                                                    echo $user->disbursement_type;
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -253,13 +259,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->salary_charge)
                                                                                     echo "<span class='red'>Go to hr to update your salary charge</span>";
-                                                                                else
+                                                                                else {
                                                                                     if($user->salary_charge){
                                                                                         echo '<b><u>'.$user->salary_charge.'</u></b>';
                                                                                     }
                                                                                     else {
                                                                                         echo "<i><span class='red'>Empty</span></i>";
                                                                                     }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -349,8 +356,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->gsis_idno)
                                                                                     echo "<span class='red'>Go to hr to update your gsis idno</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->gsis_idno){
+                                                                                        echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -363,8 +376,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->pag_ibigno)
                                                                                     echo "<span class='red'>Go to hr to update your pag-ibig no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->pag_ibigno){
+                                                                                        echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -377,8 +396,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->sssno)
                                                                                     echo "<span class='red'>Go to hr to update your sss no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                                else{
+                                                                                    if($user->sssno){
+                                                                                        echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -391,8 +416,14 @@
                                                                                 <?php
                                                                                 if(!Auth::user()->usertype && !$user->tin_no)
                                                                                     echo "<span class='red'>Go to hr to update your TIN no</span>";
-                                                                                else
-                                                                                    echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                                else {
+                                                                                    if($user->tin_no){
+                                                                                        echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
                                                                                 ?>
                                                                             </span>
                                                                         </div>
@@ -864,16 +895,16 @@
                                                                     <tbody id="civil_append">
                                                                     <?php $civilCount = 0; ?>
                                                                     @foreach($civil_eligibility as $row)
-                                                                    <?php $civilCount++; ?>
-                                                                    <tr id="">
-                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
-                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
-                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
-                                                                        <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
-                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
-                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
-                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'colcivilDelete' }}"><i class="fa fa-close"></i></span></td>
-                                                                    </tr>
+                                                                        <?php $civilCount++; ?>
+                                                                        <tr id="">
+                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
+                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
+                                                                            <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
+                                                                            <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
+                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
+                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
+                                                                            <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'colcivilDelete' }}"><i class="fa fa-close"></i></span></td>
+                                                                        </tr>
                                                                     @endforeach
                                                                     </tbody>
                                                                 </table><br>
@@ -922,24 +953,24 @@
                                                                             <td class="center">
                                                                                 <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
                                                                                     <?php
-                                                                                        if(!Auth::user()->usertype && !$row->salary_grade)
-                                                                                            echo "<span class='red'>Go to hr to update your monthly salary</span>";
-                                                                                        else
-                                                                                            echo '<b><u>'.$row->monthly_salary.'</u></b>';
+                                                                                    if(!Auth::user()->usertype && !$row->salary_grade)
+                                                                                        echo "<span class='red'>Go to hr to update your monthly salary</span>";
+                                                                                    else
+                                                                                        echo '<b><u>'.$row->monthly_salary.'</u></b>';
                                                                                     ?>
                                                                                 </span>
                                                                             </td>
                                                                             <td class="center">
                                                                                 <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
                                                                                     <?php
-                                                                                        if(Auth::user()->usertype)
-                                                                                            echo $row->salary_grade;
-                                                                                        else{
-                                                                                            if($row->salary_grade)
-                                                                                                echo '<b><u>'.$row->salary_grade.'</u></b>';
-                                                                                            else
-                                                                                                echo '<span class="red">'.'Go to hr to update your salary grade'.'</p>';
-                                                                                        }
+                                                                                    if(Auth::user()->usertype)
+                                                                                        echo $row->salary_grade;
+                                                                                    else{
+                                                                                        if($row->salary_grade)
+                                                                                            echo '<b><u>'.$row->salary_grade.'</u></b>';
+                                                                                        else
+                                                                                            echo '<span class="red">'.'Go to hr to update your salary grade'.'</p>';
+                                                                                    }
                                                                                     ?>
                                                                                 </span>
                                                                             </td>
@@ -1148,7 +1179,7 @@
                     var chilAnimation = childrenName + childrenDOB;
                     event.preventDefault();
                     var childrenAppend =
-                            '<div class="profile-info-row" id="'+chilAnimation+'">\
+                        '<div class="profile-info-row" id="'+chilAnimation+'">\
                                 <div class="profile-info-name editable children" id="'+childrenName+'"></div>\
                                 <div class="profile-info-value pull-left">\
                                     <span class="editable_radio" id="'+childrenDOB+'"></span>\
@@ -1184,7 +1215,7 @@
                     event.preventDefault();
 
                     var civilAppend =
-                            '<tr id="'+civilUnique_row+'">\
+                        '<tr id="'+civilUnique_row+'">\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colcareer_service"></span></td>\
                                 <td class="center"><span class="editable civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'colrating"></span></td>\
                                 <td class="center"><span class="editable_radio civil_eligibility" id="'+'no_id'+"<?php echo str_random(10); ?>"+civilCount+'coldate_of_examination"></span></td>\
@@ -1220,18 +1251,18 @@
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
                         <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
-                            if(!Auth::user()->usertype)
-                                echo 'Go to hr to update your monthly salary';
+                        if(!Auth::user()->usertype)
+                            echo 'Go to hr to update your monthly salary';
                         ?></span></td>\
                         <td class="center"><span class="red '+"<?php
-                           if(Auth::user()->usertype)
-                               echo 'editable_radio';
-                           else
-                               echo '';
+                        if(Auth::user()->usertype)
+                            echo 'editable_radio';
+                        else
+                            echo '';
                         ?>"+
-                        ' work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
-                            if(!Auth::user()->usertype)
-                                echo 'Go to hr to update your salary grade';
+                    ' work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
+                        if(!Auth::user()->usertype)
+                            echo 'Go to hr to update your salary grade';
                         ?>
                         </span></td>\
                         <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
@@ -1260,7 +1291,7 @@
                     event.preventDefault();
 
                     var voluntaryAppend =
-                            '<tr id="'+voluntaryUnique_row+'">\
+                        '<tr id="'+voluntaryUnique_row+'">\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colname_of_organization"></span></td>\
                                 <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_from"></span></td>\
                                 <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_to"></span></td>\
@@ -1288,16 +1319,17 @@
                 var trainingUnique_row = trainingCount+"<?php echo 'training'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
                 event.preventDefault();
 
+                var certificate_id = "trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colcertificate';
                 var trainingAppend =
-                        '<tr id="'+trainingUnique_row+'">\
+                    '<tr id="'+trainingUnique_row+'">\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltitle_of_learning"></span></td>\
                             <td class="center align-middle"><span class="editable_radio training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltdate_from"></span></td>\
                             <td class="center align-middle"><span class="editable_radio training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltdate_to"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colnumber_of_hours"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'coltype_of_id"></span></td>\
                             <td class="center align-middle"><span class="editable training_program" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colsponsored_by"></span></td>\
-                            <td class="center align-middle">\
-                                <span class="editable_certificate training_program" data-link="" id="'+"trainingno_id<?php echo str_random(10); ?>"+trainingCount+'colcertificate" >\
+                            <td class="center align-middle trainingCertificate">\
+                                <span class="editable_certificate training_program" data-link="" id="'+certificate_id+'" >\
                                     <a href="#" class="user-title-label dropdown-toggle editable-empty" data-toggle="dropdown">\
                                         Empty\
                                     </a>\
@@ -1310,8 +1342,256 @@
 
                 text_editable();
                 editable_radio();
-                editable_certificate();
+
+                dropzoneAdd(certificate_id);
+
+                console.log(certificate_id);
+
             });
+
+            window.certificateLink = '';
+            function dropzoneAdd(certificate_id){
+
+                $('#'+certificate_id).on('click', function(e){
+
+                    spancertificateId = certificate_id;
+                    trainingId = certificate_id.split('training')[1].split('col')[0];
+                    certificateUnique = $("#"+certificate_id).parents(':eq(1)').attr('id');
+
+                    try {
+                        trainingDeleteid = $("#"+certificate_id).parents(':eq(0)').siblings('.trainingDelete').children().get(0).id;
+                    } catch(e) {}
+
+                    certificateLink = $("#"+certificate_id).data('link');
+                    dropzoneCount++;
+                    var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
+                        "                                                                <div class=\"col-xs-12\">\n" +
+                        "                                                                    <div >\n" +
+                        "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone"+dropzoneCount+"\">\n" +
+                        "                                                                            <div class=\"fallback\">\n" +
+                        "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
+                        "                                                                            </div>\n" +
+                        "                                                                        </form>\n" +
+                        "                                                                    </div>\n" +
+                        "\n" +
+                        "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
+                        "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
+                        "                                                                            <div class=\"dz-image\">\n" +
+                        "                                                                                <img data-dz-thumbnail=\"\" />\n" +
+                        "                                                                            </div>\n" +
+                        "\n" +
+                        "                                                                            <div class=\"dz-details\">\n" +
+                        "                                                                                <div class=\"dz-size\">\n" +
+                        "                                                                                    <span data-dz-size=\"\"></span>\n" +
+                        "                                                                                </div>\n" +
+                        "\n" +
+                        "                                                                                <div class=\"dz-filename\">\n" +
+                        "                                                                                    <span data-dz-name=\"\"></span>\n" +
+                        "                                                                                </div>\n" +
+                        "                                                                            </div>\n" +
+                        "\n" +
+                        "                                                                            <div class=\"dz-progress\">\n" +
+                        "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
+                        "                                                                            </div>\n" +
+                        "\n" +
+                        "                                                                            <div class=\"dz-error-message\">\n" +
+                        "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
+                        "                                                                            </div>\n" +
+                        "\n" +
+                        "                                                                            <div class=\"dz-success-mark\">\n" +
+                        "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                        "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                        "\n" +
+                        "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
+                        "                                                                                </span>\n" +
+                        "                                                                            </div>\n" +
+                        "\n" +
+                        "                                                                            <div class=\"dz-error-mark\">\n" +
+                        "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                        "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                        "\n" +
+                        "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
+                        "                                                                                </span>\n" +
+                        "                                                                            </div>\n" +
+                        "                                                                        </div>\n" +
+                        "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
+                        "                                                                </div><!-- /.col -->\n" +
+                        "                                     </div><div class='alert alert-warning certificate-link'>Link</div><!-- /.row -->";
+
+
+                    var modal =
+                        '<div class="modal fade">\
+                          <div class="modal-dialog modal-sm">\
+                           <div class="modal-content">\
+                            <div class="modal-header">\
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>\
+                                <h4 class="blue">Upload Certificate</h4>\
+                            </div>\
+                            \
+                             <div class="modal-body">\
+                                <div class="space-4"></div>'+
+                        certificateContent
+                        +'</div>\
+                            \
+                             <div class="modal-footer center">\
+                                <button type="submit" class="btn btn-sm btn-success dropzoneSubmit"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+                             </d    iv>\
+                          </div>\
+                         </div>\
+                        </div>';
+
+
+                    var modal = $(modal);
+
+
+                    modal.modal("show").on('shown.bs.modal', function (e) {
+                        $(".certificate-link").html("<li><a download='"+certificateLink.split('johndoe')[0]+"'"+" href="+"'<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+"'"+" >"+certificateLink.split('johndoe')[0]+'</a></li>');
+                        certificateLink = '';
+                        try {
+                            Dropzone.autoDiscover = false;
+
+                            file = '';
+                            var myDropzone = new Dropzone('#dropzone'+dropzoneCount, {
+                                previewTemplate: $('#preview-template').html(),
+                                thumbnailHeight: 120,
+                                thumbnailWidth: 120,
+                                maxFilesize: 999999999999999999,
+                                maxFiles: 1,
+                                maxfilesexceeded: function(result) {
+                                    this.removeAllFiles();
+                                    this.addFile(result);
+                                },
+
+                                addRemoveLinks : true,
+                                dictRemoveFile: 'Remove',
+
+                                dictDefaultMessage :
+                                    '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+                                    <span class="smaller-80 grey">(or click)</span> <br /> \
+                                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
+                                ,
+
+                                thumbnail: function(file, dataUrl) {
+                                    if (file.previewElement) {
+                                        $(file.previewElement).removeClass("dz-file-preview");
+                                        var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
+                                            var thumbnailElement = this;
+                                            thumbnailElement.alt = file.name;
+                                            thumbnailElement.src = dataUrl;
+                                        });
+                                        setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
+                                    }
+                                }
+
+                            });
+
+
+                            //simulating upload progress
+                            var minSteps = 6,
+                                maxSteps = 60,
+                                timeBetweenSteps = 100,
+                                bytesPerStep = 100000;
+
+                            myDropzone.uploadFiles = function(files) {
+                                var self = this;
+
+                                for (var i = 0; i < files.length; i++) {
+                                    file = files[i];
+                                    totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+
+                                    for (var step = 0; step < totalSteps; step++) {
+                                        var duration = timeBetweenSteps * (step + 1);
+                                        setTimeout(function(file, totalSteps, step) {
+                                            return function() {
+                                                file.upload = {
+                                                    progress: 100 * (step + 1) / totalSteps,
+                                                    total: file.size,
+                                                    bytesSent: (step + 1) * file.size / totalSteps
+                                                };
+
+                                                self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                                                if (file.upload.progress == 100) {
+                                                    file.status = Dropzone.SUCCESS;
+                                                    self.emit("success", file, 'success', null);
+                                                    self.emit("complete", file);
+                                                    self.processQueue();
+                                                    uploadcertificateFlag = true;
+                                                }
+                                            };
+                                        }(file, totalSteps, step), duration);
+
+                                    }
+
+                                }
+                            };
+
+                            //remove dropzone instance when leaving this page in ajax mode
+                            $(document).one('ajaxloadstart.page', function(e) {
+                                try {
+                                    myDropzone.destroy();
+                                } catch(e) {}
+                            });
+
+
+                        } catch(e) {
+                            modal.modal( 'hide' ).data( 'bs.modal', null );
+                        }
+
+                    });
+
+
+                    $(document).on('click', '.dropzoneSubmit', function() {
+                        if(uploadcertificateFlag){
+                            if(file)
+                                $('#'+spancertificateId).html('<span class="label label-info label-sm arrowed-in arrowed-in-right">\n' +
+                                    '                                 <span class="inline position-relative">\n' +
+                                    '                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">\n' +
+                                    '                                       <i class="ace-icon fa fa-certificate light-green"></i>\n' +
+                                    '                                         &nbsp;\n' +
+                                    '                                       <span class="white" style="font-size:5.5pt;">View Certificate</span>\n' +
+                                    '                                      </a>\n' +
+                                    '                                  </span>\n' +
+                                    '                         </span>');
+                            else
+                                console.log('false');
+
+                            console.log(file);
+                            $('.modal').modal('hide');
+                            uploadcertificateFlag = false;
+
+                            var url = "<?php echo asset('/uploadCertificate'); ?>";
+                            var form_data = new FormData();
+                            form_data.append('certificate', file);
+                            form_data.append('trainingId',trainingId);
+                            form_data.append('userid',"<?php echo $user->piUserid ?>");
+                            form_data.append('unique_row',certificateUnique);
+                            $.ajaxSetup(
+                                {
+                                    headers:
+                                        {
+                                            'X-CSRF-Token': "<?php echo csrf_token(); ?>"
+                                        }
+                                });
+                            $.ajax({
+                                url:url,
+                                data: form_data,
+                                type: 'POST',
+                                contentType: false, // The content type used when sending data to the server.
+                                cache: false, // To unable request pages to be cached
+                                processData: false,
+                                success: function(result) {
+                                    console.log(result);
+                                    $('#'+spancertificateId).data('link', result);
+                                    console.log(trainingDeleteid);
+                                }
+                            });
+                        }
+                    });
+
+
+                });
+            }
 
             //OTHER INFORMATION ADD
             //note.. carefull sa id unique.. true in where clause (must have no-id)
@@ -1323,7 +1603,7 @@
                 event.preventDefault();
 
                 var otherAppend =
-                        '<tr id="'+otherUnique_row+'">\
+                    '<tr id="'+otherUnique_row+'">\
                                 <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colspecial_skills"></span></td>\
                                 <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colrecognition"></span></td>\
                                 <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colorganization"></span></td>\
@@ -1347,35 +1627,35 @@
             $.fn.editable.defaults.mode = 'popup';
             $.fn.editableform.loading = "<div class='editableform-loading'><i class='ace-icon fa fa-spinner fa-spin fa-2x light-blue'></i></div>";
             $.fn.editableform.buttons = '<button type="submit" class="btn btn-info editable-submit"><i class="ace-icon fa fa-check"></i></button>'+
-                    '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
+                '<button type="button" class="btn editable-cancel"><i class="ace-icon fa fa-times"></i></button>';
 
 
             //another option is using modals
             $('#avatar_picture').on('click', function(){
                 var last_gritter;
                 var modal =
-                        '<div class="modal fade">\
-                          <div class="modal-dialog">\
-                           <div class="modal-content">\
-                            <div class="modal-header">\
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>\
-                                <h4 class="blue">Change Picture</h4>\
-                            </div>\
-                            \
-                            <form class="no-margin" id="uploadPicture" enctype="multipart/form-data">\
-                             <div class="modal-body">\
-                                <div class="space-4"></div>\
-                                <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
-                             </div>\
-                            \
-                             <div class="modal-footer center">\
-                                <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
-                                <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
-                             </div>\
-                            </form>\
-                          </div>\
+                    '<div class="modal fade">\
+                      <div class="modal-dialog">\
+                       <div class="modal-content">\
+                        <div class="modal-header">\
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>\
+                            <h4 class="blue">Change Picture</h4>\
+                        </div>\
+                        \
+                        <form class="no-margin" id="uploadPicture" enctype="multipart/form-data">\
+                         <div class="modal-body">\
+                            <div class="space-4"></div>\
+                            <div style="width:75%;margin-left:12%;"><input type="file" name="file-input" /></div>\
                          </div>\
-                        </div>';
+                        \
+                         <div class="modal-footer center">\
+                            <button type="submit" class="btn btn-sm btn-success"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                            <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+                         </div>\
+                        </form>\
+                      </div>\
+                     </div>\
+                    </div>';
 
 
                 var modal = $(modal);
@@ -1436,12 +1716,12 @@
                         form_data.append('picture', file_data);
                         form_data.append('userid',"<?php echo $user->piUserid ?>");
                         $.ajaxSetup(
-                                {
-                                    headers:
+                            {
+                                headers:
                                     {
                                         'X-CSRF-Token': "<?php echo csrf_token(); ?>"
                                     }
-                                });
+                            });
                         $.ajax({
                             url:url,
                             data: form_data,
@@ -1595,245 +1875,255 @@
             });
 
             var file,trainingId,spancertificateId,certificateUnique,trainingDeleteid;
-            var dropzoneCount=0;
+            var dropzoneCount = 0;
             var uploadcertificateFlag = true;
+
             editable_certificate();
+
             function editable_certificate(){
 
-                    $(".editable_certificate").each(function() {
-                        $('#'+this.id).on('click', function(){
-                            spancertificateId = this.id;
-                            trainingId = this.id.split('training')[1].split('col')[0];
-                            certificateUnique = $(this).parents(':eq(1)').attr('id');
+                $(".editable_certificate").each(function() {
+
+                    $('#'+this.id).on('click', function(e){
+
+                        spancertificateId = this.id;
+                        trainingId = this.id.split('training')[1].split('col')[0];
+                        certificateUnique = $(this).parents(':eq(1)').attr('id');
+
+                        try {
                             trainingDeleteid = $(this).parents(':eq(0)').siblings('.trainingDelete').children().get(0).id;
+                        } catch(e) {}
 
-                            var certificateLink = $(this).data('link');
-                            dropzoneCount++;
-                            var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
-                                "                                                                <div class=\"col-xs-12\">\n" +
-                                "                                                                    <div >\n" +
-                                "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone"+dropzoneCount+"\">\n" +
-                                "                                                                            <div class=\"fallback\">\n" +
-                                "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
-                                "                                                                            </div>\n" +
-                                "                                                                        </form>\n" +
-                                "                                                                    </div>\n" +
-                                "\n" +
-                                "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
-                                "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
-                                "                                                                            <div class=\"dz-image\">\n" +
-                                "                                                                                <img data-dz-thumbnail=\"\" />\n" +
-                                "                                                                            </div>\n" +
-                                "\n" +
-                                "                                                                            <div class=\"dz-details\">\n" +
-                                "                                                                                <div class=\"dz-size\">\n" +
-                                "                                                                                    <span data-dz-size=\"\"></span>\n" +
-                                "                                                                                </div>\n" +
-                                "\n" +
-                                "                                                                                <div class=\"dz-filename\">\n" +
-                                "                                                                                    <span data-dz-name=\"\"></span>\n" +
-                                "                                                                                </div>\n" +
-                                "                                                                            </div>\n" +
-                                "\n" +
-                                "                                                                            <div class=\"dz-progress\">\n" +
-                                "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
-                                "                                                                            </div>\n" +
-                                "\n" +
-                                "                                                                            <div class=\"dz-error-message\">\n" +
-                                "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
-                                "                                                                            </div>\n" +
-                                "\n" +
-                                "                                                                            <div class=\"dz-success-mark\">\n" +
-                                "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                                "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                                "\n" +
-                                "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
-                                "                                                                                </span>\n" +
-                                "                                                                            </div>\n" +
-                                "\n" +
-                                "                                                                            <div class=\"dz-error-mark\">\n" +
-                                "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
-                                "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
-                                "\n" +
-                                "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
-                                "                                                                                </span>\n" +
-                                "                                                                            </div>\n" +
-                                "                                                                        </div>\n" +
-                                "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
-                                "                                                                </div><!-- /.col -->\n" +
-                                "                                     </div><div class='alert alert-warning certificate-link'>Link</div><!-- /.row -->";
-
-
-                            var modal =
-                                '<div class="modal fade">\
-                                  <div class="modal-dialog modal-sm">\
-                                   <div class="modal-content">\
-                                    <div class="modal-header">\
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>\
-                                        <h4 class="blue">Upload Certificate</h4>\
-                                    </div>\
-                                    \
-                                     <div class="modal-body">\
-                                        <div class="space-4"></div>'+
-                                        certificateContent
-                                    +'</div>\
-                                    \
-                                     <div class="modal-footer center">\
-                                        <button type="submit" class="btn btn-sm btn-success dropzoneSubmit"><i class="ace-icon fa fa-check"></i> Submit</button>\
-                                        <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
-                                     </d    iv>\
-                                  </div>\
-                                 </div>\
-                                </div>';
+                        certificateLink = $(this).data('link');
+                        dropzoneCount++;
+                        var certificateContent = "<div class=\"row\" style='height:100px;'>\n" +
+                            "                                                                <div class=\"col-xs-12\">\n" +
+                            "                                                                    <div >\n" +
+                            "                                                                        <form action=\"./dummy.html\" class=\"dropzone well\" id=\"dropzone"+dropzoneCount+"\">\n" +
+                            "                                                                            <div class=\"fallback\">\n" +
+                            "                                                                                <input name=\"file\" type=\"file\" multiple=\"\" />\n" +
+                            "                                                                            </div>\n" +
+                            "                                                                        </form>\n" +
+                            "                                                                    </div>\n" +
+                            "\n" +
+                            "                                                                    <div id=\"preview-template\" class=\"hide\">\n" +
+                            "                                                                        <div class=\"dz-preview dz-file-preview\">\n" +
+                            "                                                                            <div class=\"dz-image\">\n" +
+                            "                                                                                <img data-dz-thumbnail=\"\" />\n" +
+                            "                                                                            </div>\n" +
+                            "\n" +
+                            "                                                                            <div class=\"dz-details\">\n" +
+                            "                                                                                <div class=\"dz-size\">\n" +
+                            "                                                                                    <span data-dz-size=\"\"></span>\n" +
+                            "                                                                                </div>\n" +
+                            "\n" +
+                            "                                                                                <div class=\"dz-filename\">\n" +
+                            "                                                                                    <span data-dz-name=\"\"></span>\n" +
+                            "                                                                                </div>\n" +
+                            "                                                                            </div>\n" +
+                            "\n" +
+                            "                                                                            <div class=\"dz-progress\">\n" +
+                            "                                                                                <span class=\"dz-upload\" data-dz-uploadprogress=\"\"></span>\n" +
+                            "                                                                            </div>\n" +
+                            "\n" +
+                            "                                                                            <div class=\"dz-error-message\">\n" +
+                            "                                                                                <span data-dz-errormessage=\"\"></span>\n" +
+                            "                                                                            </div>\n" +
+                            "\n" +
+                            "                                                                            <div class=\"dz-success-mark\">\n" +
+                            "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                            "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                            "\n" +
+                            "                                                                                    <i class=\"fa fa-check fa-stack-1x fa-inverse green\"></i>\n" +
+                            "                                                                                </span>\n" +
+                            "                                                                            </div>\n" +
+                            "\n" +
+                            "                                                                            <div class=\"dz-error-mark\">\n" +
+                            "                                                                                <span class=\"fa-stack fa-lg bigger-150\">\n" +
+                            "                                                                                    <i class=\"fa fa-circle fa-stack-2x white\"></i>\n" +
+                            "\n" +
+                            "                                                                                    <i class=\"fa fa-remove fa-stack-1x fa-inverse red\"></i>\n" +
+                            "                                                                                </span>\n" +
+                            "                                                                            </div>\n" +
+                            "                                                                        </div>\n" +
+                            "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
+                            "                                                                </div><!-- /.col -->\n" +
+                            "                                     </div><div class='alert alert-warning certificate-link'>Link</div><!-- /.row -->";
 
 
-                            var modal = $(modal);
+                        var modal =
+                            '<div class="modal fade">\
+                              <div class="modal-dialog modal-sm">\
+                               <div class="modal-content">\
+                                <div class="modal-header">\
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>\
+                                    <h4 class="blue">Upload Certificate</h4>\
+                                </div>\
+                                \
+                                 <div class="modal-body">\
+                                    <div class="space-4"></div>'+
+                            certificateContent
+                            +'</div>\
+                                \
+                                 <div class="modal-footer center">\
+                                    <button type="submit" class="btn btn-sm btn-success dropzoneSubmit"><i class="ace-icon fa fa-check"></i> Submit</button>\
+                                    <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
+                                 </d    iv>\
+                              </div>\
+                             </div>\
+                            </div>';
 
-                            modal.modal("show").on('shown.bs.modal', function (e) {
-                                $(".certificate-link").html("<li><a download='"+certificateLink.split('johndoe')[0]+"'"+" href="+"'<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+"'"+" >"+certificateLink.split('johndoe')[0]+'</a></li>');
-                                try {
-                                    Dropzone.autoDiscover = false;
 
-                                    file = '';
-                                    var myDropzone = new Dropzone('#dropzone'+dropzoneCount, {
-                                        previewTemplate: $('#preview-template').html(),
-                                        thumbnailHeight: 120,
-                                        thumbnailWidth: 120,
-                                        maxFilesize: 999999999999999999,
-                                        maxFiles: 1,
-                                        maxfilesexceeded: function(result) {
-                                            this.removeAllFiles();
-                                            this.addFile(result);
-                                        },
+                        var modal = $(modal);
 
-                                        addRemoveLinks : true,
-                                        dictRemoveFile: 'Remove',
+                        modal.modal("show").on('shown.bs.modal', function (e) {
+                            $(".certificate-link").html("<li><a download='"+certificateLink.split('johndoe')[0]+"'"+" href="+"'<?php echo asset('public/upload_picture/certificate')?>"+"/"+certificateLink+"'"+" >"+certificateLink.split('johndoe')[0]+'</a></li>');
+                            certificateLink = '';
+                            try {
+                                Dropzone.autoDiscover = false;
 
-                                        dictDefaultMessage :
-                                            '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
-                                            <span class="smaller-80 grey">(or click)</span> <br /> \
-                                            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
-                                        ,
+                                file = '';
+                                var myDropzone = new Dropzone('#dropzone'+dropzoneCount, {
+                                    previewTemplate: $('#preview-template').html(),
+                                    thumbnailHeight: 120,
+                                    thumbnailWidth: 120,
+                                    maxFilesize: 999999999999999999,
+                                    maxFiles: 1,
+                                    maxfilesexceeded: function(result) {
+                                        this.removeAllFiles();
+                                        this.addFile(result);
+                                    },
 
-                                        thumbnail: function(file, dataUrl) {
-                                            if (file.previewElement) {
-                                                $(file.previewElement).removeClass("dz-file-preview");
-                                                var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
-                                                    var thumbnailElement = this;
-                                                    thumbnailElement.alt = file.name;
-                                                    thumbnailElement.src = dataUrl;
-                                                });
-                                                setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
-                                            }
+                                    addRemoveLinks : true,
+                                    dictRemoveFile: 'Remove',
+
+                                    dictDefaultMessage :
+                                        '<span class="bigger-150 bolder"><i class="ace-icon fa fa-caret-right red"></i> Drop files</span> to upload \
+                                        <span class="smaller-80 grey">(or click)</span> <br /> \
+                                        <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>'
+                                    ,
+
+                                    thumbnail: function(file, dataUrl) {
+                                        if (file.previewElement) {
+                                            $(file.previewElement).removeClass("dz-file-preview");
+                                            var images = $(file.previewElement).find("[data-dz-thumbnail]").each(function() {
+                                                var thumbnailElement = this;
+                                                thumbnailElement.alt = file.name;
+                                                thumbnailElement.src = dataUrl;
+                                            });
+                                            setTimeout(function() { $(file.previewElement).addClass("dz-image-preview"); }, 1);
                                         }
+                                    }
 
-                                    });
+                                });
 
 
-                                    //simulating upload progress
-                                    var minSteps = 6,
-                                        maxSteps = 60,
-                                        timeBetweenSteps = 100,
-                                        bytesPerStep = 100000;
+                                //simulating upload progress
+                                var minSteps = 6,
+                                    maxSteps = 60,
+                                    timeBetweenSteps = 100,
+                                    bytesPerStep = 100000;
 
-                                    myDropzone.uploadFiles = function(files) {
-                                        var self = this;
+                                myDropzone.uploadFiles = function(files) {
+                                    var self = this;
 
-                                        for (var i = 0; i < files.length; i++) {
-                                            file = files[i];
-                                            totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
+                                    for (var i = 0; i < files.length; i++) {
+                                        file = files[i];
+                                        totalSteps = Math.round(Math.min(maxSteps, Math.max(minSteps, file.size / bytesPerStep)));
 
-                                            for (var step = 0; step < totalSteps; step++) {
-                                                var duration = timeBetweenSteps * (step + 1);
-                                                setTimeout(function(file, totalSteps, step) {
-                                                    return function() {
-                                                        file.upload = {
-                                                            progress: 100 * (step + 1) / totalSteps,
-                                                            total: file.size,
-                                                            bytesSent: (step + 1) * file.size / totalSteps
-                                                        };
-
-                                                        self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
-                                                        if (file.upload.progress == 100) {
-                                                            file.status = Dropzone.SUCCESS;
-                                                            self.emit("success", file, 'success', null);
-                                                            self.emit("complete", file);
-                                                            self.processQueue();
-                                                            uploadcertificateFlag = true;
-                                                        }
+                                        for (var step = 0; step < totalSteps; step++) {
+                                            var duration = timeBetweenSteps * (step + 1);
+                                            setTimeout(function(file, totalSteps, step) {
+                                                return function() {
+                                                    file.upload = {
+                                                        progress: 100 * (step + 1) / totalSteps,
+                                                        total: file.size,
+                                                        bytesSent: (step + 1) * file.size / totalSteps
                                                     };
-                                                }(file, totalSteps, step), duration);
 
-                                            }
+                                                    self.emit('uploadprogress', file, file.upload.progress, file.upload.bytesSent);
+                                                    if (file.upload.progress == 100) {
+                                                        file.status = Dropzone.SUCCESS;
+                                                        self.emit("success", file, 'success', null);
+                                                        self.emit("complete", file);
+                                                        self.processQueue();
+                                                        uploadcertificateFlag = true;
+                                                    }
+                                                };
+                                            }(file, totalSteps, step), duration);
 
                                         }
-                                    };
 
-                                    //remove dropzone instance when leaving this page in ajax mode
-                                    $(document).one('ajaxloadstart.page', function(e) {
-                                        try {
-                                            myDropzone.destroy();
-                                        } catch(e) {}
-                                    });
+                                    }
+                                };
+
+                                //remove dropzone instance when leaving this page in ajax mode
+                                $(document).one('ajaxloadstart.page', function(e) {
+                                    try {
+                                        myDropzone.destroy();
+                                    } catch(e) {}
+                                });
 
 
-                                } catch(e) {
-                                    alert('Dropzone.js does not support older browsers!');
-                                }
-
-                            });
-
-                            $(document).on('click', '.dropzoneSubmit', function() {
-                                if(uploadcertificateFlag){
-                                    if(file)
-                                        $('#'+spancertificateId).html('<span class="label label-info label-sm arrowed-in arrowed-in-right">\n' +
-                                            '                                 <span class="inline position-relative">\n' +
-                                            '                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">\n' +
-                                            '                                       <i class="ace-icon fa fa-certificate light-green"></i>\n' +
-                                            '                                         &nbsp;\n' +
-                                            '                                       <span class="white" style="font-size:5.5pt;">View Certificate</span>\n' +
-                                            '                                      </a>\n' +
-                                            '                                  </span>\n' +
-                                            '                         </span>');
-                                    else
-                                        console.log('false');
-
-                                    console.log(file);
-                                    $('.modal').modal('hide');
-                                    uploadcertificateFlag = false;
-
-                                    var url = "<?php echo asset('/uploadCertificate'); ?>";
-                                    var form_data = new FormData();
-                                    form_data.append('certificate', file);
-                                    form_data.append('trainingId',trainingId);
-                                    form_data.append('userid',"<?php echo $user->piUserid ?>");
-                                    form_data.append('unique_row',certificateUnique);
-                                    $.ajaxSetup(
-                                        {
-                                            headers:
-                                                {
-                                                    'X-CSRF-Token': "<?php echo csrf_token(); ?>"
-                                                }
-                                        });
-                                    $.ajax({
-                                        url:url,
-                                        data: form_data,
-                                        type: 'POST',
-                                        contentType: false, // The content type used when sending data to the server.
-                                        cache: false, // To unable request pages to be cached
-                                        processData: false,
-                                        success: function(result) {
-                                            console.log(result);
-                                            $('#'+spancertificateId).data('link', result);
-                                            console.log(trainingDeleteid);
-                                        }
-                                    });
-
-                                }
-                            });
+                            } catch(e) {
+                                modal.modal( 'hide' ).data( 'bs.modal', null );
+                                //alert('Dropzone.js does not support older browsers!');
+                            }
 
                         });
+
+
+                        $(document).on('click', '.dropzoneSubmit', function() {
+                            if(uploadcertificateFlag){
+                                if(file)
+                                    $('#'+spancertificateId).html('<span class="label label-info label-sm arrowed-in arrowed-in-right">\n' +
+                                        '                                 <span class="inline position-relative">\n' +
+                                        '                                     <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">\n' +
+                                        '                                       <i class="ace-icon fa fa-certificate light-green"></i>\n' +
+                                        '                                         &nbsp;\n' +
+                                        '                                       <span class="white" style="font-size:5.5pt;">View Certificate</span>\n' +
+                                        '                                      </a>\n' +
+                                        '                                  </span>\n' +
+                                        '                         </span>');
+                                else
+                                    console.log('false');
+
+                                console.log(file);
+                                $('.modal').modal('hide');
+                                uploadcertificateFlag = false;
+
+                                var url = "<?php echo asset('/uploadCertificate'); ?>";
+                                var form_data = new FormData();
+                                form_data.append('certificate', file);
+                                form_data.append('trainingId',trainingId);
+                                form_data.append('userid',"<?php echo $user->piUserid ?>");
+                                form_data.append('unique_row',certificateUnique);
+                                $.ajaxSetup(
+                                    {
+                                        headers:
+                                            {
+                                                'X-CSRF-Token': "<?php echo csrf_token(); ?>"
+                                            }
+                                    });
+                                $.ajax({
+                                    url:url,
+                                    data: form_data,
+                                    type: 'POST',
+                                    contentType: false, // The content type used when sending data to the server.
+                                    cache: false, // To unable request pages to be cached
+                                    processData: false,
+                                    success: function(result) {
+                                        console.log(result);
+                                        $('#'+spancertificateId).data('link', result);
+                                        console.log(trainingDeleteid);
+                                    }
+                                });
+                            }
+                        });
+
+
                     });
+                });
             }
 
 
@@ -2065,10 +2355,11 @@
                                     "id" : "<?php echo $user->piId; ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
-                                    "other_country" : $("#other_country").val(),
+                                    "indicate_country" : $("#indicateCountry").val(),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
+                                console.log(json);
                             }
                             else if(columnId == 'government_service'){
                                 $("#"+this.id).css('color','black').html(value);
@@ -2275,9 +2566,14 @@
                                     $(this).parents(':eq(1)').fadeOut();
                                 }
                                 else if( columnId == 'trainingDelete' ){
+
+                                    if(!certificateLink){
+                                        certificateLink = $(this).data('link');
+                                    }
+
                                     json = {
                                         "id" : this.id.split('col')[0],
-                                        'path' : $(this).data('link'),
+                                        'path' : certificateLink,
                                         "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                         "_token" : "<?php echo csrf_token(); ?>",
                                     };
@@ -2285,11 +2581,13 @@
                                     url = "{!! asset('deleteTrainingProgram') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
                                     console.log(json);
+                                    certificateLink = '';
                                 }
 
                                 $.post(url,json,function(result){
                                     console.log(result);
                                 });
+
                             }
                             else
                             {
@@ -2482,7 +2780,7 @@
                 $(section).remove();
             }
 
-            function filter_section(url,id){
+            function filter_section(url,divisionId,id){
                 var source = source_func(divisionId)[0].section;
                 var finalId = id.replace("division","section");
                 var element = $("#"+finalId);
@@ -2509,7 +2807,6 @@
                 $(section).remove();
 
             }
-
 
         });
 
@@ -2545,16 +2842,22 @@
                         $value = $("#"+name).text();
                         if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status' || name.split('col')[1] == 'government_service'){
                             $label = $('<label class="radio-inline" style="padding-right:10px;padding-top:5px;">')
-                                    .append($('<input>', {
-                                                type: 'radio',
-                                                name:  name,
-                                                value: this.sourceData[i].value
-                                            }
-                                    ));
+                                .append($('<input>', {
+                                        type: 'radio',
+                                        name:  name,
+                                        value: this.sourceData[i].value
+                                    }
+                                ));
+
                             $label.append($('<span>').text(this.sourceData[i].text));
                             // Add radio buttons to template
                             this.$tpl.append($label);
                         }
+                    }
+                    var indicateCountry;
+                    if( name.split('col')[1] == 'citizenship' ){
+                        indicateCountry = "<br><br><input type='text' class='form-control' value='{{ $user->indicate_country }}' style='width:80%;' id='indicateCountry' placeholder='Pls. indicate country (OPTIONAL)' name='indicateCountry'>";
+                        this.$tpl.append(indicateCountry);
                     }
 
                     if( name.split('col')[1] == 'government_service' )
@@ -2564,7 +2867,7 @@
                     {
                         var value = $("#"+name).text();
                         if(value == 'Empty')
-                           value = month+'/'+day+'/'+year;
+                            value = month+'/'+day+'/'+year;
 
                         var minDate,attrTrap,presentValue;
                         var presentFlag = false;
@@ -2643,12 +2946,15 @@
                         salary_append.append(<?php
                             $tranche = ["Second","Third","Fourth"];
                             ?>
-                        '<select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%" required> <option value="">Select Tranche</option>@foreach($tranche as $trancheIndex)<option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>@endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required>\<option value="">Select Salary Grade\</option>@foreach(range(1,33) as $salaryGradeIndex)\<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}\</option>@endforeach\</select>\<div class="space-6">\</div>\<select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required>\<option value="">Select Salary Step\</option>@foreach(range(1,8) as $salaryStepIndex)\<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}\</option>@endforeach\</select>');
-                        /*$.get("<?php echo asset('salaryGrade'); ?>",function(result){
-                            salary_append.append(result+"<br>");
-                        });*/
+                            '<select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%" required> <option value="">Select Tranche</option>@foreach($tranche as $trancheIndex)<option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>@endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required>\<option value="">Select Salary Grade\</option>@foreach(range(1,33) as $salaryGradeIndex)\<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}\</option>@endforeach\</select>\<div class="space-6">\</div>\<select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required>\<option value="">Select Salary Step\</option>@foreach(range(1,8) as $salaryStepIndex)\<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}\</option>@endforeach\</select>');
                     }
                     else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' ){
+                        try{
+                            var certificateId = $("#"+name).parents(':eq(0)').siblings('.trainingCertificate').children().get(0).id;
+                            certificateLink = $("#"+certificateId).data('link');
+                        }
+                        catch(e){}
+
                         $(".popover-content").css('width','320px');
                         var workDelete_append = this.$tpl;
                         workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");
