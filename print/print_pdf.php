@@ -50,6 +50,7 @@ $civil_eligibility = queryFetchAll($_SESSION['userid'],'civil_eligibility');
 $work_experience = queryFetchAll($_SESSION['userid'],'work_experience');
 $voluntary_work = queryFetchAll($_SESSION['userid'],'voluntary_work');
 $training_program = queryFetchAll($_SESSION['userid'],'training_program');
+$other_information = queryFetchAll($_SESSION['userid'],'other_information');
 
 /**
  * Created by PhpStorm.
@@ -194,13 +195,12 @@ class PDF extends FPDF
 $pdf = new PDF('P','mm','LEGAL');
 $pdf->AliasNbPages();
 
-$pdf->SetFont('Times','',12);
-/*$pdf->AddPage();
+$pdf->AddPage();
 include 'pages/page1.php';
 $pdf->AddPage();
 include 'pages/page2.php';
 $pdf->AddPage();
-include 'pages/page3.php';*/
+include 'pages/page3.php';
 $pdf->AddPage();
 include 'pages/page4.php';
 

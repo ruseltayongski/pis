@@ -1,98 +1,101 @@
 <?php
-
-$pdf->SetFont('Arial','B',15);
-$pdf->SetX(3);
-$pdf->Cell(210,274,'','TRL',0,'C');
+$marginTop1 = 2;
 
 $pdf->SetFont('Arial','BI',8);
-$pdf->SetXY(3,12);
-$pdf->Cell(0,0,'CS Form No. 212',0,0,'');
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(210,274,'','TLR',0,'L',false);
 
-$pdf->SetFont('Arial','BI',8);
-$pdf->SetXY(3,16);
-$pdf->Cell(0,0,'Revised 2017',0,0,'');
+$marginTop1 += 2;
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(3,3,'CS Form No. 212',0,0,'L',false);
 
+$marginTop1 += 6;
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(0,0,'Revised 2017',0,0,'',false);
+
+
+$marginTop1 += 1;
 $pdf->SetFont('Arial','B',15);
-$pdf->SetXY(100,17);
-$pdf->Cell(10,5,'PERSONAL DATA SHEET',0,0,'C');
+$pdf->SetXY(100,$marginTop1);
+$pdf->Cell(10,5,'PERSONAL DATA SHEET',0,0,'C',false);
 
+$marginTop1 += 12;
 $pdf->SetFont('Arial','BI',7);
-$pdf->SetXY(3,27);
-$pdf->Cell(0,0,'WARNING: Any misinterpretation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminals case/s against the person',0,0,'');
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(0,0,'WARNING: Any misinterpretation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminals case/s against the person',0,0,'',false);
 
-$pdf->SetFont('Arial','BI',7);
-$pdf->SetXY(3,31);
-$pdf->Cell(0,0,'concerned',0,0,'');
+$marginTop1 += 3;
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(0,0,'concerned',0,0,'',false);
 
-$pdf->SetFont('Arial','BI',7);
-$pdf->SetXY(3,35);
-$pdf->Cell(0,0,'READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.',0,0,'');
+$marginTop1 += 3;
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(0,0,'READ THE ATTACHED GUIDE TO FILLING OUT THE PERSONAL DATA SHEET (PDS) BEFORE ACCOMPLISHING THE PDS FORM.',0,0,'',false);
 
+$marginTop1 += 3;
 $pdf->SetFont('Arial','',7);
-$pdf->SetXY(3,38);
-$pdf->Cell(0,0,'Print legibly. Tick appropriate boxes ( ',0,0,'');
-$pdf->Rect(46, 37, 3, 2, 'D');
+$pdf->SetXY(3,$marginTop1);
+$pdf->Cell(0,0,'Print legibly. Tick appropriate boxes ( ',0,0,'',false);
 
-$pdf->SetXY(50,38);
+$pdf->SetXY(50,$marginTop1);
 $pdf->Cell(0,0,'and use separate sheet if necessary. Indicate N/A if not applicable. (',0,0,'');
+$pdf->SetXY(46,$marginTop1-1);
+$pdf->Cell(3,3,'',1,0,'',false);
 
-$pdf->SetFont('Arial','B',7);
-$pdf->SetXY(127,38);
-$pdf->Cell(0,0,'DO NOT ABBREVIATE. ',0,0,'');
 
-$pdf->SetFont('Arial','',7);
+$pdf->SetXY(127,$marginTop1);
+$pdf->Cell(0,0,'DO NOT ABBREVIATE. ',0,0,'',false);
+
+
 $pdf->SetFillColor(150, 150, 150);
-$pdf->Rect(160, 34, 20, 5, 'F');
-
-$pdf->SetXY(163,37);
-$pdf->Cell(0,0,'1. CS ID No.',0,0,'');
+$pdf->SetXY(158,$marginTop1-4);
+$pdf->Cell(17,5,'1. CS ID No.',1,0,'',true);
 
 $pdf->SetFillColor(255, 255, 255);
-$pdf->SetXY(180,34);
-$pdf->Cell(33,5,'',1,0,'');
-//$pdf->SetLineWidth(.5);
+$pdf->SetXY(175,$marginTop1-4);
+$pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
 
     $firstColumn = array(
         "",
         array(
             "",
-            "1I. PERSONAL INFORMATION",
-            "22. SURNAME",
-            "3FIRST NAME",
-            "4MIDDLE NAME",
-            "5DATE OF BIRTH",
-            "6",
-            "7PLACE OF BIRTH",
-            "8SEX",
-            "9CIVIL STATUS",
-            "10",
-            "11HEIGHT(m)",
-            "12WEIGHT(kg)",
-            "13BLOOD TYPE",
-            "14GSIS ID NO.",
-            "15PAG-IBIG ID NO",
-            "16PHILHEALTH NO.",
-            "17SSS NO",
-            "18TIN NO",
-            "19AGENCY EMPLOYEE NO",
-            "20II. FAMILY BACKGROUND",
-            "21SPOUSE'S SURNAME",
-            "22FIRST NAME",
-            "23MIDDLE NAME",
-            "24OCCUPATION",
-            "25EMPLOYER/BUSINESS NAME",
-            "26BUSINESS ADDRESS",
-            "27TELEPHONE NO.",
-            "28FATHER'S SURNAME",
-            "29FIRST NAME",
-            "30MIDDLE NAME",
-            "31MOTHER'S MAIDEN NAME",
-            "32SURNAME",
-            "33FIRST NAME",
-            "34MIDDLE NAME",
-            "35III. EDUCATIONAL BACKGROUND",
-            "36",
-            "37"
+            "I. PERSONAL INFORMATION",
+            "2. SURNAME",
+            "FIRST NAME",
+            "MIDDLE NAME",
+            "3. DATE OF BIRTH",
+            "",
+            "4. PLACE OF BIRTH",
+            "5. SEX",
+            "6. CIVIL STATUS",
+            "",
+            "7. HEIGHT(m)",
+            "8. WEIGHT(kg)",
+            "9. BLOOD TYPE 13",
+            "10. GSIS ID NO.",
+            "11. PAG-IBIG ID NO",
+            "12. PHILHEALTH NO.",
+            "13. SSS NO",
+            "14. TIN NO",
+            "15. AGENCY EMPLOYEE NO",
+            "II. FAMILY BACKGROUND",
+            "22. SPOUSE'S SURNAME",
+            "FIRST NAME",
+            "MIDDLE NAME",
+            "OCCUPATION",
+            "EMPLOYER/BUSINESS NAME",
+            "BUSINESS ADDRESS",
+            "TELEPHONE NO.",
+            "24. FATHER'S SURNAME",
+            "FIRST NAME",
+            "MIDDLE NAME",
+            "25. MOTHER'S MAIDEN NAME",
+            "SURNAME",
+            "FIRST NAME",
+            "MIDDLE NAME",
+            "III. EDUCATIONAL BACKGROUND",
+            "",
+            ""
         ),
         array(
             "",
@@ -140,21 +143,21 @@ $pdf->Cell(33,5,'',1,0,'');
             "",
             "",
             "",
-            "CITIZENSHIP",
+            "16. CITIZENSHIP",
             "",
             "",
             "",
-            "RESIDENTIAL ADDRESS",
-            "",
-            "",
-            "ZIP CODE",
-            "PERMANENT ADDRESS",
+            "17. RESIDENTIAL ADDRESS",
             "",
             "",
             "ZIP CODE",
-            "TELEPHONE NO",
-            "MOBILE NO",
-            "E-MAIL ADDRESS (if any)",
+            "18. PERMANENT ADDRESS",
+            "",
+            "",
+            "ZIP CODE",
+            "19. TELEPHONE NO",
+            "20. MOBILE NO",
+            "21. E-MAIL ADDRESS (if any)",
             "",
             "",
             "Name Extension (JR,SR)",
@@ -196,7 +199,7 @@ $pdf->Cell(33,5,'',1,0,'');
             $user['cellno'],
             $user['email_address'],
             "",
-            "NAME of Children (Write full name and list all)",
+            "23. NAME of Children (Write full name and list all)",
             "",
             "",
             "",
@@ -419,10 +422,12 @@ $pdf->Cell(33,5,'',1,0,'');
     $width1 = [0,45,45,31,13,13,13,15,15,20]; // 210 default
     $marginLeft1 = 3; // 3default
 
+    $marginTop1 += 3;
+    $marginTopTemp = $marginTop1;
     for($col=1; $col<=9; $col++){
         $pdf->SetFillColor(150, 150, 150); //GRAY
         $height1 = 6.6;
-        $marginTop1 = 40;
+        $marginTop1 = $marginTopTemp;
 
         for($row=1; $row<=37; $row++){
             $pdf->SetTextColor(0,0,0);
@@ -433,7 +438,15 @@ $pdf->Cell(33,5,'',1,0,'');
             if($row == 1 || $row == 20 || $row == 35){
                 $pdf->SetTextColor(255,255,255);
                 $colorFlag = true;
-                $border1 = 'BT';
+                if( $col == 1 ){
+                    $border1 = 'LBT';
+                }
+                elseif( $col == 9 ){
+                    $border1 = 'RBT';
+                }
+                else {
+                    $border1 = 'TB';
+                }
             }
             elseif( $row == 2 ){
                 $border1 = 'BT';
@@ -524,7 +537,11 @@ $pdf->Cell(33,5,'',1,0,'');
             }
             elseif ( $row == 9 ){
                 $border1 = 'LR';
-                if( $col == 4 ){
+                if( $col == 3 ){
+                    $border1 = '1';
+                    $pdf->SetFont('Arial','',6);
+                }
+                elseif( $col == 4 ){
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
@@ -547,7 +564,9 @@ $pdf->Cell(33,5,'',1,0,'');
                     $pdf->SetXY($marginLeft1+2,$marginTop1+2);
                     $pdf->Cell($width1[$col],$height1,'Street',0,0,$position1,$colorFlag);
                 }
-                $pdf->SetFont('Arial','',7);
+                else{
+                    $pdf->SetFont('Arial','',7);
+                }
             }
             elseif ( $row == 10 ){
                 $border1 = 'LR';
@@ -621,9 +640,10 @@ $pdf->Cell(33,5,'',1,0,'');
                     $border1 = 'LRB';
                 }
                 elseif( $col == 3 ){
+                    $pdf->SetFont('Arial','',6);
                     $border1 = 'LR';
                 }
-                if( $col == 4 ){
+                elseif( $col == 4 ){
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
@@ -646,7 +666,9 @@ $pdf->Cell(33,5,'',1,0,'');
                     $pdf->SetXY($marginLeft1+2,$marginTop1+2);
                     $pdf->Cell($width1[$col],$height1,'Street',0,0,$position1,$colorFlag);
                 }
-                $pdf->SetFont('Arial','',7);
+                else{
+                    $pdf->SetFont('Arial','',7);
+                }
             }
             elseif ( $row == 14 ){
                 if( $col == 2 ){
@@ -737,8 +759,12 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
             }
             elseif ( $row == 19 ){
-                if( $col == 2 || $col == 3 ){
+                if( $col == 2 ){
                     $border1 = 'LRB';
+                }
+                elseif( $col == 3 ){
+                    $border1 = 'LRB';
+                    $pdf->SetFont('Arial','',6);
                 }
                 elseif( $col == 4 || $col == 5 || $col == 6 || $col == 7 || $col == 8 || $col == 9 ) {
                     $border1 = 'BT';
@@ -750,6 +776,7 @@ $pdf->Cell(33,5,'',1,0,'');
                 }
                 elseif($col == 4){
                     $border1 = 'TBL';
+                    $pdf->SetFont('Arial','',6);
                 }
                 elseif( $col == 2 || $col == 3 || $col == 5 || $col == 6 || $col == 7 ){
                     $border1 = 'TB';
@@ -1069,7 +1096,7 @@ $pdf->Cell(33,5,'',1,0,'');
                     $rowLeft36 = $marginLeft1 + 17;
                     $rowTop36 = $marginTop1 + 4;
                     $pdf->SetXY($rowLeft36,$rowTop36);
-                    $pdf->Cell($width1[$col],$height1,'Level',0,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col],$height1,'26. Level',0,0,$position1,$colorFlag);
                 }
                 elseif( $col == 2 ){
                     $rowLeft36 = $marginLeft1 + 12;
@@ -1149,20 +1176,25 @@ $pdf->Cell(33,5,'',1,0,'');
                 elseif( $col == 5 || $col == 6 ){
                     $position1 = 'C';
                 }
+                elseif( $col == 9 ){
+                    $border1 = 'LBR';
+                }
             }
 
             $pdf->SetXY($marginLeft1,$marginTop1);
             $pdf->Cell($width1[$col],$height1,$firstColumn[$col][$row],$border1,0,$position1,$colorFlag);
 
             $marginTop1 += 6.6;
+            $marginTopTemp1 = $marginTop1; // hold the original margintop
         }
-
         $marginLeft1 += $width1[$col];
     }
 
+    $marginTop1 = $marginTopTemp1; // get the original margin top 279.2
+
     //checkbox
-    $marginTop = 88;
-    $marginTopCheck = 89.5;
+    $marginTop = $marginTop1 - 196.2;
+    $marginTopCheck = $marginTop1 - 194.7;
     $boxCell = array(
         "",
         array("","Male","Single","Widowed","Others"),
@@ -1199,10 +1231,9 @@ $pdf->Cell(33,5,'',1,0,'');
         $marginTopCheck += 4.9;
     }
 
-
     //checkbox
-    $marginTop = 70;
-    $marginTopCheck = 71.5;
+    $marginTop = $marginTop1 - 216.2;
+    $marginTopCheck = $marginTop1 - 214.7;
     $boxCell = array(
         "",
         array("","Filipino","Dual Citizenship"),
@@ -1239,12 +1270,10 @@ $pdf->Cell(33,5,'',1,0,'');
         $marginTopCheck += 4.9;
     }
 
-
-
     $border1 =  '1';
-    $columnData = ['level','name_of_school','degree_course','','poa_from','poa_to','units_earned','year_graduated','scholarship',''];
+    $columnData = ['level','name_of_school','degree_course','poa_from','poa_to','units_earned','year_graduated','scholarship',''];
     $rowCount = 0;
-    $pdf->SetWidths(array(45,45,31,13,13,13,15,15,20));
+    $pdf->SetWidths(array(45,45,44,13,13,15,15,20));
     $pdf->SetXY(3,$marginTop1);
 
     foreach($educational_background as $row) {
@@ -1254,7 +1283,6 @@ $pdf->Cell(33,5,'',1,0,'');
         }
         for($col=1; $col < count($columnData); $col++)
         {
-
             $pdf->SetFont('Arial','',7);
             if ( isset($row[$rowData[$col-1]]) )
             {
@@ -1291,89 +1319,4 @@ $pdf->Cell(33,5,'',1,0,'');
     $pdf->SetFont('Arial','',7);
     $pdf->Row(['CS FORM 212 (Revised 2017), Page 2 of 4'],6,7,'R',null);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//BOX AND CHECK
-/*$pdf->SetFont('Arial','B',15);
-$pdf->SetXY(187,34);
-$pdf->Cell(5,5,'',1,0,'');
-
-$pdf->SetXY(187,36);
-$pdf->SetFont('ZapfDingbats','', 10);
-$pdf->Cell(0, 0, 4, 0, 0);*/
-//END BOX AND CHECK
-
-// Arial bold 15
-/*$pdf->SetFont('Arial','B',15);
-// Calculate width of title and position
-$w = $pdf->GetStringWidth('haha')+6;
-$pdf->SetXY(150,80);
-// Colors of frame, background and text
-$pdf->SetDrawColor(0,80,180);
-$pdf->SetFillColor(230,230,0);
-$pdf->SetTextColor(220,50,50);
-// Thickness of frame (1 mm)
-$pdf->SetLineWidth(1);
-// Title
-$pdf->Cell($w,9,'haha',1,1,'C',true);
-// Line break
-$pdf->Ln(10);
-
-$pdf->SetFont('Arial','B',15);
-$pdf->SetXY(187,70);
-$pdf->Cell(10,10,'',1,0,'');*/
 ?>

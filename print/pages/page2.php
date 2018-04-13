@@ -1,8 +1,7 @@
 <?php
 $pdf->SetFont('Arial','',7);
-$pdf->SetX(3);
-$pdf->Cell(210,325,'','TRLB',0,'C');
-
+/*$pdf->SetX(3);
+$pdf->Cell(210,325,'',1,0,'C');*/
 
 $pdf->SetFillColor(150, 150, 150); //GRAY
 $height = 6.6;
