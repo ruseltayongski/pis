@@ -34,7 +34,7 @@ $pdf->SetXY(160,$marginTop+15);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+16.5);
+/*$pdf->SetXY(140,$marginTop+16.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -42,7 +42,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+16.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',7);
+$pdf->SetFont('Arial','',7);*/
 
 
 $pdf->SetXY(140,$marginTop+20);
@@ -85,7 +85,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -93,7 +93,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+6);
@@ -125,7 +125,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -133,7 +133,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+6);
@@ -168,7 +168,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -176,7 +176,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+7);
@@ -212,7 +212,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -220,7 +220,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+7);
@@ -259,7 +259,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -267,7 +267,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+7);
@@ -316,7 +316,7 @@ $pdf->SetXY(160,$marginTop+3);
 $pdf->Cell($boxWidth,$boxHeight,'No',0,0,'L',false);
 
 //CHECK
-$pdf->SetXY(140,$marginTop+4.5);
+/*$pdf->SetXY(140,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
 $pdf->SetFont('Arial','',8);
@@ -324,7 +324,7 @@ $pdf->SetFont('Arial','',8);
 $pdf->SetXY(155,$marginTop+4.5);
 $pdf->SetFont('ZapfDingbats','', 7);
 $pdf->Cell(0, 0, 4, 0, 0);
-$pdf->SetFont('Arial','',8);
+$pdf->SetFont('Arial','',8);*/
 
 
 $pdf->SetXY(135,$marginTop+7);
@@ -417,6 +417,35 @@ $referenceWidth = [60,60,32];
 $referenceColumn = ["NAME","ADDRESS","TEL. NO."];
 
 
+$pdf->SetXY(165,$marginTop);
+$pdf->Cell(40,38,'',1,0,'L',false);
+
+$photoNote = [
+    "ID picture taken within",
+    "the last 6 months",
+    "3.5 cm. X. 4.5 cm",
+    "(passport size)",
+    "",
+    "With full and handwritten",
+    "name tag and signature over",
+    "printed name",
+    "",
+    "Computer generated",
+    "or photocopied picture",
+    "is not acceptable",
+    "",
+    "PHOTO"
+];
+
+$marginTopTemp = $marginTop+1;
+$pdf->SetFont('Arial','',6);
+for( $row=0; $row<count($photoNote); $row++ ){
+    $pdf->SetXY(165,$marginTopTemp);
+    $pdf->Cell(40,3,$photoNote[$row],0,0,'C',false);
+    $marginTopTemp += 3;
+}
+$pdf->SetFont('Arial','',8);
+
 for($row=0; $row<4; $row++){
     $referenceMarginLeft = 3;
     for($col=0; $col<3; $col++){
@@ -451,22 +480,47 @@ for($row=0; $row<count($contentRefrence); $row++){
 }
 $marginTop += 8;
 
-$contentRefrence1 = [
+$contentReference1 = [
     "",
     "",
     "",
     ""
 ];
-for($row=0; $row<count($contentRefrence1); $row++){
+
+$pdf->SetFont('Arial','',6);
+$pdf->SetXY(78,$marginTop);
+$pdf->Cell(77,28,'',1,0,'L',false);
+$pdf->SetXY(78,$marginTop+14);
+$pdf->Cell(77,4,'Signature (Sign inside the box)',1,0,'C',true);
+$pdf->SetXY(78,$marginTop+24);
+$pdf->Cell(77,4,'Date Accomplished',1,0,'C',true);
+$pdf->SetXY(160,$marginTop-7);
+$pdf->Cell(50,35,'',1,0,'L',false);
+$pdf->SetFont('Arial','',7);
+$pdf->SetXY(160,$marginTop+23);
+$pdf->Cell(50,5,'Right Thumbmark',1,0,'C',true);
+
+for($row=0; $row<count($contentReference1); $row++){
     $pdf->SetXY(3,$marginTop);
-    $pdf->Cell(50,7,$contentRefrence1[$row],1,0,'L',false);
+    $pdf->Cell(70,7,$contentReference1[$row],1,0,'L',false);
     $marginTop += 7;
 }
 
 $marginTop += 4;
-
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(50,30,'',1,0,'L',false);
+$pdf->Cell(210,36.5,'',1,0,'L',false);
+$pdf->SetFont('Arial','',6);
+$pdf->SetXY(6,$marginTop+2);
+$pdf->Cell(210,3,'SUBSCRIBED AND SWORN to before me this   _______________________________ , affiant exhibiting his/her validly issued government ID as indicated above.',0,0,'L',false);
+$pdf->SetFont('Arial','',6);
+$pdf->SetXY(73,$marginTop+6);
+$pdf->Cell(100,15,'',1,0,'L',false);
+$pdf->SetFont('Arial','',7);
+$pdf->SetXY(73,$marginTop+20);
+$pdf->Cell(100,5,'Person Administering Oath',1,0,'C',true);
+$pdf->SetFont('Arial','',6);
+$pdf->SetXY(3,$marginTop+27);
+$pdf->Cell(210,3,'CS FORM 212 (Revised 2017),  Page 4 of 4',1,0,'R',false);
 
 
 ?>

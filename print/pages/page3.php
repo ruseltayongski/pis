@@ -1,5 +1,5 @@
 <?php
-$GLOBALS['marginTop'] = 10;
+$GLOBALS['marginTop'] = 2;
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $pdf->SetWidths(array(210));
 $pdf->SetFont('Arial','',7);
@@ -10,7 +10,7 @@ $pdf->SetTextColor(0,0,0);
 $voluntaryWidth = ['',90,20,20,20,60];
 $voluntaryRow = [
     '',
-    ['','NAME & ADDRESS OF ORGANIZATION','','','',''],
+    ['','29. NAME & ADDRESS OF ORGANIZATION','','','',''],
     ['','(Write in full)','','','','POSITION / NATURE OF WORK'],
     ['','','From','To','','']
 ];
@@ -91,7 +91,7 @@ foreach( $voluntary_work as $row ){
     $voluntaryRowCount++;
 }
 
-for( $j = $voluntaryRowCount; $j <= 17; $j++ ){
+for( $j = $voluntaryRowCount; $j <= 7; $j++ ){
     $pdf->Row(['','','','',''],7,5,'C',null);
     $voluntaryRowCount++;
 }
@@ -119,7 +119,7 @@ $trainingWidth = ['',90,20,20,20,20,40];
 $trainingRow = [
     '',
     ['','','INCLUSIVE DATES OF','','','TYPE OF LD',''],
-    ['','TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS','ATTENDANCE','','NUMBER OF','(Managerial/','CONDUCTED/SPONSORED BY'],
+    ['','30. TITLE OF LEARNING AND DEVELOPMENT INTERVENTIONS/TRAINING PROGRAMS','ATTENDANCE','','NUMBER OF','(Managerial/','CONDUCTED/SPONSORED BY'],
     ['','(Write in full)','(mm/dd/yyyy)','','HOURS','Supervisory/','(Write in full)'],
     ['','','From','To','','Technician/etc)','']
 ];
@@ -135,6 +135,7 @@ for($row = 1; $row < count($trainingRow); $row++){
 
         $border = '1';
         $marginLeftFinal = $marginLeft;
+        $widthFinal = $trainingWidth[$col];
         if( $row == 1 ){
             $border = 'RL';
             if( $col == 2 ){
@@ -162,8 +163,8 @@ for($row = 1; $row < count($trainingRow); $row++){
         elseif( $row == 3 ){
             $border = 'RL';
             if( $col == 2 ){
-                $border = '0';
-                $marginLeftFinal += 10;
+                $border = 'B';
+                $widthFinal += 20;
             }
             elseif( $col == 3 ){
                 $border = 'B';
@@ -182,7 +183,7 @@ for($row = 1; $row < count($trainingRow); $row++){
 
 
         $pdf->SetXY($marginLeftFinal,$marginTop);
-        $pdf->Cell($trainingWidth[$col],$height,$trainingRow[$row][$col],$border,0,$position,$colorFlag);
+        $pdf->Cell($widthFinal,$height,$trainingRow[$row][$col],$border,0,$position,$colorFlag);
 
         $marginLeft += $trainingWidth[$col];
     }
@@ -203,10 +204,77 @@ foreach( $training_program as $row ){
     $training_programRowCount++;
 }
 
-for( $j = $training_programRowCount; $j <= 17; $j++ ){
+for( $j = $training_programRowCount; $j <= 10; $j++ ){
     $pdf->Row(['','','','','',''],7,5,'C',null);
     $training_programRowCount++;
 }
+
+
+
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->SetWidths(array(210));
+$pdf->SetFont('Arial','',7);
+$rectColor = ['r' => 150,'g' => 150,'b' => '150','rectCol' => 'allColumn'];
+$pdf->Row(['VIII.  OTHER INFORMATION'],6.6,7,'L',$rectColor);
+
+$pdf->SetTextColor(0,0,0);
+$other_informationWidth = ['',70,100,40];
+$other_informationRow = [
+    '',
+    ['','','','MEMBERSHIP IN'],
+    ['','31. SPECIAL SKILLS and HOBBIES','NON-ACADEMIC DISTINCTIONS / RECOGNITION','33. ASSOCIATION/ORGANIZATION'],
+    ['','','(Write in full)','(Write in full)']
+];
+$height = 6.6;
+$pdf->SetFillColor(237, 235, 236);
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->Cell(210,20,'',0,0,$position,true);
+for($row = 1; $row < count($other_informationRow); $row++){
+    $marginLeft = 3;
+    $colorFlag = false;
+    $position = 'C';
+    for($col = 1; $col < count($other_informationRow[1]); $col++){
+        $border = '1';
+        $pdf->SetFont('Arial','',6);
+        if( $row == 1 ){
+            $border = 'TLR';
+        }
+        elseif( $row == 2 ){
+            $border = 'LR';
+            if( $col == 3 ){
+                $pdf->SetFont('Arial','',6);
+            }
+        }
+        elseif( $row == 3 ){
+            $border = 'LBR';
+        }
+
+        $pdf->SetXY($marginLeft,$marginTop);
+        $pdf->Cell($other_informationWidth[$col],$height,$other_informationRow[$row][$col],$border,0,$position,$colorFlag);
+
+        $marginLeft += $other_informationWidth[$col];
+    }
+    $GLOBALS['marginTop'] += 6.6;
+}
+
+$pdf->SetWidths(array(70,100,40));
+$pdf->SetXY(3,$GLOBALS['marginTop']);
+$pdf->SetLeftMargin(3);
+$other_informationColumn = ['special_skills','recognition','organization'];
+$other_informationRowCount = 1;
+foreach( $other_information as $row ){
+    for( $i = 0; $i < count($other_informationColumn); $i++ ){
+        $other_informationData[$i] = $row[$other_informationColumn[$i]];
+    }
+    $pdf->Row($other_informationData,7,5,'C',null);
+    $other_informationRowCount++;
+}
+
+for( $j = $other_informationRowCount; $j <= 10; $j++ ){
+    $pdf->Row(['','',''],7,5,'C',null);
+    $other_informationRowCount++;
+}
+
 
 $pdf->SetFont('Arial','B',7);
 $pdf->SetTextColor(237,28,36);
@@ -221,6 +289,6 @@ $rectColor = ['r' => 207,'g' => 207,'b' => '207','rectCol' => '0|2'];
 $pdf->Row(['SIGNATURE','','DATE',''],14,15,'C',$rectColor);
 $pdf->SetWidths(array(210));
 $pdf->SetFont('Arial','',7);
-$pdf->Row(['CS FORM 212 (Revised 2017), Page 2 of 4'],6,7,'R',null);
+$pdf->Row(['CS FORM 212 (Revised 2017), Page 3 of 4'],6,7,'R',null);
 
 ?>
