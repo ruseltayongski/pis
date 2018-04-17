@@ -392,7 +392,6 @@ class PisController extends Controller
         if(is_null($educational_background)){
             Educational_Background::create([
                 'userid'=>$request->get('userid'),
-                'level'=>$request->get('level'),
                 'unique_row'=>$request->get('unique_row'),
                 $request->get('column')=>$request->get('value')
             ]);

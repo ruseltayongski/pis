@@ -79,6 +79,17 @@ class PDF extends FPDF
         $this->aligns=$a;
     }
 
+    // Page footer
+    function Footer()
+    {
+        // Position at 1.5 cm from bottom
+        $this->SetY(-15);
+        // Arial italic 8
+        $this->SetFont('Arial','I',7);
+        // Page number
+        $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
+    }
+
     function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
     {
         //Calculate the height of the row
@@ -119,7 +130,6 @@ class PDF extends FPDF
             }
 
             $this->Rect($x,$y,$w,$h);
-            //$this->Rect(100,100,100,100);
             //Print the text
             $this->MultiCell($w,$multicellHeight,$data[$i],0,$a);
             $this->SetFont('Arial','',7);

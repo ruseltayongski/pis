@@ -518,9 +518,6 @@ $pdf->Cell(100,15,'',1,0,'L',false);
 $pdf->SetFont('Arial','',7);
 $pdf->SetXY(73,$marginTop+20);
 $pdf->Cell(100,5,'Person Administering Oath',1,0,'C',true);
-$pdf->SetFont('Arial','',6);
-$pdf->SetXY(3,$marginTop+27);
-$pdf->Cell(210,3,'CS FORM 212 (Revised 2017),  Page 4 of 4',1,0,'R',false);
 
 
 ?>

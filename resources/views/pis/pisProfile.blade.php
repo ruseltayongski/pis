@@ -50,7 +50,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -62,7 +62,7 @@
                                     Family Background
                                 </a>
                             </li>
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#educational_background">
                                     <i class="blue ace-icon fa fa-book bigger-120"></i>
                                     Educational Background
@@ -182,7 +182,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
+                                                <div id="personal_information" class="tab-pane fade">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -733,7 +733,7 @@
                                                     </div><!-- /.row -->
                                                 </div><!-- /#family background -->
 
-                                                <div id="educational_background" class="fade tab-pane">
+                                                <div id="educational_background" class="fade tab-pane in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -741,128 +741,118 @@
                                                                 _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
                                                                 __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
                                                             </div>
-                                                            <h3 class="lighter block green">Educational Background</h3>
-                                                            <div class="hr dotted hr-8"></div>
-                                                            <?php $education_exist = array(); ?>
-                                                            @foreach($educationalBackground as $row)
-                                                                <?php $education_exist[] = $row->level; ?>
-                                                                <h5 class="lighter block blue">
-                                                                    @if(count(\PIS\EducationType::find($row->level)) > 0)
-                                                                        {{ \PIS\EducationType::find($row->level)->description }}
-                                                                    @endif
-                                                                </h5>
-                                                                <div class="profile-user-info">
-                                                                    <div class="profile-user-info profile-user-info-striped">
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Name of School(Write in full)</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colname_of_schoollevel{{ $row->level }}">{{ $row->name_of_school }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Education/degree/course(Write in full):</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}coldegree_courselevel{{ $row->level }}">{{ $row->degree_course }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Period of attendance from:</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_fromlevel{{ $row->level }}">{{ $row->poa_from }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Period of attendance to::</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_tolevel{{ $row->level }}">{{ $row->poa_to }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Highest level/units earned(if not graduated):</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colunits_earnedlevel{{ $row->level }}">{{ $row->units_earned }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Year Graduated:</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colyear_graduatedlevel{{ $row->level }}">{{ $row->year_graduated }}</span>
-                                                                            </div>
-                                                                        </div>
-
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name">Scholarship/academic honors receive:</div>
-                                                                            <div class="profile-info-value">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colscholarshiplevel{{ $row->level }}">{{ $row->scholarship }}</span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                            @foreach($education_type as $eduType)
-                                                                @if(!in_array($eduType->id,$education_exist))
-                                                                    <h5 class="lighter block blue">
-                                                                        {{ $eduType->description }}
-                                                                    </h5>
-                                                                    <div class="profile-user-info" >
-                                                                        <div class="profile-user-info profile-user-info-striped" id="education{{ str_random(10).date('Y-').$user->id.date('mdHis') }}">
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Name of School(Write in full)</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colname_of_schoollevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Education/degree/course(Write in full):</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'coldegree_courselevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Period of attendance from:</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colpoa_fromlevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Period of attendance to::</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colpoa_tolevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Highest level/units earned(if not graduated):</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colunits_earnedlevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Year Graduated:</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colyear_graduatedlevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-
-                                                                            <div class="profile-info-row">
-                                                                                <div class="profile-info-name">Scholarship/academic honors receive:</div>
-                                                                                <div class="profile-info-value">
-                                                                                    <span class="editable educational_background" id="{{ 'colscholarshiplevel'.$eduType->id }}"></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                @endif
-                                                            @endforeach
+                                                            <h3 class="lighter block green">Educational Backgound</h3>
+                                                            <div class="form-group table-responsive">
+                                                                <table class="table table-list table-hover table-striped">
+                                                                    <thead>
+                                                                    <tr class="info">
+                                                                        <th class="center">Education Type</th>
+                                                                        <th class="center">Name of School<br>(Write in full)</th>
+                                                                        <th class="center">Education/degree/course<br>(Write in full)</th>
+                                                                        <th class="center">Period of Attendance from</th>
+                                                                        <th class="center">Period of Attendance to</th>
+                                                                        <th class="center">Highest level/units earned<br>(if not graduated)</th>
+                                                                        <th class="center">Year Graduated</th>
+                                                                        <th class="center">Scholarship/academic<br> honor receive</th>
+                                                                        <th class="center">Option</th>
+                                                                    </tr>
+                                                                    </thead>
+                                                                    <tbody id="education_append">
+                                                                    <?php
+                                                                        $education_exist = array();
+                                                                        $educationalBackgroundRow = 0;
+                                                                    ?>
+                                                                    @foreach($educationalBackground as $row)
+                                                                        <?php
+                                                                            $education_exist[] = $row->level;
+                                                                            $educationalBackgroundRow++;
+                                                                        ?>
+                                                                        <tr id="">
+                                                                            <td class="center">
+                                                                                <?php
+                                                                                    if(isset(\PIS\EducationType::find($row->level)->description)){
+                                                                                        $educationTypeDescription = \PIS\EducationType::find($row->level)->description;
+                                                                                        $educationTypeId = $row->id.'coleduTypedescription'.str_replace('/',' ',$educationTypeDescription);
+                                                                                    } else {
+                                                                                        $educationTypeDescription = '';
+                                                                                        $educationTypeId = '';
+                                                                                    }
+                                                                                ?>
+                                                                                <span class="editable_select educational_background" id="{{ $educationTypeId }}">
+                                                                                    <?php
+                                                                                        if($educationTypeDescription){
+                                                                                            echo '<b><u>'.$educationTypeDescription.'</u></b>';
+                                                                                        }
+                                                                                        else {
+                                                                                            echo "<i><span class='red'>Empty</span></i>";
+                                                                                        }
+                                                                                    ?>
+                                                                                </span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colname_of_school">{{ $row->name_of_school }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}coldegree_course">{{ $row->degree_course }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_from">{{ $row->poa_from }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_to">{{ $row->poa_to }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colunits_earned">{{ $row->units_earned }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colyear_graduated">{{ $row->year_graduated }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $row->id }}colscholarship">{{ $row->scholarship }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable_radio civil_eligibility" id="{{ $row->id.'coleducationalBackgroundDelete' }}"><i class="fa fa-close"></i></span>
+                                                                            </td>
+                                                                        </tr>
+                                                                    @endforeach
+                                                                    @foreach($education_type as $eduType)
+                                                                        @if(!in_array($eduType->id,$education_exist))
+                                                                        <?php $educationalBackgroundRow++; ?>
+                                                                        <tr id="{{ $educationalBackgroundRow.'education'.str_random(10).date('Y-').$user->id.date('mdHis') }}">
+                                                                            <td class="center">
+                                                                                <span class="editable_select educational_background" id="{{ $educationalBackgroundRow.'coleduTypedescription'.str_replace(['/',' '],'temp',$eduType->description) }}">{{ $eduType->description }}</span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colname_of_school' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'coldegree_course' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_from' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_to' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colunits_earned' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colyear_graduated' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colscholarship' }}"></span>
+                                                                            </td>
+                                                                            <td class="center">
+                                                                                <span class="editable_radio civil_eligibility" id="{{ $eduType->id.'coleducationalBackgroundDelete' }}"><i class="fa fa-close"></i></span>
+                                                                            </td>
+                                                                        </tr>
+                                                                        @endif
+                                                                    @endforeach
+                                                                    </tbody>
+                                                                </table>
+                                                                <a href="#" class="pull-right red" id="educationAdd"><i class="fa fa-plus"></i> Add Educational Background</a>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#education background -->
@@ -1191,7 +1181,7 @@
                     $("#children_append").append(childrenAppend);
                     $("#"+chilAnimation).hide().fadeIn();
 
-                    text_editable();
+                    editable_text();
                     editable_radio();
 
 
@@ -1227,7 +1217,7 @@
                     $("#civil_append").append(civilAppend);
                     $("#"+civilUnique_row).hide().fadeIn();
 
-                    text_editable();
+                    editable_text();
                     editable_radio();
 
                 } else {
@@ -1272,7 +1262,7 @@
                 $("#work_append").append(workAppend);
                 $("#"+workUnique_row).hide().fadeIn();
 
-                text_editable();
+                editable_text();
                 editable_radio();
                 editable_select();
 
@@ -1302,7 +1292,7 @@
                     $("#voluntary_append").append(voluntaryAppend);
                     $("#"+voluntaryUnique_row).hide().fadeIn();
 
-                    text_editable();
+                    editable_text();
                     editable_radio();
 
                 } else {
@@ -1340,13 +1330,40 @@
                 $("#training_append").append(trainingAppend);
                 $("#"+trainingUnique_row).hide().fadeIn();
 
-                text_editable();
+                editable_text();
                 editable_radio();
 
                 dropzoneAdd(certificate_id);
 
                 console.log(certificate_id);
+            });
 
+            //EDUCATIONAL BACKGROUND ADD
+            var educationCount = "<?php echo $educationalBackgroundRow; ?>";
+            $("#educationAdd").on('click',function(event){
+
+                educationCount++;
+                var educationUnique_row = educationCount+"<?php echo 'education'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                event.preventDefault();
+
+                var educationAppend =
+                    '<tr id="'+educationUnique_row+'">\
+                        <td class="center"><span class="editable_radio educational_background" id=""></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colname_of_schoollevel"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coldegree_course"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_from"></span></td>\
+                        <td class="center"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_to"></td>\
+                        <td class="center"><span class="editable_select educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colunits_earned"></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colyear_graduated"></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colscholarship"></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationalDelete"><i class="fa fa-close"></i></span></td>\
+                    </tr>';
+                $("#education_append").append(educationAppend);
+                $("#"+educationUnique_row).hide().fadeIn();
+
+                editable_text();
+                editable_radio();
+                editable_select();
             });
 
             window.certificateLink = '';
@@ -1611,7 +1628,7 @@
                 $("#other_append").append(otherAppend);
                 $("#"+otherUnique_row).hide().fadeIn();
 
-                text_editable();
+                editable_text();
                 editable_radio();
 
             });
@@ -2126,9 +2143,8 @@
                 });
             }
 
-
-            text_editable();
-            function text_editable(){
+            editable_text();
+            function editable_text(){
                 $(".editable").each(function() {
                     $('#'+this.id).editable({
                         type: 'text',
@@ -2179,10 +2195,9 @@
                                 json = {
                                     "id" : this.id.split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : this.id.split('col')[1].split('level')[0],
-                                    "level" : this.id.split('level')[1],
+                                    "column" : this.id.split('col')[1],
                                     "value" : value,
-                                    "unique_row" : $(this).parents(':eq(2)').attr('id'),
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateEducationalBackground') !!}";
@@ -2249,12 +2264,13 @@
                             }
 
                             $.post(url,json,function(result){
-                                //console.log(result);
+                                console.log(result);
                                 if(Class.includes('children')){
                                     childId = result; //get the primary key
                                     console.log(result);
                                 }
                             });
+                            console.log(json);
 
                         },
                         error: function(errors) {
@@ -2628,6 +2644,11 @@
                     designation.push({id: data.id, text: data.description});
                 });
 
+                var eduType = [];
+                $.each(<?php echo $education_type; ?>, function(x, data) {
+                    eduType.push({id: data.id, text: data.description});
+                });
+
                 return  [
                     {
                         "division" : division,
@@ -2661,7 +2682,8 @@
                             {value: "Permanent", text: "Permanent"},
                             {value: "Job Order", text: "Job Order"},
                         ],
-                        "designation": designation
+                        "designation": designation,
+                        "education_type": eduType
                     }
                 ];
             }
@@ -2691,6 +2713,9 @@
                     }
                     else if(this.id.includes('designation_id')){
                         source = source_func("designation")[0].designation;
+                    }
+                    else if(this.id.includes('eduType')){
+                        source = source_func("educational_background")[0].education_type;
                     }
                     $('#'+this.id).editable({
                         name : this.id,
@@ -2737,14 +2762,26 @@
                                 };
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
+                            else if(string.includes('educational_background')){
+                                json = {
+                                    "id" : this.id.split('coleduType')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(2)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateEducationalBackground') !!}";
+                            }
 
                             var id = this.id;
-                            $.post(url,json,function(result){
+                            /*$.post(url,json,function(result){
                                 console.log(result);
                                 if(json.column == 'division_id'){
                                     filter_section(url,value,id);
                                 }
-                            });
+                            });*/
+
                         },
                         error: function(errors) {
                             alert('slow internet connection..');
