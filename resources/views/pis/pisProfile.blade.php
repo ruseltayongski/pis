@@ -772,16 +772,16 @@
                                                                                 <?php
                                                                                     if(isset(\PIS\EducationType::find($row->level)->description)){
                                                                                         $educationTypeDescription = \PIS\EducationType::find($row->level)->description;
-                                                                                        $educationTypeId = $row->id.'coleduTypedescription'.str_replace('/',' ',$educationTypeDescription);
+                                                                                        $educationTypeId = $row->id.'collevel'.$row->level;
                                                                                     } else {
                                                                                         $educationTypeDescription = '';
-                                                                                        $educationTypeId = '';
+                                                                                        $educationTypeId = $row->id.'collevel'.$educationTypeDescription;
                                                                                     }
                                                                                 ?>
                                                                                 <span class="editable_select educational_background" id="{{ $educationTypeId }}">
                                                                                     <?php
                                                                                         if($educationTypeDescription){
-                                                                                            echo '<b><u>'.$educationTypeDescription.'</u></b>';
+                                                                                            echo $educationTypeDescription;
                                                                                         }
                                                                                         else {
                                                                                             echo "<i><span class='red'>Empty</span></i>";
@@ -820,7 +820,7 @@
                                                                         <?php $educationalBackgroundRow++; ?>
                                                                         <tr id="{{ $educationalBackgroundRow.'education'.str_random(10).date('Y-').$user->id.date('mdHis') }}">
                                                                             <td class="center">
-                                                                                <span class="editable_select educational_background" id="{{ $educationalBackgroundRow.'coleduTypedescription'.str_replace(['/',' '],'temp',$eduType->description) }}">{{ $eduType->description }}</span>
+                                                                                <span class="editable_select educational_background" id="{{ $educationalBackgroundRow.'collevel'.$eduType->id }}">{{ $eduType->description }}</span>
                                                                             </td>
                                                                             <td class="center">
                                                                                 <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colname_of_school' }}"></span>
@@ -1149,6 +1149,8 @@
 @section('js')
     <script>
 
+
+
         jQuery(function($) {
 
 
@@ -1348,15 +1350,15 @@
 
                 var educationAppend =
                     '<tr id="'+educationUnique_row+'">\
-                        <td class="center"><span class="editable_radio educational_background" id=""></span></td>\
-                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colname_of_schoollevel"></span></td>\
+                        <td class="center"><span class="editable_select educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'collevel"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colname_of_school"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coldegree_course"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_from"></span></td>\
                         <td class="center"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_to"></td>\
-                        <td class="center"><span class="editable_select educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colunits_earned"></span></td>\
-                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colyear_graduated"></span></td>\
-                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colscholarship"></span></td>\
-                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationalDelete"><i class="fa fa-close"></i></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colunits_earned"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colyear_graduated"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colscholarship"></span></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationalDelete"><i class="fa fa-close"></i></span></td>\
                     </tr>';
                 $("#education_append").append(educationAppend);
                 $("#"+educationUnique_row).hide().fadeIn();
@@ -2192,12 +2194,22 @@
                                 url = "{!! asset('updateChildren') !!}";
                             }
                             else if(Class.includes('educational_background')){
+                                var education_level,education_id;
+                                var unique_row = $(this).parents(':eq(1)').attr('id');
+                                if(unique_row){
+                                    education_level = $(this).parents(':eq(1)').find('td:eq(0)').find('span').attr('id').split('level')[1];
+                                    education_id = 'no_id';
+                                } else {
+                                    education_level = '';
+                                    education_id = this.id.split('col')[0]
+                                }
                                 json = {
-                                    "id" : this.id.split('col')[0],
+                                    "id" : education_id,
                                     "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "level" : education_level,
+                                    "unique_row" : unique_row,
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateEducationalBackground') !!}";
@@ -2714,7 +2726,7 @@
                     else if(this.id.includes('designation_id')){
                         source = source_func("designation")[0].designation;
                     }
-                    else if(this.id.includes('eduType')){
+                    else if(this.className.includes('educational_background')){
                         source = source_func("educational_background")[0].education_type;
                     }
                     $('#'+this.id).editable({
@@ -2763,24 +2775,34 @@
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
                             else if(string.includes('educational_background')){
+                                var education_id;
+                                var unique_row = $(this).parents(':eq(1)').attr('id')
+                                if( unique_row ){
+                                    education_id = 'no_id';
+                                } else {
+                                    education_id = this.id.split('col')[0];
+                                }
                                 json = {
-                                    "id" : this.id.split('coleduType')[0],
+                                    "id" : education_id,
                                     "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : this.id.split('col')[1],
-                                    "value" : value,
-                                    "unique_row" : $(this).parents(':eq(2)').attr('id'),
+                                    "level" : value,
+                                    "unique_row" : unique_row,
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateEducationalBackground') !!}";
+                                var newId = this.id;
+                                newId = newId.replace(/level.*$/,'level'+json.level);
+                                $(this).prop('id',newId);
                             }
 
                             var id = this.id;
-                            /*$.post(url,json,function(result){
+                            console.log(json);
+                            $.post(url,json,function(result){
                                 console.log(result);
                                 if(json.column == 'division_id'){
                                     filter_section(url,value,id);
                                 }
-                            });*/
+                            });
 
                         },
                         error: function(errors) {
