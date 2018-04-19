@@ -390,18 +390,25 @@ class PisController extends Controller
             ->first();
 
         if(is_null($educational_background)){
+
             Educational_Background::create([
-                'userid'=>$request->get('userid'),
-                'level'=>$request->get('level'),
-                'unique_row'=>$request->get('unique_row'),
-                $request->get('column')=>$request->get('value')
+                'userid' => $request->get('userid'),
+                'unique_row' => $request->get('unique_row'),
+                $request->get('column') => $request->get('value'),
+                'level' => $request->get('level')
             ]);
 
             return 'successfully added';
         } else {
-            $educational_background->update([
-                $request->get('column')=>$request->get('value')
-            ]);
+            if( $request->get('column') ){
+                $educational_background->update([
+                    $request->get('column')=>$request->get('value')
+                ]);
+            } else {
+                $educational_background->update([
+                    'level' => $request->get('level')
+                ]);
+            }
 
             return 'successfully updated';
         }

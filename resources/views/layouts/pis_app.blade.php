@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="container">
+    <div style="padding:0 15% 0 15%">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -382,7 +382,7 @@
 </nav>
 @endif
 
-<div class="container" style="padding: 20px;">
+<div style="padding:2% 15% 2% 15%">
     @yield('content')
 </div>
 

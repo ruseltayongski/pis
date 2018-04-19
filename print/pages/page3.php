@@ -204,7 +204,7 @@ foreach( $training_program as $row ){
     $training_programRowCount++;
 }
 
-for( $j = $training_programRowCount; $j <= 10; $j++ ){
+for( $j = $training_programRowCount; $j <= 15; $j++ ){
     $pdf->Row(['','','','','',''],7,5,'C',null);
     $training_programRowCount++;
 }
@@ -286,9 +286,7 @@ $pdf->SetTextColor(0,0,0);
 $pdf->SetWidths(array(40,75,25,70));
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $rectColor = ['r' => 207,'g' => 207,'b' => '207','rectCol' => '0|2'];
-$pdf->Row(['SIGNATURE','','DATE',''],14,15,'C',$rectColor);
-$pdf->SetWidths(array(210));
-$pdf->SetFont('Arial','',7);
-$pdf->Row(['CS FORM 212 (Revised 2017), Page 3 of 4'],6,7,'R',null);
+//$pdf->Row(['SIGNATURE','','DATE',''],14,15,'C',$rectColor);
+$pdf->Row(['SIGNATURE','','DATE',''],14,7,'C',$rectColor);
 
 ?>
