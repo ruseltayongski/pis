@@ -50,7 +50,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs padding-18">
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -98,12 +98,14 @@
                                     Other Information
                                 </a>
                             </li>
-                            <li class="active">
+                            <!--
+                            <li >
                                 <a data-toggle="tab" href="#other_information2">
                                     <i class="grey ace-icon fa fa-info bigger-120"></i>
                                     Other Information(2)
                                 </a>
                             </li>
+                            -->
                         </ul>
                         <div class="hr dotted"></div>
 
@@ -188,7 +190,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade">
+                                                <div id="personal_information" class="tab-pane fade in active">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -1135,8 +1137,8 @@
                                                         </div>
                                                     </div>
                                                 </div><!-- /#OTHER INFORMATION -->
-
-                                                <div id="other_information2" class="fade tab-pane in active">
+                                                <!--
+                                                <div id="other_information2" class="fade tab-pane">
                                                     <div class="col-xs-12">
                                                         <h3 class="lighter block green">Other Information(2)</h3>
 
