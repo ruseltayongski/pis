@@ -62,7 +62,7 @@
                                     Family Background
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#educational_background">
                                     <i class="blue ace-icon fa fa-book bigger-120"></i>
                                     Educational Background
@@ -94,8 +94,14 @@
                             </li>
                             <li>
                                 <a data-toggle="tab" href="#other_information">
-                                    <i class="orange ace-icon fa fa-user-secret bigger-120"></i>
+                                    <i class="brown ace-icon fa fa-user-secret bigger-120"></i>
                                     Other Information
+                                </a>
+                            </li>
+                            <li class="active">
+                                <a data-toggle="tab" href="#other_information2">
+                                    <i class="grey ace-icon fa fa-info bigger-120"></i>
+                                    Other Information(2)
                                 </a>
                             </li>
                         </ul>
@@ -733,7 +739,7 @@
                                                     </div><!-- /.row -->
                                                 </div><!-- /#family background -->
 
-                                                <div id="educational_background" class="fade tab-pane in active">
+                                                <div id="educational_background" class="fade tab-pane">
                                                     <div class="row">
                                                         <div class="col-xs-12">
                                                             <div class="alert alert-info">
@@ -811,7 +817,7 @@
                                                                                 <span class="editable educational_background" id="{{ $row->id }}colscholarship">{{ $row->scholarship }}</span>
                                                                             </td>
                                                                             <td class="center">
-                                                                                <span class="editable_radio civil_eligibility" id="{{ $row->id.'coleducationalBackgroundDelete' }}"><i class="fa fa-close"></i></span>
+                                                                                <span class="editable_radio civil_eligibility" id="{{ $row->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
                                                                             </td>
                                                                         </tr>
                                                                     @endforeach
@@ -844,7 +850,7 @@
                                                                                 <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colscholarship' }}"></span>
                                                                             </td>
                                                                             <td class="center">
-                                                                                <span class="editable_radio civil_eligibility" id="{{ $eduType->id.'coleducationalBackgroundDelete' }}"><i class="fa fa-close"></i></span>
+                                                                                <span class="editable_radio civil_eligibility" id="{{ 'no_id'.$eduType->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
                                                                             </td>
                                                                         </tr>
                                                                         @endif
@@ -1108,6 +1114,7 @@
                                                                         <th class="center align-middle" >Special Skills & Hobbies</th>
                                                                         <th class="center align-middle" >Non-Academic Distinction/Recognition(Write in full)</th>
                                                                         <th class="center align-middle" >Membership in Association/Organinzation(Write in full)</th>
+                                                                        <th class="center align-middle" >Option</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody id="other_append">
@@ -1118,6 +1125,7 @@
                                                                             <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colspecial_skills' }}" >{{ $row->special_skills }}</span></td>
                                                                             <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colrecognition' }}" >{{ $row->recognition }}</span></td>
                                                                             <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colorganization' }}" >{{ $row->organization }}</span></td>
+                                                                            <td class="center align-middle"><span class="editable_radio other_information" id="{{ $row->id.'colotherDelete' }}" ><i class="fa fa-close"></i></span></td>
                                                                         </tr>
                                                                     @endforeach
                                                                     </tbody>
@@ -1127,6 +1135,110 @@
                                                         </div>
                                                     </div>
                                                 </div><!-- /#OTHER INFORMATION -->
+
+                                                <div id="other_information2" class="fade tab-pane in active">
+                                                    <div class="col-xs-12">
+                                                        <h3 class="lighter block green">Other Information(2)</h3>
+
+                                                        <div class="widget-box transparent">
+                                                            <div class="widget-body">
+                                                                <div class="widget-main padding-8">
+                                                                    <div class="row">
+                                                                        <div id="profile-feed-1" class="profile-feed">
+                                                                            <div class="profile-activity clearfix">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-pink no-hover"></i>
+                                                                                    Are you related by consanguinity or affinity to the appointing or recommending authority,
+                                                                                    or to the chief of bureau or office or to the person who has immediate supervision over you in the Office,
+                                                                                    Bureau or Department where you will be apppointed,
+                                                                                </div>
+                                                                                <div class="col-sm-1"></div>
+                                                                                <div class="col-sm-3">
+                                                                                    <b class="purple">
+                                                                                        a. within the third degree?
+                                                                                    </b>
+                                                                                </div>
+                                                                                <div class="col-sm-1">
+                                                                                    <span class="green editable" id="thequickbrownfox">
+                                                                                        Yes
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="col-sm-2">
+                                                                                    <span class="green editable" id="thequickbrownfox2">
+                                                                                        Ni yes rako
+                                                                                    </span>
+                                                                                </div>
+                                                                                <div class="tools action-buttons">
+                                                                                    <a href="#" class="blue">
+                                                                                        <i class="ace-icon fa fa-pencil bigger-125"></i>
+                                                                                    </a>
+
+                                                                                    <a href="#" class="red">
+                                                                                        <i class="ace-icon fa fa-times bigger-125"></i>
+                                                                                    </a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div id="profile-feed-1" class="profile-feed">
+                                                                            <div class="profile-activity clearfix">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-pink no-hover"></i>
+                                                                                    Are you related by consanguinity or affinity to the appointing or recommending authority,
+                                                                                    or to the chief of bureau or office or to the person who has immediate supervision over you in the Office,
+                                                                                    Bureau or Department where you will be apppointed,
+                                                                                </div>
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-1"></div>
+                                                                                    <div class="col-sm-6">
+                                                                                        <b class="purple">
+                                                                                            a. Have you ever been found guilty of any administrative offense?
+                                                                                        </b>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+                                                                                        <span class="green editable" id="thequickbrownfox">
+                                                                                            Yes
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="col-sm-2">
+                                                                                        <span class="green editable" id="thequickbrownfox2">
+                                                                                            Ni yes rako
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-1"></div>
+                                                                                    <div class="col-sm-7">
+                                                                                        <b class="purple">
+                                                                                            b. within the fourth degree (for Local Government Unit - Career Employees)?
+                                                                                        </b>
+                                                                                    </div>
+                                                                                    <div class="col-sm-1">
+                                                                                        <span class="green editable" id="thequickbrownfox">
+                                                                                            Yes
+                                                                                        </span>
+                                                                                    </div>
+                                                                                    <div class="col-sm-2">
+                                                                                        <span class="green editable" id="thequickbrownfox2">
+                                                                                            Ni yes rako
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div><!-- /#OTHER INFORMATION2-->
 
 
                                             </div><!-- /tab-content -->
@@ -1354,11 +1466,11 @@
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colname_of_school"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coldegree_course"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_from"></span></td>\
-                        <td class="center"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_to"></td>\
+                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colpoa_to"></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colunits_earned"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colyear_graduated"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colscholarship"></span></td>\
-                        <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationalDelete"><i class="fa fa-close"></i></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationDelete"><i class="fa fa-close"></i></span></td>\
                     </tr>';
                 $("#education_append").append(educationAppend);
                 $("#"+educationUnique_row).hide().fadeIn();
@@ -1366,6 +1478,29 @@
                 editable_text();
                 editable_radio();
                 editable_select();
+            });
+
+            //OTHER INFORMATION ADD
+            //note.. carefull sa id unique.. true in where clause (must have no-id)
+            var otherCount = "<?php echo $otherCount; ?>";
+            $("#otherAdd").on('click',function(event){
+
+                otherCount++;
+                var otherUnique_row = otherCount+"<?php echo 'other'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
+                event.preventDefault();
+
+                var otherAppend =
+                    '<tr id="'+otherUnique_row+'">\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colspecial_skills"></span></td>\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colrecognition"></span></td>\
+                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colorganization"></span></td>\
+                                <td class="center align-middle"><span class="editable_radio other_information" id="'+'otherno_id'+"<?php echo str_random(10); ?>"+otherCount+'colotherDelete"><i class="fa fa-close"></i></span></td>\
+                            </tr>';
+                $("#other_append").append(otherAppend);
+                $("#"+otherUnique_row).hide().fadeIn();
+
+                editable_text();
+                editable_radio();
             });
 
             window.certificateLink = '';
@@ -1611,29 +1746,6 @@
 
                 });
             }
-
-            //OTHER INFORMATION ADD
-            //note.. carefull sa id unique.. true in where clause (must have no-id)
-            var otherCount = "<?php echo $otherCount; ?>";
-            $("#otherAdd").on('click',function(event){
-
-                otherCount++;
-                var otherUnique_row = otherCount+"<?php echo 'other'.str_random(10).date('Y-').$user->id.date('mdHis'); ?>";
-                event.preventDefault();
-
-                var otherAppend =
-                    '<tr id="'+otherUnique_row+'">\
-                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colspecial_skills"></span></td>\
-                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colrecognition"></span></td>\
-                                <td class="center align-middle"><span class="editable other_information" id="'+"otherno_id<?php echo str_random(10); ?>"+otherCount+'colorganization"></span></td>\
-                            </tr>';
-                $("#other_append").append(otherAppend);
-                $("#"+otherUnique_row).hide().fadeIn();
-
-                editable_text();
-                editable_radio();
-
-            });
 
             $('.rating').raty({
                 'half': true,
@@ -2355,6 +2467,12 @@
                 "civilDelete": [
                     {value:'Dummy', text:'Dummy'}
                 ],
+                "educationDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "otherDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
                 "date_of_examination": [
                     {value:'Dummy', text:'Dummy'}
                 ],
@@ -2551,7 +2669,7 @@
                                 url = "{!! asset('updateTrainingProgram') !!}";
                             }
 
-                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' || columnId == 'trainingDelete' ){
+                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' || columnId == 'trainingDelete' || columnId == 'educationDelete' || columnId == 'otherDelete' ){
                                 if( columnId == 'workDelete' ){
                                     json = {
                                         "id" : this.id.split('col')[0],
@@ -2582,6 +2700,28 @@
 
                                     url = "{!! asset('deleteCivilEligibility') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'educationDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteEducationalBackground') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    console.log(json);
+                                }
+                                else if( columnId == 'otherDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteOtherInformation') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    console.log(json);
                                 }
                                 else if( columnId == 'voluntaryDelete' ){
                                     json = {
@@ -3007,7 +3147,7 @@
                             ?>
                             '<select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%" required> <option value="">Select Tranche</option>@foreach($tranche as $trancheIndex)<option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>@endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required>\<option value="">Select Salary Grade\</option>@foreach(range(1,33) as $salaryGradeIndex)\<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}\</option>@endforeach\</select>\<div class="space-6">\</div>\<select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required>\<option value="">Select Salary Step\</option>@foreach(range(1,8) as $salaryStepIndex)\<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}\</option>@endforeach\</select>');
                     }
-                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' ){
+                    else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' || name.split('col')[1] == 'educationDelete' || name.split('col')[1] == 'otherDelete' ){
                         try{
                             var certificateId = $("#"+name).parents(':eq(0)').siblings('.trainingCertificate').children().get(0).id;
                             certificateLink = $("#"+certificateId).data('link');

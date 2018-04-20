@@ -464,6 +464,42 @@ class PisController extends Controller
         return 'Successfully Deleted Civil Service Eligibility';
     }
 
+    public function deleteEducationalBackground(Request $request)
+    {
+        $id = $request->id;
+        if(is_null($request->unique_row)){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->unique_row;
+        }
+
+        $educational_background = Educational_Background::where('id','=',$id)->orWhere("unique_row","=",$unique_row)->first();
+
+        if($educational_background){
+            $educational_background->delete();
+            return 'Successfully Deleted Educational Background';
+        }
+
+    }
+
+    public function deleteOtherInformation(Request $request)
+    {
+        $id = $request->id;
+        if(is_null($request->unique_row)){
+            $unique_row = 'no unique row';
+        } else {
+            $unique_row = $request->unique_row;
+        }
+
+        $other_information = Other_Information::where('id','=',$id)->orWhere("unique_row","=",$unique_row)->first();
+
+        if($other_information){
+            $other_information->delete();
+            return 'Successfully Deleted Other Information';
+        }
+
+    }
+
 
     public function updateWorkExperience(Request $request){
         if(is_null($request->get('unique_row'))){

@@ -69,6 +69,10 @@
                                         </button>
                                     </div>
 
+                                    <div class="center">
+                                        <a href="{{ asset('public/manual/pis_manual.pdf') }}" target="_blank"><h3 class="green">PIS MANUAL</h3></a>
+                                    </div>
+
                                     <div class="space-4"></div>
                                 </fieldset>
                             </form>
