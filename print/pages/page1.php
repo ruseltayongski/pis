@@ -1276,6 +1276,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
     $pdf->SetWidths(array(45,45,44,13,13,15,15,20));
     $pdf->SetXY(3,$marginTop1);
 
+    $GLOBALS['marginTop'] = $marginTop1;
     foreach($educational_background as $row) {
         $rowCount++;
         for( $j = 0; $j < count($columnData); $j++ ){
