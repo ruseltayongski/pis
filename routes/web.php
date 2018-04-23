@@ -79,10 +79,11 @@ Route::get('pdf','PdfController@pdf');
 
 //RESET PASSWORD
 Route::get('ResetPassword',function(){
-    $user = \PIS\User::where('username','=','admin')->first();
-    $user->update([
-        "password" => bcrypt('pis_admin')
+
+    \PIS\User::where('usertype','!=',1)->update([
+        "password" => bcrypt('123')
     ]);
+
     return 'Successfully Updated';
 });
 

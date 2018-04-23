@@ -30,11 +30,11 @@
                                 <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
                                 <small>Sync DTS <br>User</small>
                             </a>
-                            -->
                             <a href="{{ asset('sync_personalInformation') }}" class="btn btn-app btn-warning">
                                 <i class="ace-icon fa fa-cloud-upload bigger-230"></i>
                                 <small>Sync PIS <br>User</small>
                             </a>
+                            -->
                         </div>
                         <div class="col-xs-6 col-sm-6 col-md-6">
                             <div class="row alert-success">
