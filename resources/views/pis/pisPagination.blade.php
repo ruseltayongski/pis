@@ -13,6 +13,7 @@
                 <th>Section / Division</th>
                 <th>Sex</th>
                 <th>Civil Status</th>
+                <th>Employee Status</th>
                 <th>Options</th>
             </tr>
             </thead>
@@ -46,6 +47,13 @@
                     </td>
                     <td>
                         {{ $user->civil_status }}
+                    </td>
+                    <td>
+                        @if( $user->job_status == 'Job Order' )
+                            <b class="green">{{ $user->job_status }}</b>
+                         @else
+                            <b class="purple">{{ $user->job_status }}</b>
+                        @endif
                     </td>
                     <td class="center">
                         @if(strpos($user->userid,'no_userid'))
