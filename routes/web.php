@@ -87,4 +87,8 @@ Route::get('ResetPassword',function(){
     return 'Successfully Updated';
 });
 
+Route::get('CheckVersion',function(){
+    return '2';
+});
+
 
