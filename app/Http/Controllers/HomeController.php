@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use PIS\Designation;
 use PIS\Division;
+use PIS\Personal_Information;
 use PIS\Section;
 use PIS\User_dts;
 use Illuminate\Support\Facades\Auth;
@@ -40,6 +41,6 @@ class HomeController extends Controller
     }
 
     public function userid_trapping(Request $request){
-        return User_dts::where('username', '=', $request->get('userid'))->first();
+        return Personal_Information::where('userid', '=', $request->get('userid'))->first();
     }
 }

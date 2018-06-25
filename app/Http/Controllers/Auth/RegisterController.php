@@ -9,9 +9,16 @@ use PIS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use PIS\User_dtr;
 use PIS\User_dts;
 use PIS\Work_Experience;
 use PIS\SalaryGrade;
+use PIS\Division;
+use PIS\Section;
+use PIS\Designation;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
+
 
 class RegisterController extends Controller
 {
@@ -43,7 +50,6 @@ class RegisterController extends Controller
     public function __construct()
     {
         //$this->middleware('guest');
-        $this->middleware('auth');
     }
 
     /**
@@ -69,7 +75,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        //way gamit
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -77,51 +82,54 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function new_employee(Request $request){
+        if ($request->isMethod('GET'))
+        {
+            $designation = Designation::get();
+            $division = Division::get();
+            $section = Section::get();
+            return view('auth.new_employee',[
+                "designation" => $designation,
+                "division" => $division,
+                "section" => $section,
+            ]);
+        }
+    }
+
     public function register(Request $request){
+        $rules = [
+            'captcha' => 'required|captcha',
+            'fname' => 'required',
+            'mname' => 'required',
+            'lname' => 'required',
+            'date_of_birth' => 'required|date',
+            'email_address' => 'required|email',
+            'designation_id' => 'required',
+            'division_id' => 'required',
+            'section_id' => 'required',
+        ];
+        $message = [
+            'captcha' => 'Invalid Captcha',
+            'designation_id.required' => 'The designation field is required.',
+            'division_id.required' => 'The division field is required.',
+            'section_id.required' => 'The section field is required.',
+        ];
+        $validator = Validator::make($request->all(),$rules,$message);
+        if ($validator->fails()) {
+            $data = $request->all();
+            unset($data['_token']);
+            return Redirect::back()
+                ->withErrors($validator)
+                ->withInput()
+                ->with($data);
+        } else {
+            $data[] = $request->all();
+            unset($data[0]['_token']);
+            unset($data[0]['captcha']);
+            Personal_Information::insert($data);
+            return redirect('/')->with('addEmployee','Your are successfully saved to our database, Please wait the message to your email as your field(s) is/are still subject for validation. Thank you!');
+        }
 
-        $userid = 'PIS'.uniqid().'no_userid';
-        Personal_Information::insertIgnore([
-            'userid' => $userid,
-            'job_status' => $request->get('job_status'),
-            'designation_id' => $request->get('designation'),
-            'division_id' => $request->get('division'),
-            'section_id' => $request->get('section'),
-            'fname' => $request->get('fname'),
-            'mname' => $request->get('mname'),
-            'lname' => $request->get('lname'),
-            'residential_address' => $request->get('address'),
-            'blood_type' => $request->get('blood_type'),
-            'height' => $request->get('height'),
-            'weight' => $request->get('weight'),
-            'tin_no' => $request->get('tin_no'),
-            'pag_ibigno' => $request->get('pag_ibigno'),
-            'gsis_idno' => $request->get('gsis_idno'),
-            'phicno' => $request->get('phicno'),
-            'date_of_birth' => $request->get('date_of_birth'),
-            'email_address' => $request->get('email'),
-            'case_name' => $request->get('case_name'),
-            'case_address' => $request->get('case_address'),
-            'case_contact' => $request->get('case_contact'),
-            'remarks' => 'PIS',
-            'disbursement_type' => $request->get('disbursement_type'),
-            'salary_charge' => $request->get('salary_charge'),
-            'source_fund' => $request->get('source_fund'),
-            'user_status' => "1"
-        ]);
-
-        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
-            ->where('salary_grade','=',$request->get('salary_grade'))
-            ->where('salary_step','=',$request->get('salary_step'))
-            ->first()
-            ->salary_amount;
-
-        Work_Experience::create([
-            'userid'=>$userid,
-            'monthly_salary'=>$salary_amount,
-            'salary_grade'=>$request->get('salary_tranche').'|'.$request->get('salary_grade')
-        ]);
-
-        return Redirect::back()->with('addUserid', 'Successfully Added New User');
     }
 
     public function addUserid(Request $request){
@@ -160,13 +168,29 @@ class RegisterController extends Controller
             'pin' => 1234
         ]);
 
-        $personal_information->update([
-            "userid" => $currentId
+        User_dtr::insertIgnore([
+            "userid" => $currentId,
+            "fname" => $fnameFinal,
+            "mname" => $mnameFinal,
+            "lname" => $lnameFinal,
+            "sched" => "1",
+            'username' => $currentId,
+            'password' => bcrypt($currentId),
+            'emptype' => 'JO',
+            'usertype' => '0',
+            'unique_row' => $currentId,
         ]);
 
-        $work_experience->update([
-            "userid" => $currentId
-        ]);
+        if($personal_information){
+            $personal_information->update([
+                "userid" => $currentId
+            ]);
+        }
+        if($work_experience){
+            $work_experience->update([
+                "userid" => $currentId
+            ]);
+        }
 
         return Redirect::back()->with('addUserid', 'Successfully Inserted Employee ID');
     }
