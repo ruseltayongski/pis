@@ -16,12 +16,14 @@ use Illuminate\Support\Facades\DB;
 use PIS\SalaryGrade;
 use PIS\Training_Program;
 use PIS\User;
+use PIS\User_dtr;
 use PIS\Voluntary_Work;
 use PIS\Work_Experience;
 use PIS\Other_Information;
 use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
+use PIS\User_dts;
 use Illuminate\Support\Facades\App;
 use File;
 
@@ -765,13 +767,14 @@ class PisController extends Controller
         $picture->move($dir, $filename);
 
         return $filename;
-
     }
 
     public function deletePersonalInformation(Request $request){
         $userid = $request->userid;
         Personal_Information::where('userid','=',$userid)->first()->delete();
         User::where('username','=',$userid)->first()->delete();
+        User_dtr::where('userid','=',$userid)->first()->delete();
+        User_dts::where('username','=',$userid)->first()->delete();
 
         /*Personal_Information::where('userid','=',$userid)->update([
             "user_status" => "0"

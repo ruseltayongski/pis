@@ -182,7 +182,7 @@ return [
         Barryvdh\DomPDF\ServiceProvider::class,
         Crabbly\FPDF\FpdfServiceProvider::class,
         Codedge\Fpdf\FpdfServiceProvider::class,
-
+        Mews\Captcha\CaptchaServiceProvider::class,
     ],
 
     /*
@@ -235,6 +235,7 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
     ],
 
 ];

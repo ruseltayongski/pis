@@ -61,7 +61,7 @@
 
 <body class="skin-2">
 
-@if(isset(Request::segments()[0]))
+@if(isset(Request::segments()[0]) && Request::segments()[0] != 'new_employee')
 <nav class="navbar navbar-default navbar-static-top">
     <div style="background-color:#2F4054;padding:10px;">
         <?php
@@ -408,8 +408,8 @@
 <script type="text/javascript">
     if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('public/assets_ace/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
 </script>
-<script src="{{ asset('public/assets_ace/js/bootstrap.min.js') }}"></script>
 
+<script src="{{ asset('public/assets_ace/js/bootstrap.min.js') }}"></script>
 <!-- page specific plugin scripts -->
 <script src="{{ asset('public/assets_ace/js/jquery-ui.custom.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/jquery.ui.touch-punch.min.js') }}"></script>
@@ -431,10 +431,9 @@
 <!-- ace scripts -->
 <script src="{{ asset('public/assets_ace/js/ace-elements.min.js') }}"></script>
 <script src="{{ asset('public/assets_ace/js/ace.min.js') }}"></script>
-<!-- DATE RANGE SELECT -->
+<!-- PLUGIN JS -->
 <script src="{{ asset('public/plugin/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset('public/plugin/daterangepicker/daterangepicker.js') }}"></script>
-
 <script src="{{ asset('public/plugin/Lobibox old/Lobibox.js') }}"></script>
 
 

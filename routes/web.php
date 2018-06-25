@@ -22,7 +22,8 @@ Auth::routes();
 
 //Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/','HomeController@login');
-Route::match(['GET','POST'],'/register','Auth\RegisterController@register');
+Route::match(['GET','POST'],'/new_employee','Auth\RegisterController@new_employee');
+
 Route::post('userid_trapping','HomeController@userid_trapping');
 Route::post('/addUserid','Auth\RegisterController@addUserid');
 

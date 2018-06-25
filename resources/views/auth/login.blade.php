@@ -32,28 +32,34 @@
                                 {{ csrf_field() }}
                                 <fieldset>
                                     <label class="block clearfix {{ $errors->has('username') ? ' has-error' : '' }}">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="text" name="username" class="form-control" placeholder="Username" />
-                                                @if ($errors->has('username'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('username') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <i class="ace-icon fa fa-user"></i>
-                                            </span>
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="text" name="username" class="form-control" placeholder="Username" />
+                                            @if ($errors->has('username'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('username') }}</strong>
+                                                </span>
+                                            @endif
+                                            <i class="ace-icon fa fa-user"></i>
+                                        </span>
                                     </label>
 
                                     <label class="block clearfix {{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="password" name="password" class="form-control" placeholder="Password" />
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
-                                                @endif
-                                                <i class="ace-icon fa fa-lock"></i>
-                                            </span>
+                                        <span class="block input-icon input-icon-right">
+                                            <input type="password" name="password" class="form-control" placeholder="Password" />
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
+                                            <i class="ace-icon fa fa-lock"></i>
+                                        </span>
                                     </label>
+
+                                    @if(session('addEmployee'))
+                                        <div class="alert alert-success">
+                                            <i class="fa fa-check"></i> {{ session('addEmployee') }}
+                                        </div>
+                                    @endif
 
                                     <div class="space"></div>
 
@@ -76,8 +82,6 @@
                                     <div class="space-4"></div>
                                 </fieldset>
                             </form>
-
-
                         </div><!-- /.widget-main -->
 
                         <div class="toolbar clearfix">
@@ -87,15 +91,14 @@
                                     I forgot my password
                                 </a>
                             </div>
-                            <!--
                             <div>
-                                <a href="#" data-target="#signup-box" class="user-signup-link">
-                                    New Employee
+                                <a href="{{ asset('/new_employee') }}" class="user-signup-link">
+                                    Register
                                     <i class="ace-icon fa fa-arrow-right"></i>
                                 </a>
                             </div>
-                            -->
                         </div>
+
                     </div><!-- /.widget-body -->
                 </div><!-- /.login-box -->
 
