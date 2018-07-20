@@ -81,7 +81,7 @@ Route::get('pdf','PdfController@pdf');
 //RESET PASSWORD
 Route::get('ResetPassword',function(){
 
-    \PIS\User::where('usertype','!=',1)->update([
+    \PIS\User::where('username','=',"201800276")->update([
         "password" => bcrypt('123')
     ]);
 
@@ -91,5 +91,8 @@ Route::get('ResetPassword',function(){
 Route::get('CheckVersion',function(){
     return '2';
 });
+
+//REPORT
+Route::get('/no_salary_grade','ReportController@no_salary_grade');
 
 
