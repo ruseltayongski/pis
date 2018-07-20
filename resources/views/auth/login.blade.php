@@ -9,7 +9,7 @@
                 <h1>
                     <img src="{{ asset('public/img/logo.png') }}" />
                     <br>
-                    <b>DOHROH7&nbsp;</b>PIS VERSION 2.2
+                    <b>DOHROH7&nbsp;</b>PIS VERSION 2.1
                 </h1>
             </div>
         </div>
