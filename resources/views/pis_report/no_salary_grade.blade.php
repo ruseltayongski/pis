@@ -10,12 +10,14 @@
         table tr th {
             font-size: 1.1em;
         }
+        td{
+            font-size: .9em;
+        }
     </style>
 </head>
 <body>
 <table class="table table-bordered table-hover">
     <tr class="info">
-        <th></th>
         <th>ID Number</th>
         <th>Name</th>
         <th>Position</th>
@@ -37,10 +39,17 @@
     ?>
     @if($flag && $row->userid != 'admin')
     <tr>
-        <td></td>
-        <td>{{ $row->userid }}</td>
-        <td>{{ $row->fname.' '.$row->mname.' '.$row->lname }}</td>
-        <td>
+        <td width="1%">
+            <?php
+                if( strpos( $row->userid, 'no_userid' ) ) {
+                    echo 'No Userid';
+                } else {
+                    echo $row->userid;
+                }
+            ?>
+        </td>
+        <td width="20%">{{ $row->fname.' '.$row->mname.' '.$row->lname }}</td>
+        <td width="20%">
             <?php
                 if( $position = \PIS\Designation::find($row->designation_id) ) {
                     echo $position->description;
@@ -49,7 +58,7 @@
                 }
             ?>
         </td>
-        <td>
+        <td width="20%">
             <?php
                 if( $division = \PIS\Division::find($row->division_id) ) {
                     echo $division->description;
@@ -58,7 +67,7 @@
                 }
             ?>
         </td>
-        <td>
+        <td width="20%">
             <?php
                 if( $section = \PIS\Section::find($row->division_id) ) {
                     echo $section->description;
@@ -66,8 +75,8 @@
                     echo "No Section";
                 }
             ?>
-        </td>
-        <td>No Monthly Salary</td>
+        </td >
+        <td width="20%">No Monthly Salary</td>
     </tr>
     @endif
     @endforeach

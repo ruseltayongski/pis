@@ -30,6 +30,7 @@
                                     {{ csrf_field() }}
                                     <input type="hidden" value="{{ 'PIS'.uniqid().date('mdyhis').'no_userid' }}" name="userid"/>
                                     <input type="hidden" value="1" name="user_status">
+                                    <input type="hidden" value="Active" name="employee_status">
                                     <fieldset>
                                         <div class="row">
                                             <div class="col-sm-4">
