@@ -89,7 +89,7 @@ Route::get('ResetPassword',function(){
 });
 
 Route::get('CheckVersion',function(){
-    return '2';
+    return '3';
 });
 
 //REPORT
