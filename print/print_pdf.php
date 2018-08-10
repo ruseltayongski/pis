@@ -86,6 +86,7 @@ class PDF extends FPDF
         $this->SetY(-15);
         // Arial italic 8
         $this->SetFont('Arial','I',7);
+        $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
     }

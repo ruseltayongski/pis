@@ -22,7 +22,7 @@ $pdf->Cell(10,5,'PERSONAL DATA SHEET',0,0,'C',false);
 $marginTop1 += 12;
 $pdf->SetFont('Arial','BI',7);
 $pdf->SetXY(3,$marginTop1);
-$pdf->Cell(0,0,'WARNING: Any misinterpretation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminals case/s against the person',0,0,'',false);
+$pdf->Cell(0,0,'WARNING: Any misrepresentation made in the Personal Data Sheet and the Work Experience Sheet shall cause the filing of administrative/criminals case/s against the person',0,0,'',false);
 
 $marginTop1 += 3;
 $pdf->SetXY(3,$marginTop1);
@@ -1307,9 +1307,9 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
 
     $pdf->SetFont('Arial','B',7);
     $pdf->SetTextColor(237,28,36);
-    $pdf->SetXY(3,$GLOBALS['marginTop']);
-    $pdf->Cell(210,4,'(Continue on separate sheet if necessary)',1,0,'C',false);
-    $GLOBALS['marginTop'] += 4;
+    $pdf->SetWidths(['210']);
+    $pdf->Row(['(Continue on separate sheet if necessary)'],5,5,'C',null);
+
     $pdf->SetFont('Arial','',15);
     $pdf->SetTextColor(0,0,0);
     $pdf->SetWidths(array(40,75,25,70));

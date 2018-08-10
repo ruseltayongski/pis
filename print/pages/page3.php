@@ -91,7 +91,7 @@ foreach( $voluntary_work as $row ){
     $voluntaryRowCount++;
 }
 
-for( $j = $voluntaryRowCount; $j <= 7; $j++ ){
+for( $j = $voluntaryRowCount; $j <= 5; $j++ ){
     $pdf->Row(['','','','',''],7,5,'C',null);
     $voluntaryRowCount++;
 }
@@ -204,7 +204,7 @@ foreach( $training_program as $row ){
     $training_programRowCount++;
 }
 
-for( $j = $training_programRowCount; $j <= 15; $j++ ){
+for( $j = $training_programRowCount; $j <= 10; $j++ ){
     $pdf->Row(['','','','','',''],7,5,'C',null);
     $training_programRowCount++;
 }
