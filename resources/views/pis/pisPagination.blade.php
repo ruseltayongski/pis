@@ -36,7 +36,7 @@
                         <a href="#pis_info" role="button" data-backdrop="static" data-link="{{ asset('pisInfo').'/'.$user->userid }}" data-toggle="modal" ><b class="blue">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a>
                     </td>
                     <td>
-                        @if($user->designation_id) {{ \PIS\Designation::find($user->designation_id)->description }} @else {{ $user->position }} @endif
+                        @if($designation = \PIS\Designation::find($user->designation_id)) {{ $designation->description }} @else {{ $user->position }} @endif
                     </td>
                     <td>
                         <label class="orange">@if(isset(Section::find($user->section_id)->description)) {{ Section::find($user->section_id)->description }} @else NO SECTION @endif</label>
