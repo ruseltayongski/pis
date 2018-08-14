@@ -2822,6 +2822,7 @@
                             {value: "SUPPORT TO OPERATIONS (STO)", text: "SUPPORT TO OPERATIONS (STO)" },
                             {value: "PUBLIC HEALTH MANAGEMENT (PHM)", text: "PUBLIC HEALTH MANAGEMENT (PHM)" },
                             {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
+                            {value: "SAA 2018-04-0699", text: "SAA 2018-04-0699" },
                         ],
                         "salary_chargePermanent" : [
                             {value: "RD/ARD", text: "RD/ARD" },
@@ -2831,6 +2832,9 @@
                             {value: "PDO-CEBU", text: "PDO-CEBU" },
                             {value: "PDO-NEGROS", text: "PDO-NEGROS" },
                             {value: "PDO-SIQUIJOR", text: "PDO-SIQUIJOR" },
+                            {value: "PROVINCIAL HEALTH TEAM-CEBU", text: "PROVINCIAL HEALTH TEAM-CEBU" },
+                            {value: "PROVINCIAL HEALTH TEAM-BOHOL", text: "PROVINCIAL HEALTH TEAM-BOHOL" },
+                            {value: "PROVINCIAL HEALTH TEAM-NEGROS AND SIQUIJOR", text: "PROVINCIAL HEALTH TEAM-NEGROS AND SIQUIJOR" },
                         ],
                         "job_status" : [
                             {value: "Permanent", text: "Permanent"},
