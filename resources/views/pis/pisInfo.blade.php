@@ -44,6 +44,10 @@
                 View Profile
             </a>
         @else
+        <button type="button" class="btn btn-sm btn-success">
+            <i class="ace-icon fa fa-pencil"></i>
+            Update USER ID
+        </button>
         <a href="{{ asset('pisProfile').'/'.$user->userid }}" class="btn btn-sm btn-info">
             <i class="ace-icon fa fa-heart-o"></i>
             View Profile
