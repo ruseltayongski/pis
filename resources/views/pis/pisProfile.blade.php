@@ -201,6 +201,7 @@
                                                             <h3 class="lighter block green">Personal Information</h3>
                                                             <div class="profile-user-info">
                                                                 <div class="profile-user-info profile-user-info-striped">
+
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name">Designation</div>
                                                                         <div class="profile-info-value">
@@ -2823,6 +2824,7 @@
                             {value: "PUBLIC HEALTH MANAGEMENT (PHM)", text: "PUBLIC HEALTH MANAGEMENT (PHM)" },
                             {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
                             {value: "SAA 2018-04-0699", text: "SAA 2018-04-0699" },
+                            {value: "SAA 2018-02-0081", text: "SAA 2018-02-0081" },
                         ],
                         "salary_chargePermanent" : [
                             {value: "RD/ARD", text: "RD/ARD" },

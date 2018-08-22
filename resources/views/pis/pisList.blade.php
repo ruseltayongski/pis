@@ -127,7 +127,12 @@
 
             var personal_select = [];
             $.each(<?php echo $personal_select; ?>,function(x,data){
-                personal_select.push({ label:data.fname+" "+data.lname+", "+data.mname , id:data.id });
+                if(data.mname){
+                    var fullname = data.fname+" "+data.lname+", "+data.mname;
+                } else {
+                    var fullname = data.fname+" "+data.lname;
+                }
+                personal_select.push({ label:fullname, id:data.id });
             });
 
             $( "#search" ).catcomplete({

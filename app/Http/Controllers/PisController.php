@@ -64,7 +64,8 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%")
-                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ")
+                    ->orWhereRaw("concat(fname,' ',lname) like '%$keyword%' ");
             })
                 ->orderBy('fname','asc')
                 ->paginate(10);
