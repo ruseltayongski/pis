@@ -37,6 +37,7 @@ Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
+Route::post('/updateUserid','PisController@updateUserid');
 Route::post('/updateFamilyBackground','PisController@updateFamilyBackground');
 Route::post('/updateChildren','PisController@updateChildren');
 Route::post('deleteChildren','pisController@deleteChildren');

@@ -305,6 +305,37 @@ class PisController extends Controller
 
     }
 
+    public function updateUserid(Request $request){
+        $previousId = $request->previousId;
+        $currentId = $request->currentId;
+
+        if($personal_information = Personal_Information::where('userid','=',$previousId)->first()){
+            $personal_information->update([
+                "userid" => $currentId
+            ]);
+        }
+
+        if($user = User::where('username','=',$previousId)->first()){
+            $user->update([
+                "userid" => $currentId
+            ]);
+        }
+
+        if($user_dtr = User_dtr::where('userid','=',$previousId)->first()){
+            $user_dtr->update([
+                "userid" => $currentId
+            ]);
+        }
+
+        if($user_dts = User_dts::where('username','=',$previousId)->first()){
+            $user_dts->update([
+                "userid" => $currentId
+            ]);
+        }
+
+        return "Successfully Updated";
+    }
+
     public function updatePersonalInformation(Request $request){
 
         $id = $request->get('id');
