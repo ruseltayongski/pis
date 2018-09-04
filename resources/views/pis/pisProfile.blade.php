@@ -2811,7 +2811,7 @@
                         "disbursement_type" : [
                             {value: "ATM", text: "ATM"},
                             {value: "CASH_CARD", text: "CASH CARD"},
-                            {value: "NO_CARDS", text: "W/O LBP CARDS"},
+                            {value: "NO_CARD", text: "W/O LBP CARDS"},
                             {value: "UNDER_VTF", text: "UNDER VTF"}
                         ],
                         "salary_chargeJO" : [
