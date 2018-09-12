@@ -439,6 +439,26 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> PHIC NO. </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colphicno">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->phicno)
+                                                                                    echo "<span class='red'>Go to hr to update your PHIC no</span>";
+                                                                                else {
+                                                                                    if($user->phicno){
+                                                                                        echo '<b><u>'.$user->phicno.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CITIZENSHIP: </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="editable_radio personal_information" id="{{ $user->piId }}colcitizenship">{{ $user->citizenship }}</span>
@@ -2385,7 +2405,7 @@
                                 url = "{!! asset('updateOtherInformation') !!}";
                             }
 
-                            if( json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no'  ){
+                            if( json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'  ){
                                 $("#"+this.id).css('color','#307bff');
                                 $("#"+this.id).css({'font-weight': 'bold'});
                             }
