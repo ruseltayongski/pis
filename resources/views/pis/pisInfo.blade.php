@@ -7,7 +7,7 @@
              <div class="info">
                  <h3 class="lighter block green">{{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }}</h3>
                  <div class="desc">{{ $user->position }}</div>
-                 <div class="desc">{{ $user->residential_address }}</div>
+                 <div class="desc">{{ $user->RHouseNo.' '.$user->RStreet.' '.$user->RSubdivision.' '.$user->RBarangay.' '.$user->RMunicipality }}</div>
                  <div class="desc">{{ $user->sex }}</div>
                  <div class="desc">{{ $user->civil_status }}</div>
              </div>

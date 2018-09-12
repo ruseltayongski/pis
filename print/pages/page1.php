@@ -684,10 +684,10 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
-                    $pdf->Cell($width1[$col]+76,4,$user['RSubdivision'],0,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+76,4,$user['PSubdivision'],0,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+50,$marginTop1-.3);
-                    $pdf->Cell($width1[$col]+76,4,$user['RBarangay'],0,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+76,4,$user['PBarangay'],0,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+10,$marginTop1+2);
                     $pdf->Cell($width1[$col],$height1,'Subdivision/Village',0,0,$position1,$colorFlag);
