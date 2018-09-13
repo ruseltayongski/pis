@@ -286,7 +286,7 @@ class PisController extends Controller
         $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $training_program = Training_Program::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
-        $designation = Designation::get();
+        $designation = Designation::orderBy('description')->get();
 
         return view('pis.pisProfile',[
             "section" => $section,
