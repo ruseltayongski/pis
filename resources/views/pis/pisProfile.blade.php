@@ -359,6 +359,26 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
+                                                                        <div class="profile-info-name"> CARD ACCOUNT NUMBER </div>
+                                                                        <div class="profile-info-value">
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$user->account_number)
+                                                                                    echo "<span class='red'>Go to hr to update your account number</span>";
+                                                                                else{
+                                                                                    if($user->account_number){
+                                                                                        echo '<b><u>'.$user->account_number.'</u></b>';
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
+                                                                                    }
+                                                                                }
+                                                                                ?>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="profile-info-row">
                                                                         <div class="profile-info-name"> GSIS ID NO </div>
                                                                         <div class="profile-info-value">
                                                                             <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno">
@@ -1613,7 +1633,7 @@
                              <div class="modal-footer center">\
                                 <button type="submit" class="btn btn-sm btn-success dropzoneSubmit"><i class="ace-icon fa fa-check"></i> Submit</button>\
                                 <button type="button" class="btn btn-sm" data-dismiss="modal"><i class="ace-icon fa fa-times"></i> Cancel</button>\
-                             </d    iv>\
+                             </div>\
                           </div>\
                          </div>\
                         </div>';
@@ -2405,7 +2425,7 @@
                                 url = "{!! asset('updateOtherInformation') !!}";
                             }
 
-                            if( json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'  ){
+                            if( json.column == 'account_number' || json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'  ){
                                 $("#"+this.id).css('color','#307bff');
                                 $("#"+this.id).css({'font-weight': 'bold'});
                             }

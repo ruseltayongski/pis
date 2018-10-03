@@ -24,6 +24,7 @@ class Personal_Information extends Model
         'height',
         'weight',
         'blood_type',
+        'account_number',
         'gsis_idno',
         'gsis_polno',
         'pag_ibigno',
