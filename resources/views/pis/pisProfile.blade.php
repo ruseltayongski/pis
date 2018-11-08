@@ -359,19 +359,20 @@
                                                                     </div>
 
                                                                     <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> CARD ACCOUNT NUMBER </div>
+                                                                        <div class="profile-info-name"> CARD ACCOUNT NUMBER</div>
                                                                         <div class="profile-info-value">
                                                                             <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
                                                                                 <?php
-                                                                                if(!Auth::user()->usertype && !$user->account_number)
-                                                                                    echo "<span class='red'>Go to hr to update your account number</span>";
-                                                                                else{
+                                                                                if(Auth::user()->usertype && Auth::user()->username == "0007"){
                                                                                     if($user->account_number){
                                                                                         echo '<b><u>'.$user->account_number.'</u></b>';
                                                                                     }
                                                                                     else {
                                                                                         echo "<i><span class='red'>Empty</span></i>";
                                                                                     }
+                                                                                }
+                                                                                else{
+                                                                                    echo "<span class='red'>Go to cashier section to update your account number</span>";
                                                                                 }
                                                                                 ?>
                                                                             </span>
