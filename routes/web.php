@@ -97,3 +97,7 @@ Route::get('CheckVersion',function(){
 Route::get('/no_salary_grade','ReportController@no_salary_grade');
 
 
+//API
+Route::post('apiLogin','ApiController@login');
+Route::get('apiCdo/{userid}/{offset}','ApiController@cdo');
+

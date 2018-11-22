@@ -2432,13 +2432,10 @@
                             }
 
                             $.post(url,json,function(result){
-                                console.log(result);
                                 if(Class.includes('children')){
                                     childId = result; //get the primary key
-                                    console.log(result);
                                 }
                             });
-                            console.log(json);
 
                         },
                         error: function(errors) {
@@ -2549,7 +2546,6 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "<?php echo asset('updatePersonalInformation'); ?>";
-                                console.log(json);
                             }
                             else if(columnId == 'government_service'){
                                 $("#"+this.id).css('color','black').html(value);
@@ -2721,7 +2717,6 @@
                                         "_token" : "<?php echo csrf_token(); ?>",
                                     };
 
-                                    console.log(json);
                                     url = "{!! asset('deleteWorkExperience') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
 
@@ -2754,7 +2749,6 @@
 
                                     url = "{!! asset('deleteEducationalBackground') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    console.log(json);
                                 }
                                 else if( columnId == 'otherDelete' ){
                                     json = {
@@ -2765,7 +2759,6 @@
 
                                     url = "{!! asset('deleteOtherInformation') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    console.log(json);
                                 }
                                 else if( columnId == 'voluntaryDelete' ){
                                     json = {
@@ -2792,7 +2785,6 @@
 
                                     url = "{!! asset('deleteTrainingProgram') !!}";
                                     $(this).parents(':eq(1)').fadeOut();
-                                    console.log(json);
                                     certificateLink = '';
                                 }
 
@@ -2985,7 +2977,6 @@
                             }
 
                             var id = this.id;
-                            console.log(json);
                             $.post(url,json,function(result){
                                 console.log(result);
                                 if(json.column == 'division_id'){
