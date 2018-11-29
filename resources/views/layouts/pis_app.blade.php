@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div style="padding:0 15% 0 15%">
+    <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                 <span class="sr-only">Toggle navigation</span>
@@ -382,8 +382,10 @@
 </nav>
 @endif
 
-<div style="padding:2% 15% 2% 15%">
+<div class="container">
+    <div class="space-6"></div>
     @yield('content')
+    <div class="space-6"></div>
 </div>
 
 @if(isset(Request::segments()[0]))
