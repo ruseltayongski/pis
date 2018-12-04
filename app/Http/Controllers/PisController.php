@@ -282,9 +282,9 @@ class PisController extends Controller
         $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $children = Children::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $civil_eligibility = Civil_Eligibility::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
-        $work_experience = Work_Experience::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $work_experience = \DB::connection('mysql')->select("SELECT * FROM `work_experience` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
         $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
-        $training_program = Training_Program::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
+        $training_program = \DB::connection('mysql')->select("SELECT * FROM `training_program` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
         $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $designation = Designation::orderBy('description')->get();
 

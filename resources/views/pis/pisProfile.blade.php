@@ -361,7 +361,7 @@
                                                                     <div class="profile-info-row">
                                                                         <div class="profile-info-name"> CARD ACCOUNT NUMBER</div>
                                                                         <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
+                                                                            <span class="<?php if(Auth::user()->usertype && Auth::user()->username == "0007")  echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
                                                                                 <?php
                                                                                 if(Auth::user()->usertype && Auth::user()->username == "0007"){
                                                                                     if($user->account_number){
