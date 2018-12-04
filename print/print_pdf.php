@@ -16,6 +16,28 @@ function queryFetch($id,$table){
     return $row;
 }
 
+function workExperience($userid){
+    $db=connect();
+    $sql= "SELECT * FROM `work_experience` WHERE userid = ? order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC";
+    $pdo=$db->prepare($sql);
+    $pdo->execute(array($userid));
+    $row=$pdo->fetchAll();
+    $db=null;
+
+    return $row;
+}
+
+function trainingProgram($userid){
+    $db=connect();
+    $sql= "SELECT * FROM `training_program` WHERE userid = ? order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC";
+    $pdo=$db->prepare($sql);
+    $pdo->execute(array($userid));
+    $row=$pdo->fetchAll();
+    $db=null;
+
+    return $row;
+}
+
 function queryFetchAll($id,$table){
     $db=connect();
     $sql="select * from ".$table." where userid=?";
@@ -47,9 +69,9 @@ $family_background = queryFetch($_SESSION['userid'],'family_background');
 $educational_background = queryFetchAll($_SESSION['userid'],'educational_background');
 $childrens = queryFetchAll($_SESSION['userid'],'children');
 $civil_eligibility = queryFetchAll($_SESSION['userid'],'civil_eligibility');
-$work_experience = queryFetchAll($_SESSION['userid'],'work_experience');
+$work_experience = workExperience($_SESSION['userid']);
 $voluntary_work = queryFetchAll($_SESSION['userid'],'voluntary_work');
-$training_program = queryFetchAll($_SESSION['userid'],'training_program');
+$training_program = trainingProgram($_SESSION['userid']);
 $other_information = queryFetchAll($_SESSION['userid'],'other_information');
 
 /**
