@@ -394,7 +394,9 @@ class FileController extends Controller {
                         ->where('userid','NOT LIKE','%no_userid%')
                         ->where('userid','!=','doh7_it')
                         ->where('userid','!=','3075')
+                        ->where('userid','!=','')
                         ->where('userid','NOT LIKE','%DUPLICATE%')
+                        ->orderBy('lname','asc')
                         ->get();
 
 				foreach($employee as $row){
