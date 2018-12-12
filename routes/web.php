@@ -59,9 +59,13 @@ Route::post('/deletePersonalInformation','PisController@deletePersonalInformatio
 Route::get('pisId/{userid}/{paper}','pisController@pisId');
 Route::post('deleteWorkExperience','pisController@deleteWorkExperience');
 
+//excel
 Route::get('excel',array('as'=>'excel.import','uses'=>'FileController@importExportExcelORCSV'))->name('home');
 Route::post('import-csv-excel',array('as'=>'import-csv-excel','uses'=>'FileController@importFileIntoDB'));
 Route::get('download-excel-file/{type}', array('as'=>'excel-file','uses'=>'FileController@downloadExcelFile'));
+Route::get('downloadExcelName', 'FileController@downloadExcelName');
+
+
 Route::get('sync_dts','FileController@sync_dts');
 Route::get('sync_dtr','FileController@sync_dtr');
 Route::get('append_sched','FileController@append_sched');
