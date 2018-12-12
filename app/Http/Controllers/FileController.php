@@ -404,7 +404,7 @@ class FileController extends Controller {
 
 				    $data = array(
 				        $row->userid,
-                        $row->fname.' '.$row->lname.', '.$mname,
+                        $row->lname.' '.$row->fname.', '.$mname,
                     );
                     $sheet->appendRow($data);
                 }
