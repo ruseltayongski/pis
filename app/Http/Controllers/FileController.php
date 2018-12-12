@@ -377,6 +377,40 @@ class FileController extends Controller {
         })->download($type);
     }
 
+    public function downloadExcelName(){
+        \Excel::create('PISemployee', function ($excel) {
+            $excel->sheet('ALL', function($sheet) {
+                $headerColumn = array("Employee ID","Full Name");
+
+                $sheet->appendRow($headerColumn);
+                $sheet->row(1, function($row) {
+                    $row->setFontFamily('Comic Sans MS');
+                    $row->setFontSize(10);
+                    $row->setFontWeight('bold');
+                    $row->setBackground('#FFFF00');
+                });
+
+				$employee = Personal_Information::where('userid','!=','admin')
+                        ->where('userid','NOT LIKE','%no_userid%')
+                        ->where('userid','!=','doh7_it')
+                        ->where('userid','!=','3075')
+                        ->where('userid','NOT LIKE','%DUPLICATE%')
+                        ->get();
+
+				foreach($employee as $row){
+				    !empty($row->mname) ? $mname = strtoupper($row->mname[0]) : $mname = '';
+
+				    $data = array(
+				        $row->userid,
+                        $row->fname.' '.$row->lname.', '.$mname,
+                    );
+                    $sheet->appendRow($data);
+                }
+
+            });
+        })->export('xlsx');
+    }
+
     public function sync_dts(){
         $count = 0;
         foreach(User_dts::get() as $row){
