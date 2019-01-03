@@ -13,6 +13,9 @@ class CreateEducationalBackground extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('educational_background')){
+            return true;
+        }
         Schema::create('educational_background', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

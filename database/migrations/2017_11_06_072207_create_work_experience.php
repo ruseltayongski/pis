@@ -13,6 +13,9 @@ class CreateWorkExperience extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('work_experience')){
+            return true;
+        }
         Schema::create('work_experience', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

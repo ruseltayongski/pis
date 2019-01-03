@@ -419,7 +419,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
         ),
     );
 
-    $width1 = [0,45,45,31,13,13,13,15,15,20]; // 210 default
+    $width1 = [0,43,45,31,13,15,15,13,15,20]; // 210 default
     $marginLeft1 = 3; // 3default
 
     $marginTop1 += 3;
@@ -545,7 +545,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['RHouseNo'],0,0,$position1,$colorFlag);
@@ -574,7 +574,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['RSubdivision'],0,0,$position1,$colorFlag);
@@ -606,7 +606,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'BT';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['RMunicipality'],0,0,$position1,$colorFlag);
@@ -647,7 +647,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['PHouseNo'],0,0,$position1,$colorFlag);
@@ -681,7 +681,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'TBL';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['PSubdivision'],0,0,$position1,$colorFlag);
@@ -713,7 +713,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'BT';
                     $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
-                    $pdf->Cell($width1[$col]+76,4,'',1,0,$position1,$colorFlag);
+                    $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
                     $pdf->SetXY($marginLeft1+14,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['PMunicipality'],0,0,$position1,$colorFlag);
@@ -811,13 +811,13 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $childRow = 1;
                     foreach ( $childrens as $child ) {
                         $pdf->SetXY($marginLeft1,$marginTopChildren);
-                        $pdf->Cell($width1[$col]+41,$height1,$child['name'],1,0,$position1,$colorFlag);
+                        $pdf->Cell($width1[$col]+43,$height1,$child['name'],1,0,$position1,$colorFlag);
                         $marginTopChildren += 6.6;
                         $childRow++;
                     }
                     for ( $i = $childRow; $i <= 13; $i++ ){
                         $pdf->SetXY($marginLeft1,$marginTopChildren);
-                        $pdf->Cell($width1[$col]+41,$height1,'',1,0,$position1,$colorFlag);
+                        $pdf->Cell($width1[$col]+43,$height1,'',1,0,$position1,$colorFlag);
                         $marginTopChildren += 6.6;
                     }
                 }
@@ -1123,7 +1123,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $border1 = 'TB';
                 }
                 elseif( $col == 7 ){
-                    $pdf->SetFont('Arial','',6);
+                    $pdf->SetFont('Arial','',5.2);
                     $pdf->SetXY($marginLeft1,$marginTop1-1);
                     $pdf->Cell($width1[$col],$height1,'Highest Level/',0,0,$position1,$colorFlag);
 
@@ -1201,9 +1201,9 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
         array("","Female","Married","Separated","")
     );
     for ( $row=1; $row<=4; $row++ ) {
-        $marginLeftBox = 50;
-        $marginLeftCheck = 49.5;
-        $marginLeftCell = 53;
+        $marginLeftBox = 48;
+        $marginLeftCheck = 47.5;
+        $marginLeftCell = 51;
         for ( $col=1; $col<=2; $col++ ) {
             if($col == 2 && $row == 4){
                 break;
@@ -1273,7 +1273,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
     $border1 =  '1';
     $columnData = ['level','name_of_school','degree_course','poa_from','poa_to','units_earned','year_graduated','scholarship',''];
     $rowCount = 0;
-    $pdf->SetWidths(array(45,45,44,13,13,15,15,20));
+    $pdf->SetWidths(array(43,45,44,15,15,13,15,20));
     $pdf->SetXY(3,$marginTop1);
 
     $GLOBALS['marginTop'] = $marginTop1;
@@ -1305,16 +1305,5 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
 
     }
 
-    $pdf->SetFont('Arial','B',7);
-    $pdf->SetTextColor(237,28,36);
-    $pdf->SetWidths(['210']);
-    $pdf->Row(['(Continue on separate sheet if necessary)'],5,5,'C',null);
-
-    $pdf->SetFont('Arial','',15);
-    $pdf->SetTextColor(0,0,0);
-    $pdf->SetWidths(array(40,75,25,70));
-    $pdf->SetXY(3,$GLOBALS['marginTop']);
-    $rectColor = ['r' => 207,'g' => 207,'b' => '207','rectCol' => '0|2'];
-    $pdf->Row(['SIGNATURE','','DATE',''],14,7,'C',$rectColor);
 
 ?>

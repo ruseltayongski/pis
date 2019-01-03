@@ -13,6 +13,9 @@ class CreateCivilEligibility extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('civil_eligibility')){
+            return true;
+        }
         Schema::create('civil_eligibility', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

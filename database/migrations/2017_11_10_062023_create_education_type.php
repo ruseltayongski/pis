@@ -13,6 +13,9 @@ class CreateEducationType extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('education_type')){
+            return true;
+        }
         Schema::create("education_type",function($table){
             $table->increments('id');
             $table->string('description')->nullable();

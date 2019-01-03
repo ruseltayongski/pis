@@ -105,12 +105,44 @@ class PDF extends FPDF
     function Footer()
     {
         // Position at 1.5 cm from bottom
+        $this->SetY(-21);
+        $this->SetFont('Arial','',10);
+        $this->Cell(210,6,'FOOTER'.$this->PageNo().' of {nb}',1,0,'R',false);
+
         $this->SetY(-15);
         // Arial italic 8
         $this->SetFont('Arial','I',7);
         $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
+    }
+
+    function tayong($data)
+    {
+        //Calculate the height of the row
+        $nb=0;
+        for($i=0;$i<count($data);$i++)
+            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
+        $h=5*$nb;
+        //Issue a page break first if needed
+        $this->CheckPageBreak($h);
+        //Draw the cells of the row
+        for($i=0;$i<count($data);$i++)
+        {
+            $w=$this->widths[$i];
+            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
+            //Save the current position
+            $x=$this->GetX();
+            $y=$this->GetY();
+            //Draw the border
+            $this->Rect($x,$y,$w,$h);
+            //Print the text
+            $this->MultiCell($w,5,$data[$i],0,$a);
+            //Put the position to the right of the cell
+            $this->SetXY($x+$w,$y);
+        }
+        //Go to the next line
+        $this->Ln($h);
     }
 
     function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
@@ -230,12 +262,12 @@ $pdf->AliasNbPages();
 
 $pdf->AddPage();
 include 'pages/page1.php';
-$pdf->AddPage();
+/*$pdf->AddPage();
 include 'pages/page2.php';
 $pdf->AddPage();
 include 'pages/page3.php';
 $pdf->AddPage();
-include 'pages/page4.php';
+include 'pages/page4.php';*/
 
 $pdf->Output();
 

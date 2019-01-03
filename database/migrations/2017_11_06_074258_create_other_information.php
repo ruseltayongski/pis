@@ -13,6 +13,9 @@ class CreateOtherInformation extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('other_information')){
+            return true;
+        }
         Schema::create('other_information', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

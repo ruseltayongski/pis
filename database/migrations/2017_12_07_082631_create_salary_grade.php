@@ -13,6 +13,9 @@ class CreateSalaryGrade extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('salary_grade')){
+            return true;
+        }
         Schema::create('salary_grade', function (Blueprint $table) {
             $table->increments('id');
             $table->text('salary_tranche')->nullable();
