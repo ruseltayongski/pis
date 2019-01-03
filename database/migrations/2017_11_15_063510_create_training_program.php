@@ -13,6 +13,9 @@ class CreateTrainingProgram extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('training_program')){
+            return true;
+        }
         Schema::create('training_program', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

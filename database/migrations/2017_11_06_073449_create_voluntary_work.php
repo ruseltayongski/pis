@@ -13,6 +13,9 @@ class CreateVoluntaryWork extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('voluntary_work')){
+            return true;
+        }
         Schema::create('voluntary_work', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

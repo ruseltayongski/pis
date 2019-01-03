@@ -14,6 +14,7 @@ use PIS\Family_Background;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use PIS\SalaryGrade;
+use PIS\Survey;
 use PIS\Training_Program;
 use PIS\User;
 use PIS\User_dtr;
@@ -271,8 +272,10 @@ class PisController extends Controller
         $user = DB::table('personal_information as pi')
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
             ->leftjoin('children', 'pi.userid', '=', 'children.userid')
+            ->leftjoin('survey','pi.userid','=','survey.userid')
             ->where('pi.userid',$finalId)
                 ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
+                'survey.*','survey.userid as surveyUserid',
                 'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
             ->get();
 
@@ -364,6 +367,23 @@ class PisController extends Controller
         Personal_Information::where('id',$id)->first()->update($arrayValue);
 
         return 'Successfully Updated Personal Information';
+    }
+
+    public function updateSurvey(Request $request){
+
+        $userid = $request->get('userid');
+        $column = $request->get('column');
+        $value = $request->get('value');
+
+        Survey::updateOrCreate(
+            ['userid'=>$userid],
+            [
+                "userid" => $userid,
+                $column=>$value
+            ]
+        );
+
+        return 'Successfully Updated Survey';
     }
 
     public function updateChildren(Request $request)

@@ -13,6 +13,9 @@ class CreateFamilyBackground extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('family_background')){
+            return true;
+        }
         Schema::create('family_background', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid')->nullable();

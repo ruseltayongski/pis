@@ -13,6 +13,9 @@ class CreateTardiness extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('password_resets')){
+            return true;
+        }
         Schema::create('tardiness', function (Blueprint $table) {
             $table->increments('id');
             $table->text('userid');

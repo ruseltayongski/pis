@@ -13,6 +13,9 @@ class CreateChildren extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('children')){
+            return true;
+        }
         Schema::create('children',function($table){
             $table->increments('id');
             $table->text('userid')->nullable();

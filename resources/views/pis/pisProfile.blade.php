@@ -16,7 +16,9 @@
         u{
             color: #307bff;
         }
-
+        .margin-left-50{
+            margin-left:50px;
+        }
     </style>
     <div class="main-content">
         <div class="main-content-inner">
@@ -49,8 +51,8 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
-                        <ul class="nav nav-tabs padding-18">
-                            <li class="active">
+                        <ul class="nav nav-tabs">
+                            <li>
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -98,14 +100,12 @@
                                     Other Information
                                 </a>
                             </li>
-                            <!--
-                            <li >
-                                <a data-toggle="tab" href="#other_information2">
+                            <li class="active">
+                                <a data-toggle="tab" href="#survey">
                                     <i class="grey ace-icon fa fa-info bigger-120"></i>
-                                    Other Information(2)
+                                    Survey
                                 </a>
                             </li>
-                            -->
                         </ul>
                         <div class="hr dotted"></div>
 
@@ -113,9 +113,6 @@
                             <div id="user-profile-1" class="user-profile row">
                                 <div class="col-xs-12 col-sm-3 center">
                                     <div>
-                                        <div class="testAppend">
-
-                                        </div>
                                         <span class="profile-picture">
                                             <a href="#">
                                             <img id="avatar_picture" class="img-responsive" alt="Alex's Avatar" src="
@@ -145,7 +142,7 @@
                                         </span>
                                         <div class="rating inline"></div>
                                         <div class="space-4"></div>
-                                        <div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+                                        <div class="width-90 label label-info label-xlg arrowed-in arrowed-in-right">
                                             <div class="inline position-relative">
                                                 <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
                                                     <i class="ace-icon fa fa-circle light-green"></i>
@@ -189,1090 +186,1106 @@
                                 <div class="col-xs-12 col-sm-9">
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
-                                            <div class="tab-content no-border padding-5">
-                                                <div id="personal_information" class="tab-pane fade in active">
-                                                    <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Personal Information</h3>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
+                                            <div class="tab-content no-border">
+                                                <div id="personal_information" class="tab-pane fade row">
+                                                    <div class="alert alert-info">
+                                                        <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                        _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                        __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                    </div>
+                                                    <h3 class="lighter block green">Personal Information</h3>
+                                                    <div class="profile-user-info-row">
+                                                        <div class="profile-user-info-row profile-user-info-striped">
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Designation</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldesignation_id"><?php if(isset(\PIS\Designation::find($user->designation_id)->description)) echo \PIS\Designation::find($user->designation_id)->description; else echo 'NO DESIGNATION' ?></span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Job Status</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}coljob_status">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->job_status)
-                                                                                    echo "<span class='red'>Go to hr to update your job status</span>";
-                                                                                else {
-                                                                                    if($user->job_status){
-                                                                                        echo '<b><u>'.$user->job_status.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Division</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldivision_id">@if($user->division_id){{ \PIS\Division::find($user->division_id)->description }}@endif</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Section</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}colsection_id">@if(isset(\PIS\Section::find($user->section_id)->description)){{ \PIS\Section::find($user->section_id)->description }}@endif</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Disbursement Type</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">
-                                                                                <?php
-                                                                                if($user->disbursement_type == 'CASH_CARD')
-                                                                                    echo 'CASH CARD';
-                                                                                elseif ($user->disbursement_type == 'NO_CARDS')
-                                                                                    echo 'W/O LBP CARDS';
-                                                                                elseif ($user->disbursement_type == 'UNDER_VTF')
-                                                                                    echo 'UNDER VTF';
-                                                                                else
-                                                                                    echo $user->disbursement_type;
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">@if( Auth::user()->usertype )<small>value of salary charge will change when you change the job status </small> - @endif Salary Charge</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}colsalary_charge">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->salary_charge)
-                                                                                    echo "<span class='red'>Go to hr to update your salary charge</span>";
-                                                                                else {
-                                                                                    if($user->salary_charge){
-                                                                                        echo '<b><u>'.$user->salary_charge.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> LASTNAME </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> FIRSTNAME </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colfname">{{ $user->fname }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> MIDDLE NAME </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colmname">{{ $user->mname }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> NAME EXTENSION(JR,,SR): </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colname_extension">{{ $user->name_extension }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> DATE OF BIRTH </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colpdate_of_birth">{{ $user->date_of_birth }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> PLACE OF BIRTH </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colplace_of_birth">{{ $user->place_of_birth }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> SEX </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colsex">{{ $user->sex }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> CIVIL STATUS </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colcivil_status">{{ $user->civil_status }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> HEIGHT (m) </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colheight">{{ $user->height }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> WEIGHT (kg) </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colweight">{{ $user->weight }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> BLOOD TYPE </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colblood_type">{{ $user->blood_type }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> CARD ACCOUNT NUMBER</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype && Auth::user()->username == "0007")  echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
-                                                                                <?php
-                                                                                if(Auth::user()->usertype && Auth::user()->username == "0007"){
-                                                                                    if($user->account_number){
-                                                                                        echo '<b><u>'.$user->account_number.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                else{
-                                                                                    echo "<span class='red'>Go to cashier section to update your account number</span>";
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> GSIS ID NO </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->gsis_idno)
-                                                                                    echo "<span class='red'>Go to hr to update your gsis idno</span>";
-                                                                                else{
-                                                                                    if($user->gsis_idno){
-                                                                                        echo '<b><u>'.$user->gsis_idno.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> PAG-IBIG ID NO. </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->pag_ibigno)
-                                                                                    echo "<span class='red'>Go to hr to update your pag-ibig no</span>";
-                                                                                else{
-                                                                                    if($user->pag_ibigno){
-                                                                                        echo '<b><u>'.$user->pag_ibigno.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> SSS NO. </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->sssno)
-                                                                                    echo "<span class='red'>Go to hr to update your sss no</span>";
-                                                                                else{
-                                                                                    if($user->sssno){
-                                                                                        echo '<b><u>'.$user->sssno.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> TIN NO. </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->tin_no)
-                                                                                    echo "<span class='red'>Go to hr to update your TIN no</span>";
-                                                                                else {
-                                                                                    if($user->tin_no){
-                                                                                        echo '<b><u>'.$user->tin_no.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> PHIC NO. </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colphicno">
-                                                                                <?php
-                                                                                if(!Auth::user()->usertype && !$user->phicno)
-                                                                                    echo "<span class='red'>Go to hr to update your PHIC no</span>";
-                                                                                else {
-                                                                                    if($user->phicno){
-                                                                                        echo '<b><u>'.$user->phicno.'</u></b>';
-                                                                                    }
-                                                                                    else {
-                                                                                        echo "<i><span class='red'>Empty</span></i>";
-                                                                                    }
-                                                                                }
-                                                                                ?>
-                                                                            </span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> CITIZENSHIP: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable_radio personal_information" id="{{ $user->piId }}colcitizenship">{{ $user->citizenship }}</span>
-                                                                        </div>
-                                                                    </div>
-
-
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> ZIP CODE: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colregion_zip">{{ $user->region_zip }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> TELEPHONE NO: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}coltelno">{{ $user->telno }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> CELL NO: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colcellno">{{ $user->cellno }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> EMAIL ADDRESS: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colemail_address">{{ $user->email_address }}</span>
-                                                                        </div>
-                                                                    </div>
-
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">Designation</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_select personal_information" id="{{ $user->piId }}coldesignation_id"><?php if(isset(\PIS\Designation::find($user->designation_id)->description)) echo \PIS\Designation::find($user->designation_id)->description; else echo 'NO DESIGNATION' ?></span>
                                                                 </div>
                                                             </div>
 
-                                                            <h5 class="lighter block orange">Residential Address</h5>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> House/Block/Lot No: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRHouseNo">{{ $user->RHouseNo }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Street: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRStreet">{{ $user->RStreet}}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Subdivision/Village: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRSubdivision">{{ $user->RSubdivision }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Barangay: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRBarangay">{{ $user->RBarangay }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> City / Municipality: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRMunicipality">{{ $user->RMunicipality }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Province: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRProvince">{{ $user->RProvince }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Zip Code: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colRZip_code">{{ $user->RZip_code }}</span>
-                                                                        </div>
-                                                                    </div>
-
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">Job Status</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}coljob_status">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->job_status)
+                                                                            echo "<span class='red'>Please Please go to hr to update your job status</span>";
+                                                                        else {
+                                                                            if($user->job_status){
+                                                                                echo '<b><u>'.$user->job_status.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
                                                                 </div>
                                                             </div>
 
-                                                            <h5 class="lighter block blue">Permanent Address</h5>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> House/Block/Lot No: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPHouseNo">{{ $user->PHouseNo }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Street: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPStreet">{{ $user->PStreet }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Subdivision/Village: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPSubdivision">{{ $user->PSubdivision }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Barangay: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPBarangay">{{ $user->PBarangay }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> City / Municipality: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPMunicipality">{{ $user->PMunicipality }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Province: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPProvince">{{ $user->PProvince }}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name"> Zip Code: </div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable personal_information" id="{{ $user->piId }}colPZip_code">{{ $user->PZip_code }}</span>
-                                                                        </div>
-                                                                    </div>
-
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">Division</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_select personal_information" id="{{ $user->piId }}coldivision_id">@if($user->division_id){{ \PIS\Division::find($user->division_id)->description }}@endif</span>
                                                                 </div>
                                                             </div>
 
-                                                        </div><!-- /.col -->
-                                                    </div><!-- /.row -->
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">Section</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_select personal_information" id="{{ $user->piId }}colsection_id">@if(isset(\PIS\Section::find($user->section_id)->description)){{ \PIS\Section::find($user->section_id)->description }}@endif</span>
+                                                                </div>
+                                                            </div>
 
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">Disbursement Type</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_select personal_information" id="{{ $user->piId }}coldisbursement_type">
+                                                                        <?php
+                                                                        if($user->disbursement_type == 'CASH_CARD')
+                                                                            echo 'CASH CARD';
+                                                                        elseif ($user->disbursement_type == 'NO_CARDS')
+                                                                            echo 'W/O LBP CARDS';
+                                                                        elseif ($user->disbursement_type == 'UNDER_VTF')
+                                                                            echo 'UNDER VTF';
+                                                                        else
+                                                                            echo $user->disbursement_type;
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name">@if( Auth::user()->usertype )<small>value of salary charge will change when you change the job status </small> - @endif Salary Charge</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="@if( Auth::user()->usertype ) editable_select @endif personal_information" id="{{ $user->piId }}colsalary_charge">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->salary_charge)
+                                                                            echo "<span class='red'>Please go to hr to update your salary charge</span>";
+                                                                        else {
+                                                                            if($user->salary_charge){
+                                                                                echo '<b><u>'.$user->salary_charge.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> LASTNAME </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}collname">{{ $user->lname }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> FIRSTNAME </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colfname">{{ $user->fname }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> MIDDLE NAME </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colmname">{{ $user->mname }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> NAME EXTENSION(JR,,SR): </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colname_extension">{{ $user->name_extension }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> DATE OF BIRTH </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_radio personal_information" id="{{ $user->piId }}colpdate_of_birth">{{ $user->date_of_birth }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> PLACE OF BIRTH </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colplace_of_birth">{{ $user->place_of_birth }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> SEX </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_radio personal_information" id="{{ $user->piId }}colsex">{{ $user->sex }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> CIVIL STATUS </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_radio personal_information" id="{{ $user->piId }}colcivil_status">{{ $user->civil_status }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> HEIGHT (m) </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colheight">{{ $user->height }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> WEIGHT (kg) </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colweight">{{ $user->weight }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> BLOOD TYPE </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colblood_type">{{ $user->blood_type }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> CARD ACCOUNT NUMBER</div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype && Auth::user()->username == "0007")  echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
+                                                                        <?php
+                                                                        if(Auth::user()->usertype && Auth::user()->username == "0007"){
+                                                                            if($user->account_number){
+                                                                                echo '<b><u>'.$user->account_number.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        else{
+                                                                            echo "<span class='red'>Please go to cashier section to update your account number</span>";
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> GSIS ID NO </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->gsis_idno)
+                                                                            echo "<span class='red'>Please go to hr to update your gsis idno</span>";
+                                                                        else{
+                                                                            if($user->gsis_idno){
+                                                                                echo '<b><u>'.$user->gsis_idno.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> PAG-IBIG ID NO. </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->pag_ibigno)
+                                                                            echo "<span class='red'>Please go to hr to update your pag-ibig no</span>";
+                                                                        else{
+                                                                            if($user->pag_ibigno){
+                                                                                echo '<b><u>'.$user->pag_ibigno.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> SSS NO. </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->sssno)
+                                                                            echo "<span class='red'>Please go to hr to update your sss no</span>";
+                                                                        else{
+                                                                            if($user->sssno){
+                                                                                echo '<b><u>'.$user->sssno.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> TIN NO. </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->tin_no)
+                                                                            echo "<span class='red'>Please go to hr to update your TIN no</span>";
+                                                                        else {
+                                                                            if($user->tin_no){
+                                                                                echo '<b><u>'.$user->tin_no.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> PHIC NO. </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colphicno">
+                                                                        <?php
+                                                                        if(!Auth::user()->usertype && !$user->phicno)
+                                                                            echo "<span class='red'>Please go to hr to update your PHIC no</span>";
+                                                                        else {
+                                                                            if($user->phicno){
+                                                                                echo '<b><u>'.$user->phicno.'</u></b>';
+                                                                            }
+                                                                            else {
+                                                                                echo "<i><span class='red'>Empty</span></i>";
+                                                                            }
+                                                                        }
+                                                                        ?>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> CITIZENSHIP: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable_radio personal_information" id="{{ $user->piId }}colcitizenship">{{ $user->citizenship }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> ZIP CODE: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colregion_zip">{{ $user->region_zip }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> TELEPHONE NO: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}coltelno">{{ $user->telno }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> CELL NO: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colcellno">{{ $user->cellno }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> EMAIL ADDRESS: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colemail_address">{{ $user->email_address }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <h5 class="lighter block orange">Residential Address</h5>
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-user-info profile-user-info-striped">
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> House/Block/Lot No: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRHouseNo">{{ $user->RHouseNo }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Street: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRStreet">{{ $user->RStreet}}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Subdivision/Village: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRSubdivision">{{ $user->RSubdivision }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Barangay: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRBarangay">{{ $user->RBarangay }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> City / Municipality: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRMunicipality">{{ $user->RMunicipality }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Province: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRProvince">{{ $user->RProvince }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Zip Code: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colRZip_code">{{ $user->RZip_code }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <h5 class="lighter block blue">Permanent Address</h5>
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-user-info profile-user-info-striped">
+
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> House/Block/Lot No: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPHouseNo">{{ $user->PHouseNo }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Street: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPStreet">{{ $user->PStreet }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Subdivision/Village: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPSubdivision">{{ $user->PSubdivision }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Barangay: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPBarangay">{{ $user->PBarangay }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> City / Municipality: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPMunicipality">{{ $user->PMunicipality }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Province: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPProvince">{{ $user->PProvince }}</span>
+                                                                </div>
+                                                            </div>
+                                                            <div class="profile-info-row">
+                                                                <div class="profile-info-name"> Zip Code: </div>
+                                                                <div class="profile-info-value">
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colPZip_code">{{ $user->PZip_code }}</span>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
                                                 </div><!-- /#personal information -->
 
                                                 <div id="family_background" class="tab-pane fade">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Family Background</h3>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Spouse Surname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsln">{{ $user->sln }}</span>
-                                                                        </div>
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Family Background</h3>
+                                                        <div class="profile-user-info-row row">
+                                                            <div class="profile-user-info profile-user-info-striped">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Spouse Surname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsln">{{ $user->sln }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Spouse Firstname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsfn">{{ $user->sfn }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Spouse Firstname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsfn">{{ $user->sfn }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Spouse Middlename:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsmn">{{ $user->smn }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Spouse Middlename:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsmn">{{ $user->smn }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Spouse Name Extension(JR,,SR):</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsne">{{ $user->sne }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Spouse Name Extension(JR,,SR):</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsne">{{ $user->sne }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Occupation:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsoccu">{{ $user->soccu }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Occupation:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsoccu">{{ $user->soccu }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Employer/Business Name:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colsbadd">{{ $user->sbadd }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Employer/Business Name:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsbadd">{{ $user->sbadd }}</span>
                                                                     </div>
+                                                                </div>
 
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Telephone No:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colstelno">{{ $user->stelno }}</span>
-                                                                        </div>
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Telephone No:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colstelno">{{ $user->stelno }}</span>
                                                                     </div>
                                                                 </div>
                                                             </div>
+                                                        </div>
 
-                                                            <h5 class="lighter block blue">Name of children</h5>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped" id="children_append">
+                                                        <h5 class="lighter block blue">Name of children</h5>
+                                                        <div class="profile-user-info-row row">
+                                                            <div class="profile-user-info profile-user-info-striped" id="children_append">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name warning"><b><i>NAME of CHILDREN (Write full name):</i></b></div>
+                                                                    <div class="profile-info-value pull-left">
+                                                                        <span class="editable_picker"><b><i>DATE OF BIRTH (mm/dd/yyyy)</i></b></span>
+                                                                    </div>
+                                                                    <div class="profile-info-value pull-right">
+                                                                        <b><i>Options</i></b>
+                                                                    </div>
+                                                                </div>
+                                                                <?php $childrenCount = 0; ?>
+                                                                @foreach($children as $row)
+                                                                    <?php $childrenCount++; ?>
                                                                     <div class="profile-info-row">
-                                                                        <div class="profile-info-name warning"><b><i>NAME of CHILDREN (Write full name):</i></b></div>
+                                                                        <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->id }}colcname">{{ $row->name }}</div>
                                                                         <div class="profile-info-value pull-left">
-                                                                            <span class="editable_picker"><b><i>DATE OF BIRTH (mm/dd/yyyy)</i></b></span>
+                                                                            <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->id }}colcdate_of_birth">{{ $row->date_of_birth }}</span>
                                                                         </div>
-                                                                        <div class="profile-info-value pull-right">
-                                                                            <b><i>Options</i></b>
+                                                                        <div class="pull-right" style="margin-right:5%;">
+                                                                            <span class="editable_radio children" id="{{ 'c_id'.$row->id.'colchildrenDelete' }}"><i class="fa fa-close"></i></span>
                                                                         </div>
                                                                     </div>
-                                                                    <?php $childrenCount = 0; ?>
-                                                                    @foreach($children as $row)
-                                                                        <?php $childrenCount++; ?>
-                                                                        <div class="profile-info-row">
-                                                                            <div class="profile-info-name editable children" id="{{ 'childrenName'.$childrenCount.'c_id'.$row->id }}colcname">{{ $row->name }}</div>
-                                                                            <div class="profile-info-value pull-left">
-                                                                                <span class="editable_radio children" id="{{ 'childrenDOB'.$childrenCount.'c_id'.$row->id }}colcdate_of_birth">{{ $row->date_of_birth }}</span>
-                                                                            </div>
-                                                                            <div class="pull-right" style="margin-right:5%;">
-                                                                                <span class="editable_radio children" id="{{ 'c_id'.$row->id.'colchildrenDelete' }}"><i class="fa fa-close"></i></span>
-                                                                            </div>
-                                                                        </div>
-                                                                    @endforeach
-                                                                </div>
+                                                                @endforeach
                                                             </div>
-                                                            <div style="padding-right: 3%;padding-top: 1%">
-                                                                <a href="#" class="pull-right red" id="childrenAdd"><i class="fa fa-plus"></i> Add Children</a>
-                                                            </div>
+                                                        </div>
+                                                        <div style="padding-right: 3%;padding-top: 1%">
+                                                            <a href="#" class="pull-right red" id="childrenAdd"><i class="fa fa-plus"></i> Add Children</a>
+                                                        </div>
 
-                                                            <h5 class="lighter block blue">Name of parent</h5>
-                                                            <div class="profile-user-info">
-                                                                <div class="profile-user-info profile-user-info-striped">
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Father Lastname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfln">{{ $user->fln }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Father Firstname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colffn">{{ $user->ffn }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Father Middle Name:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfmn">{{ $user->fmn }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Father NameExtension(JR,,SR):</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colfne">{{ $user->fne }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Mother Maidenname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmmln">{{ $user->mmln }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Mother Surname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colms">{{ $user->ms }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Mother Firstname:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmfn">{{ $user->mfn }}</span>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="profile-info-row">
-                                                                        <div class="profile-info-name">Mother Middle Name:</div>
-                                                                        <div class="profile-info-value">
-                                                                            <span class="editable family_background" id="{{ $user->piUserid }}colmmn">{{ $user->mmn }}</span>
-                                                                        </div>
+                                                        <h5 class="lighter block blue">Name of parent</h5>
+                                                        <div class="profile-user-info-row row">
+                                                            <div class="profile-user-info profile-user-info-striped">
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Father Lastname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colfln">{{ $user->fln }}</span>
                                                                     </div>
                                                                 </div>
-                                                            </div> <!-- PARENT -->
-                                                            <div class="hr hr-8 dotted"></div>
 
-                                                        </div><!-- /.col -->
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Father Firstname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colffn">{{ $user->ffn }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Father Middle Name:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colfmn">{{ $user->fmn }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Father NameExtension(JR,,SR):</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colfne">{{ $user->fne }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Mother Maidenname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colmmln">{{ $user->mmln }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Mother Surname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colms">{{ $user->ms }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Mother Firstname:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colmfn">{{ $user->mfn }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Mother Middle Name:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colmmn">{{ $user->mmn }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div> <!-- PARENT -->
+                                                        <div class="hr hr-8 dotted"></div>
                                                     </div><!-- /.row -->
                                                 </div><!-- /#family background -->
 
                                                 <div id="educational_background" class="fade tab-pane">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Educational Backgound</h3>
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-list table-hover table-striped">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center">Education Type</th>
-                                                                        <th class="center">Name of School<br>(Write in full)</th>
-                                                                        <th class="center">Education/degree/course<br>(Write in full)</th>
-                                                                        <th class="center">Period of Attendance from</th>
-                                                                        <th class="center">Period of Attendance to</th>
-                                                                        <th class="center">Highest level/units earned<br>(if not graduated)</th>
-                                                                        <th class="center">Year Graduated</th>
-                                                                        <th class="center">Scholarship/academic<br> honor receive</th>
-                                                                        <th class="center">Option</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody id="education_append">
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Educational Background</h3>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center">Education Type</th>
+                                                                    <th class="center">Name of School<br>(Write in full)</th>
+                                                                    <th class="center">Education/degree/course<br>(Write in full)</th>
+                                                                    <th class="center">Period of Attendance from</th>
+                                                                    <th class="center">Period of Attendance to</th>
+                                                                    <th class="center">Highest level/units earned<br>(if not graduated)</th>
+                                                                    <th class="center">Year Graduated</th>
+                                                                    <th class="center">Scholarship/academic<br> honor receive</th>
+                                                                    <th class="center">Option</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="education_append">
+                                                                <?php
+                                                                    $education_exist = array();
+                                                                    $educationalBackgroundRow = 0;
+                                                                ?>
+                                                                @foreach($educationalBackground as $row)
                                                                     <?php
-                                                                        $education_exist = array();
-                                                                        $educationalBackgroundRow = 0;
+                                                                        $education_exist[] = $row->level;
+                                                                        $educationalBackgroundRow++;
                                                                     ?>
-                                                                    @foreach($educationalBackground as $row)
-                                                                        <?php
-                                                                            $education_exist[] = $row->level;
-                                                                            $educationalBackgroundRow++;
-                                                                        ?>
-                                                                        <tr id="">
-                                                                            <td class="center">
+                                                                    <tr id="">
+                                                                        <td class="center">
+                                                                            <?php
+                                                                                if(isset(\PIS\EducationType::find($row->level)->description)){
+                                                                                    $educationTypeDescription = \PIS\EducationType::find($row->level)->description;
+                                                                                    $educationTypeId = $row->id.'collevel'.$row->level;
+                                                                                } else {
+                                                                                    $educationTypeDescription = '';
+                                                                                    $educationTypeId = $row->id.'collevel'.$educationTypeDescription;
+                                                                                }
+                                                                            ?>
+                                                                            <span class="editable_select educational_background" id="{{ $educationTypeId }}">
                                                                                 <?php
-                                                                                    if(isset(\PIS\EducationType::find($row->level)->description)){
-                                                                                        $educationTypeDescription = \PIS\EducationType::find($row->level)->description;
-                                                                                        $educationTypeId = $row->id.'collevel'.$row->level;
-                                                                                    } else {
-                                                                                        $educationTypeDescription = '';
-                                                                                        $educationTypeId = $row->id.'collevel'.$educationTypeDescription;
+                                                                                    if($educationTypeDescription){
+                                                                                        echo $educationTypeDescription;
+                                                                                    }
+                                                                                    else {
+                                                                                        echo "<i><span class='red'>Empty</span></i>";
                                                                                     }
                                                                                 ?>
-                                                                                <span class="editable_select educational_background" id="{{ $educationTypeId }}">
-                                                                                    <?php
-                                                                                        if($educationTypeDescription){
-                                                                                            echo $educationTypeDescription;
-                                                                                        }
-                                                                                        else {
-                                                                                            echo "<i><span class='red'>Empty</span></i>";
-                                                                                        }
-                                                                                    ?>
-                                                                                </span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colname_of_school">{{ $row->name_of_school }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}coldegree_course">{{ $row->degree_course }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_from">{{ $row->poa_from }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colpoa_to">{{ $row->poa_to }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colunits_earned">{{ $row->units_earned }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colyear_graduated">{{ $row->year_graduated }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $row->id }}colscholarship">{{ $row->scholarship }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable_radio civil_eligibility" id="{{ $row->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
-                                                                            </td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    @foreach($education_type as $eduType)
-                                                                        @if(!in_array($eduType->id,$education_exist))
-                                                                        <?php $educationalBackgroundRow++; ?>
-                                                                        <tr id="{{ $educationalBackgroundRow.'education'.str_random(10).date('Y-').$user->id.date('mdHis') }}">
-                                                                            <td class="center">
-                                                                                <span class="editable_select educational_background" id="{{ $educationalBackgroundRow.'collevel'.$eduType->id }}">{{ $eduType->description }}</span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colname_of_school' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'coldegree_course' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_from' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_to' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colunits_earned' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colyear_graduated' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colscholarship' }}"></span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="editable_radio civil_eligibility" id="{{ 'no_id'.$eduType->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
-                                                                            </td>
-                                                                        </tr>
-                                                                        @endif
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                                <a href="#" class="pull-right red" id="educationAdd"><i class="fa fa-plus"></i> Add Educational Background</a>
-                                                            </div>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colname_of_school">{{ $row->name_of_school }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}coldegree_course">{{ $row->degree_course }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colpoa_from">{{ $row->poa_from }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colpoa_to">{{ $row->poa_to }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colunits_earned">{{ $row->units_earned }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colyear_graduated">{{ $row->year_graduated }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $row->id }}colscholarship">{{ $row->scholarship }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable_radio civil_eligibility" id="{{ $row->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                @foreach($education_type as $eduType)
+                                                                    @if(!in_array($eduType->id,$education_exist))
+                                                                    <?php $educationalBackgroundRow++; ?>
+                                                                    <tr id="{{ $educationalBackgroundRow.'education'.str_random(10).date('Y-').$user->id.date('mdHis') }}">
+                                                                        <td class="center">
+                                                                            <span class="editable_select educational_background" id="{{ $educationalBackgroundRow.'collevel'.$eduType->id }}">{{ $eduType->description }}</span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colname_of_school' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'coldegree_course' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_from' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colpoa_to' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colunits_earned' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colyear_graduated' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable educational_background" id="{{ $educationalBackgroundRow.'colscholarship' }}"></span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="editable_radio civil_eligibility" id="{{ 'no_id'.$eduType->id.'coleducationDelete' }}"><i class="fa fa-close"></i></span>
+                                                                        </td>
+                                                                    </tr>
+                                                                    @endif
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <a href="#" class="pull-right red" id="educationAdd"><i class="fa fa-plus"></i> Add Educational Background</a>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#education background -->
 
                                                 <div id="service_eligibility" class="fade tab-pane">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Civil Service Eligibility</h3>
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center" rowspan="2">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE BARANGAY ELIGIBILITY/DRIVER'S LICENCE</th>
-                                                                        <th class="center" rowspan="2">RATING (if Applicable)</th>
-                                                                        <th class="center" rowspan="2">DATE OF EXAMINATION / CONFERMENT</th>
-                                                                        <th class="center" rowspan="2">PLACE OF EXAMINATION / CONFERMENT</th>
-                                                                        <th class="center" colspan="2">LICENSE (if applicable)</th>
-                                                                        <th class="center" rowspan="2">Option</th>
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Civil Service Eligibility</h3>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-striped table-bordered table-hover no-margin-bottom no-border-top">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center" rowspan="2">CAREER SERVICE/RA 1080 (BOARD/BAR) UNDER SPECIAL LAWS/CES/CSEE BARANGAY ELIGIBILITY/DRIVER'S LICENCE</th>
+                                                                    <th class="center" rowspan="2">RATING (if Applicable)</th>
+                                                                    <th class="center" rowspan="2">DATE OF EXAMINATION / CONFERMENT</th>
+                                                                    <th class="center" rowspan="2">PLACE OF EXAMINATION / CONFERMENT</th>
+                                                                    <th class="center" colspan="2">LICENSE (if applicable)</th>
+                                                                    <th class="center" rowspan="2">Option</th>
+                                                                </tr>
+                                                                <tr class="info">
+                                                                    <th class="center">NUMBER</th>
+                                                                    <th class="center">Date of Validity</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="civil_append">
+                                                                <?php $civilCount = 0; ?>
+                                                                @foreach($civil_eligibility as $row)
+                                                                    <?php $civilCount++; ?>
+                                                                    <tr id="">
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
+                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
+                                                                        <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
+                                                                        <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
+                                                                        <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'colcivilDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                     </tr>
-                                                                    <tr class="info">
-                                                                        <th class="center">NUMBER</th>
-                                                                        <th class="center">Date of Validity</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody id="civil_append">
-                                                                    <?php $civilCount = 0; ?>
-                                                                    @foreach($civil_eligibility as $row)
-                                                                        <?php $civilCount++; ?>
-                                                                        <tr id="">
-                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colcareer_service' }}" >{{ $row->career_service }}</span></td>
-                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'colrating' }}" >{{ $row->rating }}</span></td>
-                                                                            <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'coldate_of_examination' }}" >{{ $row->date_of_examination }}</span></td>
-                                                                            <td><span class="editable civil_eligibility" id="{{ $row->id.'colplace_examination' }}" >{{ $row->place_examination }}</span></td>
-                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'collicense_number' }}" >{{ $row->license_number }}</span></td>
-                                                                            <td class="center"><span class="editable civil_eligibility" id="{{ $row->id.'coldate_of_validity' }}" >{{ $row->date_of_validity }}</span></td>
-                                                                            <td class="center"><span class="editable_radio civil_eligibility" id="{{ $row->id.'colcivilDelete' }}"><i class="fa fa-close"></i></span></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table><br>
-                                                                <a href="#" class="pull-right red" id="civilAdd"><i class="fa fa-plus"></i> Add Service Eligibility</a>
-                                                            </div>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table><br>
+                                                            <a href="#" class="pull-right red" id="civilAdd"><i class="fa fa-plus"></i> Add Service Eligibility</a>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#Service Eligibility -->
 
                                                 <div id="work_experience" class="fade tab-pane">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Work Experience</h3>
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-list table-hover table-striped">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
-                                                                        <th class="center" rowspan="2">POSITION TITLE (Write in full/Do not abbreviate)</th>
-                                                                        <th class="center" rowspan="2">DEPARTMENT / AGENCY / OFFICE / COMPANY (Write in full/Do not abrebiate)</th>
-                                                                        <th class="center" rowspan="2">MONTHLY SALARY</th>
-                                                                        <th class="center" rowspan="2">SALARY/JOB/PAY GRADE(if applicable)(Format *00-0*)/INCREMENT</th>
-                                                                        <th class="center" rowspan="2">STATUS OF APPOINTMENT</th>
-                                                                        <th class="center" rowspan="2">GOV'T SERVICE(Y/N)</th>
-                                                                        <th class="center" rowspan="2">Option</th>
-                                                                    </tr>
-                                                                    <tr class="info">
-                                                                        <th class="center">From</th>
-                                                                        <th class="center">To</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody id="work_append">
-                                                                    <?php $workCount = 0; ?>
-                                                                    @foreach($work_experience as $row)
-                                                                        <?php $workCount++; ?>
-                                                                        <tr id="">
-                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center td_workDateto"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
-                                                                            <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
-                                                                            <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
-                                                                            <td class="center">
-                                                                                <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
-                                                                                    <?php
-                                                                                    if(!Auth::user()->usertype && !$row->salary_grade)
-                                                                                        echo "<span class='red'>Go to hr to update your monthly salary</span>";
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Work Experience</h3>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                    <th class="center" rowspan="2">POSITION TITLE (Write in full/Do not abbreviate)</th>
+                                                                    <th class="center" rowspan="2">DEPARTMENT / AGENCY / OFFICE / COMPANY (Write in full/Do not abrebiate)</th>
+                                                                    <th class="center" rowspan="2">MONTHLY SALARY</th>
+                                                                    <th class="center" rowspan="2">SALARY/JOB/PAY GRADE(if applicable)(Format *00-0*)/INCREMENT</th>
+                                                                    <th class="center" rowspan="2">STATUS OF APPOINTMENT</th>
+                                                                    <th class="center" rowspan="2">GOV'T SERVICE(Y/N)</th>
+                                                                    <th class="center" rowspan="2">Option</th>
+                                                                </tr>
+                                                                <tr class="info">
+                                                                    <th class="center">From</th>
+                                                                    <th class="center">To</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="work_append">
+                                                                <?php $workCount = 0; ?>
+                                                                @foreach($work_experience as $row)
+                                                                    <?php $workCount++; ?>
+                                                                    <tr id="">
+                                                                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                        <td class="center td_workDateto"><span class="editable_radio work_experience" id="{{ $row->id.'coldate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                        <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
+                                                                        <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
+                                                                        <td class="center">
+                                                                            <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
+                                                                                <?php
+                                                                                if(!Auth::user()->usertype && !$row->salary_grade)
+                                                                                    echo "<span class='red'>Please go to hr to update your monthly salary</span>";
+                                                                                else
+                                                                                    echo '<b><u>'.$row->monthly_salary.'</u></b>';
+                                                                                ?>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="center">
+                                                                            <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
+                                                                                <?php
+                                                                                if(Auth::user()->usertype)
+                                                                                    echo $row->salary_grade;
+                                                                                else{
+                                                                                    if($row->salary_grade)
+                                                                                        echo '<b><u>'.$row->salary_grade.'</u></b>';
                                                                                     else
-                                                                                        echo '<b><u>'.$row->monthly_salary.'</u></b>';
-                                                                                    ?>
-                                                                                </span>
-                                                                            </td>
-                                                                            <td class="center">
-                                                                                <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
-                                                                                    <?php
-                                                                                    if(Auth::user()->usertype)
-                                                                                        echo $row->salary_grade;
-                                                                                    else{
-                                                                                        if($row->salary_grade)
-                                                                                            echo '<b><u>'.$row->salary_grade.'</u></b>';
-                                                                                        else
-                                                                                            echo '<span class="red">'.'Go to hr to update your salary grade'.'</p>';
-                                                                                    }
-                                                                                    ?>
-                                                                                </span>
-                                                                            </td>
-                                                                            <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
-                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
-                                                                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                                <a href="#" class="pull-right red" id="workAdd"><i class="fa fa-plus"></i> Add Work Experience</a>
-                                                            </div>
+                                                                                        echo '<span class="red">'.'Please go to hr to update your salary grade'.'</p>';
+                                                                                }
+                                                                                ?>
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
+                                                                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
+                                                                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <a href="#" class="pull-right red" id="workAdd"><i class="fa fa-plus"></i> Add Work Experience</a>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#Work Experience -->
 
                                                 <div id="voluntary_work" class="fade tab-pane">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Voluntary Work</h3>
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-list table-hover table-striped">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center align-middle" rowspan="2">Name & Address of Organization (Write in full)</th>
-                                                                        <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
-                                                                        <th class="center align-middle" rowspan="2">Number of Hours</th>
-                                                                        <th class="center align-middle" rowspan="2">Position/Nature of Work</th>
-                                                                        <th class="center align-middile" rowspan="2">Option</th>
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Voluntary Work</h3>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center align-middle" rowspan="2">Name & Address of Organization (Write in full)</th>
+                                                                    <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                    <th class="center align-middle" rowspan="2">Number of Hours</th>
+                                                                    <th class="center align-middle" rowspan="2">Position/Nature of Work</th>
+                                                                    <th class="center align-middile" rowspan="2">Option</th>
+                                                                </tr>
+                                                                <tr class="info">
+                                                                    <th class="center">From</th>
+                                                                    <th class="center">To</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="voluntary_append">
+                                                                <?php $voluntaryCount = 0; ?>
+                                                                @foreach($voluntary_work as $row)
+                                                                    <?php $voluntaryCount++; ?>
+                                                                    <tr id="">
+                                                                        <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colname_of_organization' }}" >{{ $row->name_of_organization }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnature_of_work' }}" >{{ $row->nature_of_work }}</span></td>
+                                                                        <td class="center"><span class="editable_radio voluntary_work" id="{{ $row->id.'colvoluntaryDelete' }}"><i class="fa fa-close"></i></span></td>
                                                                     </tr>
-                                                                    <tr class="info">
-                                                                        <th class="center">From</th>
-                                                                        <th class="center">To</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody id="voluntary_append">
-                                                                    <?php $voluntaryCount = 0; ?>
-                                                                    @foreach($voluntary_work as $row)
-                                                                        <?php $voluntaryCount++; ?>
-                                                                        <tr id="">
-                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colname_of_organization' }}" >{{ $row->name_of_organization }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable_radio voluntary_work" id="voluntary{{ $row->id.'colvdate_to' }}" >{{ $row->date_to }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable voluntary_work" id="voluntary{{ $row->id.'colnature_of_work' }}" >{{ $row->nature_of_work }}</span></td>
-                                                                            <td class="center"><span class="editable_radio voluntary_work" id="{{ $row->id.'colvoluntaryDelete' }}"><i class="fa fa-close"></i></span></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                                <a href="#" class="pull-right red" id="voluntaryAdd"><i class="fa fa-plus"></i> Add Voluntary Work</a>
-                                                            </div>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <a href="#" class="pull-right red" id="voluntaryAdd"><i class="fa fa-plus"></i> Add Voluntary Work</a>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#VOLUNTARY WORK -->
 
                                                 <div id="training_program" class="fade tab-pane">
-
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Training Program</h3>
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Training Program</h3>
 
 
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-list table-hover table-striped">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center align-middle" rowspan="2">Title of Learning & Development Interventions/Training Programs(Write in full)</th>
-                                                                        <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
-                                                                        <th class="center align-middle" rowspan="2">Number of Hours</th>
-                                                                        <th class="center align-middle" rowspan="2">Type of ID<br>(Managerial/Supervisor/<br>Technical/etc)</th>
-                                                                        <th class="center align-middle" rowspan="2">Sponsored By</th>
-                                                                        <th class="center align-middle" rowspan="2">Upload Certificate</th>
-                                                                        <th class="center align-middle" rowspan="2">Option</th>
-                                                                    </tr>
-                                                                    <tr class="info">
-                                                                        <th class="center">From</th>
-                                                                        <th class="center">To</th>
-                                                                    </tr>
-                                                                    </thead>
-                                                                    <tbody id="training_append">
-                                                                    <?php $trainingCount = 0; ?>
-                                                                    @foreach($training_program as $row)
-                                                                        <?php $trainingCount++; ?>
-                                                                        <tr>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltitle_of_learning' }}" >{{ $row->title_of_learning }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_from' }}" >{{ $row->date_from }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_to' }}" >{{ $row->date_to }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
-                                                                            <td class="center align-middle">
-                                                                                <span class="editable_certificate training_program" data-link="{{ $row->certificate }}" id="training{{ $row->id.'colcertificate' }}" >
-                                                                                    @if($row->certificate)
-                                                                                        <span class="label label-info label-sm arrowed-in arrowed-in-right">
-                                                                                            <span class="inline position-relative">
-                                                                                                <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
-                                                                                                    <i class="ace-icon fa fa-certificate light-green"></i>
-                                                                                                    &nbsp;
-                                                                                                    <span class="white" style="font-size:5.5pt;">View Certificate</span>
-                                                                                                </a>
-                                                                                            </span>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center align-middle" rowspan="2">Title of Learning & Development Interventions/Training Programs(Write in full)</th>
+                                                                    <th class="center align-middle" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
+                                                                    <th class="center align-middle" rowspan="2">Number of Hours</th>
+                                                                    <th class="center align-middle" rowspan="2">Type of ID<br>(Managerial/Supervisor/<br>Technical/etc)</th>
+                                                                    <th class="center align-middle" rowspan="2">Sponsored By</th>
+                                                                    <th class="center align-middle" rowspan="2">Upload Certificate</th>
+                                                                    <th class="center align-middle" rowspan="2">Option</th>
+                                                                </tr>
+                                                                <tr class="info">
+                                                                    <th class="center">From</th>
+                                                                    <th class="center">To</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="training_append">
+                                                                <?php $trainingCount = 0; ?>
+                                                                @foreach($training_program as $row)
+                                                                    <?php $trainingCount++; ?>
+                                                                    <tr>
+                                                                        <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltitle_of_learning' }}" >{{ $row->title_of_learning }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_from' }}" >{{ $row->date_from }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable_radio training_program" id="training{{ $row->id.'coltdate_to' }}" >{{ $row->date_to }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colnumber_of_hours' }}" >{{ $row->number_of_hours }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'coltype_of_id' }}" >{{ $row->type_of_id }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable training_program" id="training{{ $row->id.'colsponsored_by' }}" >{{ $row->sponsored_by }}</span></td>
+                                                                        <td class="center align-middle">
+                                                                            <span class="editable_certificate training_program" data-link="{{ $row->certificate }}" id="training{{ $row->id.'colcertificate' }}" >
+                                                                                @if($row->certificate)
+                                                                                    <span class="label label-info label-sm arrowed-in arrowed-in-right">
+                                                                                        <span class="inline position-relative">
+                                                                                            <a href="#" class="user-title-label dropdown-toggle" data-toggle="dropdown">
+                                                                                                <i class="ace-icon fa fa-certificate light-green"></i>
+                                                                                                &nbsp;
+                                                                                                <span class="white" style="font-size:5.5pt;">View Certificate</span>
+                                                                                            </a>
                                                                                         </span>
-                                                                                    @else
-                                                                                        <a href="#" class="user-title-label dropdown-toggle editable-empty" data-toggle="dropdown">
-                                                                                            Empty
-                                                                                        </a>
-                                                                                    @endif
-                                                                                </span>
-                                                                            </td>
-                                                                            <td class="center align-middle"><span class="editable_radio training_program" data-link="{{ $row->certificate }}" id="{{ $row->id.'coltrainingDelete' }}"><i class="fa fa-close"></i></span></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                                <a href="#" class="pull-right red" id="trainingAdd"><i class="fa fa-plus"></i> Add Training Program</a>
-                                                            </div>
+                                                                                    </span>
+                                                                                @else
+                                                                                    <a href="#" class="user-title-label dropdown-toggle editable-empty" data-toggle="dropdown">
+                                                                                        Empty
+                                                                                    </a>
+                                                                                @endif
+                                                                            </span>
+                                                                        </td>
+                                                                        <td class="center align-middle"><span class="editable_radio training_program" data-link="{{ $row->certificate }}" id="{{ $row->id.'coltrainingDelete' }}"><i class="fa fa-close"></i></span></td>
+                                                                    </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <a href="#" class="pull-right red" id="trainingAdd"><i class="fa fa-plus"></i> Add Training Program</a>
                                                         </div>
                                                     </div>
                                                 </div><!-- /#TRAINING PROGRAM -->
 
                                                 <div id="other_information" class="fade tab-pane">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
-                                                            <div class="alert alert-info">
-                                                                <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
-                                                                _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
-                                                                __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
-                                                            </div>
-                                                            <h3 class="lighter block green">Other Information</h3>
-                                                            <div class="form-group table-responsive">
-                                                                <table class="table table-list table-hover table-striped">
-                                                                    <thead>
-                                                                    <tr class="info">
-                                                                        <th class="center align-middle" >Special Skills & Hobbies</th>
-                                                                        <th class="center align-middle" >Non-Academic Distinction/Recognition(Write in full)</th>
-                                                                        <th class="center align-middle" >Membership in Association/Organinzation(Write in full)</th>
-                                                                        <th class="center align-middle" >Option</th>
+                                                        <div class="alert alert-info">
+                                                            <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
+                                                            _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
+                                                            __________ &nbsp;&nbsp;NOT EDITABLE SYMBOL
+                                                        </div>
+                                                        <h3 class="lighter block green">Other Information</h3>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th class="center align-middle" >Special Skills & Hobbies</th>
+                                                                    <th class="center align-middle" >Non-Academic Distinction/Recognition(Write in full)</th>
+                                                                    <th class="center align-middle" >Membership in Association/Organinzation(Write in full)</th>
+                                                                    <th class="center align-middle" >Option</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody id="other_append">
+                                                                <?php $otherCount = 0; ?>
+                                                                @foreach($other_information as $row)
+                                                                    <?php $otherCount++; ?>
+                                                                    <tr id="">
+                                                                        <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colspecial_skills' }}" >{{ $row->special_skills }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colrecognition' }}" >{{ $row->recognition }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colorganization' }}" >{{ $row->organization }}</span></td>
+                                                                        <td class="center align-middle"><span class="editable_radio other_information" id="{{ $row->id.'colotherDelete' }}" ><i class="fa fa-close"></i></span></td>
                                                                     </tr>
-                                                                    </thead>
-                                                                    <tbody id="other_append">
-                                                                    <?php $otherCount = 0; ?>
-                                                                    @foreach($other_information as $row)
-                                                                        <?php $otherCount++; ?>
-                                                                        <tr id="">
-                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colspecial_skills' }}" >{{ $row->special_skills }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colrecognition' }}" >{{ $row->recognition }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable other_information" id="other{{ $row->id.'colorganization' }}" >{{ $row->organization }}</span></td>
-                                                                            <td class="center align-middle"><span class="editable_radio other_information" id="{{ $row->id.'colotherDelete' }}" ><i class="fa fa-close"></i></span></td>
-                                                                        </tr>
-                                                                    @endforeach
-                                                                    </tbody>
-                                                                </table>
-                                                                <a href="#" class="pull-right red" id="otherAdd"><i class="fa fa-plus"></i> Add Training Program</a>
-                                                            </div>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                            <a href="#" class="pull-right red" id="otherAdd"><i class="fa fa-plus"></i> Add Training Program</a>
                                                         </div>
                                                     </div>
-                                                </div><!-- /#OTHER INFORMATION -->
-                                                <!--
-                                                <div id="other_information2" class="fade tab-pane">
-                                                    <div class="col-xs-12">
-                                                        <h3 class="lighter block green">Other Information(2)</h3>
+                                                </div><!-- /#SURVEY -->
 
+                                                <div id="survey" class="fade in active tab-pane">
+                                                    <div class="row">
+                                                        <h3 class="lighter block green">Survey</h3>
                                                         <div class="widget-box transparent">
                                                             <div class="widget-body">
-                                                                <div class="widget-main padding-8">
-                                                                    <div class="row">
-                                                                        <div id="profile-feed-1" class="profile-feed">
-                                                                            <div class="profile-activity clearfix">
+                                                                <div class="widget-main">
+                                                                    <div id="profile-feed-1" class="profile-feed">
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
                                                                                 <div>
-                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-pink no-hover"></i>
-                                                                                    Are you related by consanguinity or affinity to the appointing or recommending authority,
-                                                                                    or to the chief of bureau or office or to the person who has immediate supervision over you in the Office,
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                    Are you related by consanguinity or affinity to the appointing or recommending authority, or to the
+                                                                                    chief of bureau or office or to the person who has immediate supervision over you in the Office,
                                                                                     Bureau or Department where you will be apppointed,
                                                                                 </div>
-                                                                                <div class="col-sm-1"></div>
-                                                                                <div class="col-sm-3">
+                                                                                <div class="margin-left-50">
                                                                                     <b class="purple">
                                                                                         a. within the third degree?
                                                                                     </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconsanguinity_a">{{ $user->consanguinity_a }}</span>
                                                                                 </div>
-                                                                                <div class="col-sm-1">
-                                                                                    <span class="green editable" id="thequickbrownfox">
-                                                                                        Yes
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div class="col-sm-2">
-                                                                                    <span class="green editable" id="thequickbrownfox2">
-                                                                                        Ni yes rako
-                                                                                    </span>
-                                                                                </div>
-                                                                                <div class="tools action-buttons">
-                                                                                    <a href="#" class="blue">
-                                                                                        <i class="ace-icon fa fa-pencil bigger-125"></i>
-                                                                                    </a>
-
-                                                                                    <a href="#" class="red">
-                                                                                        <i class="ace-icon fa fa-times bigger-125"></i>
-                                                                                    </a>
+                                                                                <div class="margin-left-50">
+                                                                                    <b class="purple">
+                                                                                        b. within the fourth degree (for Local Government Unit - Career Employees)?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconsanguinity_b">{{ $user->consanguinity_b }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div id="profile-feed-1" class="profile-feed">
-                                                                            <div class="profile-activity clearfix">
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
                                                                                 <div>
-                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-pink no-hover"></i>
-                                                                                    Are you related by consanguinity or affinity to the appointing or recommending authority,
-                                                                                    or to the chief of bureau or office or to the person who has immediate supervision over you in the Office,
-                                                                                    Bureau or Department where you will be apppointed,
+                                                                                    <b class="purple">
+                                                                                        a. Have you ever been found guilty of any administrative offense?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}coloffense_a">{{ $user->offense_a }}</span>
                                                                                 </div>
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-1"></div>
-                                                                                    <div class="col-sm-6">
-                                                                                        <b class="purple">
-                                                                                            a. Have you ever been found guilty of any administrative offense?
-                                                                                        </b>
-                                                                                    </div>
-                                                                                    <div class="col-sm-1">
-                                                                                        <span class="green editable" id="thequickbrownfox">
-                                                                                            Yes
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div class="col-sm-2">
-                                                                                        <span class="green editable" id="thequickbrownfox2">
-                                                                                            Ni yes rako
-                                                                                        </span>
-                                                                                    </div>
+                                                                                <div>
+                                                                                    <b class="purple">
+                                                                                        b. Have you been criminally charged before any court?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}coloffense_b">{{ $user->offense_b }}</span>
                                                                                 </div>
-
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-1"></div>
-                                                                                    <div class="col-sm-7">
-                                                                                        <b class="purple">
-                                                                                            b. within the fourth degree (for Local Government Unit - Career Employees)?
-                                                                                        </b>
-                                                                                    </div>
-                                                                                    <div class="col-sm-1">
-                                                                                        <span class="green editable" id="thequickbrownfox">
-                                                                                            Yes
-                                                                                        </span>
-                                                                                    </div>
-                                                                                    <div class="col-sm-2">
-                                                                                        <span class="green editable" id="thequickbrownfox2">
-                                                                                            Ni yes rako
-                                                                                        </span>
-                                                                                    </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                    <b class="purple">
+                                                                                        Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
+                                                                                    </b>
+                                                                                    <div class="space-1"></div>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconvicted">{{ $user->convicted }}</span>
                                                                                 </div>
-
-
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                    <b class="purple">
+                                                                                        Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
+                                                                                    </b>
+                                                                                    <div class="space-1"></div>
+                                                                                    <span class="orange editable_radio survey margin-left-50" id="{{ $user->surveyUserid }}colseparated">{{ $user->separated }}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                <div>
+                                                                                    <b class="purple">
+                                                                                        a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <div class="space-1"></div>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colgovernment_a">{{ $user->government_a }}</span>
+                                                                                </div>
+                                                                                <div class="margin-left-50">
+                                                                                    <b class="purple">
+                                                                                        b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colgovernment_b">{{ $user->government_b }}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                    <b class="purple">
+                                                                                        Have you acquired the status of an immigrant or permanent resident of another country?
+                                                                                    </b>
+                                                                                    <div class="space-1"></div>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colimmigrant">{{ $user->immigrant }}</span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="row">
+                                                                            <div class="profile-activity">
+                                                                                <div>
+                                                                                    <i class="pull-left thumbicon fa fa-pencil-square-o btn-blue no-hover"></i>
+                                                                                    Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items:
+                                                                                </div>
+                                                                                <div class="margin-left-50">
+                                                                                    <b class="purple">
+                                                                                        a. Are you a member of any indigenous group?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_a">{{ $user->indigenous_a }}</span>
+                                                                                </div>
+                                                                                <div class="margin-left-50">
+                                                                                    <b class="purple">
+                                                                                        b. Are you a person with disability?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_b">{{ $user->indigenous_b }}</span>
+                                                                                </div>
+                                                                                <div class="margin-left-50">
+                                                                                    <b class="purple">
+                                                                                        c. Are you a solo parent?
+                                                                                    </b>
+                                                                                    &nbsp;&nbsp;&nbsp;
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_c">{{ $user->indigenous_c }}</span>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -1280,11 +1293,59 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                     </div>
-                                                </div><!-- /#OTHER INFORMATION2-->
-
-
+                                                    <div class="row">
+                                                        <h5 class="lighter block blue">REFERENCES <small class="red">(Person not related by consanguinity or affinity to applicant/appointee)</small></h5>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th width="40%">NAME</th>
+                                                                    <th width="30%">ADDRESS</th>
+                                                                    <th width="30%">TEL/CELL NO</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <?php
+                                                                    $reference_name = ["reference_name_a","reference_name_b","reference_name_c"];
+                                                                    $reference_address = ["reference_address_a","reference_address_b","reference_address_c"];
+                                                                    $reference_tel = ["reference_tel_a","reference_tel_b","reference_tel_c"];
+                                                                ?>
+                                                                @foreach(range(0,2) as $index)
+                                                                <tr>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_name[$index] }}">{{ $user->$reference_name[$index] }}</span></td>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_address[$index] }}">{{ $user->$reference_address[$index] }}</span></td>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_tel[$index] }}">{{ $user->$reference_tel[$index] }}</span></td>
+                                                                </tr>
+                                                                @endforeach
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <h5 class="lighter block blue">Government Issued ID <small class="red">(i.e.Passport, GSIS, SSS, PRC, Driver's License, etc.) PLEASE INDICATE ID Number and Date of Issuance)</small></h5>
+                                                        <div class="form-group table-responsive">
+                                                            <table class="table table-list table-hover table-striped">
+                                                                <thead>
+                                                                <tr class="info">
+                                                                    <th>Government Issued ID</th>
+                                                                    <th>ID/License/Passport No</th>
+                                                                    <th>Place of Issuance</th>
+                                                                    <th>Date of Issuance</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}colgovernment_id">{{ $user->government_id }}</span></td>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}colpassport_no">{{ $user->passport_no }}</span></td>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}colplace_insurance">{{ $user->place_insurance }}</span></td>
+                                                                    <td><span class="editable survey" id="{{ $user->piUserid }}coldate_insurance">{{ $user->date_insurance }}</span></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div><!-- /#SURVEY-->
                                             </div><!-- /tab-content -->
                                         </div><!-- /tabbable -->
                                     </div><!-- /user-profile -->
@@ -1400,7 +1461,7 @@
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
                         <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
                         if(!Auth::user()->usertype)
-                            echo 'Go to hr to update your monthly salary';
+                            echo 'Please go to hr to update your monthly salary';
                         ?></span></td>\
                         <td class="center"><span class="red '+"<?php
                         if(Auth::user()->usertype)
@@ -1410,7 +1471,7 @@
                         ?>"+
                     ' work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
                         if(!Auth::user()->usertype)
-                            echo 'Go to hr to update your salary grade';
+                            echo 'Please go to hr to update your salary grade';
                         ?>
                         </span></td>\
                         <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\
@@ -2321,6 +2382,15 @@
                                 };
                                 url = "{!! asset('updatePersonalInformation') !!}";
                             }
+                            else if(Class.includes('survey')){
+                                json = {
+                                    "userid" : this.id.split('col')[0],
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateSurvey') !!}";
+                            }
                             else if(Class.includes('family_background')){
                                 json = {
                                     "userid" : this.id.split('col')[0],
@@ -2416,7 +2486,7 @@
                             }
                             else if(Class.includes('other_information')){
                                 json = {
-                                    "id" : this.id.split('col')[0],
+                                    "id" : this.id.split('other')[1].split('col')[0],
                                     "userid": "<?php echo $user->piUserid ?>",
                                     "column" : this.id.split('col')[1],
                                     "value" : value,
@@ -2424,6 +2494,7 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
                                 url = "{!! asset('updateOtherInformation') !!}";
+                                console.log(json);
                             }
 
                             if( json.column == 'account_number' || json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'  ){
@@ -2445,374 +2516,6 @@
                 });
             }
 
-            var source_radio = [{
-                "sex": [
-                    {value: 'Male', text: 'Male'},
-                    {value: 'Female', text: 'Female'}
-                ],
-                "civil_status": [
-                    {value: 'Single', text: 'Single'},
-                    {value: 'Widowed', text: 'Widowed'},
-                    {value: 'Others', text: 'Others'},
-                    {value: 'Married', text: 'Married'},
-                    {value: 'Separated', text: 'Separated'}
-                ],
-                "citizenship": [
-                    {value: 'Filipino', text: 'Filipino'},
-                    {value: 'Dual Citizenship', text: 'Dual Citizenship'},
-                    {value: 'by birth', text: 'by birth'},
-                    {value: 'by naturalization', text: 'by naturalization'}
-                ],
-                "pdate_of_birth": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "cdate_of_birth": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "vdate_from": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "vdate_to": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "tdate_from": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "tdate_to": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "voluntaryDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "trainingDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "salary_grade": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "date_from": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "date_to": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "certificate": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "workDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "childrenDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "civilDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "educationDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "otherDelete": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "date_of_examination": [
-                    {value:'Dummy', text:'Dummy'}
-                ],
-                "government_service": [
-                    {value:'Yes', text:'Yes'},
-                    {value:'No', text:'No'}
-                ]
-            }];
-
-            var columnId,radioClassname;
-            editable_radio();
-            function editable_radio(){
-                $(".editable_radio").each(function(index){
-                    $('#'+this.id).editable({
-                        type: 'radiolist',
-                        name: this.id,
-                        source: source_radio[0][this.id.split('col')[1]],
-                        validate: function(value) {
-                            var json,url;
-                            columnId = this.id.split('col')[1];
-                            radioClassname = this.className;
-                            $("#"+this.id).css('color','#393939');
-                            if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status') ){ //personal information sex,citizenship,civil_status
-                                $("#"+this.id).html(value);
-                                json = {
-                                    "id" : "<?php echo $user->piId; ?>",
-                                    "column" : this.id.split('col')[1],
-                                    "value" : value,
-                                    "indicate_country" : $("#indicateCountry").val(),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-                                url = "<?php echo asset('updatePersonalInformation'); ?>";
-                            }
-                            else if(columnId == 'government_service'){
-                                $("#"+this.id).css('color','black').html(value);
-                                json = {
-                                    "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : this.id.split('col')[1],
-                                    "value" : value,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-                                url = "{!! asset('updateWorkExperience') !!}";
-                            }
-                            else if(columnId == 'pdate_of_birth'){ //personal information date_of_birth
-                                var date_picker = $("#"+this.id+"input").val();
-                                $("#"+this.id).html(date_picker);
-                                json = {
-                                    "id" : "<?php echo $user->piId; ?>",
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : 'date_of_birth',
-                                    "value" : date_picker,
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-                                url = "<?php echo asset('updatePersonalInformation'); ?>";
-                            }
-                            else if( columnId == 'date_of_examination' || columnId == 'vdate_from' || columnId == 'vdate_to' || radioClassname.includes('training_program') ){
-                                var date_picker = $("#"+this.id+"input").val();
-                                $("#"+this.id).html(date_picker);
-                                $("#"+this.id).css('color','#393939');
-                                var column,rowId;
-                                if( columnId == 'date_of_examination' ) {
-                                    rowId = this.id.split('col')[0];
-                                    url = "{!! asset('updateCivilEligibility') !!}";
-                                    column = 'date_of_examination';
-                                }
-                                else if( radioClassname.includes('training_program') ){
-                                    rowId = this.id.split('training')[1].split('col')[0];
-                                    url = "{!! asset('updateTrainingProgram') !!}";
-                                    if( columnId == 'tdate_from' ){
-                                        column = 'date_from';
-                                    } else {
-                                        column = 'date_to';
-                                    }
-                                }
-                                else{
-                                    url = "{!! asset('updateVoluntaryWork') !!}";
-                                    rowId = this.id.split('voluntary')[1].split('col')[0];
-                                    if( columnId == 'vdate_from' ){
-                                        column = 'date_from';
-                                    } else {
-                                        column = 'date_to';
-                                    }
-                                }
-
-                                json = {
-                                    "id" : rowId,
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : column,
-                                    "value" : date_picker,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-                            }
-                            else if(columnId == 'cdate_of_birth'){ // children date_of_birth
-                                chilBool = true; // make true so can add new row
-                                var date_picker = $("#"+this.id+"input").val();
-                                $("#"+this.id).html(date_picker);
-                                json = {
-                                    "id" : this.id.split('c_id')[1].split('col')[0],
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : 'date_of_birth',
-                                    "value" : date_picker,
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-
-                                var $trapping = this.id.replace('childrenDOB','childrenName').replace('colcdate_of_birth','colcname');
-                                if($("#"+$trapping).text() != 'Not Applicable' && $("#"+$trapping).text() != ''){
-                                    console.log($("#"+$trapping).text());
-                                    chilBool = true; // make true so can add new row
-                                } else {
-                                    chilBool = false;
-                                }
-                                $("#"+this.id).css('color','#393939');
-
-                                url = "{!! asset('updateChildren') !!}";
-                            }
-                            else if(columnId == 'salary_grade'){
-                                chilBool = true; // make true so can add new row
-                                var salary_grade = $("#salary_tranche").val()+' | '+$("#salary_grade").val()+'-'+$("#salary_step").val();
-                                var monthlySalaryId;
-
-                                if(radioClassname.includes('workAdd')){
-                                    console.log("true");
-                                    monthlySalaryId = $(this).parents(':eq(0)').siblings('.monthly_salary').children().get(0).id;
-                                }
-                                else {
-                                    console.log("false");
-                                    monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
-                                }
-                                $("#"+this.id).removeClass('red').removeClass('editable-empty').html(salary_grade);
-                                json = {
-                                    "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : 'salary_grade',
-                                    "salary_tranche" : $("#salary_tranche").val(),
-                                    "salary_grade" : $("#salary_grade").val(),
-                                    "salary_step" : $("#salary_step").val(),
-                                    "value" : salary_grade,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-
-                                console.log(monthlySalaryId);
-                                url = "{!! asset('updateWorkExperience') !!}";
-                            }
-                            else if(columnId == 'date_from' || columnId == 'date_to'){
-                                var date_picker = $("#"+this.id+"input").val();
-                                var toPresent = '';
-                                if($("#"+this.id+"toPresent").is(":checked")){
-                                    toPresent = $("#"+this.id+"toPresent").val();
-                                }
-                                var pickerValue;
-                                if(toPresent)
-                                    pickerValue = toPresent;
-                                else{
-                                    if(date_picker == 'Present'){
-                                        pickerValue = '';
-                                    }
-                                    else {
-                                        pickerValue = date_picker;
-                                    }
-                                }
-
-                                console.log(pickerValue);
-                                $("#"+this.id).css('color','black').html(pickerValue);
-                                if(!pickerValue){
-                                    $("#"+this.id).css('color','#D14').css('font-style','italic').html('Empty');
-                                }
-
-                                json = {
-                                    "id" : this.id.split('col')[0],
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : this.id.split('col')[1],
-                                    "value" : pickerValue,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-
-                                url = "{!! asset('updateWorkExperience') !!}";
-                            }
-
-                            else if(columnId == 'certificate'){
-                                json = {
-                                    "id" : this.id.split('training')[1].split('col')[0],
-                                    "userid": "<?php echo $user->piUserid ?>",
-                                    "column" : this.id.split('col')[1],
-                                    "value" : value,
-                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                    "_token" : "<?php echo csrf_token(); ?>",
-                                };
-                                url = "{!! asset('updateTrainingProgram') !!}";
-                            }
-
-                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' || columnId == 'trainingDelete' || columnId == 'educationDelete' || columnId == 'otherDelete' ){
-                                if( columnId == 'workDelete' ){
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteWorkExperience') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-
-                                }
-                                else if( columnId == 'childrenDelete' ){
-                                    json = {
-                                        "id" : this.id.split('c_id')[1].split('col')[0],
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteChildren') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                }
-                                else if( columnId == 'civilDelete' ){
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteCivilEligibility') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                }
-                                else if( columnId == 'educationDelete' ){
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteEducationalBackground') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                }
-                                else if( columnId == 'otherDelete' ){
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteOtherInformation') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                }
-                                else if( columnId == 'voluntaryDelete' ){
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteVoluntaryWork') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                }
-                                else if( columnId == 'trainingDelete' ){
-
-                                    if(!certificateLink){
-                                        certificateLink = $(this).data('link');
-                                    }
-
-                                    json = {
-                                        "id" : this.id.split('col')[0],
-                                        'path' : certificateLink,
-                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
-                                        "_token" : "<?php echo csrf_token(); ?>",
-                                    };
-
-                                    url = "{!! asset('deleteTrainingProgram') !!}";
-                                    $(this).parents(':eq(1)').fadeOut();
-                                    certificateLink = '';
-                                }
-
-                                $.post(url,json,function(result){
-                                    console.log(result);
-                                });
-
-                            }
-                            else
-                            {
-                                $.post(url,json,function(result){
-                                    console.log(result);
-                                    if(columnId == 'cdate_of_birth'){
-                                        childId = result; //get the primary key
-                                        console.log(result);
-                                    }
-                                    else if (columnId == "salary_grade"){
-                                        console.log(monthlySalaryId);
-                                        $("#"+monthlySalaryId).html("<b style='color:#307bff;'>"+result+"</b>");
-                                    }
-                                });
-                            }
-
-
-                        }
-                    });
-                });
-            }
 
             function source_func($divisionId = null){
                 var division = [];
@@ -3047,8 +2750,443 @@
 
             }
 
-        });
 
+            var source_radio = [{
+                "sex": [
+                    {value: 'Male', text: 'Male'},
+                    {value: 'Female', text: 'Female'}
+                ],
+                "civil_status": [
+                    {value: 'Single', text: 'Single'},
+                    {value: 'Widowed', text: 'Widowed'},
+                    {value: 'Others', text: 'Others'},
+                    {value: 'Married', text: 'Married'},
+                    {value: 'Separated', text: 'Separated'}
+                ],
+                "citizenship": [
+                    {value: 'Filipino', text: 'Filipino'},
+                    {value: 'Dual Citizenship', text: 'Dual Citizenship'},
+                    {value: 'by birth', text: 'by birth'},
+                    {value: 'by naturalization', text: 'by naturalization'}
+                ],
+                "pdate_of_birth": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "cdate_of_birth": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "vdate_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "vdate_to": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "tdate_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "tdate_to": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "voluntaryDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "trainingDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "salary_grade": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_from": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_to": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "certificate": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "workDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "childrenDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "civilDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "educationDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "otherDelete": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "date_of_examination": [
+                    {value:'Dummy', text:'Dummy'}
+                ],
+                "government_service": [
+                    {value:'Yes', text:'Yes'},
+                    {value:'No', text:'No'}
+                ],
+                "consanguinity_a": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "consanguinity_b": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "offense_a": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "offense_b": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "convicted": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "separated": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "government_a": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "government_b": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "immigrant": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "indigenous_a": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "indigenous_b": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
+                "indigenous_c": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ]
+            }];
+
+            var columnId,radioClassname;
+            editable_radio();
+            function editable_radio(){
+                $(".editable_radio").each(function(index){
+                    $('#'+this.id).editable({
+                        type: 'radiolist',
+                        name: this.id,
+                        source: source_radio[0][this.id.split('col')[1]],
+                        validate: function(value) {
+                            var json,url;
+                            columnId = this.id.split('col')[1];
+                            radioClassname = this.className;
+                            $("#"+this.id).css('color','#393939');
+                            if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status') ){ //personal information sex,citizenship,civil_status
+                                $("#"+this.id).html(value);
+                                json = {
+                                    "id" : "<?php echo $user->piId; ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "indicate_country" : $("#indicateCountry").val(),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if(columnId == 'government_service'){
+                                $("#"+this.id).css('color','black').html(value);
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            else if(columnId == 'pdate_of_birth'){ //personal information date_of_birth
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+                                json = {
+                                    "id" : "<?php echo $user->piId; ?>",
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : 'date_of_birth',
+                                    "value" : date_picker,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "<?php echo asset('updatePersonalInformation'); ?>";
+                            }
+                            else if( columnId == 'date_of_examination' || columnId == 'vdate_from' || columnId == 'vdate_to' || radioClassname.includes('training_program') ){
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+                                $("#"+this.id).css('color','#393939');
+                                var column,rowId;
+                                if( columnId == 'date_of_examination' ) {
+                                    rowId = this.id.split('col')[0];
+                                    url = "{!! asset('updateCivilEligibility') !!}";
+                                    column = 'date_of_examination';
+                                }
+                                else if( radioClassname.includes('training_program') ){
+                                    rowId = this.id.split('training')[1].split('col')[0];
+                                    url = "{!! asset('updateTrainingProgram') !!}";
+                                    if( columnId == 'tdate_from' ){
+                                        column = 'date_from';
+                                    } else {
+                                        column = 'date_to';
+                                    }
+                                }
+                                else{
+                                    url = "{!! asset('updateVoluntaryWork') !!}";
+                                    rowId = this.id.split('voluntary')[1].split('col')[0];
+                                    if( columnId == 'vdate_from' ){
+                                        column = 'date_from';
+                                    } else {
+                                        column = 'date_to';
+                                    }
+                                }
+
+                                json = {
+                                    "id" : rowId,
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : column,
+                                    "value" : date_picker,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                            }
+                            else if(columnId == 'cdate_of_birth'){ // children date_of_birth
+                                chilBool = true; // make true so can add new row
+                                var date_picker = $("#"+this.id+"input").val();
+                                $("#"+this.id).html(date_picker);
+                                json = {
+                                    "id" : this.id.split('c_id')[1].split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : 'date_of_birth',
+                                    "value" : date_picker,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+
+                                var $trapping = this.id.replace('childrenDOB','childrenName').replace('colcdate_of_birth','colcname');
+                                if($("#"+$trapping).text() != 'Not Applicable' && $("#"+$trapping).text() != ''){
+                                    console.log($("#"+$trapping).text());
+                                    chilBool = true; // make true so can add new row
+                                } else {
+                                    chilBool = false;
+                                }
+                                $("#"+this.id).css('color','#393939');
+
+                                url = "{!! asset('updateChildren') !!}";
+                            }
+                            else if(columnId == 'salary_grade'){
+                                chilBool = true; // make true so can add new row
+                                var salary_grade = $("#salary_tranche").val()+' | '+$("#salary_grade").val()+'-'+$("#salary_step").val();
+                                var monthlySalaryId;
+
+                                if(radioClassname.includes('workAdd')){
+                                    console.log("true");
+                                    monthlySalaryId = $(this).parents(':eq(0)').siblings('.monthly_salary').children().get(0).id;
+                                }
+                                else {
+                                    console.log("false");
+                                    monthlySalaryId = this.id.split('col')[0]+"colmonthly_salary";
+                                }
+                                $("#"+this.id).removeClass('red').removeClass('editable-empty').html(salary_grade);
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : 'salary_grade',
+                                    "salary_tranche" : $("#salary_tranche").val(),
+                                    "salary_grade" : $("#salary_grade").val(),
+                                    "salary_step" : $("#salary_step").val(),
+                                    "value" : salary_grade,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+
+                                console.log(monthlySalaryId);
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            else if(columnId == 'date_from' || columnId == 'date_to'){
+                                var date_picker = $("#"+this.id+"input").val();
+                                var toPresent = '';
+                                if($("#"+this.id+"toPresent").is(":checked")){
+                                    toPresent = $("#"+this.id+"toPresent").val();
+                                }
+                                var pickerValue;
+                                if(toPresent)
+                                    pickerValue = toPresent;
+                                else{
+                                    if(date_picker == 'Present'){
+                                        pickerValue = '';
+                                    }
+                                    else {
+                                        pickerValue = date_picker;
+                                    }
+                                }
+
+                                console.log(pickerValue);
+                                $("#"+this.id).css('color','black').html(pickerValue);
+                                if(!pickerValue){
+                                    $("#"+this.id).css('color','#D14').css('font-style','italic').html('Empty');
+                                }
+
+                                json = {
+                                    "id" : this.id.split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : pickerValue,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateWorkExperience') !!}";
+                            }
+                            else if(columnId == 'certificate'){
+                                json = {
+                                    "id" : this.id.split('training')[1].split('col')[0],
+                                    "userid": "<?php echo $user->piUserid ?>",
+                                    "column" : this.id.split('col')[1],
+                                    "value" : value,
+                                    "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateTrainingProgram') !!}";
+                            }
+                            else if(radioClassname.includes('survey')){
+                                var finalValue;
+                                if(value == "Yes"){
+                                    if(this.id.split('col')[1] == "offense_b"){
+                                        finalValue = value+"-"+$("."+this.id.split('col')[1]+"_date_filed").val()+"-"+$("."+this.id.split('col')[1]+"_status_case").val();
+                                    } else {
+                                        finalValue = value+"-"+$("."+this.id.split('col')[1]+"_specify").val();
+                                    }
+                                } else {
+                                    finalValue = value;
+                                }
+                                $("#"+this.id).html(finalValue);
+                                json = {
+                                    "userid" : this.id.split('col')[0],
+                                    "column" : this.id.split('col')[1],
+                                    "value" : finalValue,
+                                    "_token" : "<?php echo csrf_token(); ?>",
+                                };
+                                url = "{!! asset('updateSurvey') !!}";
+                                console.log(json);
+                            }
+
+                            if( columnId == 'workDelete' || columnId == 'childrenDelete' || columnId == 'civilDelete' || columnId == 'voluntaryDelete' || columnId == 'trainingDelete' || columnId == 'educationDelete' || columnId == 'otherDelete' ){
+                                if( columnId == 'workDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteWorkExperience') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+
+                                }
+                                else if( columnId == 'childrenDelete' ){
+                                    json = {
+                                        "id" : this.id.split('c_id')[1].split('col')[0],
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteChildren') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'civilDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteCivilEligibility') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'educationDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteEducationalBackground') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'otherDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteOtherInformation') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'voluntaryDelete' ){
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteVoluntaryWork') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                }
+                                else if( columnId == 'trainingDelete' ){
+                                    if(!certificateLink){
+                                        certificateLink = $(this).data('link');
+                                    }
+
+                                    json = {
+                                        "id" : this.id.split('col')[0],
+                                        'path' : certificateLink,
+                                        "unique_row" : $(this).parents(':eq(1)').attr('id'),
+                                        "_token" : "<?php echo csrf_token(); ?>",
+                                    };
+
+                                    url = "{!! asset('deleteTrainingProgram') !!}";
+                                    $(this).parents(':eq(1)').fadeOut();
+                                    certificateLink = '';
+                                }
+
+                                $.post(url,json,function(result){
+                                    console.log(result);
+                                });
+
+                            }
+                            else
+                            {
+                                $.post(url,json,function(result){
+                                    console.log(result);
+                                    if(columnId == 'cdate_of_birth'){
+                                        childId = result; //get the primary key
+                                        console.log(result);
+                                    }
+                                    else if (columnId == "salary_grade"){
+                                        console.log(monthlySalaryId);
+                                        $("#"+monthlySalaryId).html("<b style='color:#307bff;'>"+result+"</b>");
+                                    }
+                                });
+                            }
+
+
+                        }
+                    });
+                });
+            }
+
+        });
 
         (function($) {
             //global variable
@@ -3079,7 +3217,13 @@
                         //var name = this.$input.closest('.editable_radio').find("[data-type='radiolist']").attr('id'); way gamit undefined
                         name = this.options.scope.id;
                         $value = $("#"+name).text();
-                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status' || name.split('col')[1] == 'government_service'){
+                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status'
+                            || name.split('col')[1] == 'government_service' || name.split('col')[1] == 'consanguinity_a'
+                            || name.split('col')[1] == 'consanguinity_b' || name.split('col')[1] == 'offense_a' || name.split('col')[1] == 'offense_b'
+                            || name.split('col')[1] == 'convicted' || name.split('col')[1] == 'separated' || name.split('col')[1] == 'government_a'
+                            || name.split('col')[1] == 'government_b' || name.split('col')[1] == 'immigrant' || name.split('col')[1] == 'indigenous_a'
+                            || name.split('col')[1] == 'indigenous_b' || name.split('col')[1] == 'indigenous_c'
+                        ){
                             $label = $('<label class="radio-inline" style="padding-right:10px;padding-top:5px;">')
                                 .append($('<input>', {
                                         type: 'radio',
@@ -3088,7 +3232,8 @@
                                     }
                                 ));
 
-                            $label.append($('<span>').text(this.sourceData[i].text));
+                            var spanAppend = $('<span>').text(this.sourceData[i].text);
+                            $label.append(spanAppend);
                             // Add radio buttons to template
                             this.$tpl.append($label);
                         }
@@ -3198,6 +3343,42 @@
                         var workDelete_append = this.$tpl;
                         workDelete_append.append("<label class='red'>Are you sure you want to delete this ?</label>&nbsp;");
                     }
+                    else if(
+                        name.split('col')[1] == 'consanguinity_b' || name.split('col')[1] == 'offense_a' || name.split('col')[1] == 'offense_b'
+                        || name.split('col')[1] == 'convicted' || name.split('col')[1] == 'separated' || name.split('col')[1] == 'government_a'
+                        || name.split('col')[1] == 'government_b' || name.split('col')[1] == 'immigrant' || name.split('col')[1] == 'indigenous_a'
+                        || name.split('col')[1] == 'indigenous_b' || name.split('col')[1] == 'indigenous_c'
+                    ){
+                        var surveyAppend = this.$tpl;
+                        if(name.split('col')[1] == 'offense_b'){
+                            surveyAppend.append('<br>'+"<span class='purple "+name.split('col')[1]+" hide'>if yes, give details:<br>" +
+                                "Date Filed:<br><input type='text' class='"+name.split('col')[1]+"_date_filed' name='"+name.split('col')[1]+"_date_filed'><br>" +
+                                "Status of Case/s:<br><input type='text' class='"+name.split('col')[1]+"_status_case' name='"+name.split('col')[1]+"_status_case'> </span>" +
+                                "");
+                        } else {
+                            surveyAppend.append('<br>'+"<span class='purple "+name.split('col')[1]+" hide'>if yes, give details: <br><input type='text' class='"+name.split('col')[1]+"_specify' name='"+name.split('col')[1]+"_specify'> </span>");
+                        }
+                        $(function() {
+                            $(document).on('change', "input[name='"+name+"']", function() {
+                                var radioCheckVal = $("input[name='"+name+"']:checked").val();
+                                if(radioCheckVal == "Yes"){
+                                    $("."+name.split("col")[1]).removeClass('hide');
+                                    $("."+name.split("col")[1]+"_specify").val($value.split('-')[1]);
+                                    $("."+name.split("col")[1]+"_date_filed").datepicker({
+                                        showOtherMonths: true,
+                                        selectOtherMonths: true,
+                                        autoclose:true,
+                                        changeMonth: true,
+                                        changeYear: true
+                                    });
+                                } else {
+                                    $("."+name.split("col")[1]).addClass('hide');
+                                }
+                            });
+                        });
+                    }
+
+                    console.log(name);
 
                     this.$input = this.$tpl.find('input[type="radio"]');
                     this.setClass();
@@ -3222,20 +3403,30 @@
 
                 //set checked on required radio buttons og mo trigger ig click sa editable
                 //!!Could probably be cleaned up since this was for select multiple originally
-                value2input: function(value) {
-                    //this.$input.prop('checked', true);
+                value2input: function() {
+                    console.log('rtayong');
+                    //para ma check ang radio box
                     $("input[name="+name+"][value='"+$value+"']").prop("checked",true);
-                    if($.isArray(value) && value.length) {
-                        this.$input.each(function(i, el) {
-                            var $el = $(el);
-                            // cannot use $.inArray as it performs strict comparison
-                            $.each(value, function(j, val) {
-                                if($el.val() == val) {
-                                    $el.prop('checked', true);
-                                }
-                            });
+                    var elementId = name.split("col")[1];
+
+                    //SURVEY RADIO BUTTON
+                    $("input[name="+elementId+"_specify"+"][value='"+$value+"']").prop("checked",true);
+                    if($value.split('-')[0] == "Yes"){
+                        $("."+elementId).removeClass('hide');
+                        $("input[name="+name+"][value='"+$value.split('-')[0]+"']").prop("checked",true);
+                        $("."+elementId+"_specify").val($value.split('-')[1]);
+                        $("."+elementId+"_date_filed").val($value.split('-')[1]);
+                        $("."+elementId+"_date_filed").datepicker({
+                            showOtherMonths: true,
+                            selectOtherMonths: true,
+                            autoclose:true,
+                            changeMonth: true,
+                            changeYear: true
                         });
+                        $("."+elementId+"_status_case").val($value.split('-')[2]);
                     }
+                    //
+
                 },
 
                 input2value: function() {

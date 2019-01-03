@@ -37,6 +37,7 @@ Route::get('pisInfo/{userid}','PisController@pisInfo');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
+Route::post('/updateSurvey','PisController@updateSurvey');
 Route::post('/updateUserid','PisController@updateUserid');
 Route::post('/updateFamilyBackground','PisController@updateFamilyBackground');
 Route::post('/updateChildren','PisController@updateChildren');
@@ -77,6 +78,7 @@ Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
 Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
+Route::get('/upgradeSalaryTranche', 'SalaryController@upgradeSalaryTranche');
 
 Route::get('/sirBong','PisController@sirBong');
 

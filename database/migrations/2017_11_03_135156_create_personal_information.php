@@ -13,6 +13,9 @@ class CreatePersonalInformation extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('personal_information')){
+            return true;
+        }
         Schema::create('personal_information', function (Blueprint $table) {
             $table->increments('id');
             $table->string('userid',50)->unique();

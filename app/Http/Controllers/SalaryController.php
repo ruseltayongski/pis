@@ -3,9 +3,11 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PIS\SalaryGrade;
 use Illuminate\Support\Facades\Session;
+use PIS\Work_Experience;
 
 class SalaryController extends Controller
 {
@@ -128,6 +130,44 @@ class SalaryController extends Controller
 
     public function salaryGrade(){
         return view('append.salaryGrade');
+    }
+
+    public function upgradeSalaryTranche(){
+        $work_experience = Work_Experience::where('date_to','=','Present')
+                        ->where("salary_grade","like","%Third%")
+                        ->where(DB::raw('length(userid)'),">=","6")
+                        ->get();
+
+        $salary_grade = [];
+        foreach($work_experience as $row){
+            $salary_grade[] = [
+                "userid" => $row->userid,
+                "salary_tranche" => 'Fourth',
+                "salary_grade" => explode('-',explode(' | ',$row->salary_grade)[1])[0],
+                "salary_step" => explode('-',explode(' | ',$row->salary_grade)[1])[1]
+            ];
+        }
+
+        $count = 0;
+        foreach($salary_grade as $row){
+            $monthly_salary = SalaryGrade::where('salary_tranche','=',$row['salary_tranche'])
+                        ->where('salary_grade','=',$row['salary_grade'])
+                        ->where('salary_step','=',$row['salary_step'])
+                        ->first()
+                        ->salary_amount;
+
+            if($userUpgradeTranche = Work_Experience::where('userid','=',$row['userid'])
+                            ->where('date_to','=','Present')
+                            ->first()){
+                $userUpgradeTranche->update([
+                    'salary_grade' => $row['salary_tranche'].' | '.$row['salary_grade'].'-'.$row['salary_step'],
+                    'monthly_salary' => $monthly_salary
+                ]);
+                $count++;
+            }
+        }
+
+        return $count.' Employees successfully upgrade the salary tranche';
     }
 
 }
