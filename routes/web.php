@@ -78,7 +78,7 @@ Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
 Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
-Route::get('/upgradeSalaryTranche', 'SalaryController@upgradeSalaryTranche');
+Route::get('/upgradeSalaryTranche/{currentTranche}/{upgradeTranche}', 'SalaryController@upgradeSalaryTranche');
 
 Route::get('/sirBong','PisController@sirBong');
 
