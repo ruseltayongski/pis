@@ -5,6 +5,8 @@ namespace PIS\Exceptions;
 use Exception;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +46,13 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            // Your stuff here
+            if(preg_match('/[A-Z]/', explode('/',$_SERVER['REQUEST_URI'])[1])){
+                return redirect('pis/login');
+            }
+            return redirect('login');
+        }
         return parent::render($request, $exception);
     }
 

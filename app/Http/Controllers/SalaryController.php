@@ -132,9 +132,9 @@ class SalaryController extends Controller
         return view('append.salaryGrade');
     }
 
-    public function upgradeSalaryTranche(){
+    public function upgradeSalaryTranche($currentTranche,$upgradeTranche){
         $work_experience = Work_Experience::where('date_to','=','Present')
-                        ->where("salary_grade","like","%Third%")
+                        ->where("salary_grade","like","%$currentTranche%")
                         ->where(DB::raw('length(userid)'),">=","6")
                         ->get();
 
@@ -142,7 +142,7 @@ class SalaryController extends Controller
         foreach($work_experience as $row){
             $salary_grade[] = [
                 "userid" => $row->userid,
-                "salary_tranche" => 'Fourth',
+                "salary_tranche" => $upgradeTranche,
                 "salary_grade" => explode('-',explode(' | ',$row->salary_grade)[1])[0],
                 "salary_step" => explode('-',explode(' | ',$row->salary_grade)[1])[1]
             ];
