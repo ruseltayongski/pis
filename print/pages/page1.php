@@ -100,39 +100,39 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
         array(
             "",
             "",
-            $user['lname'],
-            $user['fname'],
-            $user['mname'],
-            $user['date_of_birth'],
-            "",
-            $user['place_of_birth'],
             "",
             "",
             "",
-            $user['height'],
-            $user['weight'],
-            $user['blood_type'],
-            $user['gsis_idno'],
-            $user['pag_ibigno'],
-            $user['phicno'],
-            $user['sssno'],
-            $user['tin_no'],
-            $user['userid'],
-            $family_background['sln'],
-            $family_background['sfn'],
-            $family_background['sln'],
-            $family_background['smn'],
-            $family_background['sne'],
-            $family_background['soccu'],
-            $family_background['sbadd'],
-            $family_background['stelno'],
-            $family_background['fln'],
-            $family_background['ffn'],
-            $family_background['fmn'],
-            $family_background['mmln'],
-            $family_background['ms'],
-            $family_background['mfn'],
-            $family_background['mmn'],
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
             "",
             "",
             ""
@@ -160,14 +160,14 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
             "21. E-MAIL ADDRESS (if any)",
             "",
             "",
-            "Name Extension (JR,SR)",
+            "Name Extension (JR,SR):",
             "",
             "",
             "",
             "",
             "",
             "",
-            "Name Extension (JR,SR)",
+            "Name Extension (JR,SR):",
             "",
             "",
             "",
@@ -543,7 +543,6 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                 }
                 elseif( $col == 4 ){
                     $border1 = 'TBL';
-                    $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1,$marginTop1);
                     $pdf->Cell($width1[$col]+78,4,'',1,0,$position1,$colorFlag);
 
@@ -553,6 +552,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
                     $pdf->SetXY($marginLeft1+50,$marginTop1-.3);
                     $pdf->Cell($width1[$col]+76,4,$user['RStreet'],0,0,$position1,$colorFlag);
 
+                    $pdf->SetFont('Arial','',6);
                     $pdf->SetXY($marginLeft1+10,$marginTop1+2);
                     $pdf->Cell($width1[$col],$height1,'House/Block/Lot No.',0,0,$position1,$colorFlag);
                 }
@@ -1189,8 +1189,29 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
         }
         $marginLeft1 += $width1[$col];
     }
-
     $marginTop1 = $marginTopTemp1; // get the original margin top 279.2
+
+    //row 1 result
+    $row1Key = ['user|lname','user|fname','user|mname','user|date_of_birth','user|place_of_birth','user|height','user|weight',
+                'user|blood_type','user|gsis_idno','user|pag_ibigno','user|phicno','user|sssno','user|tin_no','user|userid',
+                'family_background|sln','family_background|sfn','family_background|smn','family_background|soccu','family_background|sbname',
+                'family_background|sbname','family_background|stelno','family_background|fln','family_background|ffn','family_background|fmn',
+                'family_background|mmln','family_background|ms','family_background|mfn','family_background|mmn'];
+    $row1TopIncrement = ['6.6','6.6','6.6','13','26','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6'
+                        ,'13.3','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6',
+                        '6.6',''];
+    $row1marginTop = 43.5;
+    for($row=0; $row<count($row1Key);$row++){
+        $pdf->SetFont('Arial','B',6);
+        $pdf->SetXY(47,$row1marginTop);
+        $pdf->Cell(3,3,${explode('|',$row1Key[$row])[0]}[explode('|',$row1Key[$row])[1]],0,0,'');
+        $row1marginTop += $row1TopIncrement[$row];
+    }
+    $pdf->SetFont('Arial','B',6);
+    $pdf->SetXY(116,175.5);
+    $pdf->Cell(3,3,$family_background['sne'],0,0,'');
+    $pdf->SetXY(116,222);
+    $pdf->Cell(3,3,$family_background['fne'],0,0,'');
 
     //checkbox
     $marginTop = $marginTop1 - 196.2;

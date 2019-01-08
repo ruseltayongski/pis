@@ -276,17 +276,4 @@ for( $j = $other_informationRowCount; $j <= 10; $j++ ){
 }
 
 
-$pdf->SetFont('Arial','B',7);
-$pdf->SetTextColor(237,28,36);
-$pdf->SetXY(3,$GLOBALS['marginTop']);
-$pdf->Cell(210,4,'(Continue on separate sheet if necessary)',1,0,'C',false);
-$GLOBALS['marginTop'] += 4;
-$pdf->SetFont('Arial','',15);
-$pdf->SetTextColor(0,0,0);
-$pdf->SetWidths(array(40,75,25,70));
-$pdf->SetXY(3,$GLOBALS['marginTop']);
-$rectColor = ['r' => 207,'g' => 207,'b' => '207','rectCol' => '0|2'];
-//$pdf->Row(['SIGNATURE','','DATE',''],14,15,'C',$rectColor);
-$pdf->Row(['SIGNATURE','','DATE',''],14,7,'C',$rectColor);
-
 ?>

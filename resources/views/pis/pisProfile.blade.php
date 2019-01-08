@@ -659,9 +659,16 @@
                                                                 </div>
 
                                                                 <div class="profile-info-row">
-                                                                    <div class="profile-info-name">Employer/Business Name:</div>
+                                                                    <div class="profile-info-name">Business Name:</div>
                                                                     <div class="profile-info-value">
                                                                         <span class="editable family_background" id="{{ $user->piUserid }}colsbadd">{{ $user->sbadd }}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="profile-info-row">
+                                                                    <div class="profile-info-name">Business Address:</div>
+                                                                    <div class="profile-info-value">
+                                                                        <span class="editable family_background" id="{{ $user->piUserid }}colsbname">{{ $user->sbname }}</span>
                                                                     </div>
                                                                 </div>
 
