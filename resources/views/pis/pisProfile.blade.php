@@ -52,7 +52,7 @@
                     <div class="col-xs-12">
                         <!-- PAGE CONTENT BEGINS -->
                         <ul class="nav nav-tabs">
-                            <li>
+                            <li class="active">
                                 <a data-toggle="tab" href="#personal_information">
                                     <i class="green ace-icon fa fa-user bigger-120"></i>
                                     Personal Information
@@ -100,7 +100,7 @@
                                     Other Information
                                 </a>
                             </li>
-                            <li class="active">
+                            <li>
                                 <a data-toggle="tab" href="#survey">
                                     <i class="grey ace-icon fa fa-info bigger-120"></i>
                                     Survey
@@ -187,7 +187,7 @@
                                     <div id="user-profile-2" class="user-profile">
                                         <div class="tabbable">
                                             <div class="tab-content no-border">
-                                                <div id="personal_information" class="tab-pane fade row">
+                                                <div id="personal_information" class="tab-pane fade in active row">
                                                     <div class="alert alert-info">
                                                         <i class="ace-icon fa fa-hand-o-right"></i> Note:<br>
                                                         _ _ _ _ _ _ _&nbsp;&nbsp;EDITABLE SYMBOL<br>
@@ -1160,7 +1160,7 @@
                                                     </div>
                                                 </div><!-- /#SURVEY -->
 
-                                                <div id="survey" class="fade in active tab-pane">
+                                                <div id="survey" class="fade tab-pane">
                                                     <div class="row">
                                                         <h3 class="lighter block green">Survey</h3>
                                                         <div class="widget-box transparent">
