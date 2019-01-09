@@ -1180,14 +1180,14 @@
                                                                                         a. within the third degree?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconsanguinity_a">{{ $user->consanguinity_a }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colconsanguinity_a">{{ $user->consanguinity_a }}</span>
                                                                                 </div>
                                                                                 <div class="margin-left-50">
                                                                                     <b class="purple">
                                                                                         b. within the fourth degree (for Local Government Unit - Career Employees)?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconsanguinity_b">{{ $user->consanguinity_b }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colconsanguinity_b">{{ $user->consanguinity_b }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1199,14 +1199,14 @@
                                                                                         a. Have you ever been found guilty of any administrative offense?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}coloffense_a">{{ $user->offense_a }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}coloffense_a">{{ $user->offense_a }}</span>
                                                                                 </div>
                                                                                 <div>
                                                                                     <b class="purple">
                                                                                         b. Have you been criminally charged before any court?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}coloffense_b">{{ $user->offense_b }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}coloffense_b">{{ $user->offense_b }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1218,7 +1218,7 @@
                                                                                         Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
                                                                                     </b>
                                                                                     <div class="space-1"></div>
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colconvicted">{{ $user->convicted }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colconvicted">{{ $user->convicted }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1230,7 +1230,7 @@
                                                                                         Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
                                                                                     </b>
                                                                                     <div class="space-1"></div>
-                                                                                    <span class="orange editable_radio survey margin-left-50" id="{{ $user->surveyUserid }}colseparated">{{ $user->separated }}</span>
+                                                                                    <span class="orange editable_radio survey margin-left-50" id="{{ $user->piUserid }}colseparated">{{ $user->separated }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1243,14 +1243,14 @@
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
                                                                                     <div class="space-1"></div>
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colgovernment_a">{{ $user->government_a }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colgovernment_a">{{ $user->government_a }}</span>
                                                                                 </div>
                                                                                 <div class="margin-left-50">
                                                                                     <b class="purple">
                                                                                         b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colgovernment_b">{{ $user->government_b }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colgovernment_b">{{ $user->government_b }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1262,7 +1262,7 @@
                                                                                         Have you acquired the status of an immigrant or permanent resident of another country?
                                                                                     </b>
                                                                                     <div class="space-1"></div>
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colimmigrant">{{ $user->immigrant }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colimmigrant">{{ $user->immigrant }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -1277,21 +1277,21 @@
                                                                                         a. Are you a member of any indigenous group?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_a">{{ $user->indigenous_a }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colindigenous_a">{{ $user->indigenous_a }}</span>
                                                                                 </div>
                                                                                 <div class="margin-left-50">
                                                                                     <b class="purple">
                                                                                         b. Are you a person with disability?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_b">{{ $user->indigenous_b }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colindigenous_b">{{ $user->indigenous_b }}</span>
                                                                                 </div>
                                                                                 <div class="margin-left-50">
                                                                                     <b class="purple">
                                                                                         c. Are you a solo parent?
                                                                                     </b>
                                                                                     &nbsp;&nbsp;&nbsp;
-                                                                                    <span class="orange editable_radio survey" id="{{ $user->surveyUserid }}colindigenous_c">{{ $user->indigenous_c }}</span>
+                                                                                    <span class="orange editable_radio survey" id="{{ $user->piUserid }}colindigenous_c">{{ $user->indigenous_c }}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
