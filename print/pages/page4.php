@@ -573,7 +573,7 @@ for($row=0; $row<4; $row++){
         if( $row == 0 ){
             $content = $referenceColumn[$col];
         } else {
-            $pdf->SetFont('Arial','B',7);
+            $pdf->SetFont('Arial','B',6);
             $content = $survey['reference_'.$referenceKey[$col].'_'.$referenceLetter[$row]];
         }
         $pdf->SetXY($referenceMarginLeft,$marginTop);
@@ -646,7 +646,7 @@ for($row=0;$row<count($idNote);$row++){
     } else {
         $result = '';
     }
-    $pdf->SetFont('Arial','B',7);
+    $pdf->SetFont('Arial','B',6);
     $pdf->SetXY(27,$idNoteMarginTopFinal);
     $pdf->Cell(70,7,$result,0,0,'L',false);
     if($row+1 == count($idNote)) {
