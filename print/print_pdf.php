@@ -136,7 +136,7 @@ class PDF extends FPDF
             $this->SetXY(165,-38);
             $this->Cell(48,8,'',1,0,'',false);
         }
-        $this->SetY(-30);
+        $this->SetXY(3,-30);
         // Arial italic 8
         $this->SetFont('Arial','I',7);
         $this->SetTextColor(0,0,0);
