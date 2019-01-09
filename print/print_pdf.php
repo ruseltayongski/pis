@@ -60,6 +60,17 @@ function education_type($id){
     return $row;
 }
 
+function test(){
+    $db=connect();
+    $sql= "select * from survey";
+    $pdo=$db->prepare($sql);
+    $pdo->execute();
+    $row=$pdo->fetchAll();
+    $db=null;
+
+    return $row;
+}
+
 
 if(isset($_POST['userid'])){
     $_SESSION['userid'] = $_POST['userid'];
@@ -73,6 +84,8 @@ $work_experience = workExperience($_SESSION['userid']);
 $voluntary_work = queryFetchAll($_SESSION['userid'],'voluntary_work');
 $training_program = trainingProgram($_SESSION['userid']);
 $other_information = queryFetchAll($_SESSION['userid'],'other_information');
+$survey = queryFetch($_SESSION['userid'],'survey');
+//echo json_encode($survey['consanguinity_a']);
 
 /**
  * Created by PhpStorm.
@@ -104,45 +117,32 @@ class PDF extends FPDF
     // Page footer
     function Footer()
     {
-        // Position at 1.5 cm from bottom
-        $this->SetY(-21);
-        $this->SetFont('Arial','',10);
-        $this->Cell(210,6,'FOOTER'.$this->PageNo().' of {nb}',1,0,'R',false);
+        if(!isset($GLOBALS['isFinished'])){
+            // Position at 1.5 cm from bottom
+            $this->SetFont('Arial','B',7);
+            $this->SetTextColor(237,28,36);
+            $this->SetXY(3,-42);
+            $this->Cell(210,4,'(Continue on separate sheet if necessary)',1,0,'C',false);
 
-        $this->SetY(-15);
+            $this->SetTextColor(0,0,0);
+            $this->SetFillColor(150, 150, 150);
+            $this->SetFont('Arial','',15);
+            $this->SetXY(3,-38);
+            $this->Cell(43,8,'SIGNATURE',1,0,'C',true);
+            $this->SetXY(46,-38);
+            $this->Cell(89,8,'',1,0,'',false);
+            $this->SetXY(135,-38);
+            $this->Cell(30,8,'DATE',1,0,'C',true);
+            $this->SetXY(165,-38);
+            $this->Cell(48,8,'',1,0,'',false);
+        }
+        $this->SetY(-30);
         // Arial italic 8
         $this->SetFont('Arial','I',7);
         $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
-    }
 
-    function tayong($data)
-    {
-        //Calculate the height of the row
-        $nb=0;
-        for($i=0;$i<count($data);$i++)
-            $nb=max($nb,$this->NbLines($this->widths[$i],$data[$i]));
-        $h=5*$nb;
-        //Issue a page break first if needed
-        $this->CheckPageBreak($h);
-        //Draw the cells of the row
-        for($i=0;$i<count($data);$i++)
-        {
-            $w=$this->widths[$i];
-            $a=isset($this->aligns[$i]) ? $this->aligns[$i] : 'L';
-            //Save the current position
-            $x=$this->GetX();
-            $y=$this->GetY();
-            //Draw the border
-            $this->Rect($x,$y,$w,$h);
-            //Print the text
-            $this->MultiCell($w,5,$data[$i],0,$a);
-            //Put the position to the right of the cell
-            $this->SetXY($x+$w,$y);
-        }
-        //Go to the next line
-        $this->Ln($h);
     }
 
     function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
@@ -199,7 +199,7 @@ class PDF extends FPDF
     function CheckPageBreak($h)
     {
         //If the height h would cause an overflow, add a new page immediately
-        if($this->GetY()+$h>$this->PageBreakTrigger)
+        if($this->GetY()+$h+18>$this->PageBreakTrigger)
             $this->AddPage($this->CurOrientation);
     }
 
@@ -262,12 +262,12 @@ $pdf->AliasNbPages();
 
 $pdf->AddPage();
 include 'pages/page1.php';
-/*$pdf->AddPage();
+$pdf->AddPage();
 include 'pages/page2.php';
 $pdf->AddPage();
 include 'pages/page3.php';
 $pdf->AddPage();
-include 'pages/page4.php';*/
+include 'pages/page4.php';
 
 $pdf->Output();
 

@@ -24,6 +24,7 @@ class CreateFamilyBackground extends Migration
             $table->text('smn')->nullable();
             $table->text('sne')->nullable();
             $table->text('soccu')->nullable();
+            $table->text('sbname')->nullable();
             $table->text('sbadd')->nullable();
             $table->text('stelno')->nullable();
             $table->text('fln')->nullable();
