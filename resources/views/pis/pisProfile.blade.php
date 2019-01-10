@@ -354,7 +354,7 @@
                                                             </div>
 
                                                             <div class="profile-info-row">
-                                                                <div class="profile-info-name"> CARD ACCOUNT NUMBER</div>
+                                                                <div class="profile-info-name"> LBP ACCOUNT NUMBER</div>
                                                                 <div class="profile-info-value">
                                                                     <span class="<?php if(Auth::user()->usertype && Auth::user()->username == "0007")  echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colaccount_number">
                                                                         <?php
@@ -377,6 +377,7 @@
                                                             <div class="profile-info-row">
                                                                 <div class="profile-info-name"> GSIS ID NO </div>
                                                                 <div class="profile-info-value">
+                                                                    <!--
                                                                     <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colgsis_idno">
                                                                         <?php
                                                                         if(!Auth::user()->usertype && !$user->gsis_idno)
@@ -391,12 +392,15 @@
                                                                         }
                                                                         ?>
                                                                     </span>
+                                                                    -->
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colgsis_idno">{{ $user->gsis_idno }}</span>
                                                                 </div>
                                                             </div>
 
                                                             <div class="profile-info-row">
                                                                 <div class="profile-info-name"> PAG-IBIG ID NO. </div>
                                                                 <div class="profile-info-value">
+                                                                    <!--
                                                                     <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?>  personal_information" id="{{ $user->piId }}colpag_ibigno">
                                                                         <?php
                                                                         if(!Auth::user()->usertype && !$user->pag_ibigno)
@@ -411,12 +415,15 @@
                                                                         }
                                                                         ?>
                                                                     </span>
+                                                                    -->
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colpag_ibigno">{{ $user->pag_ibigno }}</span>
                                                                 </div>
                                                             </div>
 
                                                             <div class="profile-info-row">
                                                                 <div class="profile-info-name"> SSS NO. </div>
                                                                 <div class="profile-info-value">
+                                                                    <!--
                                                                     <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colsssno">
                                                                         <?php
                                                                         if(!Auth::user()->usertype && !$user->sssno)
@@ -431,12 +438,15 @@
                                                                         }
                                                                         ?>
                                                                     </span>
+                                                                    -->
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colsssno">{{ $user->sssno }}</span>
                                                                 </div>
                                                             </div>
 
                                                             <div class="profile-info-row">
                                                                 <div class="profile-info-name"> TIN NO. </div>
                                                                 <div class="profile-info-value">
+                                                                    <!--
                                                                     <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}coltin_no">
                                                                         <?php
                                                                         if(!Auth::user()->usertype && !$user->tin_no)
@@ -451,12 +461,15 @@
                                                                         }
                                                                         ?>
                                                                     </span>
+                                                                    -->
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}coltin_no">{{ $user->tin_no }}</span>
                                                                 </div>
                                                             </div>
 
                                                             <div class="profile-info-row">
                                                                 <div class="profile-info-name"> PHIC NO. </div>
                                                                 <div class="profile-info-value">
+                                                                    <!--
                                                                     <span class="<?php if(Auth::user()->usertype) echo 'editable'; else echo ''; ?> personal_information" id="{{ $user->piId }}colphicno">
                                                                         <?php
                                                                         if(!Auth::user()->usertype && !$user->phicno)
@@ -471,6 +484,8 @@
                                                                         }
                                                                         ?>
                                                                     </span>
+                                                                    -->
+                                                                    <span class="editable personal_information" id="{{ $user->piId }}colphicno">{{ $user->phicno }}</span>
                                                                 </div>
                                                             </div>
 
@@ -2504,7 +2519,7 @@
                                 console.log(json);
                             }
 
-                            if( json.column == 'account_number' || json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'  ){
+                            if( json.column == 'account_number' /*|| json.column == 'gsis_idno' || json.column == 'pag_ibigno' || json.column == 'sssno' || json.column == 'tin_no' || json.column == 'phicno'*/  ){
                                 $("#"+this.id).css('color','#307bff');
                                 $("#"+this.id).css({'font-weight': 'bold'});
                             }
