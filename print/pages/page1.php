@@ -71,7 +71,7 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
             "",
             "7. HEIGHT(m)",
             "8. WEIGHT(kg)",
-            "9. BLOOD TYPE 13",
+            "9. BLOOD TYPE",
             "10. GSIS ID NO.",
             "11. PAG-IBIG ID NO",
             "12. PHILHEALTH NO.",
