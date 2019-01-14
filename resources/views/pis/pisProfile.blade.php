@@ -2585,7 +2585,7 @@
                             {value: "SAA 2018-02-0081", text: "SAA 2018-02-0081" },
                         ],
                         "salary_chargePermanent" : [
-                            {value: "RD/ARD", text: "RD/ARD" },
+                            {value: "RD_ARD", text: "RD/ARD" },
                             {value: "MSD", text: "MSD" },
                             {value: "LHSD", text: "LHSD" },
                             {value: "RLED", text: "RLED" },
