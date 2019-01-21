@@ -130,10 +130,10 @@
                 if(!data.mname){
                     var fullname = data.fname+" "+data.lname;
                 }
-                else if(!data.fname){
+                else if(!data.lname){
                     var fullname = data.lname+", "+data.mname;
                 }
-                else if(!data.fnam){
+                else if(!data.fname){
                     var fullname = data.fname+", "+data.mname;
                 }
                 else {
