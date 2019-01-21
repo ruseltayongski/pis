@@ -1,4 +1,5 @@
 <?php
+$GLOBALS['isTrainingStart'] = true;
 $GLOBALS['marginTop'] = 2;
 $pdf->SetXY(3,$GLOBALS['marginTop']);
 $pdf->SetWidths(array(210));

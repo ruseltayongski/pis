@@ -199,7 +199,12 @@ class PDF extends FPDF
     function CheckPageBreak($h)
     {
         //If the height h would cause an overflow, add a new page immediately
-        if($this->GetY()+$h+18>$this->PageBreakTrigger)
+        if(isset($GLOBALS['isTrainingStart'])){
+            $addBreak = 21;
+        } else {
+            $addBreak = 18;
+        }
+        if($this->GetY()+$h+$addBreak>$this->PageBreakTrigger)
             $this->AddPage($this->CurOrientation);
     }
 
