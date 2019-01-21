@@ -127,10 +127,17 @@
 
             var personal_select = [];
             $.each(<?php echo $personal_select; ?>,function(x,data){
-                if(data.mname){
-                    var fullname = data.fname+" "+data.lname+", "+data.mname;
-                } else {
+                if(!data.mname){
                     var fullname = data.fname+" "+data.lname;
+                }
+                else if(!data.fname){
+                    var fullname = data.lname+", "+data.mname;
+                }
+                else if(!data.fnam){
+                    var fullname = data.fname+", "+data.mname;
+                }
+                else {
+                    var fullname = data.fname+" "+data.lname+", "+data.mname;
                 }
                 personal_select.push({ label:fullname, id:data.id });
             });
