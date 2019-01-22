@@ -271,13 +271,8 @@ foreach( $other_information as $row ){
     $other_informationRowCount++;
 }
 
-$GLOBALS['temp'] = 'rusel';
 for( $j = $other_informationRowCount; $j <= 10; $j++ ){
-    /*if($GLOBALS['pageNumber'] == 5 || $j == 6){
-        $GLOBALS['temp'] = $j;
-        break;
-    }*/
-    $pdf->Row(['',$GLOBALS['pageNumber'],''],7,5,'C',null);
+    $pdf->Row(['',' ',''],7,5,'C',null);
 }
 
 ?>
