@@ -97,7 +97,7 @@ $survey = queryFetch($_SESSION['userid'],'survey');
 include_once 'fpdf.php';
 
 
-$GLOBALS['pageNumber'] = 0;
+$GLOBALS['trainingAndOtherBreak'] = 0;
 class PDF extends FPDF
 {
     var $widths;
@@ -143,7 +143,6 @@ class PDF extends FPDF
         $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
-        $GLOBALS['pageNumber'] = $this->PageNo()+1;
     }
 
     function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
@@ -160,7 +159,10 @@ class PDF extends FPDF
 
         $h=$height*$nb;
         //Issue a page break first if needed
-        $this->CheckPageBreak($h);
+        $this->CheckPageBreak($h,$data);
+        if($GLOBALS['trainingAndOtherBreak'] > 0 && $data[0] != '' && $data[1] != '' && $data[2] != '' ){
+            return false;
+        }
         //Draw the cells of the row
         for($i=0;$i<count($data);$i++)
         {
@@ -197,7 +199,7 @@ class PDF extends FPDF
         $this->Ln($h);
     }
 
-    function CheckPageBreak($h)
+    function CheckPageBreak($h,$data)
     {
         //If the height h would cause an overflow, add a new page immediately
         if(isset($GLOBALS['isTrainingStart'])){
@@ -206,6 +208,11 @@ class PDF extends FPDF
             $addBreak = 18;
         }
         if($this->GetY()+$h+$addBreak>$this->PageBreakTrigger){
+            if(isset($GLOBALS['isTrainingStart']) && $data[0] != '' && $data[1] != '' && $data[2] != ''){
+                $GLOBALS['trainingAndOtherBreak'] += 1;
+                $GLOBALS['isTrainingStart'] = false;
+                return false;
+            }
             $this->AddPage($this->CurOrientation);
         }
     }
