@@ -3084,7 +3084,11 @@
                                 if(value == "Yes"){
                                     if(this.id.split('col')[1] == "offense_b"){
                                         finalValue = value+"-"+$("."+this.id.split('col')[1]+"_date_filed").val()+"-"+$("."+this.id.split('col')[1]+"_status_case").val();
-                                    } else {
+                                    }
+                                    else if(this.id.split('col')[1] == "consanguinity_a"){
+                                        finalValue = value;
+                                    }
+                                    else {
                                         finalValue = value+"-"+$("."+this.id.split('col')[1]+"_specify").val();
                                     }
                                 } else {
