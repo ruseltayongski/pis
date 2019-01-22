@@ -265,16 +265,19 @@ $other_informationColumn = ['special_skills','recognition','organization'];
 $other_informationRowCount = 1;
 foreach( $other_information as $row ){
     for( $i = 0; $i < count($other_informationColumn); $i++ ){
-        $other_informationData[$i] = $row[$other_informationColumn[$i]];
+        $other_informationData[$i] = $row[$other_informationColumn[$i]]+$GLOBALS['pageNumber'];
     }
     $pdf->Row($other_informationData,7,5,'C',null);
     $other_informationRowCount++;
 }
 
+$GLOBALS['temp'] = 'rusel';
 for( $j = $other_informationRowCount; $j <= 10; $j++ ){
-    $pdf->Row(['','',''],7,5,'C',null);
-    $other_informationRowCount++;
+    /*if($GLOBALS['pageNumber'] == 5 || $j == 6){
+        $GLOBALS['temp'] = $j;
+        break;
+    }*/
+    $pdf->Row(['',$GLOBALS['pageNumber'],''],7,5,'C',null);
 }
-
 
 ?>

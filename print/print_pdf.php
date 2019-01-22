@@ -97,6 +97,7 @@ $survey = queryFetch($_SESSION['userid'],'survey');
 include_once 'fpdf.php';
 
 
+$GLOBALS['pageNumber'] = 0;
 class PDF extends FPDF
 {
     var $widths;
@@ -142,7 +143,7 @@ class PDF extends FPDF
         $this->SetTextColor(0,0,0);
         // Page number
         $this->Cell(210,6,'CS FORM 212 (Revised 2017), Page '.$this->PageNo().' of {nb}',1,0,'R',false);
-
+        $GLOBALS['pageNumber'] = $this->PageNo()+1;
     }
 
     function Row($data,$height,$multicellHeight,$multicellPosition,$rectColor)
@@ -204,8 +205,9 @@ class PDF extends FPDF
         } else {
             $addBreak = 18;
         }
-        if($this->GetY()+$h+$addBreak>$this->PageBreakTrigger)
+        if($this->GetY()+$h+$addBreak>$this->PageBreakTrigger){
             $this->AddPage($this->CurOrientation);
+        }
     }
 
     function NbLines($w,$txt)
