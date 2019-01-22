@@ -272,7 +272,7 @@ foreach( $other_information as $row ){
 }
 
 for( $j = $other_informationRowCount; $j <= 10; $j++ ){
-    $pdf->Row(['',' ',''],7,5,'C',null);
+    $pdf->Row(['','',''],7,5,'C',null);
 }
 
 ?>
