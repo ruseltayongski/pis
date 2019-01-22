@@ -97,7 +97,7 @@ $survey = queryFetch($_SESSION['userid'],'survey');
 include_once 'fpdf.php';
 
 
-$GLOBALS['trainingAndOtherBreak'] = 0;
+$GLOBALS['trainingAndOtherBreakCount'] = 0;
 class PDF extends FPDF
 {
     var $widths;
@@ -160,7 +160,7 @@ class PDF extends FPDF
         $h=$height*$nb;
         //Issue a page break first if needed
         $this->CheckPageBreak($h,$data);
-        if($GLOBALS['trainingAndOtherBreak'] > 0 && $data[0] != '' && $data[1] != '' && $data[2] != '' ){
+        if($GLOBALS['trainingAndOtherBreakCount'] > 0 && $data[0] == '' && $data[1] == '' && $data[2] == '' ){
             return false;
         }
         //Draw the cells of the row
@@ -208,8 +208,8 @@ class PDF extends FPDF
             $addBreak = 18;
         }
         if($this->GetY()+$h+$addBreak>$this->PageBreakTrigger){
-            if(isset($GLOBALS['isTrainingStart']) && $data[0] != '' && $data[1] != '' && $data[2] != ''){
-                $GLOBALS['trainingAndOtherBreak'] += 1;
+            if(isset($GLOBALS['isTrainingStart']) && $data[0] == '' && $data[1] == '' && $data[2] == ''){
+                $GLOBALS['trainingAndOtherBreakCount'] += 1;
                 $GLOBALS['isTrainingStart'] = false;
                 return false;
             }
