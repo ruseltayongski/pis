@@ -86,9 +86,9 @@ Route::get('/sirBong','PisController@sirBong');
 Route::get('pdf','PdfController@pdf');
 
 //RESET PASSWORD
-Route::get('ResetPassword',function(){
+Route::get('ResetPassword/{userid}',function($userid){
 
-    \PIS\User::where('username','=',"201800276")->update([
+    \PIS\User::where('username','=',$userid)->update([
         "password" => bcrypt('123')
     ]);
 

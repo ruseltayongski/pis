@@ -10,7 +10,7 @@ $pdf->SetXY(3,$marginTop);
 $pdf->Cell(130,33,'','1',0,'L',true);
 
 $pdf->SetXY(3,$marginTop);
-$pdf->Cell(130,10,'34. Are you related by consanguinity or affinity to the appointing or recommending authority, or to the',0,0,'L',false);
+$pdf->Cell(130,10,'34. Are you related by consanguinity or affinity to the appointing or recommending authority, or to the '.$GLOBALS['temp'],0,0,'L',false);
 $pdf->SetXY(8,$marginTop+4);
 $pdf->Cell(130,10,'chief of bureau or office or to the person who has immediate supervision over you in the Office, ',0,0,'L',false);
 $pdf->SetXY(8,$marginTop+8);
