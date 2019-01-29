@@ -1079,4 +1079,33 @@ class PisController extends Controller
         ]);
     }
 
+    public function noPicture(){
+        if(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') {
+            $protocol = "https://";
+        }
+        else {
+            $protocol = "http://";
+        }
+        if(isset($_SERVER['SERVER_PORT'])){
+            $link = $protocol.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/';
+        } else {
+            $link = $protocol.$_SERVER['SERVER_NAME'];
+        }
+        $personal_information = Personal_Information::get();
+        $data = [];
+        foreach($personal_information as $row){
+            if(empty($row->picture)){
+                $data[] = $row;
+            } else {
+                if(getimagesize($link.'pis/public/upload_picture/picture/'.$row->picture))
+                    continue;
+                else
+                    $data[] = $row;
+            }
+        }
+
+        return $data;
+
+    }
+
 }
