@@ -1088,7 +1088,7 @@ class PisController extends Controller
         }
         if(isset($_SERVER['SERVER_PORT'])){
             if($_SERVER['SERVER_PORT'] == '80'){
-                $link = $protocol.$_SERVER['SERVER_NAME'];
+                $link = $protocol.$_SERVER['SERVER_NAME'].'/';
             } else {
                 $link = $protocol.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].'/';
             }
