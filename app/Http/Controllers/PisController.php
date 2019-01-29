@@ -1099,12 +1099,12 @@ class PisController extends Controller
         $data = [];
         foreach($personal_information as $row){
             if(empty($row->picture)){
-                $data[] = $row;
+                $data[] = $row->userid;
             } else {
                 if(getimagesize($link.'pis/public/upload_picture/picture/'.$row->picture))
                     continue;
                 else
-                    $data[] = $row;
+                    $data[] = $row->userid;
             }
         }
 
