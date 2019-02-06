@@ -827,7 +827,7 @@ class PisController extends Controller
         $userid = $request->userid;
         Personal_Information::where('userid','=',$userid)->first()->delete();
         User::where('username','=',$userid)->first()->delete();
-        User_dtr::where('userid','=',$userid)->first()->delete();
+        //User_dtr::where('userid','=',$userid)->first()->delete();
         User_dts::where('username','=',$userid)->first()->delete();
 
         /*Personal_Information::where('userid','=',$userid)->update([
