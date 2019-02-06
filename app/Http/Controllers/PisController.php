@@ -1079,7 +1079,8 @@ class PisController extends Controller
         ]);
     }
 
-    public function noPicture(){
+    public function noPicture($type){
+
         if(strtolower(substr($_SERVER["SERVER_PROTOCOL"],0,5))=='https') {
             $protocol = "https://";
         }
@@ -1098,10 +1099,11 @@ class PisController extends Controller
         $personal_information = Personal_Information::get();
         $data = [];
         foreach($personal_information as $row){
-            if(empty($row->picture)){
+            $type == "picture" ? $columnType = $row->picture : $columnType = $row->signature;
+            if(empty($columnType)){
                 $data[] = $row->userid;
             } else {
-                if(getimagesize($link.'pis/public/upload_picture/picture/'.$row->picture))
+                if(getimagesize($link.'pis/public/upload_picture/'.$type.'/'.$columnType))
                     continue;
                 else
                     $data[] = $row->userid;

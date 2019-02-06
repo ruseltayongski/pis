@@ -56,7 +56,7 @@ Route::post('/updateOtherInformation','PisController@updateOtherInformation');
 Route::post('/uploadPicture','PisController@uploadPicture');
 Route::post('/uploadSignature','PisController@uploadSignature');
 Route::post('/uploadCertificate','PisController@uploadCertificate');
-Route::get('noPicture','PisController@noPicture');
+Route::get('noPicture/{type}','PisController@noPicture');
 Route::post('/deletePersonalInformation','PisController@deletePersonalInformation');
 Route::get('pisId/{userid}/{paper}','pisController@pisId');
 Route::post('deleteWorkExperience','pisController@deleteWorkExperience');
