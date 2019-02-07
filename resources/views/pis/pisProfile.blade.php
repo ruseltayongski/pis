@@ -3280,7 +3280,7 @@
                         var presentFlag = false;
                         var extendAppend = '';
 
-                        var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)'>";
+                        var toPresent = "<br><br>Check if present: <input type='checkbox' value='Present' id='"+name+'toPresent'+"' style='margin-left:10px;margin-right:10px;transform: scale(1.8)' <?php if(!Auth::user()->usertype) echo 'disabled'; ?>>";
                         var notePresent = "<span class='alert alert-info'>Present check use only once</span>";
 
                         if( name.split('col')[1] == 'date_from' ) {
