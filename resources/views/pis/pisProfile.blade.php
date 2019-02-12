@@ -2583,6 +2583,11 @@
                             {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
                             {value: "SAA 2018-04-0699", text: "SAA 2018-04-0699" },
                             {value: "SAA 2018-02-0081", text: "SAA 2018-02-0081" },
+                            {value: "SAA No. 2018-02-0059", text: "SAA No. 2018-02-0059" },
+                            {value: "SAA No. 2018-04-0699", text: "SAA No. 2018-04-0699" },
+                            {value: "2018 CO EAO CONAP", text: "2018 CO EAO CONAP" },
+                            {value: "SAA No. 2018-02-0203", text: "SAA No. 2018-02-0203" },
+                            {value: "Public Health Management Chief", text: "Public Health Management Chief" },
                         ],
                         "salary_chargePermanent" : [
                             {value: "RD_ARD", text: "RD/ARD" },
