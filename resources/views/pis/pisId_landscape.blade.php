@@ -40,6 +40,7 @@
             z-index:-1;
             width: 22.2%;
             height: 40px;
+            background-color: rgb(206, 232, 1);
         }
         .signature2
         {
@@ -49,6 +50,7 @@
             z-index:-1;
             width: 22.2%;
             height: 40px;
+            background-color: rgb(206, 232, 1);
         }
         .name1
         {
