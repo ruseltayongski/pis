@@ -33,6 +33,17 @@
                                     <input type="hidden" value="Active" name="employee_status">
                                     <fieldset>
                                         <div class="row">
+                                            <div class="col-sm-2">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" id="inputWarning" name="userid" value="{{ session('userid') }}" placeholder="Userid" class="width-100" />
+                                                        <i class="ace-icon fa fa-user"></i>
+                                                    </span>
+                                                    @if ($errors->has('fname'))
+                                                        <small class="red"><b>{{ $errors->first('userid') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
@@ -44,7 +55,7 @@
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-2">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
                                                         <input type="text" value="{{ session('mname') }}" name="mname" class="form-control" placeholder="Middlename" />
