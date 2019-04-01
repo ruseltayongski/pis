@@ -38,7 +38,7 @@
             left:25.6%;
             top:46%;
             z-index:-1;
-            width: 22.2%;
+            width: 170px;
             height: 40px;
             background-color: rgb(206, 232, 1);
         }
@@ -48,7 +48,7 @@
             right:2.3%;
             top:46%;
             z-index:-1;
-            width: 22.2%;
+            width: 170px;
             height: 40px;
             background-color: rgb(206, 232, 1);
         }
