@@ -1,6 +1,12 @@
 @extends('layouts.pis_app')
 
 @section('content')
+    <style>
+        input::-webkit-input-placeholder {
+            font-size: 13px;
+            line-height: 4;
+        }
+    </style>
     <div class="row">
         <div class="col-sm-10 col-sm-offset-1">
             <div class="space-10"></div>
@@ -14,53 +20,35 @@
                                     <div class="center">
                                         <div class="col-sm-12">
                                             <h1>
-                                                <img src="{{ asset('public/img/logo.png') }}" />
-                                                <br>
-                                                <b>DOHROH7&nbsp;</b>PIS VERSION 2.1
+                                                <img src="{{ asset('public/img/doh.png') }}" style="width: 15%"/>
                                             </h1>
                                         </div>
                                     </div>
                                 </div>
                                 <h4 class="header green lighter bigger">
                                     <i class="ace-icon fa fa-users blue"></i>
-                                    Registration
+                                    Personal Information System - Registration
                                 </h4>
                                 <div class="space-6"></div>
                                 <form class="form-horizontal form-submit" method="POST" action="{{ asset('register') }}">
                                     {{ csrf_field() }}
-                                    <input type="hidden" value="{{ 'PIS'.uniqid().date('mdyhis').'no_userid' }}" name="userid"/>
                                     <input type="hidden" value="1" name="user_status">
                                     <input type="hidden" value="Active" name="employee_status">
                                     <fieldset>
+                                        <div class="space-6"></div>
+                                        <p class="purple">Employee Information (Required)</p>
                                         <div class="row">
-                                            <div class="col-sm-2">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" id="inputWarning" name="userid" value="{{ session('userid') }}" placeholder="Userid" class="width-100" />
-                                                        <i class="ace-icon fa fa-user"></i>
-                                                    </span>
-                                                    @if ($errors->has('fname'))
-                                                        <small class="red"><b>{{ $errors->first('userid') }}</b></small>
-                                                    @endif
-                                                </label>
-                                            </div>
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" id="inputWarning" name="fname" value="{{ session('fname') }}" placeholder="Firstname" class="width-100" />
-                                                        <i class="ace-icon fa fa-user"></i>
-                                                    </span>
+                                                    <input type="text" id="inputWarning" name="fname" value="{{ session('fname') }}" placeholder="Firstname" class="width-100" />
                                                     @if ($errors->has('fname'))
                                                         <small class="red"><b>{{ $errors->first('fname') }}</b></small>
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" value="{{ session('mname') }}" name="mname" class="form-control" placeholder="Middlename" />
-                                                        <i class="ace-icon fa fa-user"></i>
-                                                    </span>
+                                                    <input type="text" value="{{ session('mname') }}" name="mname" class="form-control" placeholder="Middlename" />
                                                     @if ($errors->has('mname'))
                                                         <small class="red"><b>{{ $errors->first('mname') }}</b></small>
                                                     @endif
@@ -68,10 +56,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" value="{{ session('lname') }}" name="lname" class="form-control" placeholder="Lastname" />
-                                                        <i class="ace-icon fa fa-user"></i>
-                                                    </span>
+                                                    <input type="text" value="{{ session('lname') }}" name="lname" class="form-control" placeholder="Lastname" />
                                                     @if ($errors->has('lname'))
                                                         <small class="red"><b>{{ $errors->first('lname') }}</b></small>
                                                     @endif
@@ -80,28 +65,50 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="date_of_birth" id="date_of_birth" value="<?php if(session('date_of_birth')) echo session('date_of_birth'); else echo date('m/d/Y', strtotime('-20 years'));?>" class="form-control" placeholder="Birth Date" />
-                                                    </span>
-                                                    @if ($errors->has('date_of_birth'))
-                                                        <small class="red"><b>{{ $errors->first('date_of_birth') }}</b></small>
+                                                    <input type="number" id="inputWarning" name="userid" value="{{ session('userid') ? session('userid') : '' }}" onfocus="(this.value='{{ session('userid') ? session('userid') : str_pad($lastUserid+1, 4, '0', STR_PAD_LEFT) }}')" placeholder="Userid" class="width-100"/>
+                                                    @if ($errors->has('userid'))
+                                                        <small class="red"><b>{{ $errors->first('userid') }}</b></small>
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" value="{{ session('email_address') }}" name="email_address" class="form-control" placeholder="Email" />
-                                                    </span>
-                                                    @if ($errors->has('email_address'))
-                                                        <small class="red"><b>{{ $errors->first('email_address') }}</b></small>
+                                            <div class="col-sm-4">
+                                                <select name="sched_id" class="select2" data-placeholder="Select Work Schedule." >
+                                                    @if(session('sched_id') )
+                                                        <option value="{{ session('sched_id') }}">{{ \PIS\WorkSched::find(session('sched_id'))->description }}</option>
+                                                    @else
+                                                        <option value=""></option>
                                                     @endif
-                                                </label>
+                                                    @foreach($sched as $row)
+                                                        <option value="{{ $row->id }}">{{ $row->description }}</option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('sched_id'))
+                                                    <small class="red"><b>{{ $errors->first('sched_id') }}</b></small>
+                                                @endif
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <select name="job_status" class="select2" data-placeholder="Select Job Status" >
+                                                    @if(session('job_status'))
+                                                        @if(session('job_status') == 'Job Order')
+                                                            <option value="Job Order">Job Order</option>
+                                                            <option value="Regular">Regular</option>
+                                                        @else
+                                                            <option value="Regular">Regular</option>
+                                                            <option value="Job Order">Job Order</option>
+                                                        @endif
+                                                    @else
+                                                    <option value=""></option>
+                                                    <option value="Job Order">Job Order</option>
+                                                    <option value="Regular">Regular</option>
+                                                    @endif
+                                                </select>
+                                                @if ($errors->has('job_status'))
+                                                    <small class="red"><b>{{ $errors->first('job_status') }}</b></small>
+                                                @endif
                                             </div>
                                         </div>
-                                        <div class="space-4"></div>
 
                                         <div class="row form-group">
                                             <div class="col-sm-4">
@@ -147,95 +154,190 @@
                                                 @endif
                                             </div>
                                         </div>
-                                        <div class="space-8"></div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="residential_address" class="form-control" placeholder="Address"/>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
 
+                                        <div class="space-6"></div>
+                                        <p> Other Information (Optional)</p>
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="blood_type" class="form-control" placeholder="Blood Type" />
+                                                        <input value="{{ session('date_of_birth') ? date('m/d/Y',strtotime(session('date_of_birth'))) : '' }}" name="date_of_birth" placeholder="Date of birth" class="form-control" type="text" onfocus="(this.type='date')" />
+                                                        <i class="ace-icon fa fa-calendar"></i>
                                                     </span>
+                                                    @if ($errors->has('date_of_birth'))
+                                                        <small class="red"><b>{{ $errors->first('date_of_birth') }}</b></small>
+                                                    @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="height" class="form-control" placeholder="Height" />
+                                                        <input type="text" name="blood_type" value="{{ session('blood_type') }}" class="form-control" placeholder="Blood Type" />
                                                     </span>
+                                                    @if ($errors->has('blood_type'))
+                                                        <small class="red"><b>{{ $errors->first('blood_type') }}</b></small>
+                                                    @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="weight" class="form-control" placeholder="Weight" />
+                                                        <input type="text" name="height" value="{{ session('height') }}" class="form-control" placeholder="Height" />
                                                     </span>
+                                                    @if ($errors->has('height'))
+                                                        <small class="red"><b>{{ $errors->first('height') }}</b></small>
+                                                    @endif
                                                 </label>
                                             </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="tin_no" class="form-control" placeholder="TIN No." />
+                                                        <input type="text" name="weight" value="{{ session('weight') }}" class="form-control" placeholder="Weight" />
                                                     </span>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="phicno" class="form-control" placeholder="PhilHealth #" />
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="gsis_polno" class="form-control" placeholder="GSIS Policy #" />
-                                                    </span>
-                                                </label>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" name="gsis_idno" class="form-control" placeholder="GSIS ID #" />
-                                                    </span>
+                                                    @if ($errors->has('weight'))
+                                                        <small class="red"><b>{{ $errors->first('weight') }}</b></small>
+                                                    @endif
                                                 </label>
                                             </div>
                                         </div>
 
                                         <div class="space-6"></div>
-                                        <p> In Case of Emergency, please notify: </p>
+                                        <p>Government ID (Optional)</p>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" name="tin_no" value="{{ session('tin_no') }}" class="form-control" placeholder="TIN No." />
+                                                    </span>
+                                                    @if ($errors->has('tin_no'))
+                                                        <small class="red"><b>{{ $errors->first('tin_no') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" name="phic_no" value="{{ session('phic_no') }}" class="form-control" placeholder="PhilHealth #" />
+                                                    </span>
+                                                    @if ($errors->has('phic_no'))
+                                                        <small class="red"><b>{{ $errors->first('phic_no') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                        </div>
 
-                                        <label class="block clearfix">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="text" name="case_name" class="form-control" placeholder="Name" />
-                                            </span>
-                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" name="gsis_pol" value="{{ session('gsis_pol') }}" class="form-control" placeholder="GSIS Policy #" />
+                                                    </span>
+                                                    @if ($errors->has('gsis_pol'))
+                                                        <small class="red"><b>{{ $errors->first('gsis_pol') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <input type="text" name="gsis_idno" value="{{ session('gsis_idno') }}" class="form-control" placeholder="GSIS ID #" />
+                                                    </span>
+                                                    @if ($errors->has('gsis_idno'))
+                                                        <small class="red"><b>{{ $errors->first('gsis_idno') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                        </div>
 
-                                        <label class="block clearfix">
-                                            <span class="block input-icon input-icon-right">
-                                                <input type="text" name="case_address" class="form-control" placeholder="Address" />
-                                            </span>
-                                        </label>
+                                        <div class="space-6"></div>
+                                        <p>Residential Address (Optional)</p>
+                                        <div class="row">
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="r_barangay" value="{{ session('r_barangay') }}" class="form-control" placeholder="Barangay" />
+                                                </span>
+                                                @if ($errors->has('r_barangay'))
+                                                    <small class="red"><b>{{ $errors->first('r_barangay') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="r_municipality" value="{{ session('r_municipality') }}" class="form-control" placeholder="Municipality" />
+                                                </span>
+                                                @if ($errors->has('r_municipality'))
+                                                    <small class="red"><b>{{ $errors->first('r_municipality') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="r_province" value="{{ session('r_province') }}" class="form-control" placeholder="Province" />
+                                                </span>
+                                                @if ($errors->has('r_province'))
+                                                    <small class="red"><b>{{ $errors->first('r_province') }}</b></small>
+                                                @endif
+                                            </label>
+                                        </div>
+                                        <div class="row">
+                                            <label class="block clearfix col-sm-3">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="rhouse_no" value="{{ session('rhouse_no') }}" class="form-control" placeholder="House Number" />
+                                                </span>
+                                                @if ($errors->has('rhouse_no'))
+                                                    <small class="red"><b>{{ $errors->first('rhouse_no') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-3">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="r_street" value="{{ session('r_street') }}" class="form-control" placeholder="Street" />
+                                                </span>
+                                                @if ($errors->has('r_street'))
+                                                    <small class="red"><b>{{ $errors->first('r_street') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-3">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="r_subdivision" value="{{ session('r_subdivision') }}" class="form-control" placeholder="Subdivision" />
+                                                </span>
+                                                @if ($errors->has('r_subdivision'))
+                                                    <small class="red"><b>{{ $errors->first('r_subdivision') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-3">
+                                                <input type="number" name="rzip_code" value="{{ session('rzip_code') }}" class="form-control" placeholder="Zip Code" />
+                                                @if ($errors->has('rzip_code'))
+                                                    <small class="red"><b>{{ $errors->first('rzip_code') }}</b></small>
+                                                @endif
+                                            </label>
+                                        </div>
 
-                                        <label class="block clearfix">
-                                            <span class="block input-icon input-icon-right">
-                                                    <input type="text" name="case_contact" class="form-control" placeholder="Contact #" />
-                                            </span>
-                                        </label>
+                                        <div class="space-6"></div>
+                                        <p> In Case of Emergency, please notify (Optional)</p>
+                                        <div class="row">
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="case_name" value="{{ session('case_name') }}" class="form-control" placeholder="Name" />
+                                                </span>
+                                                @if ($errors->has('case_name'))
+                                                    <small class="red"><b>{{ $errors->first('case_name') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" name="case_address" value="{{ session('case_address') }}" class="form-control" placeholder="Address" />
+                                                </span>
+                                                @if ($errors->has('case_address'))
+                                                    <small class="red"><b>{{ $errors->first('case_address') }}</b></small>
+                                                @endif
+                                            </label>
+                                            <label class="block clearfix col-sm-4">
+                                                <span class="block input-icon input-icon-right">
+                                                        <input type="text" name="case_contact" value="{{ session('case_contact') }}" class="form-control" placeholder="Contact #" />
+                                                </span>
+                                                @if ($errors->has('case_contact'))
+                                                    <small class="red"><b>{{ $errors->first('case_contact') }}</b></small>
+                                                @endif
+                                            </label>
+                                        </div>
 
                                         <div class="row center">
                                             <div class="col-md-4 ">

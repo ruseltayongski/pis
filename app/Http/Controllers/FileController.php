@@ -474,18 +474,15 @@ class FileController extends Controller {
     }
 
     public function sync_dtr(){
-
         $count = 0;
         foreach(User_dtr::get() as $row){
             $count++;
-
             $user[] = [
                 "username" => $row->username,
                 "password" => bcrypt($row->password),
                 "usertype" => $row->usertype,
                 "pin" => "1234"
             ];
-
             if(strlen($row->username) >= 6){
                 $job_status = 'Permanent';
                 $disbursement_type = 'ATM';
@@ -502,7 +499,7 @@ class FileController extends Controller {
                 "designation_id" => $row->designation,
                 "division_id" => $row->division,
                 "section_id" => $row->section,
-                "remarks" => 'DTS_USER',
+                "remarks" => 'DTR_USER',
                 'user_status' => "1",
                 "employee_status" => "Active",
                 "job_status" => $job_status,

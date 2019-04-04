@@ -5,51 +5,51 @@
             margin-top:15%;
             margin-bottom: 15%;
             margin-right: 15.9%;
-            margin-left: 15.9%;
+            margin-left: 14%;
         }
         .id_template
         {
             z-index:-1;
             position: absolute;
-            width: 100%;
-            height: 480px;
+            width: 790px;
+            height: 500px;
         }
         .picture1
         {
             position:absolute;
-            left:25.6%;
-            top:14%;
+            left:25.7%;
+            top:14.5%;
             z-index:-1;
-            width: 22.2%;
-            height: 170px;
+            width: 22.3%;
+            height: 178px;
         }
         .picture2
         {
             position:absolute;
-            right:2.1%;
-            top:14%;
+            right:1.9%;
+            top:14.5%;
             z-index:-1;
-            width: 22.2%;
-            height: 170px;
+            width: 22%;
+            height: 178px;
         }
         .signature1
         {
             position:absolute;
-            left:25.6%;
-            top:46%;
+            left:25.7%;
+            top:47.5%;
             z-index:-1;
-            width: 170px;
-            height: 40px;
+            width: 174px;
+            height: 45px;
             background-color: rgb(206, 232, 1);
         }
         .signature2
         {
             position:absolute;
-            right:2.3%;
-            top:46%;
+            right:1.9%;
+            top:47.5%;
             z-index:-1;
-            width: 170px;
-            height: 40px;
+            width: 174px;
+            height: 45px;
             background-color: rgb(206, 232, 1);
         }
         .name1
@@ -66,7 +66,7 @@
         .name2
         {
             position:absolute;
-            left: {{ (int)$nameSize['left']+50.3 }}%;
+            left: {{ (int)$nameSize['left']+50.5 }}%;
             top:{{ $nameSize['top'] }}%;
             z-index:-1;
             color: white;
@@ -100,14 +100,10 @@
             font-style: normal;
             font-variant: normal;
         }
-        @font-face {
-            font-family: myFirstFont;
-            src: url({{ asset('public/plugin/font-awesome/fonts/arial.ttf') }}) format("truetype");
-        }
     </style>
 </head>
 <body>
-<img src="{{ asset('public/img/id_template.png') }}" class="id_template">
+<img src="{{ asset('public/img/id_template2019.png') }}" class="id_template">
 <img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture1" />
 <img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture2" />
 <img src="{{ asset('public/upload_picture/signature').'/'.$user->signature }}" class="signature1" />
@@ -124,5 +120,6 @@
 <div class="division2">
     {{ $division['desc'] }}
 </div>
+
 </body>
 </html>
