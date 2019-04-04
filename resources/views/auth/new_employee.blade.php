@@ -67,7 +67,7 @@
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <input type="number" id="inputWarning" name="userid" value="{{ session('userid') ? session('userid') : '' }}" onfocus="(this.value='{{ session('userid') ? session('userid') : str_pad($lastUserid+1, 4, '0', STR_PAD_LEFT) }}')" placeholder="Userid" class="width-100"/>
+                                                    <input type="number" id="inputWarning" name="userid" value="{{ session('userid') ? session('userid') : '' }}" onfocus="(this.value='{{ session('userid') ? session('userid') : str_pad($lastUserid, 4, '0', STR_PAD_LEFT) }}')" placeholder="Userid" class="width-100"/>
                                                     @if ($errors->has('userid'))
                                                         <small class="red"><b>{{ $errors->first('userid') }}</b></small>
                                                     @endif

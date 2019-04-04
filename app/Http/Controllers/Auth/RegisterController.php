@@ -93,7 +93,7 @@ class RegisterController extends Controller
                 ->where(DB::raw("LENGTH(userid)"),'<=',4)
                 ->where('userid','<=','1000')
                 ->orderBy(DB::raw("CONVERT(SUBSTRING_INDEX(userid,'-',-1),UNSIGNED INTEGER)"),'desc')
-                ->first()->userid;
+                ->first()->userid+1;
             $designation = Designation::get();
             $division = Division::get();
             $section = Section::get();
@@ -101,7 +101,7 @@ class RegisterController extends Controller
                 "designation" => $designation,
                 "division" => $division,
                 "section" => $section,
-                "lastUserid" => $lastUserid+1,
+                "lastUserid" => $lastUserid,
                 "sched" => $sched
             ]);
         }
