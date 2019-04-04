@@ -499,7 +499,7 @@ class FileController extends Controller {
                 "designation_id" => $row->designation,
                 "division_id" => $row->division,
                 "section_id" => $row->section,
-                "remarks" => 'DTS_USER',
+                "remarks" => 'DTR_USER',
                 'user_status' => "1",
                 "employee_status" => "Active",
                 "job_status" => $job_status,
