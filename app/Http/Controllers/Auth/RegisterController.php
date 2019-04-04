@@ -18,6 +18,9 @@ use PIS\Section;
 use PIS\Designation;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
+use PIS\WorkSched;
+use Illuminate\Support\Facades\DB;
 
 
 class RegisterController extends Controller
@@ -85,6 +88,13 @@ class RegisterController extends Controller
     public function new_employee(Request $request){
         if ($request->isMethod('GET'))
         {
+            $sched = WorkSched::all();
+            $lastUserid = Personal_Information::where('userid','REGEXP','^[0-9]+$')
+                ->where(DB::raw("LENGTH(userid)"),'<=',4)
+                ->where('job_status','=','Job Order')
+                ->where('userid','<=','1000')
+                ->orderBy(DB::raw("CONVERT(SUBSTRING_INDEX(userid,'-',-1),UNSIGNED INTEGER)"),'desc')
+                ->first()->userid;
             $designation = Designation::get();
             $division = Division::get();
             $section = Section::get();
@@ -92,6 +102,8 @@ class RegisterController extends Controller
                 "designation" => $designation,
                 "division" => $division,
                 "section" => $section,
+                "lastUserid" => $lastUserid+1,
+                "sched" => $sched
             ]);
         }
     }
@@ -99,20 +111,41 @@ class RegisterController extends Controller
     public function register(Request $request){
         $rules = [
             'captcha' => 'required|captcha',
+            'userid' => 'required|unique:personal_information',
             'fname' => 'required',
             'mname' => 'required',
             'lname' => 'required',
-            'date_of_birth' => 'required|date',
-            'email_address' => 'required|email',
+            'sched_id' => 'required',
             'designation_id' => 'required',
             'division_id' => 'required',
             'section_id' => 'required',
+            'job_status' => 'required',
+            'date_of_birth' => 'required_without',
+            'blood_type' => 'required_without',
+            'height' => 'required_without',
+            'weight' => 'required_without',
+            'tin_no' => 'required_without',
+            'phic_no' => 'required_without',
+            'gsid_pol' => 'required_without',
+            'gsid_id' => 'required_without',
+            'r_barangay' => 'required_without',
+            'r_municipality' => 'required_without',
+            'r_province' => 'required_without',
+            'rhouse_no' => 'required_without',
+            'r_street' => 'required_without',
+            'r_subdivision' => 'required_without',
+            'rzip_code' => 'required_without',
+            'case_name' => 'required_without',
+            'case_address' => 'required_without',
+            'case_contact' => 'required_without',
         ];
         $message = [
             'captcha' => 'Invalid Captcha',
             'designation_id.required' => 'The designation field is required.',
             'division_id.required' => 'The division field is required.',
             'section_id.required' => 'The section field is required.',
+            'sched_id.required' => 'The work schedule field is required.',
+            'job_status.required' => 'The job status field is required.'
         ];
         $validator = Validator::make($request->all(),$rules,$message);
         if ($validator->fails()) {
@@ -123,13 +156,84 @@ class RegisterController extends Controller
                 ->withInput()
                 ->with($data);
         } else {
-            $data[] = $request->all();
-            unset($data[0]['_token']);
-            unset($data[0]['captcha']);
-            Personal_Information::insert($data);
-            return redirect('/')->with('addEmployee','Your are successfully saved to our database, Please wait the message to your email as your field(s) is/are still subject for validation. Thank you!');
-        }
+            if($request->job_status == 'Regular'){
+                $job_status = 'REG';
+                $disbursement_type = "ATM";
+            }
+            else{
+                $job_status = 'JO';
+                $disbursement_type = "CASH_CARD";
+            }
+            //PIS
+            $password = bcrypt('123');
+            $personal_information = new Personal_Information();
+            $personal_information->userid = $request->userid;
+            $personal_information->fname = $request->fname;
+            $personal_information->mname = $request->mname;
+            $personal_information->lname = $request->lname;
+            $personal_information->sched = $request->sched_id;
+            $personal_information->designation_id = $request->designation_id;
+            $personal_information->division_id = $request->division_id;
+            $personal_information->section_id = $request->section_id;
+            $personal_information->job_status = $request->job_status;
+            $personal_information->date_of_birth = $request->date_of_birth;
+            $personal_information->blood_type = $request->blood_type;
+            $personal_information->height = $request->height;
+            $personal_information->weight = $request->weight;
+            $personal_information->tin_no = $request->tin_no;
+            $personal_information->phicno = $request->phicno;
+            $personal_information->gsis_polno = $request->gsid_pol;
+            $personal_information->gsis_idno = $request->gsis_idno;
+            $personal_information->RBarangay = $request->r_barangay;
+            $personal_information->RMunicipality = $request->r_municipality;
+            $personal_information->RProvince = $request->r_province;
+            $personal_information->RHouseNo = $request->rhouse_no;
+            $personal_information->RStreet = $request->r_street;
+            $personal_information->RSubdivision = $request->r_subdivision;
+            $personal_information->RZip_code = $request->rzip_code;
+            $personal_information->case_name = $request->case_name;
+            $personal_information->case_address = $request->case_address;
+            $personal_information->case_contact = $request->case_contact;
+            $personal_information->disbursement_type = $disbursement_type;
+            $personal_information->employee_status = 'Active';
+            $personal_information->user_status = '1';
+            $personal_information->save();
 
+            User::insertIgnore([
+                "username" => $request->userid,
+                "password" => $password,
+                "usertype" => 0,
+                "pin" => 1234,
+            ]);
+
+            User_dts::insertIgnore([
+                "fname" => $request->fname,
+                "mname" => $request->mname,
+                "lname" => $request->lname,
+                "username" => $request->userid,
+                "password" => $password,
+                "designation" => $request->designation_id,
+                "division" => $request->division_id,
+                "section" => $request->section_id,
+                "user_priv" => 0,
+                "status" => 0
+            ]);
+
+            User_dtr::insertIgnore([
+                "userid" => $request->userid,
+                "fname" => $request->fname,
+                "mname" => $request->mname,
+                "lname" => $request->lname,
+                "sched" => $request->sched,
+                'username' => $request->userid,
+                'password' => $password,
+                'emptype' => $job_status,
+                'usertype' => '0',
+                'unique_row' => $request->userid,
+            ]);
+
+            return redirect('/')->with('addEmployee','You are successfully registered. Thank you!');
+        }
     }
 
     public function addUserid(Request $request){

@@ -31,14 +31,11 @@
                                 User Profile Page
                             </h1>
                         </div>
-                        <div class="col-md-9">
-                            <div class="col-md-3">
+                        <div class="col-md-8">
+                            <div class="col-md-4">
                                 <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
                             </div>
-                            <div class="col-md-3">
-                                <a href="{{ url('pisId').'/'.$user->piUserid.'/portrait'  }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-image"></i> ID PICTURE | PORTRAIT </a>
-                            </div>
-                            <div class="col-md-3">
+                            <div class="col-md-4">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
                                     <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>

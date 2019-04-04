@@ -842,34 +842,30 @@ class PisController extends Controller
     public function nameSize($sizeLength){
         $nameSize['font'] = 10;
         $nameSize['left'] = 5;
-        $nameSize['top'] = 60.1;
+        $nameSize['top'] = 63;
         $nameSize['width'] = 1.2;
         $nameSize['height'] = 6.3;
         if($sizeLength == 30){
             $nameSize['font'] = 10;
             $nameSize['left'] += 1.4;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .1;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 29){
             $nameSize['font'] = 10;
             $nameSize['left'] += 2.4;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .1;
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 28){
             $nameSize['font'] = 10;
-            $nameSize['left'] += 2.4;
-            $nameSize['top'] = 60.1;
+            $nameSize['left'] += 4;
             $nameSize['width'] += .2;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 27){
             $nameSize['font'] = 10;
             $nameSize['left'] += 3.4;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .2;
             $nameSize['height'] = 6.3;
         }
@@ -883,112 +879,96 @@ class PisController extends Controller
         elseif($sizeLength == 25){
             $nameSize['font'] = 10;
             $nameSize['left'] += 5;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .3;
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 24){
             $nameSize['font'] = 10;
             $nameSize['left'] += 5.5;
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .4;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 23){
             $nameSize['font'] = 10;
             $nameSize['left'] += 5.5;
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .4;
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 22){
             $nameSize['font'] = 10;
             $nameSize['left'] += 6.5;
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .5;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 21){
             $nameSize['font'] = 10;
             $nameSize['left'] += 7;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .6;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 20){
             $nameSize['font'] = 10;
-            $nameSize['left'] += 7.5;//
-            $nameSize['top'] = 60.1;
+            $nameSize['left'] += 8.5;//
             $nameSize['width'] += .7;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 19){
             $nameSize['font'] = 10;
-            $nameSize['left'] += 8;//
-            $nameSize['top'] = 60.1;
+            $nameSize['left'] += 9.2;//
             $nameSize['width'] += .8;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 18){
             $nameSize['font'] = 10;
             $nameSize['left'] += 9;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += .9;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 17){
             $nameSize['font'] = 10;
             $nameSize['left'] += 9.4;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 1.1;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 16){
             $nameSize['font'] = 10;
             $nameSize['left'] += 11;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 1.3;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 15){
             $nameSize['font'] = 10;
             $nameSize['left'] += 11.6;
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 1.5;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 14){
             $nameSize['font'] = 10;
             $nameSize['left'] += 12.2;
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 1.7;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 13){
             $nameSize['font'] = 10;
             $nameSize['left'] += 12.8;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 1.9;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 12){
             $nameSize['font'] = 10;
             $nameSize['left'] += 13.2;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 2.1;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 11){
             $nameSize['font'] = 10;
             $nameSize['left'] += 13.6;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 2.3;//
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength <= 10){
             $nameSize['font'] = 10;
             $nameSize['left'] += 14;//
-            $nameSize['top'] = 60.1;
             $nameSize['width'] += 2.5;//
             $nameSize['height'] = 6.3;
         }
@@ -997,42 +977,18 @@ class PisController extends Controller
     }
 
     public function pisId($userid = null,$paper = null){
-        /*$users = Personal_Information::get();
-        $count = 0;
-        foreach($users as $user){
-            if($user->mname)
-                $middleName = $user->mname[0];
-            else
-                $middleName = '';
-
-            $userArray[$count] = $user->fname.' '.$middleName.'. '.$user->lname;
-            $count++;
-        }
-
-        $maxCharacter = 0;
-
-        foreach($userArray as $name){
-            $tempCharacter = strlen($name);
-            if($tempCharacter > $maxCharacter){
-                $maxCharacter = $tempCharacter;
-                $names = $name;
-            }
-        }
-
-        return $maxCharacter.' '.$names;*/
-
         $user = Personal_Information::where('userid','=',$userid)->first();
         $division['font'] = 19;
         $division['left'] = 3;
-        $division['top'] = 76;
+        $division['top'] = 79.5;
         if($user->division_id){
             if($user->division_id == 3)
                 $division['desc'] = 'Office of the '.\PIS\Division::find($user->division_id)->description;
             elseif($user->division_id == 4)
                 $division['desc'] = explode('LHSD - ',\PIS\Division::find($user->division_id)->description)[1];
             elseif($user->division_id == 5) {
-                $division['font'] -= 6;
-                $division['left'] -= 2;
+                $division['font'] -= 6.1;
+                $division['left'] -= 1;
                 $division['top'] +=1;
                 $division['desc'] = explode('RLED - ', \PIS\Division::find($user->division_id)->description)[1];
             }
