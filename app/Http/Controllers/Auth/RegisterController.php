@@ -91,7 +91,6 @@ class RegisterController extends Controller
             $sched = WorkSched::all();
             $lastUserid = Personal_Information::where('userid','REGEXP','^[0-9]+$')
                 ->where(DB::raw("LENGTH(userid)"),'<=',4)
-                ->where('job_status','=','Job Order')
                 ->where('userid','<=','1000')
                 ->orderBy(DB::raw("CONVERT(SUBSTRING_INDEX(userid,'-',-1),UNSIGNED INTEGER)"),'desc')
                 ->first()->userid;
