@@ -103,11 +103,11 @@
     </style>
 </head>
 <body>
-<img src="{{ asset('public/img/id_template2019.png') }}" class="id_template">
-<img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture1" />
-<img src="{{ asset('public/upload_picture/picture').'/'.$user->picture }}" class="picture2" />
-<img src="{{ asset('public/upload_picture/signature').'/'.$user->signature }}" class="signature1" />
-<img src="{{ asset('public/upload_picture/signature').'/'.$user->signature }}" class="signature2" />
+<img src="{{ realpath(__DIR__ . '/../../..').'/public/img/id_template2019.png' }}" class="id_template">
+<img src="{{ realpath(__DIR__ . '/../../..').'/public/upload_picture/picture'.'/'.$user->picture }}" class="picture1" />
+<img src="{{ realpath(__DIR__ . '/../../..').'/public/upload_picture/picture'.'/'.$user->picture }}" class="picture2" />
+<img src="{{ realpath(__DIR__ . '/../../..').'/public/upload_picture/signature'.'/'.$user->signature }}" class="signature1" />
+<img src="{{ realpath(__DIR__ . '/../../..').'/public/upload_picture/signature'.'/'.$user->signature }}" class="signature2" />
 <div class="name1">
     {{ strtoupper($name) }}
 </div>
