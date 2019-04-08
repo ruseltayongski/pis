@@ -20,16 +20,16 @@
             left:25.7%;
             top:14.5%;
             z-index:-1;
-            width: 22.3%;
+            width: 175px;
             height: 178px;
         }
         .picture2
         {
             position:absolute;
-            right:1.9%;
+            right:1.8%;
             top:14.5%;
             z-index:-1;
-            width: 22%;
+            width: 175px;
             height: 178px;
         }
         .signature1
