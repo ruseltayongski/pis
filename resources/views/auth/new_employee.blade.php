@@ -143,11 +143,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <select name="section_id" id="section" class="select2" style="width: 100%" data-placeholder="Select section." >
-                                                    @if( session('section_id') )
-                                                        <option value="{{ session('section_id') }}">{{ \PIS\Section::find(session('section_id'))->description }}</option>
-                                                    @else
-                                                        <option value=""></option>
-                                                    @endif
+                                                    <option value=""></option>
                                                 </select>
                                                 @if ($errors->has('section_id'))
                                                     <small class="red"><b>{{ $errors->first('section_id') }}</b></small>
@@ -404,6 +400,9 @@
             changeYear: true,
         });
 
+        @if(session('section_id'))
+        filter_section("temp");
+        @endif
         function filter_section(data){
             var element =  $('#section');
             element.val('').trigger('change');
@@ -412,13 +411,24 @@
                 new Option("","", true, true)
             ).trigger('change');
 
+            var section_id;
+            @if(session('section_id'))
+                section_id = "<?php echo session('section_id') ?>";
+            @else
+                section_id = data.val();
+            @endif
             $.each(<?php echo $section;?>,function(x,section){
-                if(data.val() == section.division){
+                if(section_id == section.division){
                     element.append(
                         new Option(section.description, section.id, true, true)
                     ).trigger('change');
                 }
             });
+            @if(session('section_id'))
+                element.append(
+                    new Option("<?php echo \PIS\Section::find(session('section_id'))->description; ?>","<?php echo session('section_id'); ?>", true, true)
+                ).trigger('change');
+            @endif
         }
 
     </script>
