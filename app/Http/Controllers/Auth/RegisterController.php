@@ -155,7 +155,7 @@ class RegisterController extends Controller
                 ->withInput()
                 ->with($data);
         } else {
-            if($request->job_status == 'Regular'){
+            if($request->job_status == 'Permanent'){
                 $job_status = 'REG';
                 $disbursement_type = "ATM";
             }

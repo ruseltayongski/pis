@@ -93,15 +93,15 @@
                                                     @if(session('job_status'))
                                                         @if(session('job_status') == 'Job Order')
                                                             <option value="Job Order">Job Order</option>
-                                                            <option value="Regular">Regular</option>
+                                                            <option value="Permanent">Permanent</option>
                                                         @else
-                                                            <option value="Regular">Regular</option>
+                                                            <option value="Permanent">Permanent</option>
                                                             <option value="Job Order">Job Order</option>
                                                         @endif
                                                     @else
                                                     <option value=""></option>
                                                     <option value="Job Order">Job Order</option>
-                                                    <option value="Regular">Regular</option>
+                                                    <option value="Permanent">Permanent</option>
                                                     @endif
                                                 </select>
                                                 @if ($errors->has('job_status'))
