@@ -982,10 +982,13 @@ class PisController extends Controller
         $division['left'] = 3;
         $division['top'] = 79.5;
         if($user->division_id){
-            if($user->division_id == 3)
-                $division['desc'] = 'Office of the '.\PIS\Division::find($user->division_id)->description;
-            elseif($user->division_id == 4)
-                $division['desc'] = explode('LHSD - ',\PIS\Division::find($user->division_id)->description)[1];
+            if($user->division_id == 3){
+                $division['left'] += 5;
+                $division['desc'] = \PIS\Division::find($user->division_id)->description;
+            }
+            elseif($user->division_id == 4) {
+                $division['desc'] = explode('LHSD - ', \PIS\Division::find($user->division_id)->description)[1];
+            }
             elseif($user->division_id == 5) {
                 $division['font'] -= 6.1;
                 $division['left'] -= 1;
