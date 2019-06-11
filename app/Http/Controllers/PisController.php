@@ -937,7 +937,7 @@ class PisController extends Controller
             $nameSize['height'] = 6.3;
         }
         elseif($sizeLength == 15){
-            $nameSize['font'] = 10;
+            $nameSize['font'] = 9;
             $nameSize['left'] += 11.6;
             $nameSize['width'] += 1.5;//
             $nameSize['height'] = 6.3;
