@@ -97,6 +97,7 @@ class RegisterController extends Controller
 
             if($last_userid_temp8 = Personal_Information::
                 where('region','=','region_8')
+                ->orderBy('id','desc')
                 ->first()){
                 $last_userid8 = $last_userid_temp8->userid;
                 $last_userid8++;
@@ -210,6 +211,8 @@ class RegisterController extends Controller
             $personal_information->disbursement_type = $disbursement_type;
             $personal_information->employee_status = 'Active';
             $personal_information->user_status = '1';
+            $personal_information->region = $request->region;
+            $personal_information->field_status = $request->field_status;
             $personal_information->save();
 
             User::insertIgnore([
