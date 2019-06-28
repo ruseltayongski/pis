@@ -37,6 +37,38 @@
                                     <fieldset>
                                         <div class="space-6"></div>
                                         <p class="purple">Employee Information (Required)</p>
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <select name="region" class="select2" onchange="filterUserid($(this))" data-placeholder="Select Work Region.">
+                                                    <option value="{{ session('region') }}">{{ session('region') ? "Region ".explode('_',session('region'))[1] : '' }}</option>
+                                                    @for($i=7;$i<=8;$i++)
+                                                        @if('region_'.$i != session('region') )
+                                                            <option value="region_{{ $i }}">Region {{ $i }}</option>
+                                                        @endif
+                                                    @endfor
+                                                </select>
+                                                @if ($errors->has('region'))
+                                                    <small class="red"><b>{{ $errors->first('region') }}</b></small>
+                                                @endif
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <select name="field_status" class="select2" data-placeholder="Select Work Field Status. " >
+                                                    <?php $field_personnel = ["Office Personnel","HRH"]; ?>
+                                                    <option value="{{ session('field_status') }}">{{ session('field_status') }}</option>
+                                                    @for($i=0; $i<count($field_personnel); $i++)
+                                                        @if($field_personnel[$i] != session('field_personnel') )
+                                                            <option value="{{ $field_personnel[$i] }}">{{ $field_personnel[$i] }}</option>
+                                                        @endif
+                                                    @endfor
+                                                </select>
+                                                @if ($errors->has('field_status'))
+                                                    <small class="red"><b>{{ $errors->first('field_status') }}</b></small>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="space-6"></div>
+
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
@@ -67,7 +99,7 @@
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <label class="block clearfix">
-                                                    <input type="number" id="inputWarning" name="userid" value="{{ session('userid') ? session('userid') : '' }}" onfocus="(this.value='{{ session('userid') ? session('userid') : str_pad($lastUserid, 4, '0', STR_PAD_LEFT) }}')" placeholder="Userid" class="width-100"/>
+                                                    <input type="number" id="userid" name="userid" value="{{ session('userid') ? session('userid') : str_pad($last_userid7, 4, '0', STR_PAD_LEFT) }}" placeholder="Userid" class="width-100"/>
                                                     @if ($errors->has('userid'))
                                                         <small class="red"><b>{{ $errors->first('userid') }}</b></small>
                                                     @endif
@@ -75,7 +107,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <select name="sched_id" class="select2" data-placeholder="Select Work Schedule." >
-                                                    @if(session('sched_id') )
+                                                    @if(session('sched_id'))
                                                         <option value="{{ session('sched_id') }}">{{ \PIS\WorkSched::find(session('sched_id'))->description }}</option>
                                                     @else
                                                         <option value=""></option>
@@ -143,7 +175,14 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <select name="section_id" id="section" class="select2" style="width: 100%" data-placeholder="Select section." >
-                                                    <option value=""></option>
+                                                    @if( session('section_id') )
+                                                        <option value="{{ session('section_id') }}">{{ \PIS\Section::find(session('section_id'))->description }}</option>
+                                                        @foreach(\PIS\Section::where('division',session('division_id'))->get() as $row)
+                                                            <option value="{{ $row->id }}">{{ $row->description }}</option>
+                                                        @endforeach
+                                                    @else
+                                                        <option value=""></option>
+                                                    @endif
                                                 </select>
                                                 @if ($errors->has('section_id'))
                                                     <small class="red"><b>{{ $errors->first('section_id') }}</b></small>
@@ -400,9 +439,6 @@
             changeYear: true,
         });
 
-        @if(session('section_id'))
-        filter_section("temp");
-        @endif
         function filter_section(data){
             var element =  $('#section');
             element.val('').trigger('change');
@@ -411,12 +447,7 @@
                 new Option("","", true, true)
             ).trigger('change');
 
-            var section_id;
-            @if(session('section_id'))
-                section_id = "<?php echo session('section_id') ?>";
-            @else
-                section_id = data.val();
-            @endif
+            section_id = data.val();
             $.each(<?php echo $section;?>,function(x,section){
                 if(section_id == section.division){
                     element.append(
@@ -424,12 +455,18 @@
                     ).trigger('change');
                 }
             });
-            @if(session('section_id'))
-                element.append(
-                    new Option("<?php echo \PIS\Section::find(session('section_id'))->description; ?>","<?php echo session('section_id'); ?>", true, true)
-                ).trigger('change');
-            @endif
         }
+
+        var userid7 = "<?php echo str_pad($last_userid7, 4, '0', STR_PAD_LEFT); ?>";
+        var userid8 = "<?php echo str_pad($last_userid8, 7, '0', STR_PAD_LEFT); ?>";
+        function filterUserid(data){
+            if(data.val() == 'region_8'){
+                $("#userid").val(userid8);
+            } else {
+                $("#userid").val(userid7);
+            }
+        }
+
 
     </script>
 

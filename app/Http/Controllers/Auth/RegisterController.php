@@ -89,11 +89,22 @@ class RegisterController extends Controller
         if ($request->isMethod('GET'))
         {
             $sched = WorkSched::all();
-            $lastUserid = Personal_Information::where('userid','REGEXP','^[0-9]+$')
+            $last_userid7 = Personal_Information::where('userid','REGEXP','^[0-9]+$')
                 ->where(DB::raw("LENGTH(userid)"),'<=',4)
                 ->where('userid','<=','1000')
                 ->orderBy(DB::raw("CONVERT(SUBSTRING_INDEX(userid,'-',-1),UNSIGNED INTEGER)"),'desc')
                 ->first()->userid+1;
+
+            if($last_userid_temp8 = Personal_Information::
+                where('region','=','region_8')
+                ->first()){
+                $last_userid8 = $last_userid_temp8->userid;
+                $last_userid8++;
+            } else{
+                $last_userid8 = 1;
+            }
+
+
             $designation = Designation::get();
             $division = Division::get();
             $section = Section::get();
@@ -101,7 +112,8 @@ class RegisterController extends Controller
                 "designation" => $designation,
                 "division" => $division,
                 "section" => $section,
-                "lastUserid" => $lastUserid,
+                "last_userid7" => $last_userid7,
+                "last_userid8" => $last_userid8,
                 "sched" => $sched
             ]);
         }
@@ -111,6 +123,8 @@ class RegisterController extends Controller
         $rules = [
             'captcha' => 'required|captcha',
             'userid' => 'required|unique:personal_information',
+            'region' => 'required',
+            'field_status' => 'required',
             'fname' => 'required',
             'mname' => 'required',
             'lname' => 'required',
@@ -219,6 +233,8 @@ class RegisterController extends Controller
             ]);
 
             User_dtr::insertIgnore([
+                "region" => $request->region,
+                "field_status" => $request->field_status,
                 "userid" => $request->userid,
                 "fname" => $request->fname,
                 "mname" => $request->mname,
