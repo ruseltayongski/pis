@@ -236,8 +236,6 @@ class RegisterController extends Controller
             ]);
 
             User_dtr::insertIgnore([
-                "region" => $request->region,
-                "field_status" => $request->field_status,
                 "userid" => $request->userid,
                 "fname" => $request->fname,
                 "mname" => $request->mname,
