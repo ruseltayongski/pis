@@ -1216,7 +1216,9 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
     for($row=0; $row<count($row1Key);$row++){
         $pdf->SetFont('Arial','B',6);
         $pdf->SetXY(47,$row1marginTop);
-        $pdf->Cell(3,3,${explode('|',$row1Key[$row])[0]}[explode('|',$row1Key[$row])[1]],0,0,'');
+        if($row1Key[$row] != 'user|userid'){
+            $pdf->Cell(3,3,${explode('|',$row1Key[$row])[0]}[explode('|',$row1Key[$row])[1]],0,0,'');
+        } //WALA NA DISPLAY ANG EMPLOYEE ID
         $row1marginTop += $row1TopIncrement[$row];
     }
     $pdf->SetFont('Arial','B',6);
