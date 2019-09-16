@@ -242,6 +242,7 @@ class RegisterController extends Controller
                 "lname" => $request->lname,
                 "sched" => $request->sched_id,
                 'username' => $request->userid,
+                'region' => $request->region,
                 'password' => $password,
                 'emptype' => $job_status,
                 'usertype' => '0',
