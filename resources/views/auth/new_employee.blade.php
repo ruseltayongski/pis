@@ -459,6 +459,7 @@
 
         var userid7 = "<?php echo str_pad($last_userid7, 4, '0', STR_PAD_LEFT); ?>";
         var userid8 = "<?php echo str_pad($last_userid8, 7, '0', STR_PAD_LEFT); ?>";
+        
         function filterUserid(data){
             if(data.val() == 'region_8'){
                 $("#userid").val(userid8);

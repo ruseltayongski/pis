@@ -91,9 +91,75 @@ class RegisterController extends Controller
             $sched = WorkSched::all();
             $last_userid7 = Personal_Information::where('userid','REGEXP','^[0-9]+$')
                 ->where(DB::raw("LENGTH(userid)"),'<=',4)
-                ->where('userid','<=','1000')
+                ->where('userid','<=','2000')
+                ->where('userid','!=','1326') //JOAN INAHID
+                ->where('userid','!=','1318') //FRANCIS BRIAN ARRELLANO
+                ->where('userid','!=','1315') //FRANCISCA B. ZAMORA
+                ->where('userid','!=','1304') //LINDSEY J. MANSA
+                ->where('userid','!=','1303') //MARIFELLE G. YBAÑEZ
+                ->where('userid','!=','1293') //KRIZIA MEIRE GLANG BACAR
+                ->where('userid','!=','1284') //GENEVEVE L. COLASITO-AGERO
+                ->where('userid','!=','1283') //LORHIZ B. ECHAVEZ-LOPEZ
+                ->where('userid','!=','1275') //MOHAMMAD FAISAL JESRIL Y. BAZAR
+                ->where('userid','!=','1253') //JEFFREY LICARDO
+                ->where('userid','!=','1243') //ELVYN TEOLOGO
+                ->where('userid','!=','1242') //RICHARD TECSON
+                ->where('userid','!=','1241') //RICARDO TANEO
+                ->where('userid','!=','1233') //Domingo D. Alicante
+                ->where('userid','!=','1232') //	MONICO CARLO B. GIANGO
+                ->where('userid','!=','1231') //	GLYNN MARIE G. VICOY
+                ->where('userid','!=','1230') //	ELLERY CRISTLIN BLANCO LASALA
+                ->where('userid','!=','1227') //	ARNEL L. PRESCILLAS
+                ->where('userid','!=','1226') //	RAMON ANTONIO Z. DATAN
+                ->where('userid','!=','1215') //	NOEL A TRISTE JR.
+                ->where('userid','!=','1214') //	EDLYN R TORREON
+                ->where('userid','!=','1212') //	JOHN CLAIRE V. SONGKIP
+                ->where('userid','!=','1211') //	TZEISTEL ELLAINE M ROSARIO
+                ->where('userid','!=','1209') //	THEDA C DELOS ANGELES
+                ->where('userid','!=','1205') //	DEMN B. BINAG
+                ->where('userid','!=','1204') //	GLADYS GORNE AUDITOR
+                ->where('userid','!=','1203') //	RANDALL JOEY ANGOB
+                ->where('userid','!=','1202') //	AN LEIF CHRISTIAN L ACEBEDO
+                ->where('userid','!=','1201') //	Rebecca G. Abad
                 ->orderBy(DB::raw("CONVERT(SUBSTRING_INDEX(userid,'-',-1),UNSIGNED INTEGER)"),'desc')
                 ->first()->userid+1;
+
+            $userid_exist = [
+                1326,//JOAN INAHID
+                1318, //FRANCIS BRIAN ARRELLANO
+                1315, //FRANCISCA B. ZAMORA
+                1304, //LINDSEY J. MANSA
+                1303, //MARIFELLE G. YBAÑEZ
+                1293, //KRIZIA MEIRE GLANG BACAR
+                1284, //GENEVEVE L. COLASITO-AGERO
+                1283, //LORHIZ B. ECHAVEZ-LOPEZ
+                1275, //MOHAMMAD FAISAL JESRIL Y. BAZAR
+                1253, //JEFFREY LICARDO
+                1243, //ELVYN TEOLOGO
+                1242, //RICHARD TECSON
+                1241, //RICARDO TANEO
+                1233, //Domingo D. Alicante
+                1232, //	MONICO CARLO B. GIANGO
+                1231, //	GLYNN MARIE G. VICOY
+                1230, //	ELLERY CRISTLIN BLANCO LASALA
+                1227, //	ARNEL L. PRESCILLAS
+                1226, //	RAMON ANTONIO Z. DATAN
+                1215, //	NOEL A TRISTE JR.
+                1214, //	EDLYN R TORREON
+                1212, //	JOHN CLAIRE V. SONGKIP
+                1211, //	TZEISTEL ELLAINE M ROSARIO
+                1209, //	THEDA C DELOS ANGELES
+                1205, //	DEMN B. BINAG
+                1204, //	GLADYS GORNE AUDITOR
+                1203, //	RANDALL JOEY ANGOB
+                1202, //	AN LEIF CHRISTIAN L ACEBEDO
+                1201
+            ];
+
+            /*while( in_array($last_userid7,$userid_exist) ){
+                $last_userid7++;
+            }*/
+
 
             if($last_userid_temp8 = Personal_Information::
                 where('region','=','region_8')
@@ -104,7 +170,6 @@ class RegisterController extends Controller
             } else{
                 $last_userid8 = 1;
             }
-
 
             $designation = Designation::get();
             $division = Division::get();
