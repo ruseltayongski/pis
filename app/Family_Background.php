@@ -16,6 +16,7 @@ class Family_Background extends Model
         'smn',
         'sne',
         'soccu',
+        'sbname',
         'sbadd',
         'stelno',
         'fln',
