@@ -1206,8 +1206,8 @@ $pdf->Cell(38,5,'(Do not fill up. For CSC use only)',1,0,'',false);
     //row 1 result
     $row1Key = ['user|lname','user|fname','user|mname','user|date_of_birth','user|place_of_birth','user|height','user|weight',
                 'user|blood_type','user|gsis_idno','user|pag_ibigno','user|phicno','user|sssno','user|tin_no','user|userid',
-                'family_background|sln','family_background|sfn','family_background|smn','family_background|soccu','family_background|sbname',
-                'family_background|sbadd','family_background|stelno','family_background|fln','family_background|ffn','family_background|fmn',
+                'family_background|sln','family_background|sfn','family_background|smn','family_background|soccu','family_background|sbadd',
+                'family_background|sbname','family_background|stelno','family_background|fln','family_background|ffn','family_background|fmn',
                 'family_background|mmln','family_background|ms','family_background|mfn','family_background|mmn'];
     $row1TopIncrement = ['6.6','6.6','6.6','13','26','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6'
                         ,'13.3','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6','6.6',
