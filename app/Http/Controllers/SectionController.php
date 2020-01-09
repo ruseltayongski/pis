@@ -16,12 +16,12 @@ class SectionController extends Controller
     }
 
     public function filterEmployee(){
-        $filter_employee = User_dts::select("section.description as section",\DB::raw("concat(users.fname,' ',users.lname) as name"),"designation.description as designation")
-                                ->leftJoin("dts.section","section.id","=","users.section")
-                                ->leftJoin("dts.designation","designation.id","=","users.designation")
-                                ->where("users.section","4")
-                                ->orWhere("users.section","30")
-                                ->orderBy("users.section","asc")
+        $filter_employee = Personal_Information::select("section.description as section",\DB::raw("concat(personal_information.fname,' ',personal_information.lname) as name"),"designation.description as designation")
+                                ->leftJoin("dts.section","section.id","=","personal_information.section_id")
+                                ->leftJoin("dts.designation","designation.id","=","personal_information.designation_id")
+                                ->where("personal_information.section_id","21")
+                                ->orWhere("personal_information.section_id","30")
+                                ->orderBy("personal_information.section_id","asc")
                                 ->get();
 
         return view('section.filter_employee',[
