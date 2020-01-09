@@ -3,7 +3,7 @@
     <div class="page-content">
         <div class="page-header">
             <h1>
-                PIS LIST
+                SALARY LIST
             </h1>
         </div><!-- /.page-header -->
         <div class="space-10"></div>

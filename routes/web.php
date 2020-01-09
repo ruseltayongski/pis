@@ -81,6 +81,9 @@ Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 Route::get('/upgradeSalaryTranche/{currentTranche}/{upgradeTranche}', 'SalaryController@upgradeSalaryTranche');
 
+//SECTION
+Route::match(['GET','POST'],'/section/filter_employee', 'SectionController@filterEmployee');
+
 Route::get('/sirBong','PisController@sirBong');
 
 ///PDF
