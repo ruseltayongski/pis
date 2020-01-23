@@ -249,7 +249,7 @@ foreach( $work_experience as $row ){
     $work_experienceRowCount++;
 }
 
-for( $j = $work_experienceRowCount; $j <= 25; $j++ ){
+for( $j = $work_experienceRowCount; $j <= 20; $j++ ){
     $pdf->Row(['','','','','','','',''],7,5,'C',null);
     $work_experienceRowCount++;
 }
