@@ -256,6 +256,13 @@ class PisController extends Controller
         ]);
     }
 
+    public function updateEmployeeStatus(Request $request){
+        $pis = Personal_Information::where('userid','=',$request->userid)->first();
+        $pis->update([
+           'employee_status' => $request->employee_status
+        ]);
+    }
+
     public function pisInfo($userid){
         $user = Personal_Information::where('userid',$userid)->first();
         return view('pis.pisInfo',[
@@ -275,10 +282,11 @@ class PisController extends Controller
             ->leftjoin('family_background', 'pi.userid', '=', 'family_background.userid')
             ->leftjoin('children', 'pi.userid', '=', 'children.userid')
             ->leftjoin('survey','pi.userid','=','survey.userid')
+            ->leftJoin('employee_status as es','pi.employee_status','=','es.id')
             ->where('pi.userid',$finalId)
-                ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
-                'survey.*','survey.userid as surveyUserid',
-                'children.id as cId','children.userid as cUserid','children.name as cname','children.date_of_birth as cdate_of_birth')
+            ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
+            'survey.*','survey.userid as surveyUserid','children.id as cId','children.userid as cUserid','children.name as cname',
+            'children.date_of_birth as cdate_of_birth','es.description as employee_status_description','es.status as employee_status')
             ->get();
 
         $section = Section::get();
