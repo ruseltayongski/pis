@@ -147,15 +147,19 @@
                                                     <span class="white">{{ $user->fname.' '.$user->lname }}</span>
                                                 </a>
 
-                                                <ul class="align-left dropdown-menu">
-                                                    <li class="dropdown-header"> Change Status </li>
-                                                    <li>
-                                                        <a href="#soe" class="change-status" data-color="purple" data-description="HIRED">
-                                                            <i class="ace-icon fa fa-circle purple"></i>
-                                                            &nbsp;
-                                                            <span class="purple">HIRED</span>
-                                                        </a>
-                                                    </li>
+                                                <ul class="align-left @if(Auth::user()->usertype) dropdown-menu @endif dropdown-caret dropdown-lighter">
+                                                    @if(Auth::user()->usertype)
+                                                        <li class="dropdown-header"> Change Status </li>
+                                                        @foreach(\PIS\EmployeeStatus::get() as $status)
+                                                            <li>
+                                                                <a href="#soe{{ $status->id }}" class="change-status" data-color="{{ $status->status }}" data-description="{{ $status->description }}">
+                                                                    <i class="ace-icon fa fa-circle {{ $status->status }}"></i>
+                                                                    &nbsp;
+                                                                    <span class="{{ $status->status }}">{{ $status->description }}</span>
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    @endif
                                                 </ul>
                                             </div>
                                         </div>
@@ -165,9 +169,9 @@
                                     <div class="profile-contact-info">
                                         <div class="profile-contact-links align-left">
                                             <a class="btn btn-link">
-                                                <i class="ace-icon fa fa-sun-o bigger-120 green"></i>
-                                                <label id="soe" class="green">
-                                                    HIRED
+                                                <i class="ace-icon fa fa-sun-o bigger-120 {{ $user->employee_status }}"></i>
+                                                <label id="soe" class="{{ $user->employee_status }}">
+                                                    {{ $user->employee_status_description }}
                                                 </label>
                                             </a>
                                             <a href="http://ro7.doh.gov.ph/" target="_blank" class="btn btn-link">
@@ -1384,12 +1388,38 @@
 @endsection
 @section('js')
     <script>
+        var removeColor = 'green';
+        $(".change-status").each(function(index){
+            var href = $(this).attr('href');
+            $("a[href='"+href+"']").on("click",function(){
+                var soeId = this.href.split('#soe')[1];
+                var appendElement = $("#soe");
+                appendElement.html($(this).data('description'));
+                appendElement.removeClass(removeColor);
+                appendElement.addClass($(this).data('color'));
 
+                appendElement.siblings().removeClass(removeColor);
+                appendElement.siblings().addClass($(this).data('color'));
+                removeColor = $(this).data('color');
 
+                url = "<?php echo asset('updateEmployeeStatus'); ?>";
+                json = {
+                    "userid" : "<?php echo $user->userid; ?>",
+                    "employee_status" : soeId,
+                    "_token" : "<?php echo csrf_token(); ?>"
+                };
+                $.post(url,json,function(){
+                    Lobibox.notify('success', {
+                        size: 'mini',
+                        rounded: true,
+                        delayIndicator: false,
+                        msg: 'Update employee status'
+                });
+                });
+            });
+        });
 
         jQuery(function($) {
-
-
             var childrenCount = "<?php echo $childrenCount; ?>";
             var childrenLimit = "<?php echo $childrenCount; ?>";
             var childId = "<?php echo DB::select("show table status like 'children'")[0]->Auto_increment; ?>";

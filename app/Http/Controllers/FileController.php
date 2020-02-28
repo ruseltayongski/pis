@@ -19,8 +19,20 @@ class FileController extends Controller {
     }
 
     public function importExportExcelORCSV(){
-        if(Auth::user()->usertype)
-            return view('excel.import_export');
+        if(Auth::user()->usertype) {
+            //return view('excel.import_export');
+            $dashboard = \DB::connection('mysql')->select("call Dashboard()")[0];
+            $recent = Personal_Information::
+                                            select('personal_information.fname','employee_status.description as employee_status','personal_information.picture')
+                                            ->leftJoin('employee_status','employee_status.id','=','personal_information.employee_status')
+                                            ->limit(12)
+                                            ->orderBy('personal_information.updated_at','desc')
+                                            ->get();
+            return view('home',[
+                'dashboard' => $dashboard,
+                'recent' => $recent
+            ]);
+        }
         else
             return Redirect::to('/pisProfile');
     }

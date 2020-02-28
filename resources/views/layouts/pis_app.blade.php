@@ -40,7 +40,7 @@
     <script src="{{ asset('public/assets_ace/js/jquery-2.1.4.min.js') }}"></script>
     <script src="{{ asset('public/assets_ace/js/raphael-min.js') }}"></script>
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/plugin/Lobibox old/lobibox.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/plugin/lobibox/dist/css/Lobibox.min.css') }}" />
 
     <!--MORRIS -->
     <link rel="stylesheet" href="{{ asset('public/plugin/morris/morris.css') }}">
@@ -89,11 +89,10 @@
             </div>
             <div class="col-md-4">
                 @if(Auth::check())
-                    <span class="title-info" style="color: #f0ad4e;font-size: 12pt"><b>Date:</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ date('M d, Y') }}</span>
+                    <div class="pull-right">
+                        <span class="title-info" style="color: #f0ad4e;font-size: 12pt"><b>Date:</b></span> <span class="title-desc" style="color: white;font-size: 12pt">{{ date('M d, Y') }}</span>
+                    </div>
                 @endif
-            </div>
-            <div class="col-md-3">
-
             </div>
             <div class="clearfix"></div>
         </div>
@@ -435,7 +434,7 @@
 <!-- PLUGIN JS -->
 <script src="{{ asset('public/plugin/daterangepicker/moment.min.js') }}"></script>
 <script src="{{ asset('public/plugin/daterangepicker/daterangepicker.js') }}"></script>
-<script src="{{ asset('public/plugin/Lobibox old/Lobibox.js') }}"></script>
+<script src="{{ asset('public/plugin/lobibox/dist/js/Lobibox.min.js') }}"></script>
 
 
 <script type="text/javascript">
