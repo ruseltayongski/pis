@@ -113,7 +113,8 @@ Route::post('apiLogin','ApiController@login');
 Route::get('apiCdo/{userid}/{offset}','ApiController@cdo');
 
 //FILTER
-Route::get('filter/{job_status}/{gender}','HomeController@filterEmployee');
-Route::get('filter/{employee_status}','HomeController@activeAndResigned');
-Route::get('filter/education/background/{level}','HomeController@educationLevel');
+Route::get('filter1/{job_status}/{gender}','HomeController@filterEmployee');
+Route::get('filter2/employee_status/{employee_status}','HomeController@activeAndResigned');
+Route::get('filter3/education/background/{level}','HomeController@educationLevel');
+Route::get('filter4/section/{section_id}','HomeController@filterSection');
 

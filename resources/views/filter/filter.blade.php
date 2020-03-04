@@ -48,7 +48,7 @@
                             @foreach($user as $row)
                             <tr>
                                 <td>{{ $row->userid }}</td>
-                                <td>{{ $row->name }}</td>
+                                <td><b onclick="window.open('{{ asset('pisProfile').'/'.$row->userid }}','new_window');" class="blue" style="cursor: pointer;">{{ $row->name }}</b></td>
                                 <td>{{ $row->designation }}</td>
                                 <td>
                                     <b class="green">{{ $row->division }}</b><br>

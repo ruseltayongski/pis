@@ -1,5 +1,13 @@
 @extends('layouts.pis_app')
 @section('content')
+    <style>
+        .drag_disabled{
+            pointer-events: none;
+        }
+        .drag_enabled{
+            pointer-events: all;
+        }
+    </style>
         <div class="main-content">
             <div class="main-content-inner">
 
@@ -20,7 +28,7 @@
                             <div class="row">
 
                                 <div class="col-sm-7 infobox-container">
-                                    <div class="infobox infobox-green" onclick="window.open('{{ asset('filter/Permanent/Male') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-green" onclick="window.open('{{ asset('filter1/Permanent/Male') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -32,7 +40,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-blue" onclick="window.open('{{ asset('filter/Permanent/Female') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-blue" onclick="window.open('{{ asset('filter1/Permanent/Female') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -44,7 +52,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-pink" onclick="window.open('{{ asset('filter/Job Order/Male') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-pink" onclick="window.open('{{ asset('filter1/Job Order/Male') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -55,7 +63,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-red" onclick="window.open('{{ asset('filter/Job Order/Female') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-red" onclick="window.open('{{ asset('filter1/Job Order/Female') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -66,7 +74,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-orange2" onclick="window.open('{{ asset('filter/1') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-orange2" onclick="window.open('{{ asset('filter2/employee_status/1') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-check"></i>
                                         </div>
@@ -77,7 +85,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-blue2" onclick="window.open('{{ asset('filter/3') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-blue2" onclick="window.open('{{ asset('filter2/employee_status/3') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-star"></i>
                                         </div>
@@ -90,7 +98,7 @@
 
                                     <div class="space-6"></div>
 
-                                    <div class="infobox infobox-green infobox-small infobox-dark pull-left" onclick="window.location='{{ route('excel-file',['type'=>'xls']) }}'" style="cursor: pointer;">
+                                    <div class="infobox infobox-green infobox-small infobox-dark" onclick="window.location='{{ route('excel-file',['type'=>'xls']) }}'" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-download"></i>
                                         </div>
@@ -101,7 +109,7 @@
                                     </div>
                                 </div>
 
-                                <div class="vspace-12-sm"></div>
+                                <div class="space-12-sm"></div>
 
                                 <div class="col-sm-5">
                                     <div class="widget-box">
@@ -111,7 +119,6 @@
                                                 Educational Background
                                             </h5>
                                         </div>
-
                                         <div class="widget-body">
                                             <div class="widget-main">
                                                 <div id="piechart-placeholder"></div>
@@ -119,7 +126,7 @@
                                                 <div class="hr hr8 hr-double"></div>
 
                                                 <div class="clearfix">
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/3') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/3') }}','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-gavel fa-2x" style="color: #68BC31"></i>
                                                             &nbsp; Vocational
@@ -127,7 +134,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/4') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/4') }}','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-folder fa-2x " style="color: #2091CF"></i>
                                                             &nbsp; College
@@ -135,7 +142,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/5') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/5') }}','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-briefcase fa-2x" style="color: #AF4E96"></i>
                                                             &nbsp; Masteral
@@ -149,13 +156,12 @@
                                 </div><!-- /.col -->
                             </div><!-- /.row -->
 
-
                             <div class="row">
-                                <div class="col-sm-12">
+                                <div class="col-sm-7">
                                     <div class="widget-box transparent" id="recent-box">
                                         <div class="widget-header">
                                             <h4 class="widget-title lighter smaller">
-                                                <i class="ace-icon fa fa-users orange"></i>RECENT MEMBER
+                                                <i class="ace-icon fa fa-users orange"></i>RECENT MEMBERS
                                             </h4>
                                         </div>
                                         <div class="widget-body">
@@ -209,6 +215,40 @@
                                     </div><!-- /.widget-box -->
                                 </div><!-- /.col -->
 
+                                <div class="col-sm-5">
+                                    <div class="widget-header">
+                                        <h4 class="widget-title lighter smaller">
+                                            <i class="ace-icon fa fa-building blue"></i>Division/Section
+                                        </h4>
+                                    </div>
+                                    <div class="dd dd-draghandle">
+                                        <ol class="dd-list">
+                                            @foreach(\PIS\Division::get() as $div)
+                                            <li class="dd-item dd2-item" data-id="15">
+                                                <div class="dd-handle dd2-handle">
+                                                    <i class="normal-icon ace-icon fa fa-filter orange bigger-130"></i>
+                                                    <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                                                </div>
+                                                <div class="dd2-content">{{ $div->description }}</div>
+
+                                                <ol class="dd-list">
+                                                    @foreach(\PIS\Section::where('division','=',$div->id)->get() as $sec)
+                                                    <li class="dd-item dd2-item" data-id="16" onclick="window.open('{{ asset('filter4/section').'/'.$sec->id }}','new_window');" style="cursor: pointer;">
+                                                        <div class="dd-handle dd2-handle">
+                                                            <i class="normal-icon ace-icon fa fa-users red bigger-130"></i>
+
+                                                            <i class="drag-icon ace-icon fa fa-arrows bigger-125"></i>
+                                                        </div>
+                                                        <div class="dd2-content">{{ $sec->description }}</div>
+                                                    </li>
+                                                    @endforeach
+                                                </ol>
+                                            </li>
+                                            @endforeach
+                                        </ol>
+                                    </div>
+                                </div>
+
                             </div><!-- /.row -->
 
                             <!-- PAGE CONTENT ENDS -->
@@ -224,6 +264,7 @@
     <script src="{{ asset('public/assets_ace/js/jquery.flot.min.js') }}"></script>
     <script src="{{ asset('public/assets_ace/js/jquery.flot.pie.min.js') }}"></script>
     <script src="{{ asset('public/assets_ace/js/jquery.flot.resize.min.js') }}"></script>
+    <script src="{{ asset('public/assets_ace/js/jquery.nestable.min.js') }}"></script>
     <script type="text/javascript">
         jQuery(function($) {
 
@@ -295,6 +336,8 @@
 
             });
 
+            $('.dd').nestable({});
+            $('.dd').nestable('collapseAll');
 
         })
     </script>
