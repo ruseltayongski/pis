@@ -74,6 +74,7 @@ Route::get('sync_dtr','FileController@sync_dtr');
 Route::get('append_sched','FileController@append_sched');
 Route::get('sync_personalInformation','FileController@sync_personalInformation');
 
+
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
 Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
@@ -107,8 +108,12 @@ Route::get('CheckVersion',function(){
 //REPORT
 Route::get('/no_salary_grade','ReportController@no_salary_grade');
 
-
 //API
 Route::post('apiLogin','ApiController@login');
 Route::get('apiCdo/{userid}/{offset}','ApiController@cdo');
+
+//FILTER
+Route::get('filter/{job_status}/{gender}','HomeController@filterEmployee');
+Route::get('filter/{employee_status}','HomeController@activeAndResigned');
+Route::get('filter/education/background/{level}','HomeController@educationLevel');
 
