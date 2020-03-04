@@ -18,15 +18,57 @@ class FileController extends Controller {
         $this->middleware('auth');
     }
 
+    public static function dateDuration($diff){
+        $years   = floor($diff / (365*60*60*24));
+        $months  = floor(($diff - $years * 365*60*60*24) / (30*60*60*24));
+        $days    = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24)/ (60*60*24));
+
+        $hours   = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24)/ (60*60));
+
+        $minutes  = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60)/ 60);
+
+        $seconds = floor(($diff - $years * 365*60*60*24 - $months*30*60*60*24 - $days*60*60*24 - $hours*60*60 - $minutes*60));
+
+        $duration = 0;
+        if($years){
+            if($years == 1)
+                $duration = $years.' year';
+            else
+                $duration = $years.' years';
+        }
+        elseif($months){
+            if($months == 1)
+                $duration = $months.' month';
+            else
+                $duration = $months.' months';
+        }
+        elseif($days){
+            if($days == 1)
+                $duration = $days.' day';
+            else
+                $duration = $days.' days';
+        }
+        elseif($minutes){
+            if($minutes == 1)
+                $duration = $minutes.' minute';
+            else
+                $duration = $minutes.' minutes';
+        }
+        else
+            $duration = 'Just Now';
+
+        return $duration;
+    }
+
     public function importExportExcelORCSV(){
         if(Auth::user()->usertype) {
             //return view('excel.import_export');
             $dashboard = \DB::connection('mysql')->select("call Dashboard()")[0];
             $recent = Personal_Information::
-                                            select('personal_information.fname','employee_status.description as employee_status','personal_information.picture')
+                                            select('personal_information.userid','personal_information.fname','employee_status.description as employee_status','personal_information.picture','personal_information.created_at')
                                             ->leftJoin('employee_status','employee_status.id','=','personal_information.employee_status')
                                             ->limit(12)
-                                            ->orderBy('personal_information.updated_at','desc')
+                                            ->orderBy('personal_information.created_at','desc')
                                             ->get();
             return view('home',[
                 'dashboard' => $dashboard,

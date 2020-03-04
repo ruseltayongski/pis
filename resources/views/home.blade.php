@@ -20,7 +20,7 @@
                             <div class="row">
 
                                 <div class="col-sm-7 infobox-container">
-                                    <div class="infobox infobox-green">
+                                    <div class="infobox infobox-green" onclick="window.open('{{ asset('filter/Permanent/Male') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -32,7 +32,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-blue">
+                                    <div class="infobox infobox-blue" onclick="window.open('{{ asset('filter/Permanent/Female') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -44,7 +44,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-pink">
+                                    <div class="infobox infobox-pink" onclick="window.open('{{ asset('filter/Job Order/Male') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-red">
+                                    <div class="infobox infobox-red" onclick="window.open('{{ asset('filter/Job Order/Female') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -66,7 +66,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-orange2">
+                                    <div class="infobox infobox-orange2" onclick="window.open('{{ asset('filter/1') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-check"></i>
                                         </div>
@@ -75,10 +75,9 @@
                                             <span class="infobox-data-number">{{ number_format((float)$dashboard->active, 0, '.', ',') }}</span>
                                             <div class="infobox-content">ACTIVE</div>
                                         </div>
-
                                     </div>
 
-                                    <div class="infobox infobox-blue2">
+                                    <div class="infobox infobox-blue2" onclick="window.open('{{ asset('filter/3') }}','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-star"></i>
                                         </div>
@@ -87,17 +86,15 @@
                                             <span class="infobox-data-number">{{ number_format((float)$dashboard->resigned, 0, '.', ',') }}</span>
                                             <div class="infobox-content">RESIGNED</div>
                                         </div>
-
                                     </div>
 
                                     <div class="space-6"></div>
 
-                                    <div class="infobox infobox-green infobox-small infobox-dark pull-left">
+                                    <div class="infobox infobox-green infobox-small infobox-dark pull-left" onclick="window.location='{{ route('excel-file',['type'=>'xls']) }}'" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-download"></i>
                                         </div>
-
-                                        <div class="infobox-data">
+                                        <div class="infobox-data" >
                                             <div class="infobox-content">Downloads</div>
                                             <div class="infobox-content">{{ number_format((float)$dashboard->total_employee, 0, '.', ',') }}</div>
                                         </div>
@@ -122,28 +119,28 @@
                                                 <div class="hr hr8 hr-double"></div>
 
                                                 <div class="clearfix">
-                                                    <div class="grid3">
-															<span class="grey">
-																<i class="ace-icon fa fa-gavel fa-2x blue"></i>
-																&nbsp; Vocational
-                                                                <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->vocational, 0, '.', ',') }}</small>
-															</span>
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/3') }}','new_window');" style="cursor: pointer;">
+                                                        <span class="grey">
+                                                            <i class="ace-icon fa fa-gavel fa-2x" style="color: #68BC31"></i>
+                                                            &nbsp; Vocational
+                                                            <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->vocational, 0, '.', ',') }}</small>
+                                                        </span>
                                                     </div>
 
-                                                    <div class="grid3">
-															<span class="grey">
-																<i class="ace-icon fa fa-folder fa-2x purple"></i>
-																&nbsp; College
-                                                                <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->college, 0, '.', ',') }}</small>
-															</span>
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/4') }}','new_window');" style="cursor: pointer;">
+                                                        <span class="grey">
+                                                            <i class="ace-icon fa fa-folder fa-2x " style="color: #2091CF"></i>
+                                                            &nbsp; College
+                                                            <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->college, 0, '.', ',') }}</small>
+                                                        </span>
                                                     </div>
 
-                                                    <div class="grid3">
-															<span class="grey">
-																<i class="ace-icon fa fa-briefcase fa-2x red"></i>
-																&nbsp; Masteral
-                                                                <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->masteral, 0, '.', ',') }}</small>
-															</span>
+                                                    <div class="grid3" onclick="window.open('{{ asset('filter/education/background/5') }}','new_window');" style="cursor: pointer;">
+                                                        <span class="grey">
+                                                            <i class="ace-icon fa fa-briefcase fa-2x" style="color: #AF4E96"></i>
+                                                            &nbsp; Masteral
+                                                            <small class="text-success" style="margin-left: 30%">{{ number_format((float)$dashboard->masteral, 0, '.', ',') }}</small>
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </div><!-- /.widget-main -->
@@ -158,7 +155,7 @@
                                     <div class="widget-box transparent" id="recent-box">
                                         <div class="widget-header">
                                             <h4 class="widget-title lighter smaller">
-                                                <i class="ace-icon fa fa-rss orange"></i>RECENT
+                                                <i class="ace-icon fa fa-users orange"></i>RECENT MEMBER
                                             </h4>
                                         </div>
                                         <div class="widget-body">
@@ -166,7 +163,7 @@
                                                 <div id="member-tab" class="tab-pane">
                                                     <div class="clearfix">
                                                         @foreach($recent as $user)
-                                                            <div class="itemdiv memberdiv">
+                                                            <div class="itemdiv memberdiv" onclick="window.open('{{ asset('pisProfile').'/'.$user->userid }}','new_window');">
                                                                 <div class="user">
                                                                     <?php
                                                                         if(isset($user->picture)){
@@ -183,12 +180,19 @@
 
                                                                 <div class="body">
                                                                     <div class="name">
-                                                                        <a href="#">{{ ucfirst($user->fname) }}</a>
+                                                                        <a href="#">{{ ucfirst(strtolower($user->fname)) }}</a>
                                                                     </div>
 
                                                                     <div class="time">
                                                                         <i class="ace-icon fa fa-clock-o"></i>
-                                                                        <span class="green">20 min</span>
+                                                                        <span class="green">
+                                                                            <?php
+                                                                                $date1 = $user->created_at;
+                                                                                $date2 = date('Y-m-d H:i:s');
+                                                                                $diff = abs(strtotime($date2) - strtotime($date1));
+                                                                                echo \PIS\Http\Controllers\FileController::dateDuration($diff);
+                                                                            ?>
+                                                                        </span>
                                                                     </div>
 
                                                                     <div>
@@ -229,9 +233,9 @@
 
             var placeholder = $('#piechart-placeholder').css({'width':'90%' , 'min-height':'150px'});
             var data = [
-                { label: "VOCATIONAL",  data: 38.7, color: "#68BC31"},
-                { label: "COLLEGE",  data: 24.5, color: "#2091CF"},
-                { label: "MASTERAL",  data: 8.2, color: "#AF4E96"}
+                { label: "VOCATIONAL",  data: "{{ $dashboard->vocational }}", color: "#68BC31"},
+                { label: "COLLEGE",  data: "{{ $dashboard->college }}", color: "#2091CF"},
+                { label: "MASTERAL",  data: "{{ $dashboard->masteral }}", color: "#AF4E96"}
             ]
             function drawPieChart(placeholder, data, position) {
                 $.plot(placeholder, data, {

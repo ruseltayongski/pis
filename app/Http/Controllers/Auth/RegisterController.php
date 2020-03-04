@@ -289,8 +289,8 @@ class RegisterController extends Controller
             $personal_information->case_address = $request->case_address;
             $personal_information->case_contact = $request->case_contact;
             $personal_information->disbursement_type = $disbursement_type;
-            $personal_information->employee_status = 'Active';
-            $personal_information->user_status = '1';
+            $personal_information->employee_status = 1; //MEANS ACTIVE
+            $personal_information->user_status = 1;
             $personal_information->region = $request->region;
             $personal_information->field_status = $request->field_status;
             $personal_information->save();
