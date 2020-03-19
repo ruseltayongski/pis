@@ -91,12 +91,14 @@
                                     I forgot my password
                                 </a>
                             </div>
+                            <!--
                             <div>
                                 <a href="{{ asset('/new_employee') }}" class="user-signup-link">
                                     Register
                                     <i class="ace-icon fa fa-arrow-right"></i>
                                 </a>
                             </div>
+                            -->
                         </div>
 
                     </div><!-- /.widget-body -->

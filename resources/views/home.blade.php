@@ -107,6 +107,14 @@
                                             <div class="infobox-content">{{ number_format((float)$dashboard->total_employee, 0, '.', ',') }}</div>
                                         </div>
                                     </div>
+                                    <div class="infobox infobox-blue infobox-small infobox-dark" onclick="window.location='{{ asset('/new_employee') }}'" style="cursor: pointer;">
+                                        <div class="infobox-icon">
+                                            <i class="ace-icon fa fa-user-plus"></i>
+                                        </div>
+                                        <div class="infobox-data" >
+                                            <div class="infobox-content">Register</div>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="space-12-sm"></div>

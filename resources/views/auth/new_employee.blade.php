@@ -406,7 +406,7 @@
                                     </fieldset>
                                 </form>
                             </div>
-
+                            <!--
                             <div class="toolbar clearfix">
                                 <div>
                                     <a href="{{ asset('/') }}" class="forgot-password-link">
@@ -415,6 +415,7 @@
                                     </a>
                                 </div>
                             </div>
+                            -->
                         </div><!-- /.widget-body -->
 
                     </div>
