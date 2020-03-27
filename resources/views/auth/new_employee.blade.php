@@ -121,20 +121,11 @@
                                                 @endif
                                             </div>
                                             <div class="col-sm-4">
-                                                <select name="job_status" class="select2" data-placeholder="Select Job Status" >
-                                                    @if(session('job_status'))
-                                                        @if(session('job_status') == 'Job Order')
-                                                            <option value="Job Order">Job Order</option>
-                                                            <option value="Permanent">Permanent</option>
-                                                        @else
-                                                            <option value="Permanent">Permanent</option>
-                                                            <option value="Job Order">Job Order</option>
-                                                        @endif
-                                                    @else
-                                                    <option value=""></option>
-                                                    <option value="Job Order">Job Order</option>
-                                                    <option value="Permanent">Permanent</option>
-                                                    @endif
+                                                <select name="job_status" class="form-control" data-placeholder="Select Job Status" >
+                                                    <option value="">Select job status</option>
+                                                    <option value="Job Order" {{ session('job_status') == 'Job Order' ? 'selected' : '' }}>Job Order</option>
+                                                    <option value="Permanent" {{ session('job_status') == 'Permanent' ? 'selected' : '' }}>Permanent</option>
+                                                    <option value="CBII" {{ session('job_status') == 'CBII' ? 'selected' : '' }}>CBII</option>
                                                 </select>
                                                 @if ($errors->has('job_status'))
                                                     <small class="red"><b>{{ $errors->first('job_status') }}</b></small>
