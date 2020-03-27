@@ -2628,6 +2628,7 @@
                         "job_status" : [
                             {value: "Permanent", text: "Permanent"},
                             {value: "Job Order", text: "Job Order"},
+                            {value: "CBII", text: "CBII"}
                         ],
                         "designation": designation,
                         "education_type": eduType

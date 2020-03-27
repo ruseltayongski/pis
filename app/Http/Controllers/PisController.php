@@ -990,7 +990,11 @@ class PisController extends Controller
         $division['left'] = 3;
         $division['top'] = 79.5;
         if($user->division_id){
-            if($user->division_id == 3){
+            if($user->job_status == 'CBII') {
+                $division['left'] += 6;
+                $division['desc'] = 'GENERAL SERVICES';
+            }
+            elseif($user->division_id == 3){
                 $division['left'] += 5;
                 $division['desc'] = \PIS\Division::find($user->division_id)->description;
             }
