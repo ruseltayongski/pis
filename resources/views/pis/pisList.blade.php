@@ -47,12 +47,14 @@
                 <div class="col-xs-12 col-md-1">
                     <button type="submit" class="btn btn-sm btn-primary"><i class="ace-icon fa fa-search icon-on-right bigger-110"></i> Search</button>
                 </div>
+                <!--
                 <div class="col-xs-12 col-md-5">
                     <a href="#document_form" data-link="{{ asset('pisForm') }}" class="btn btn-info no-border btn-sm" data-dismiss="modal" data-backdrop="static" data-toggle="modal" data-target="#document_form">
                         <i class="fa fa-user-plus"></i>
                         Add Employee
                     </a>
                 </div>
+                -->
             </form>
         </div>
         <div class="space-10"></div>

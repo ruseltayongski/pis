@@ -1385,14 +1385,16 @@
     <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
         <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
     </a>
+    @include('modal')
 @endsection
 @section('js')
     <script>
         var removeColor = 'green';
         $(".change-status").each(function(index){
             var href = $(this).attr('href');
-            $("a[href='"+href+"']").on("click",function(){
+            $("a[href='"+href+"']").on("click",function(e){
                 var soeId = this.href.split('#soe')[1];
+                var userid = "<?php echo $user->piUserid; ?>";
                 var appendElement = $("#soe");
                 appendElement.html($(this).data('description'));
                 appendElement.removeClass(removeColor);
@@ -1402,22 +1404,47 @@
                 appendElement.siblings().addClass($(this).data('color'));
                 removeColor = $(this).data('color');
 
-                url = "<?php echo asset('updateEmployeeStatus'); ?>";
-                json = {
-                    "userid" : "<?php echo $user->userid; ?>",
-                    "employee_status" : soeId,
-                    "_token" : "<?php echo csrf_token(); ?>"
-                };
-                $.post(url,json,function(){
-                    Lobibox.notify('success', {
-                        size: 'mini',
-                        rounded: true,
-                        delayIndicator: false,
-                        msg: 'Update employee status'
-                });
-                });
+                if(soeId == 3){
+                    $('#resigned_effectivity').modal({backdrop: 'static', keyboard: false});
+                    $('.userid').val(userid);
+                    $('.soeId').val(soeId);
+                } else {
+                    employeeStatusAjax(userid,soeId);
+                }
+
             });
         });
+
+        function employeeStatusAjax(userid,soeId,date_effectivity){
+            url = "<?php echo asset('updateEmployeeStatus'); ?>";
+            json = {
+                "userid" : userid,
+                "employee_status" : soeId,
+                "date_effectivity" : date_effectivity,
+                "_token" : "<?php echo csrf_token(); ?>"
+            };
+            console.log(url)
+            console.log(json)
+            $.post(url,json,function(){
+                Lobibox.notify('success', {
+                    size: 'mini',
+                    rounded: true,
+                    delayIndicator: false,
+                    msg: 'Successfully updated the employee status'
+                });
+            });
+
+            event.preventDefault();
+        }
+
+        function resignedEffectivity(){
+            var date_effectivity = $(".date_effectivity").val();
+            var userid = $('.userid').val();
+            var soeId = $(".soeId").val();
+
+            employeeStatusAjax(userid,soeId,date_effectivity);
+            $('#resigned_effectivity').modal('toggle');
+        }
 
         jQuery(function($) {
             var childrenCount = "<?php echo $childrenCount; ?>";

@@ -68,6 +68,7 @@
                                         ];
                                     ?>
                                     <span class="label label-{{ $color[$row->employee_status_id] }} arrowed-in arrowed-in-right">{{ $row->employee_status_value }}</span>
+                                    @if(isset($row->resigned_effectivity))<br><i><small class="orange">({{ $row->resigned_effectivity }})</small></i>@endif
                                 </td>
                             </tr>
                             @endforeach

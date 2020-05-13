@@ -82,6 +82,7 @@ class HomeController extends Controller
                     'div.description as division',
                     'personal_information.sex',
                     'personal_information.job_status',
+                    'personal_information.resigned_effectivity',
                     'em.description as employee_status_value',
                     'em.id as employee_status_id'
                 )

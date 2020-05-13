@@ -259,7 +259,8 @@ class PisController extends Controller
     public function updateEmployeeStatus(Request $request){
         $pis = Personal_Information::where('userid','=',$request->userid)->first();
         $pis->update([
-           'employee_status' => $request->employee_status
+           'employee_status' => $request->employee_status,
+            'resigned_effectivity' => $request->date_effectivity
         ]);
     }
 
