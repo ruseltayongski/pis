@@ -180,7 +180,6 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-        Crabbly\FPDF\FpdfServiceProvider::class,
         Codedge\Fpdf\FpdfServiceProvider::class,
         Mews\Captcha\CaptchaServiceProvider::class,
     ],

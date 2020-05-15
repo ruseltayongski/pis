@@ -118,3 +118,8 @@ Route::get('filter2/employee_status/{employee_status}','HomeController@activeAnd
 Route::get('filter3/education/background/{level}','HomeController@educationLevel');
 Route::get('filter4/section/{section_id}','HomeController@filterSection');
 
+//
+Route::get('phpinfo', function () {
+    return \PIS\User::get();
+});
+

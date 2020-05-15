@@ -287,8 +287,10 @@ class PisController extends Controller
             ->where('pi.userid',$finalId)
             ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
             'survey.*','survey.userid as surveyUserid','children.id as cId','children.userid as cUserid','children.name as cname',
-            'children.date_of_birth as cdate_of_birth','es.description as employee_status_description','es.status as employee_status')
+            'children.date_of_birth as cdate_of_birth','es.description as employee_status_description','es.status as employee_status',
+            'pi.Rsitio','pi.Psitio')
             ->get();
+
 
         $section = Section::get();
         $division = Division::get();
