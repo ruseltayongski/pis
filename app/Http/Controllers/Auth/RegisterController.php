@@ -186,6 +186,16 @@ class RegisterController extends Controller
                 $last_userid8 = 1;
             }
 
+            if($last_userid_temp12 = Personal_Information::
+            where('region','=','region_12')
+                ->orderBy('id','desc')
+                ->first()){
+                $last_userid12 = $last_userid_temp12->userid;
+                $last_userid12++;
+            } else{
+                $last_userid12 = 1200001;
+            }
+
             $designation = Designation::get();
             $division = Division::get();
             $section = Section::get();
@@ -195,6 +205,7 @@ class RegisterController extends Controller
                 "section" => $section,
                 "last_userid7" => $last_userid7,
                 "last_userid8" => $last_userid8,
+                "last_userid12" => $last_userid12,
                 "sched" => $sched
             ]);
         }

@@ -42,11 +42,9 @@
                                             <div class="col-sm-6">
                                                 <select name="region" class="select2" onchange="filterUserid($(this))" data-placeholder="Select Work Region.">
                                                     <option value="{{ session('region') }}">{{ session('region') ? "Region ".explode('_',session('region'))[1] : '' }}</option>
-                                                    @for($i=7;$i<=8;$i++)
-                                                        @if('region_'.$i != session('region') )
-                                                            <option value="region_{{ $i }}">Region {{ $i }}</option>
-                                                        @endif
-                                                    @endfor
+                                                    <option value="region_7">Region 7</option>
+                                                    <option value="region_8">Region 8</option>
+                                                    <option value="region_12">Region 12</option>
                                                 </select>
                                                 @if ($errors->has('region'))
                                                     <small class="red"><b>{{ $errors->first('region') }}</b></small>
@@ -451,11 +449,16 @@
 
         var userid7 = "<?php echo str_pad($last_userid7, 4, '0', STR_PAD_LEFT); ?>";
         var userid8 = "<?php echo str_pad($last_userid8, 7, '0', STR_PAD_LEFT); ?>";
-        
+        var userid12 = "<?php echo str_pad($last_userid12, 7, '0', STR_PAD_LEFT); ?>";
+
         function filterUserid(data){
             if(data.val() == 'region_8'){
                 $("#userid").val(userid8);
-            } else {
+            }
+            else if(data.val() == 'region_12'){
+                $("#userid").val(userid12);
+            }
+            else {
                 $("#userid").val(userid7);
             }
         }
