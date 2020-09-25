@@ -19,29 +19,29 @@
 
                         <table class="table table-bordered table-striped">
                             <thead class="thin-border-bottom">
-                            <tr>
-                                <th>
-                                    Employee ID
-                                </th>
-                                <th>
-                                    Name
-                                </th>
-                                <th>
-                                    Designation
-                                </th>
-                                <th>
-                                    Section/Division
-                                </th>
-                                <th>
-                                    Sex
-                                </th>
-                                <th>
-                                    Job Status
-                                </th>
-                                <th>
-                                    Employee Status
-                                </th>
-                            </tr>
+                                <tr>
+                                    <th >
+                                        Employee ID
+                                    </th>
+                                    <th>
+                                        Name
+                                    </th>
+                                    <th>
+                                        Designation
+                                    </th>
+                                    <th>
+                                        Section/Division
+                                    </th>
+                                    <th>
+                                        Sex
+                                    </th>
+                                    <th>
+                                        Job Status
+                                    </th>
+                                    <th>
+                                        Employee Status
+                                    </th>
+                                </tr>
                             </thead>
 
                             <tbody>

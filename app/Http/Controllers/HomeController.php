@@ -3,6 +3,7 @@
 namespace PIS\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use PIS\Designation;
 use PIS\Division;
@@ -132,18 +133,17 @@ class HomeController extends Controller
 
     public function filterSection($section_id){
         $user = Personal_Information::
-        select(
-            'personal_information.userid',
-            \DB::raw("upper(concat(personal_information.fname,' ',personal_information.lname)) as name"),
-            'des.description as designation',
-            'sec.description as section',
-            'div.description as division',
-            'personal_information.sex',
-            'personal_information.job_status',
-            'em.description as employee_status_value',
-            'em.id as employee_status_id',
-            'edu_type.description as educational_background'
-        )
+            select(
+                DB::raw('DISTINCT personal_information.userid'),
+                DB::raw("upper(concat(personal_information.fname,' ',personal_information.lname)) as name"),
+                'des.description as designation',
+                'sec.description as section',
+                'div.description as division',
+                'personal_information.sex',
+                'personal_information.job_status',
+                'em.description as employee_status_value',
+                'em.id as employee_status_id'
+            )
             ->leftJoin('employee_status as em','em.id','=','personal_information.employee_status')
             ->leftJoin('dts.designation as des','des.id','=','personal_information.designation_id')
             ->leftJoin('dts.section as sec','sec.id','=','personal_information.section_id')
@@ -151,7 +151,7 @@ class HomeController extends Controller
             ->leftJoin('educational_background as edu','edu.userid','=','personal_information.userid')
             ->leftJoin('education_type as edu_type','edu_type.id','=','edu.level')
             ->where('personal_information.section_id','=',$section_id)
-            ->paginate('10');
+            ->paginate('15');
 
         return view('filter.filter',[
             "user" => $user,
