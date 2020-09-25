@@ -134,7 +134,7 @@
                                             } else {
                                                 echo asset('public/img/no_signature.png');
                                             }
-                                            ?>" />
+                                            ?>" style="height:50px;width: 100%;background-color: rgb(206, 232, 1)"/>
                                             </a>
                                         </span>
                                         <div class="rating inline"></div>
