@@ -170,7 +170,7 @@ class PisController extends Controller
                 ->orWhere('mname','like',"%$keyword%")
                 ->orWhere('lname','like',"%$keyword%")
                 ->orWhere('userid','like',"%$keyword%");
-        })->get();
+        })->count();
 
         $newPersonal = new Personal_Information();
         $count_duplicateId = Personal_Information::
@@ -181,7 +181,7 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
-            })->get();
+            })->count();
         $count_duplicateName = DB::table('personal_information')
             ->where('user_status','=','1')
             ->where(function($q) use ($keyword){
@@ -201,7 +201,7 @@ class PisController extends Controller
                     ->from(with($newPersonal)->getTable())
                     ->groupBy('lname')
                     ->havingRaw('COUNT(lname)>1');
-            })->get();
+            })->count();
 
         $count_inactive = Personal_Information::
              where('user_status','=','0')
@@ -210,7 +210,7 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
-            })->get();
+            })->count();
         $count_permanent = Personal_Information::
         where('user_status','=','1')
             ->where('job_status','=','Permanent')
@@ -219,7 +219,7 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
-            })->get();
+            })->count();
         $count_jobOrder = Personal_Information::
         where('user_status','=','1')
             ->where('job_status','=','Job Order')
@@ -228,14 +228,14 @@ class PisController extends Controller
                     ->orWhere('mname','like',"%$keyword%")
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
-            })->get();
+            })->count();
 
-        $countArray['ALL'] = count($count_all);
-        $countArray['DUPLICATE_ID'] = count($count_duplicateId);
-        $countArray['DUPLICATE_NAME'] = count($count_duplicateName);
-        $countArray['INACTIVE'] = count($count_inactive);
-        $countArray['PERMANENT'] = count($count_permanent);
-        $countArray['JOB_ORDER'] = count($count_jobOrder);
+        $countArray['ALL'] = $count_all;
+        $countArray['DUPLICATE_ID'] = $count_duplicateId;
+        $countArray['DUPLICATE_NAME'] = $count_duplicateName;
+        $countArray['INACTIVE'] = $count_inactive;
+        $countArray['PERMANENT'] = $count_permanent;
+        $countArray['JOB_ORDER'] = $count_jobOrder;
 
         return view('pis.pisList',[
             "personal_information" => $personal_information,
