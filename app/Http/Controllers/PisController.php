@@ -202,6 +202,7 @@ class PisController extends Controller
                     ->groupBy('lname')
                     ->havingRaw('COUNT(lname)>1');
             })->count();
+        $count_duplicateName = 0;
 
         $count_inactive = Personal_Information::
              where('user_status','=','0')

@@ -32,21 +32,17 @@
                             </h1>
                         </div>
                         <div class="col-md-8">
-                            <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank" class="pull-right">
-                                <input type="hidden" name="userid" value="{{ $user->piUserid }}">
-                                <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>
-                            </form>
-                            <!--
+                            @if(Auth::user()->usertype)
                             <div class="col-md-4">
                                 <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
                             </div>
-                            <div class="col-md-4">
+                            @endif
+                            <div class="col-md-4 pull-right">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
                                     <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>
                                 </form>
                             </div>
-                            -->
                         </div>
                     </div>
                 </div><!-- /.page-header -->
