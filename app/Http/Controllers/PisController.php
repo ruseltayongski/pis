@@ -27,6 +27,9 @@ use PIS\Section;
 use PIS\User_dts;
 use Illuminate\Support\Facades\App;
 use File;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class PisController extends Controller
 {
@@ -73,44 +76,9 @@ class PisController extends Controller
                 ->orderBy('fname','asc')
                 ->paginate(10);
         }
-        elseif($type == 'DUPLICATE_ID') {
-            $personal_information = Personal_Information::
-                where('user_status','=','1')
-                ->where("userid",'like',"%duplicate%")
-                ->where(function($q) use ($keyword){
-                $q->where('fname','like',"%$keyword%")
-                    ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%")
-                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
-                })
-                ->orderBy('fname','asc')
-                ->paginate(10);
-        }
         elseif($type == 'DUPLICATE_NAME'){
-            $newPersonal = new Personal_Information();
-            $personal_information = DB::table('personal_information')
-                ->where('user_status','=','1')
-                ->where(function($q) use ($keyword){
-                    $q->where('fname','like',"%$keyword%")
-                        ->orWhere('mname','like',"%$keyword%")
-                        ->orWhere('lname','like',"%$keyword%")
-                        ->orWhere('userid','like',"%$keyword%");
-                })
-                ->whereIn('fname', function($query) use($newPersonal){
-                    $query->select('fname')
-                        ->from(with($newPersonal)->getTable())
-                        ->groupBy('fname')
-                        ->havingRaw('COUNT(fname)>1');
-                })
-                ->whereIn('lname', function($query) use($newPersonal){
-                    $query->select('lname')
-                        ->from(with($newPersonal)->getTable())
-                        ->groupBy('lname')
-                        ->havingRaw('COUNT(lname)>1');
-                })
-                ->orderBy('fname','ASC')
-                ->paginate(10);
+            $duplicate_name = collect(\DB::connection('mysql')->select("call duplicateName('$keyword')"));
+            $personal_information = $this->paginate($duplicate_name,10);
         }
         elseif($type == 'INACTIVE'){
             $personal_information = Personal_Information::
@@ -172,37 +140,7 @@ class PisController extends Controller
                 ->orWhere('userid','like',"%$keyword%");
         })->count();
 
-        $newPersonal = new Personal_Information();
-        $count_duplicateId = Personal_Information::
-            where('user_status','=','1')
-            ->where("userid",'like',"%duplicate%")
-            ->where(function($q) use ($keyword){
-                $q->where('fname','like',"%$keyword%")
-                    ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%");
-            })->count();
-        $count_duplicateName = DB::table('personal_information')
-            ->where('user_status','=','1')
-            ->where(function($q) use ($keyword){
-                $q->where('fname','like',"%$keyword%")
-                    ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%");
-            })
-            ->whereIn('fname', function($query) use($newPersonal){
-                $query->select('fname')
-                    ->from(with($newPersonal)->getTable())
-                    ->groupBy('fname')
-                    ->havingRaw('COUNT(fname)>1');
-            })
-            ->whereIn('lname', function($query) use($newPersonal){
-                $query->select('lname')
-                    ->from(with($newPersonal)->getTable())
-                    ->groupBy('lname')
-                    ->havingRaw('COUNT(lname)>1');
-            })->count();
-        $count_duplicateName = 0;
+        $count_duplicateName = count(collect(\DB::connection('mysql')->select("call duplicateName('$keyword')")));
 
         $count_inactive = Personal_Information::
              where('user_status','=','0')
@@ -212,6 +150,7 @@ class PisController extends Controller
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
             })->count();
+
         $count_permanent = Personal_Information::
         where('user_status','=','1')
             ->where('job_status','=','Permanent')
@@ -232,11 +171,12 @@ class PisController extends Controller
             })->count();
 
         $countArray['ALL'] = $count_all;
-        $countArray['DUPLICATE_ID'] = $count_duplicateId;
         $countArray['DUPLICATE_NAME'] = $count_duplicateName;
         $countArray['INACTIVE'] = $count_inactive;
         $countArray['PERMANENT'] = $count_permanent;
         $countArray['JOB_ORDER'] = $count_jobOrder;
+
+
 
         return view('pis.pisList',[
             "personal_information" => $personal_information,
@@ -244,6 +184,13 @@ class PisController extends Controller
             "countArray" => $countArray,
             "personal_select" => $personal_select
         ]);
+    }
+
+    public function paginate($items, $perPage = null, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
 
     public function pisForm(){

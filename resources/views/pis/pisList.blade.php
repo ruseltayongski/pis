@@ -14,7 +14,7 @@
                 $counter = 0;
                 $color = ['blue','orange','green','red','purple'];
                 $badge = ['primary','warning','success','danger','purple'];
-                $status = ["ALL","DUPLICATE_ID","DUPLICATE_NAME","INACTIVE","PERMANENT","JOB_ORDER"];
+                $status = ["ALL","DUPLICATE_NAME","INACTIVE","PERMANENT","JOB_ORDER"];
                 ?>
                 @foreach($status as $row)
                     <?php $statusCount++; ?>
