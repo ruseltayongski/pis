@@ -44,6 +44,7 @@
                                                     <option value="{{ session('region') }}">{{ session('region') ? "Region ".explode('_',session('region'))[1] : '' }}</option>
                                                     <option value="region_7">Region 7</option>
                                                     <option value="region_8">Region 8</option>
+                                                    <option value="region_10">Region 10</option>
                                                     <option value="region_12">Region 12</option>
                                                 </select>
                                                 @if ($errors->has('region'))
@@ -449,11 +450,15 @@
 
         var userid7 = "<?php echo str_pad($last_userid7, 4, '0', STR_PAD_LEFT); ?>";
         var userid8 = "<?php echo str_pad($last_userid8, 7, '0', STR_PAD_LEFT); ?>";
+        var userid10 = "<?php echo str_pad($last_userid10, 7, '0', STR_PAD_LEFT); ?>";
         var userid12 = "<?php echo str_pad($last_userid12, 7, '0', STR_PAD_LEFT); ?>";
 
         function filterUserid(data){
             if(data.val() == 'region_8'){
                 $("#userid").val(userid8);
+            }
+            else if(data.val() == 'region_10'){
+                $("#userid").val(userid10);
             }
             else if(data.val() == 'region_12'){
                 $("#userid").val(userid12);

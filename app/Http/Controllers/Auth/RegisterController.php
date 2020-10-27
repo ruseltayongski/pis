@@ -186,6 +186,16 @@ class RegisterController extends Controller
                 $last_userid8 = 1;
             }
 
+            if($last_userid_temp10 = Personal_Information::
+            where('region','=','region_10')
+                ->orderBy('id','desc')
+                ->first()){
+                $last_userid10 = $last_userid_temp10->userid;
+                $last_userid10++;
+            } else{
+                $last_userid10 = 1000001;
+            }
+
             if($last_userid_temp12 = Personal_Information::
             where('region','=','region_12')
                 ->orderBy('id','desc')
@@ -205,6 +215,7 @@ class RegisterController extends Controller
                 "section" => $section,
                 "last_userid7" => $last_userid7,
                 "last_userid8" => $last_userid8,
+                "last_userid10" => $last_userid10,
                 "last_userid12" => $last_userid12,
                 "sched" => $sched
             ]);
