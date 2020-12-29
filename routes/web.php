@@ -77,11 +77,12 @@ Route::get('sync_personalInformation','FileController@sync_personalInformation')
 
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
-Route::match(['GET','POST'],'/salaryForm', 'SalaryController@salaryForm');
+Route::get('/salaryForm/{tranche}', 'SalaryController@salaryForm');
 Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
 Route::get('/upgradeSalaryTranche/{currentTranche}/{upgradeTranche}', 'SalaryController@upgradeSalaryTranche');
+Route::match(['GET','POST'],'salary/grade/{tranche}', 'SalaryController@salaryGradeView');
 
 //SECTION
 Route::match(['GET','POST'],'/section/filter_employee', 'SectionController@filterEmployee');

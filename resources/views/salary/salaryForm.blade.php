@@ -10,12 +10,7 @@
                 {{ csrf_field() }}
                 <fieldset>
 
-                    <select name="salary_tranche" class="select2" data-placeholder="Select Salary Tranche" required>
-                        <option value=""></option>
-                        <option value="Second">Second Tranche</option>
-                        <option value="Third">Third Tranche</option>
-                        <option value="Fourth">Fourth Tranche</option>
-                    </select>
+                    <input type="text" class="form-control" name="salary_tranche" value="{{ $tranche }} Tranche" readonly>
                     <div class="space-6"></div>
 
                     <select name="salary_grade" class="select2" data-placeholder="Select Salary Grade" required>

@@ -17,7 +17,7 @@
                         <b class="green">{{ $salary->salary_tranche }}</b>
                     </td>
                     <td>
-                        <b class="orange">{{ $salary->salary_grade }} - {{ $salary->salary_step }}</b>
+                        <b class="orange">{{ $salary->salary_grade }}-{{ $salary->salary_step }}</b>
                     </td>
                     <td>
                         <b class="blue">{{ $salary->salary_amount }}</b>

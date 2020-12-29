@@ -12,7 +12,19 @@
     @if(Auth::user()->usertype)
         <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'excel' ? 'active-nav' : '' }} @endif"><a href="{{ url('/excel') }}"><i class="ace-icon fa fa-home"></i> Home</a></li>
         <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'pisList' ? 'active-nav' : '' }} @endif"><a href="{{ url('/pisList') }}"><i class="ace-icon fa fa-database"></i> PIS List</a></li>
+        <!--
         <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'salaryList' ? 'active-nav' : '' }} @endif"><a href="{{ url('/salaryList') }}"><i class="ace-icon fa fa-money"></i> Salary Grade</a></li>
+        -->
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-money"></i> Salary Grade<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+                <li><a href="{{ asset('salary/grade/Second') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Second Tranche</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ asset('salary/grade/Third') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Third Tranche</a></li>
+                <li class="divider"></li>
+                <li><a href="{{ asset('salary/grade/Fourth') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Fourth Tranche</a></li>
+            </ul>
+        </li>
     @else
         <li class="@if(isset(Request::segments()[0])) {{ Request::segments()[0] == 'pisProfile' ? 'active-nav' : '' }} @endif"><a href="{{ url('/pisProfile') }}"><i class="ace-icon fa fa-user"></i> Profile</a></li>
     @endif

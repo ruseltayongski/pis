@@ -106,9 +106,36 @@ class SalaryController extends Controller
         ]);
     }
 
+    public function salaryGradeView($tranche,Request $request){
+        Session::put('keyword',$request->input('keyword'));
+        $keyword = Session::get('keyword');
+        $salary_grade = SalaryGrade::
+        where('salary_tranche','=',$tranche)
+            ->where('status','=','1')
+            ->where(function($q) use ($keyword){
+                $q->where(DB::raw("concat(salary_grade,'-',salary_step)"),'like',"%$keyword%");
+            })
+            ->orderBy(DB::raw("concat(salary_grade,'-',salary_step)"),'asc')
+            ->paginate(10);
+
+        if ($request->isMethod('post')) {
+            return response()->json([
+                "view" => view('salary.salaryPagination', [
+                    "salary_grade" => $salary_grade,
+                    "tranche" => $tranche
+                ])->render()
+            ]);
+        }
+
+        return view("salary.salary_grade",[
+            "tranche" => $tranche,
+            "salary_grade" => $salary_grade
+        ]);
+    }
+
     public function salaryAdd(Request $request){
         SalaryGrade::create([
-            "salary_tranche" => $request->salary_tranche,
+            "salary_tranche" => explode(" ",$request->salary_tranche)[0],
             "salary_grade" => $request->salary_grade,
             "salary_step" => $request->salary_step,
             "salary_amount" => $request->salary_amount,
@@ -118,8 +145,10 @@ class SalaryController extends Controller
         return Redirect::back()->with('salaryAdd', 'Successfully Added New User');
     }
 
-    public function salaryForm(Request $request){
-        return view('salary.salaryForm');
+    public function salaryForm($tranche){
+        return view('salary.salaryForm',[
+            "tranche" => $tranche
+        ]);
     }
 
     public function salaryDelete(Request $request){
