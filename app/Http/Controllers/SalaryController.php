@@ -152,9 +152,7 @@ class SalaryController extends Controller
     }
 
     public function salaryDelete(Request $request){
-        return SalaryGrade::where('id','=',$request->id)->update([
-           "status" => 0
-        ]);
+        SalaryGrade::where('id','=',$request->id)->first()->delete();
     }
 
     public function salaryGrade(){
