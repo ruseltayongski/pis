@@ -32,13 +32,13 @@
                             </h1>
                         </div>
                         <div class="col-md-8">
-                        <!--
-                            @if(Auth::user()->usertype)
-                            <div class="col-md-4">
-                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
-                            </div>
+                            <!--
+                                @if(Auth::user()->usertype)
+                                <div class="col-md-4">
+                                    <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
+                                </div>
+                                @endif
                             -->
-                            @endif
                             <div class="col-md-4">
                                 <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
                             </div>
