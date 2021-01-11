@@ -28,7 +28,7 @@
                     <div class="row">
                         <div class="col-md-3">
                             <h1>
-                                User Profile Page asdasdsd
+                                User Profile Page
                             </h1>
                         </div>
                         <div class="col-md-8">
@@ -38,10 +38,10 @@
                                 <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
                             </div>
                             -->
-                                <div class="col-md-4">
-                                    <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
-                                </div>
                             @endif
+                            <div class="col-md-4">
+                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
+                            </div>
                             <div class="col-md-4 pull-right">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
