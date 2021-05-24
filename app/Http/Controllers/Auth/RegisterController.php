@@ -91,7 +91,7 @@ class RegisterController extends Controller
             $sched = WorkSched::all();
             $last_userid7 = Personal_Information::where('userid','REGEXP','^[0-9]+$')
                 ->where(DB::raw("LENGTH(userid)"),'<=',4)
-                ->where('userid','<=','2000')
+                ->where('userid','<=','9000')
                 ->where('userid','!=','1326') //JOAN INAHID
                 ->where('userid','!=','1318') //FRANCIS BRIAN ARRELLANO
                 ->where('userid','!=','1315') //FRANCISCA B. ZAMORA
