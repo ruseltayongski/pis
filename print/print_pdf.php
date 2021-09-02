@@ -2,7 +2,7 @@
 session_start();
 
 function connect(){
-    return new PDO("mysql:host=localhost;dbname=pis",'root','');
+    return new PDO("mysql:host=192.168.110.31;dbname=pis",'rtayong_31','rtayong_31');
 }
 
 function queryFetch($id,$table){
