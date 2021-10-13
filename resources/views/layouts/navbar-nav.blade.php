@@ -18,6 +18,8 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-money"></i> Salary Grade<span class="caret"></span></a>
             <ul class="dropdown-menu">
+                <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == 'salarygradeFirst' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/First') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; First Tranche</a></li>
+                <li class="divider"></li>
                 <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == 'salarygradeSecond' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/Second') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Second Tranche</a></li>
                 <li class="divider"></li>
                 <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == 'salarygradeThird' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/Third') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Third Tranche</a></li>

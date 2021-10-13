@@ -116,7 +116,7 @@ class SalaryController extends Controller
                 $q->where(DB::raw("concat(salary_grade,'-',salary_step)"),'like',"%$keyword%");
             })
             ->orderBy(DB::raw("concat(salary_grade,'-',salary_step)"),'asc')
-            ->paginate(10);
+            ->paginate(20);
 
         if ($request->isMethod('post')) {
             return response()->json([
