@@ -11,7 +11,7 @@
                 <h1>
                     <img src="{{ asset('public/img/doh.png') }}" style="width: 10%" />
                     <br />
-                    <b style="font-weight:bolder;"><label style="font-size: 17pt;">DOH-CVCHD PIS 4.2</label></b>
+                    <b style="font-weight:bolder;"><label style="font-size: 17pt;">DOH-CVCHD PIS 4.5</label></b>
                 </h1>
             </div>
         </div>
