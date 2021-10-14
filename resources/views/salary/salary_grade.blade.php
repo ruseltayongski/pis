@@ -169,7 +169,7 @@
             function getPosts(page,keyword) {
                 $('.posts_all').html("<span>Loading....</span>");
 
-                var url = "<?php echo asset('salary/grade/Second'); ?>";
+                var url = "<?php echo asset('salary/grade').'/'.$tranche; ?>";
                 var json = {
                     "page" : page,
                     "keyword" : keyword,

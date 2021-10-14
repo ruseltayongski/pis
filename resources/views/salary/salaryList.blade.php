@@ -201,8 +201,6 @@
             });
 
             function getPosts(page,keyword) {
-                $('.posts_'+type).html("<span>Loading....</span>");
-
                 var url = "<?php echo asset('salaryList'); ?>";
                 var json = {
                     "page" : page,
