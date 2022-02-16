@@ -11,6 +11,7 @@ use PIS\Personal_Information;
 use PIS\Section;
 use PIS\User_dts;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class HomeController extends Controller
 {
@@ -35,10 +36,9 @@ class HomeController extends Controller
             return view('auth.login',[
                 "designation" => $designation,
                 "division" => $division,
-                "section" => $section
+                "section" => $section,
             ]);
         }
-
     }
 
     public function userid_trapping(Request $request){

@@ -2,6 +2,16 @@
 
 @section('content')
 
+<strong>Database Connected: </strong>
+<?php
+    try {
+        \DB::connection()->getPDO();
+        echo \DB::connection()->getDatabaseName();
+        } catch (\Exception $e) {
+        echo 'None';
+    }
+?>
+
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
         <div class="space-20"></div>
@@ -74,6 +84,12 @@
                                             <span class="bigger-110">Login</span>
                                         </button>
                                     </div>
+
+                                    @if(isset($test))
+                                        <div class="has-feedback text-center alert-danger">
+                                            {{ $test }}
+                                        </div>
+                                            @endif
 
                                     <div class="center">
                                         <a href="{{ asset('public/manual/pis_manual.pdf') }}" target="_blank"><h3 class="green">PIS MANUAL</h3></a>
