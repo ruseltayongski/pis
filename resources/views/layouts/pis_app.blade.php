@@ -6,6 +6,7 @@
     <title>PIS</title>
     <meta name="description" content="3 styles with inline editable feature" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <link rel="icon" href="{{ asset('public/img/favicon.png') }}" type="image/x-icon">
 
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/bootstrap.min.css') }}" />
@@ -37,7 +38,7 @@
 
     <!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
 
-    <script src="{{ asset('public/assets_ace/js/jquery-2.1.4.min.js') }}"></script>
+    <script src="{{ asset('public/assets_ace/js/jquery-2.1.4.min.js?v=1') }}"></script>
     <script src="{{ asset('public/assets_ace/js/raphael-min.js') }}"></script>
 
     <link rel="stylesheet" type="text/css" href="{{ asset('public/plugin/lobibox/dist/css/Lobibox.min.css') }}" />

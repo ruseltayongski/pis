@@ -19,8 +19,7 @@ class ApiController extends Controller
         if($user && Hash::check($password,$user->password)){
             return json_encode($user);
         }
-
-        return "{}";
+         return "{}";
    }
 
    public function cdo($userid,$offset){

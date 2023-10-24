@@ -17,6 +17,11 @@ Route::get('logout', function(){
     return Redirect::to('/');
 });
 
+Route::get('logout1', function(){
+    Auth::logout();
+    Session::flush();
+});
+
 Auth::routes();
 
 
@@ -60,6 +65,7 @@ Route::post('/uploadCertificate','PisController@uploadCertificate');
 Route::get('noPicture/{type}','PisController@noPicture');
 Route::post('/deletePersonalInformation','PisController@deletePersonalInformation');
 Route::get('pisId/{userid}/{paper}','pisController@pisId');
+Route::get('pisIdArta/{userid}/{paper}','pisController@pisIdArta');
 Route::post('deleteWorkExperience','pisController@deleteWorkExperience');
 
 //excel
@@ -93,7 +99,7 @@ Route::get('/sirBong','PisController@sirBong');
 Route::get('pdf','PdfController@pdf');
 
 //RESET PASSWORD
-Route::get('ResetPassword/{userid}',function($userid){
+Route::get('resetPassword/{userid}',function($userid){
 
     \PIS\User::where('username','=',$userid)->update([
         "password" => bcrypt('123')

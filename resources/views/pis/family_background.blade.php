@@ -130,9 +130,11 @@
                 </div>
 
                 <div class="profile-info-row">
-                    <div class="profile-info-name">Mother Maidenname:</div>
+                    <div class="profile-info-name"><b><i>Mother Maidenname:</i></b></div>
                     <div class="profile-info-value">
+                        <!--
                         <span class="editable family_background" id="{{ $user->piUserid }}colmmln">{{ $user->mmln }}</span>
+                        -->
                     </div>
                 </div>
 

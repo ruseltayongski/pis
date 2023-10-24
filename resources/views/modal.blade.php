@@ -54,7 +54,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <input type="date" class="form-control date_effectivity">
+                <input type="date" class="form-control date_effectivity" value="">
             </div>
             <div class="modal-footer">
                 <input type="hidden" class="userid">

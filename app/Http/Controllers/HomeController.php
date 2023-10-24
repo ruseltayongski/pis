@@ -29,7 +29,8 @@ class HomeController extends Controller
     {
         $designation = Designation::get();
         $division = Division::get();
-        $section = Section::get();
+        $section = Section::get();   
+
         if(Auth::check()){
             return Redirect::to('excel');
         } else {

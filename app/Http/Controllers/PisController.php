@@ -24,6 +24,7 @@ use PIS\Other_Information;
 use PIS\Designation;
 use PIS\Division;
 use PIS\Section;
+use PIS\EmployeeStatus;
 use PIS\User_dts;
 use Illuminate\Support\Facades\App;
 use File;
@@ -204,12 +205,19 @@ class PisController extends Controller
         ]);
     }
 
-    public function updateEmployeeStatus(Request $request){
+    public function updateEmployeeStatus(Request $request) {
         $pis = Personal_Information::where('userid','=',$request->userid)->first();
         $pis->update([
            'employee_status' => $request->employee_status,
             'resigned_effectivity' => $request->date_effectivity
         ]);
+        $employeeStatus = EmployeeStatus::find($request->employee_status);
+        return [
+            "effective_status" => $employeeStatus->description,
+            "effective_date" => date("m-d-Y",strtotime($request->date_effectivity)),
+            "effective_color" => $employeeStatus->status,
+            "color_i" => "ace-icon fa fa-sun-o bigger-120 ".$employeeStatus->status
+        ];
     }
 
     public function pisInfo($userid){
@@ -219,7 +227,17 @@ class PisController extends Controller
         ]);
     }
 
-    public function pisProfile($userid = null){
+    public function pisProfile($userid = null) {
+        $employeeStatusArray = (String)EmployeeStatus::get();
+        $employeeStatusArray = json_decode($employeeStatusArray, true);
+        $index2 = array_search(2, array_column($employeeStatusArray, 'id'));
+        $index6 = array_search(6, array_column($employeeStatusArray, 'id'));
+        if ($index2 !== false && $index6 !== false) {
+            list($employeeStatusArray[$index2], $employeeStatusArray[$index6]) = array($employeeStatusArray[$index6], $employeeStatusArray[$index2]);
+        }
+        $employeeStatus = $employeeStatusArray;
+
+
         if($userid && Auth::user()->usertype){
             $finalId = $userid;
         }
@@ -236,7 +254,7 @@ class PisController extends Controller
             ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
             'survey.*','survey.userid as surveyUserid','children.id as cId','children.userid as cUserid','children.name as cname',
             'children.date_of_birth as cdate_of_birth','es.description as employee_status_description','es.status as employee_status',
-            'pi.Rsitio','pi.Psitio')
+            'pi.Rsitio','pi.Psitio','pi.field_status')
             ->get();
 
 
@@ -264,7 +282,8 @@ class PisController extends Controller
             "voluntary_work" => $voluntary_work,
             "training_program" => $training_program,
             "other_information" => $other_information,
-            "designation" => $designation
+            "designation" => $designation,
+            "employeeStatus" => $employeeStatus
         ]);
 
     }
@@ -340,7 +359,7 @@ class PisController extends Controller
             ['userid'=>$userid],
             [
                 "userid" => $userid,
-                $column=>$value
+                 $column=>$value
             ]
         );
 
@@ -743,6 +762,21 @@ class PisController extends Controller
         return $signature->move($dir, $filename);
     }
 
+    public function generateUniqueName($length = 8) {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $randomString = '';
+
+        // Generate a random string
+        for ($i = 0; $i < $length; $i++) {
+            $randomString .= $characters[rand(0, strlen($characters) - 1)];
+        }
+
+        // Append current timestamp to the random string
+        $uniqueName = $randomString . '_' . time();
+
+        return $uniqueName;
+    } 
+
     public function uploadCertificate(Request $request){
         $userid = $request->get('userid');
         $trainingId = $request->get('trainingId');
@@ -750,8 +784,8 @@ class PisController extends Controller
         $picture = $request->file('certificate');
         $extension = $picture->getClientOriginalExtension(); // getting excel extension
         $dir = public_path().'/upload_picture/certificate';
-        $filename = $request->file('certificate')->getClientOriginalName().'johndoe'.uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
-
+        $filename = $this->generateUniqueName().uniqid().'_'.time().'_'.date('Ymd').'.'.$extension;
+        $str = strip_tags($filename);    
 
         if(is_null($request->get('unique_row'))){
             $unique_row = 'no unique row';
@@ -789,7 +823,6 @@ class PisController extends Controller
         User_dtr::where('userid','=',$userid)->first()->delete();
         User_dts::where('username','=',$userid)->first()->delete();
     }
-
 
     public function nameSize($sizeLength){
         $nameSize['font'] = 10;
@@ -928,6 +961,149 @@ class PisController extends Controller
         return $nameSize;
     }
 
+    public function nameSize_arta($sizeLength){
+        $nameSize['font'] = 10;
+        $nameSize['left'] = 5;
+        $nameSize['top'] = 63;
+        $nameSize['width'] = 1.2;
+        $nameSize['height'] = 6.3;
+        if($sizeLength > 30){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 0;//
+            $nameSize['width'] += 0;//
+            $nameSize['height'] = 4.5;
+        }
+        else if($sizeLength == 30){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 29){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 2.4;//
+            $nameSize['width'] += .1;
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 28){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 4;
+            $nameSize['width'] += .2;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 27){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 3.4;//
+            $nameSize['width'] += .2;
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 26){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 6.2;//
+            $nameSize['top'] = 63;
+            $nameSize['width'] += .3;
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 25){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 7;//
+            $nameSize['width'] += .3;
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 24){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 6.5;
+            $nameSize['width'] += .4;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 23){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 7.5;
+            $nameSize['width'] += .4;
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 22){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 8.5;
+            $nameSize['width'] += .5;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 21){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9;//
+            $nameSize['width'] += .6;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 20){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9.0;//
+            $nameSize['width'] += .7;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 19){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9.2;//
+            $nameSize['width'] += .8;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 18){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 10;//
+            $nameSize['width'] += .9;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 17){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 10.4;//
+            $nameSize['width'] += 1.1;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 16){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 11;//
+            $nameSize['width'] += 1.3;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 15){
+            $nameSize['font'] = 9;
+            $nameSize['left'] += 13.0;
+            $nameSize['width'] += 1.5;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 14){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 12.2;
+            $nameSize['width'] += 1.7;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 13){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 12.8;//
+            $nameSize['width'] += 1.9;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 12){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 13.2;//
+            $nameSize['width'] += 2.1;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength == 11){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 13.6;//
+            $nameSize['width'] += 2.3;//
+            $nameSize['height'] = 4.0;
+        }
+        elseif($sizeLength <= 10){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 14;//
+            $nameSize['width'] += 2.5;//
+            $nameSize['height'] = 4.0;
+        }
+
+        return $nameSize;
+    }
+
     public function pisId($userid = null,$paper = null){
         $user = Personal_Information::where('userid','=',$userid)->first();
         $division['font'] = 19;
@@ -974,6 +1150,81 @@ class PisController extends Controller
                 "user" => $user,
                 "division" => $division,
                 "nameSize" => $this->nameSize(strlen($name)),
+            ]);
+        }
+        else {
+            $view = view('pis.pisId_portrait',[
+                "user" => $user
+            ]);
+        }
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('a4', $paper);
+        return $pdf->stream();
+    }
+
+    public function pisIdArta($userid = null,$paper = null){
+        $user = Personal_Information::where('userid','=',$userid)->first();
+        $designation = Designation::find($user->designation_id);
+        if($designation) {
+            $designation = $designation->description;
+        } else {
+            $designation = "NO DESIGNATION";
+        }
+        $division['font'] = 19;
+        $division['left'] = 3;
+        $division['top'] = 79.5;
+        if($user->division_id){
+            if($user->job_status == 'CBII') {
+                $division['left'] += 6;
+                $division['desc'] = 'GENERAL SERVICES';
+            }
+            elseif($user->division_id == 3) {
+                $division['top'] += 0.5;
+                $division['font'] -= 2.8;
+                $division['left'] += 8;
+                $division['desc'] = \PIS\Division::find($user->division_id)->description;
+            }
+            elseif($user->division_id == 4) {
+                $division['top'] += 0.5;
+                $division['left'] += 5;
+                $division['font'] -= 3;
+                $division['desc'] = explode('LHSD - ', \PIS\Division::find($user->division_id)->description)[1];
+            }
+            elseif($user->division_id == 5) {
+                $division['font'] -= 6.1;
+                $division['left'] -= 1;
+                $division['top'] +=1;
+                $division['desc'] = explode('RLED - ', \PIS\Division::find($user->division_id)->description)[1];
+            }
+            elseif($user->division_id == 6) {
+                $division['top'] += 0.5;
+                $division['left'] += 5;
+                $division['font'] -= 2.8;
+                $division['desc'] =  explode('MSD - ',\PIS\Division::find($user->division_id)->description)[1];
+            }
+        }
+        else
+            $division['desc'] = 'NO DIVISION';
+
+        if($user->mname)
+            $middleName = $user->mname[0].'.';
+        else
+            $middleName = '';
+        $name = $user->fname.' '.$middleName.' '.$user->lname;
+        //$name = substr($name, 0, 18);
+
+        //strlen($name) = 31 DEFAULT formula
+
+        //return strlen($name);
+
+        if($paper == 'landscape'){
+            $view = view('pis.pisId_arta',[
+                "name" => $name,
+                "user" => $user,
+                "division" => $division,
+                "designation" => $designation,
+                "nameSize" => $this->nameSize_arta(strlen($name)),
             ]);
         }
         else {

@@ -8,6 +8,27 @@
     <div class="profile-user-info-row">
         <div class="profile-user-info-row profile-user-info-striped">
 
+
+            <div class="profile-info-row">
+                <div class="profile-info-name">Field Status</div>
+                <div class="profile-info-value">
+                    <span class="editable_select personal_information" id="{{ $user->piId }}colfield_status">
+                        <?php
+                            try{
+                                if($user->field_status){
+                                    echo '<b><u>'.$user->field_status.'</u></b>';
+                                }
+                                else {
+                                    echo "<i><span class='red'>Empty</span></i>";
+                                }
+                            }catch(Exception $e){
+                                echo $e.message();
+                            }
+                        ?>  
+                    </span>
+                </div>
+            </div> 
+
             <div class="profile-info-row">
                 <div class="profile-info-name">Designation</div>
                 <div class="profile-info-value">

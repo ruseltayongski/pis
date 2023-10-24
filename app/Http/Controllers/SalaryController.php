@@ -63,7 +63,7 @@ class SalaryController extends Controller
         ]);
     }
 
-    public function salaryGradeView($tranche,Request $request){
+    public function salaryGradeView($tranche,Request $request) {
         Session::put('keyword',$request->input('keyword'));
         $keyword = Session::get('keyword');
         $salary_grade = SalaryGrade::

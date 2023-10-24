@@ -34,13 +34,12 @@
                         <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                         <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
                         <td class="center">
-                            <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
-                                <?php
-                                if(!Auth::user()->usertype && !$row->salary_grade)
-                                    echo "<span class='red'>Please go to hr to update your monthly salary</span>";
-                                else
-                                    echo '<b><u>'.$row->monthly_salary.'</u></b>';
-                                ?>
+                            <span class="<?php if(Auth::user()->usertype)echo 'editable'; ?> blue work_experience" id="{{ $row->id.'colmonthly_salary_private' }}" >
+                                @if($row->salary_grade)
+                                    <b><u>{{ $row->monthly_salary }}</u></b>
+                                @elseif(!Auth::user()->usertype && !$row->salary_grade)
+                                    <?php echo '<span class="red">'.'Please contact hr to update your monthly salary'.'</span>' ?>
+                                @endif
                             </span>
                         </td>
                         <td class="center">
@@ -58,14 +57,16 @@
                             </span>
                         </td>
                         <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
-                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
-                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
+                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></t>
+                            @if($row->date_to != "Present")
+                             <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
+                            @endif
                     </tr>
                 @endforeach
                 <?php Session::put('workCount',$workCount) ?>
                 </tbody>
             </table>
-            <a href="#" class="pull-right red" id="workAdd"><i class="fa fa-plus"></i> Add Work Experience</a>
+                <a href="#" class="pull-right red" id="workAdd"><i class="fa fa-plus"></i> Add Work Experience</a>
         </div>
     </div>
 </div><!-- /#Work Experience -->

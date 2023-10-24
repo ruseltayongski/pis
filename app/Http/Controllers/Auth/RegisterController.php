@@ -224,7 +224,8 @@ class RegisterController extends Controller
 
     public function register(Request $request){
         $rules = [
-            'captcha' => 'required|captcha',
+            'captcha' => 'required_without',
+            //'captcha' => 'required|captcha',
             'userid' => 'required|unique:personal_information',
             'region' => 'required',
             'field_status' => 'required',
@@ -351,7 +352,7 @@ class RegisterController extends Controller
                 'unique_row' => $request->userid,
             ]);
 
-            return redirect('/')->with('addEmployee','You are successfully registered. Thank you!');
+            return redirect('/excel')->with('addEmployee','You are successfully registered. Thank you!');
         }
     }
 

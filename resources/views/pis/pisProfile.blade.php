@@ -31,7 +31,7 @@
                                 User Profile Page
                             </h1>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-9">
                             <!--
                                 @if(Auth::user()->usertype)
                                 <div class="col-md-4">
@@ -39,10 +39,13 @@
                                 </div>
                                 @endif
                             -->
-                            <div class="col-md-4">
-                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE </a>
+                            <div class="col-md-3">
+                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE</a>
                             </div>
-                            <div class="col-md-4 pull-right">
+                            <div class="col-md-3">
+                                <a href="{{ url('pisIdArta').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> ID PICTURE ARTA | LANDSCAPE</a>
+                            </div>
+                            <div class="col-md-3 pull-right">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
                                     <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>
@@ -119,31 +122,38 @@
                                     <div>
                                         <span class="profile-picture">
                                             <a href="#">
-                                            <img id="avatar_picture" class="img-responsive" alt="Alex's Avatar" src="
                                             <?php
-                                            if(isset($user->picture)){
-                                                echo asset('public/upload_picture/picture').'/'.$user->picture;
-                                            } else {
-                                                if($user->sex == 'Female')
-                                                    echo asset('public/assets_ace/images/avatars/female1.png');
-                                                else
-                                                    echo asset('public/assets_ace/images/avatars/male1.png');
-                                            }
-                                            ?>" />
+                                                $profilePic = "";
+                                                if(isset($user->picture)){
+                                                    $profilePic = asset('public/upload_picture/picture').'/'.$user->picture;
+                                                } else {
+                                                    if($user->sex == 'Female')
+                                                        $profilePic = asset('public/assets_ace/images/avatars/female1.png');
+                                                    else
+                                                        $profilePic = asset('public/assets_ace/images/avatars/male1.png');
+                                                }
+                                            ?>
+                                            <img id="avatar_picture" class="img-responsive" alt="Alex's Avatar" src="{{ $profilePic }}" />
+                                            </a>
+                                        </span>
+                                        <span class="profile-picture">
+                                            <?php
+                                                if($user->signature){
+                                                   $signature = asset('public/upload_picture/signature').'/'.$user->signature;
+                                                } else {
+                                                    $signature = asset('public/img/no_signature.png');
+                                                }
+                                            ?>
+                                            <a href="#">
+                                                <img id="avatar_signature" class="img-responsive" alt="Alex's Avatar" src="{{ $signature }}" style="height:50px;width: 100%;background-color: rgb(206, 232, 1)"/>
                                             </a>
                                         </span>
                                         <div class="space-6"></div>
-                                        <span class="profile-picture">
-                                            <a href="#">
-                                            <img id="avatar_signature" class="img-responsive" alt="Alex's Avatar" src="<?php
-                                            if($user->signature){
-                                                echo asset('public/upload_picture/signature').'/'.$user->signature;
-                                            } else {
-                                                echo asset('public/img/no_signature.png');
-                                            }
-                                            ?>" style="height:50px;width: 100%;background-color: rgb(206, 232, 1)"/>
-                                            </a>
-                                        </span>
+
+                                        <?php $signature_path = str_replace('pis','',url('/')).'/generate_signature/signature.php'.'?path='.$signature; ?>
+                                        <a href="{{ $signature_path }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> DOWNLOAD SIGNATURE</a>
+
+                                        <div class="space-6"></div>
                                         <div class="rating inline"></div>
                                         <div class="space-4"></div>
                                         <div class="width-90 label label-info label-xlg arrowed-in arrowed-in-right">
@@ -157,12 +167,12 @@
                                                 <ul class="align-left @if(Auth::user()->usertype) dropdown-menu @endif dropdown-caret dropdown-lighter">
                                                     @if(Auth::user()->usertype)
                                                         <li class="dropdown-header"> Change Status </li>
-                                                        @foreach(\PIS\EmployeeStatus::get() as $status)
+                                                        @foreach($employeeStatus as $status)
                                                             <li>
-                                                                <a href="#soe{{ $status->id }}" class="change-status" data-color="{{ $status->status }}" data-description="{{ $status->description }}">
-                                                                    <i class="ace-icon fa fa-circle {{ $status->status }}"></i>
+                                                                <a href="#" data-id="{{ $status['id'] }}" class="change-status" data-color="{{ $status['status'] }}" data-description="{{ $status['description'] }}">
+                                                                    <i class="ace-icon fa fa-circle {{ $status['status'] }}"></i>
                                                                     &nbsp;
-                                                                    <span class="{{ $status->status }}">{{ $status->description }}</span>
+                                                                    <span class="{{ $status['status'] }}">{{ $status['description'] }}</span>
                                                                 </a>
                                                             </li>
                                                         @endforeach
@@ -176,9 +186,9 @@
                                     <div class="profile-contact-info">
                                         <div class="profile-contact-links align-left">
                                             <a class="btn btn-link">
-                                                <i class="ace-icon fa fa-sun-o bigger-120 {{ $user->employee_status }}"></i>
-                                                <label id="soe" class="{{ $user->employee_status }}">
-                                                    {{ $user->employee_status_description }}
+                                                <i id="color-i" class="ace-icon fa fa-sun-o bigger-120 {{ $user->employee_status }}"></i>
+                                                <label id="color-label" class="{{ $user->employee_status }}">
+                                                    <span class="effective-status">{{ $user->employee_status_description }}</span> - <span class="effective-date">{{ date("m-d-Y",strtotime($user->resigned_effectivity)) }}</span>
                                                 </label>
                                             </a>
                                             <a href="http://ro7.doh.gov.ph/" target="_blank" class="btn btn-link">
@@ -230,9 +240,12 @@
         $(".change-status").each(function(index){
             var href = $(this).attr('href');
             $("a[href='"+href+"']").on("click",function(e){
-                var soeId = this.href.split('#soe')[1];
+                var soeId = $(this).data('id');
+                if(!soeId)
+                    return;
+
                 var userid = "<?php echo $user->piUserid; ?>";
-                var appendElement = $("#soe");
+                var appendElement = $("#ose");
                 appendElement.html($(this).data('description'));
                 appendElement.removeClass(removeColor);
                 appendElement.addClass($(this).data('color'));
@@ -241,14 +254,21 @@
                 appendElement.siblings().addClass($(this).data('color'));
                 removeColor = $(this).data('color');
 
-                if(soeId == 3){
+                if(soeId != 1) {
+                    e.preventDefault();
                     $('#resigned_effectivity').modal({backdrop: 'static', keyboard: false});
                     $('.userid').val(userid);
                     $('.soeId').val(soeId);
+                    const inputDate = $(".effective-date").text();
+                    const parts = inputDate.split('-');
+                    const formattedDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                    $(document).ready(function(){
+                        $(".date_effectivity").val(formattedDate);
+                    });
                 } else {
-                    employeeStatusAjax(userid,soeId);
-                }
-
+                    employeeStatusAjax(userid, soeId);
+                } 
+                return;
             });
         });
 
@@ -260,9 +280,13 @@
                 "date_effectivity" : date_effectivity,
                 "_token" : "<?php echo csrf_token(); ?>"
             };
-            console.log(url)
-            console.log(json)
-            $.post(url,json,function(){
+            $.post(url,json,function(result) {
+                $("#color-i").removeClass();
+                $("#color-i").addClass(result['color_i']);
+                $("#color-label").removeClass();
+                $("#color-label").addClass(result['effective_color']);
+                $(".effective-status").html(result['effective_status']);
+                $(".effective-date").html(result['effective_date']);
                 Lobibox.notify('success', {
                     size: 'mini',
                     rounded: true,
@@ -274,7 +298,7 @@
             event.preventDefault();
         }
 
-        function resignedEffectivity(){
+        function resignedEffectivity() {
             var date_effectivity = $(".date_effectivity").val();
             var userid = $('.userid').val();
             var soeId = $(".soeId").val();
@@ -371,12 +395,9 @@
                         <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_from"></span></td>\
                         <td class="center td_workDateto"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
-                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                        <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
-                        if(!Auth::user()->usertype)
-                            echo 'Please go to hr to update your monthly salary';
-                        ?></span></td>\
-                        <td class="center"><span class="red '+"<?php
+                        <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>'+
+                        '<td class="center monthly_salary"><span class="blue <?php if(Auth::user()->usertype)echo 'editable'; ?> work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary_private"></span></td>'
+                        +'<td class="center"><span class="red '+"<?php
                         if(Auth::user()->usertype)
                             echo 'editable_radio';
                         else
@@ -418,7 +439,7 @@
                                 <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_from"></span></td>\
                                 <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colvdate_to"></span></td>\
                                 <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnumber_of_hours"></span></td>\
-                                <td class="center align-middle"><span class="editable_radio voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
+                                <td class="center align-middle"><span class="editable voluntary_work" id="'+"voluntaryno_id<?php echo str_random(10); ?>"+voluntaryCount+'colnature_of_work"></span></td>\
                                 <td class="center"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+voluntaryCount+'colvoluntaryDelete"><i class="fa fa-close"></i></span></td>\
                             </tr>';
                     $("#voluntary_append").append(voluntaryAppend);
@@ -753,6 +774,7 @@
                                 cache: false, // To unable request pages to be cached
                                 processData: false,
                                 success: function(result) {
+                                    console.log("checkhere");
                                     console.log(result);
                                     $('#'+spancertificateId).data('link', result);
                                     console.log(trainingDeleteid);
@@ -879,6 +901,7 @@
                             cache: false, // To unable request pages to be cached
                             processData: false,
                             success: function(result) {
+                                result = result.replace(/<\/?[^>]+(>|$)/g, "")
                                 console.log(result);
                                 last_gritter = $.gritter.add({
                                     title: 'Picture Updated!',
@@ -1000,13 +1023,13 @@
                             cache: false, // To unable request pages to be cached
                             processData: false,
                             success: function(result) {
-                                console.log(result);
                                 console.log("<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1]);
                                 last_gritter = $.gritter.add({
                                     title: 'Signature Updated!',
                                     text: 'Uploading to server.. successfully save..',
                                     class_name: 'gritter-warning gritter-center',
                                 });
+                                result = result.replace(/(<([^>]+)>)/ig,"");
                                 $('#avatar_signature').get(0).src = "<?php echo asset('public/upload_picture/signature')?>"+result.split("upload_picture/signature")[1];
                             }
                         });
@@ -1262,6 +1285,13 @@
                                     cache: false, // To unable request pages to be cached
                                     processData: false,
                                     success: function(result) {
+                                        result = result.replace(/<\/?[^>]+(>|$)/g, "");
+                                        last_gritter = $.gritter.add({
+                                            title: 'Uploaded Certificate',
+                                            text: 'Successfully uploaded your certificate.',
+                                            class_name: 'gritter-info gritter-center',
+                                        });
+                                        console.log("checkhere");
                                         console.log(result);
                                         $('#'+spancertificateId).data('link', result);
                                         console.log(trainingDeleteid);
@@ -1419,6 +1449,12 @@
                                 if(Class.includes('children')){
                                     childId = result; //get the primary key
                                 }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR);
+                                console.log(textStatus);
+                                console.log(errorThrown);
+                                alert("There was something wrong, will restart your page.");
+                                window.location.reload();
                             });
 
                         },
@@ -1464,21 +1500,41 @@
                             {value: "UNDER_VTF", text: "UNDER VTF"}
                         ],
                         "salary_chargeJO" : [
-                            {value: "HEALTH PROMOTION", text: "HEALTH PROMOTION" },
-                            {value: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)", text: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)" },
-                            {value: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES", text: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES" },
-                            {value: "SAA 2018-01-0014", text: "SAA 2018-01-0014" },
-                            {value: "SAA 2018-02-0059", text: "SAA 2018-02-0059" },
-                            {value: "SUPPORT TO OPERATIONS (STO)", text: "SUPPORT TO OPERATIONS (STO)" },
-                            {value: "PUBLIC HEALTH MANAGEMENT (PHM)", text: "PUBLIC HEALTH MANAGEMENT (PHM)" },
-                            {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
-                            {value: "SAA 2018-04-0699", text: "SAA 2018-04-0699" },
-                            {value: "SAA 2018-02-0081", text: "SAA 2018-02-0081" },
-                            {value: "SAA No. 2018-02-0059", text: "SAA No. 2018-02-0059" },
-                            {value: "SAA No. 2018-04-0699", text: "SAA No. 2018-04-0699" },
-                            {value: "2018 CO EAO CONAP", text: "2018 CO EAO CONAP" },
-                            {value: "SAA No. 2018-02-0203", text: "SAA No. 2018-02-0203" },
-                            {value: "Public Health Management Chief", text: "Public Health Management Chief" },
+                            // {value: "HEALTH PROMOTION", text: "HEALTH PROMOTION" },
+                            // {value: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)", text: "HEALTH EMERGENCY PREPAREDNESS AND RESPONSE (HEPR)" },
+                            // {value: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES", text: "REGULATION OF REGIONAL HEALTH FACILITIES AND SERVICES" },
+                            // {value: "SAA 2018-01-0014", text: "SAA 2018-01-0014" },
+                            // {value: "SAA 2018-02-0059", text: "SAA 2018-02-0059" },
+                            // {value: "SUPPORT TO OPERATIONS (STO)", text: "SUPPORT TO OPERATIONS (STO)" },
+                            // {value: "PUBLIC HEALTH MANAGEMENT (PHM)", text: "PUBLIC HEALTH MANAGEMENT (PHM)" },
+                            // {value: "SAA 2018-02-0203", text: "SAA 2018-02-0203" },
+                            // {value: "SAA 2018-04-0699", text: "SAA 2018-04-0699" },
+                            // {value: "SAA 2018-02-0081", text: "SAA 2018-02-0081" },
+                            // {value: "SAA No. 2018-02-0059", text: "SAA No. 2018-02-0059" },
+                            // {value: "SAA No. 2018-04-0699", text: "SAA No. 2018-04-0699" },
+                            // {value: "2018 CO EAO CONAP", text: "2018 CO EAO CONAP" },
+                            // {value: "SAA No. 2018-02-0203", text: "SAA No. 2018-02-0203" },
+                            // {value: "Public Health Management Chief", text: "Public Health Management Chief" },
+                                {value:"    2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    ", text:"   2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    "},
+                                {value:"    2022 HEPR FUNDS ", text:"   2022 HEPR FUNDS "},
+                                {value:"    2022 PHM CHIEF  ", text:"   2022 PHM CHIEF  "},
+                                {value:"    CONAPP SAA NO. 2021-02-0628 ", text:"   CONAPP SAA NO. 2021-02-0628 "},
+                                {value:"    CONAPP SAA NO. 2022-03-1597 ", text:"   CONAPP SAA NO. 2022-03-1597 "},
+                                {value:"    HEALTH SECTOR RESEARCH AND DEVELOPMENT FUNDS    ", text:"   HEALTH SECTOR RESEARCH AND DEVELOPMENT FUNDS    "},
+                                {value:"    LHSDA FUNDS ", text:"   LHSDA FUNDS "},
+                                {value:"    OBCNVBSP    ", text:"   OBCNVBSP    "},
+                                {value:"    PHILHEALTH TRUST FUNDS VER. 01  ", text:"   PHILHEALTH TRUST FUNDS VER. 01  "},
+                                {value:"    PHILHEALTH TRUST FUNDS VER. 3   ", text:"   PHILHEALTH TRUST FUNDS VER. 3   "},
+                                {value:"    RRHFS   ", text:"   RRHFS   "},
+                                {value:"    SAA NO. 2022-01-0179    ", text:"   SAA NO. 2022-01-0179    "},
+                                {value:"    SAA NO. 2022-01-0197    ", text:"   SAA NO. 2022-01-0197    "},
+                                {value:"    SAA NO. 2022-02-0424    ", text:"   SAA NO. 2022-02-0424    "},
+                                {value:"    SAA NO. 2022-03-0993    ", text:"   SAA NO. 2022-03-0993    "},
+                                {value:"    SAA NO. 2022-03-1486    ", text:"   SAA NO. 2022-03-1486    "},
+                                {value:"    SAA NO. 2022-04-2028    ", text:"   SAA NO. 2022-04-2028    "},
+                                {value:"    STO OPERATIONS OF REGIONAL OFFICES  ", text:"   STO OPERATIONS OF REGIONAL OFFICES  "},
+                                                
+
                         ],
                         "salary_chargePermanent" : [
                             {value: "RD_ARD", text: "RD/ARD" },
@@ -1492,7 +1548,12 @@
                         "job_status" : [
                             {value: "Permanent", text: "Permanent"},
                             {value: "Job Order", text: "Job Order"},
-                            {value: "CBII", text: "CBII"}
+                            {value: "CBII", text: "CBII"},
+                            {value: "Contractual", text: "Contractual"}
+                        ],
+                        "field_status" : [
+                            {value: "HRH", text: "HRH"},
+                            {value: "Office Personnel", text: "Office Personnel"}
                         ],
                         "designation": designation,
                         "education_type": eduType
@@ -1528,6 +1589,9 @@
                     }
                     else if(this.className.includes('educational_background')){
                         source = source_func("educational_background")[0].education_type;
+                    }
+                    else if(this.id.includes('field_status')){
+                         source = source_func("<?php echo $user->field_status ?>")[0].field_status;
                     }
                     $('#'+this.id).editable({
                         name : this.id,
@@ -1601,6 +1665,12 @@
                                 if(json.column == 'division_id'){
                                     filter_section(url,value,id);
                                 }
+                            }).fail(function(jqXHR, textStatus, errorThrown) {
+                                console.log(jqXHR);
+                                console.log(textStatus);
+                                console.log(errorThrown);
+                                alert("There was something wrong, will restart your page.");
+                                window.location.reload();
                             });
 
                         },
@@ -2082,6 +2152,12 @@
 
                                 $.post(url,json,function(result){
                                     console.log(result);
+                                }).fail(function(jqXHR, textStatus, errorThrown) {
+                                    console.log(jqXHR);
+                                    console.log(textStatus);
+                                    console.log(errorThrown);
+                                    alert("There was something wrong, will restart your page.");
+                                    window.location.reload();
                                 });
 
                             }
@@ -2097,7 +2173,14 @@
                                         console.log(monthlySalaryId);
                                         $("#"+monthlySalaryId).html("<b style='color:#307bff;'>"+result+"</b>");
                                     }
+                                }).fail(function(jqXHR, textStatus, errorThrown) {
+                                    console.log(jqXHR);
+                                    console.log(textStatus);
+                                    console.log(errorThrown);
+                                    alert("There was something wrong, will restart your page.");
+                                    window.location.reload();
                                 });
+                                
                             }
 
 

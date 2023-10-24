@@ -2,16 +2,6 @@
 
 @section('content')
 
-<strong>Database Connected: </strong>
-<?php
-    try {
-        \DB::connection()->getPDO();
-        echo \DB::connection()->getDatabaseName();
-        } catch (\Exception $e) {
-        echo 'None';
-    }
-?>
-
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
         <div class="space-20"></div>
@@ -43,7 +33,7 @@
                                 <fieldset>
                                     <label class="block clearfix {{ $errors->has('username') ? ' has-error' : '' }}">
                                         <span class="block input-icon input-icon-right">
-                                            <input type="text" name="username" class="form-control" placeholder="Username" />
+                                            <input type="text" name="username" class="form-control" value="{{ Session::get('username') }}" placeholder="Username"/>
                                             @if ($errors->has('username'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('username') }}</strong>
@@ -363,88 +353,88 @@
 @section('js')
 
     <script type="text/javascript">
-        $('.select2').select2({
-            width: "100%",
-        });
+        // $('.select2').select2({
+        //     width: "100%",
+        // });
 
-        function filter_section(data){
-            var element =  $('#section');
-            element.val('').trigger('change');
-            element.html('').select2({data: {id:null, text: null}});
-            element.append(
-                    new Option("","", true, true)
-            ).trigger('change');
+        // function filter_section(data){
+        //     var element =  $('#section');
+        //     element.val('').trigger('change');
+        //     element.html('').select2({data: {id:null, text: null}});
+        //     element.append(
+        //             new Option("","", true, true)
+        //     ).trigger('change');
 
-            $.each(<?php echo $section;?>,function(x,section){
-                if(data.val() == section.division){
-                    element.append(
-                            new Option(section.description, section.id, true, true)
-                    ).trigger('change');
-                }
-            });
-        }
+        //     $.each(<?php echo $section;?>,function(x,section){
+        //         if(data.val() == section.division){
+        //             element.append(
+        //                     new Option(section.description, section.id, true, true)
+        //             ).trigger('change');
+        //         }
+        //     });
+        // }
 
-        jQuery(function($) {
+        // jQuery(function($) {
 
-            var userid_flag = false;
-            $("input[name='userid']").on("keyup",function(e){
-                e.preventDefault();
-                var element = $("input[name='userid']");
-                var userid = element.val();
-                $.post("<?php echo asset('userid_trapping')?>", { "userid": element.val(), "_token": "<?php echo csrf_token(); ?>" }, function(result){
-                    if(result != ''){
-                        $("#userid_error").html('ID NO : '+userid+' is already exist in the database.');
-                        userid_flag = true;
-                    } else {
-                        $("#userid_error").html('');
-                        userid_flag = false;
-                    }
-                })
+        //     var userid_flag = false;
+        //     $("input[name='userid']").on("keyup",function(e){
+        //         e.preventDefault();
+        //         var element = $("input[name='userid']");
+        //         var userid = element.val();
+        //         $.post("<?php echo asset('userid_trapping')?>", { "userid": element.val(), "_token": "<?php echo csrf_token(); ?>" }, function(result){
+        //             if(result != ''){
+        //                 $("#userid_error").html('ID NO : '+userid+' is already exist in the database.');
+        //                 userid_flag = true;
+        //             } else {
+        //                 $("#userid_error").html('');
+        //                 userid_flag = false;
+        //             }
+        //         })
 
-            });
+        //     });
 
-            $('.form-submit').on('submit',function(){
-                if(userid_flag){
-                    alert('ID NO already exist in the database.');
-                    $("input[name='userid']").val('');
-                    $("input[name='userid']").focus();
-                    return false;
-                }
-            });
+        //     $('.form-submit').on('submit',function(){
+        //         if(userid_flag){
+        //             alert('ID NO already exist in the database.');
+        //             $("input[name='userid']").val('');
+        //             $("input[name='userid']").focus();
+        //             return false;
+        //         }
+        //     });
 
-            $(document).on('click', '.toolbar a[data-target]', function(e) {
-                e.preventDefault();
-                var target = $(this).data('target');
-                $('.widget-box.visible').removeClass('visible');//hide others
-                $(target).addClass('visible');//show target
-            });
-        });
+        //     $(document).on('click', '.toolbar a[data-target]', function(e) {
+        //         e.preventDefault();
+        //         var target = $(this).data('target');
+        //         $('.widget-box.visible').removeClass('visible');//hide others
+        //         $(target).addClass('visible');//show target
+        //     });
+        // });
 
-        //you don't need this, just used for changing background
-        jQuery(function($) {
-            $('#btn-login-dark').on('click', function(e) {
-                $('body').attr('class', 'login-layout');
-                $('#id-text2').attr('class', 'white');
-                $('#id-company-text').attr('class', 'blue');
+        // //you don't need this, just used for changing background
+        // jQuery(function($) {
+        //     $('#btn-login-dark').on('click', function(e) {
+        //         $('body').attr('class', 'login-layout');
+        //         $('#id-text2').attr('class', 'white');
+        //         $('#id-company-text').attr('class', 'blue');
 
-                e.preventDefault();
-            });
-            $('#btn-login-light').on('click', function(e) {
-                $('body').attr('class', 'login-layout light-login');
-                $('#id-text2').attr('class', 'grey');
-                $('#id-company-text').attr('class', 'blue');
+        //         e.preventDefault();
+        //     });
+        //     $('#btn-login-light').on('click', function(e) {
+        //         $('body').attr('class', 'login-layout light-login');
+        //         $('#id-text2').attr('class', 'grey');
+        //         $('#id-company-text').attr('class', 'blue');
 
-                e.preventDefault();
-            });
-            $('#btn-login-blur').on('click', function(e) {
-                $('body').attr('class', 'login-layout blur-login');
-                $('#id-text2').attr('class', 'white');
-                $('#id-company-text').attr('class', 'light-blue');
+        //         e.preventDefault();
+        //     });
+        //     $('#btn-login-blur').on('click', function(e) {
+        //         $('body').attr('class', 'login-layout blur-login');
+        //         $('#id-text2').attr('class', 'white');
+        //         $('#id-company-text').attr('class', 'light-blue');
 
-                e.preventDefault();
-            });
+        //         e.preventDefault();
+        //     });
 
-        });
+        // });
     </script>
 
 @endsection

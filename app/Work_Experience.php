@@ -16,6 +16,7 @@ class Work_Experience extends Model
         'position_title',
         'company',
         'monthly_salary',
+        'monthly_salary_private',
         'salary_grade',
         'status_of_appointment',
         'government_service',

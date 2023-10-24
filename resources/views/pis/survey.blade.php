@@ -155,13 +155,29 @@
                 $reference_name = ["reference_name_a","reference_name_b","reference_name_c"];
                 $reference_address = ["reference_address_a","reference_address_b","reference_address_c"];
                 $reference_tel = ["reference_tel_a","reference_tel_b","reference_tel_c"];
+
+                // foreach(range(0,2) as $index){
+                //     if(isset($reference_name)) {
+                //     $new = $reference_name[$index];    
+                //     echo $user->$new;
+                //     }
+                // }
                 ?>
                 @foreach(range(0,2) as $index)
-                    <tr>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_name[$index] }}">{{ $user->$reference_name[$index] }}</span></td>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_address[$index] }}">{{ $user->$reference_address[$index] }}</span></td>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_tel[$index] }}">{{ $user->$reference_tel[$index] }}</span></td>
-                    </tr>
+                   <tr>
+                        @if(isset($reference_name))
+                            <?php $name = $reference_name[$index]; ?>
+                                <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_name[$index] }}">{{ $user->$name }}</span></td>
+                        @endif
+                        @if(isset($reference_address))
+                            <?php $address = $reference_address[$index]; ?>    
+                                <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_address[$index]}}">{{ $user->$address }}</span></td>
+                        @endif
+                        @if(isset($reference_tel))
+                            <?php $tel = $reference_tel[$index]; ?>  
+                                <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_tel[$index]}}">{{ $user->$tel }}</span></td>
+                        @endif
+                    </tr> 
                 @endforeach
                 </tbody>
             </table>

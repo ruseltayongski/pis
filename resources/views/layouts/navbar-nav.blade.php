@@ -18,6 +18,8 @@
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-money"></i> Salary Grade<span class="caret"></span></a>
             <ul class="dropdown-menu">
+                <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == '2019' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/2019') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; 2019</a></li>
+                <li class="divider"></li>
                 <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == 'salarygradeFirst' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/First') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; First Tranche</a></li>
                 <li class="divider"></li>
                 <li class="@if(isset(Request::segments()[0]) && isset(Request::segments()[1]) && isset(Request::segments()[2])) {{ Request::segments()[0].Request::segments()[1].Request::segments()[2] == 'salarygradeSecond' ? 'active-nav' : '' }} @endif"><a href="{{ asset('salary/grade/Second') }}"><i class="fa fa-money"></i>&nbsp;&nbsp; Second Tranche</a></li>
@@ -36,11 +38,19 @@
             <li><a href="{{ asset('/change/password') }}"><i class="fa fa-unlock"></i>&nbsp;&nbsp; Change Password</a></li>
             <li class="divider"></li>
             <li>
-                <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>&nbsp;&nbsp; Logout</a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                </form>
+                <a href="#" onclick="pisLogout()"><i class="fa fa-sign-out"></i>&nbsp;&nbsp; Logout</a>
+                <!-- <form id="logout-form" action="https://pis.cvchd7.com/logout" method="POST" style="display: none;">
+                </form> -->
             </li>
         </ul>
     </li>
 </ul>
+
+<script>
+    function pisLogout() {
+        event.preventDefault();
+        $.get("https://pis.cvchd7.com/logout1",function() {
+            window.location.href="https://pis.cvchd7.com/";
+        });
+    }
+</script>
