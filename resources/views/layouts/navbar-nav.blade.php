@@ -38,9 +38,13 @@
             <li><a href="{{ asset('/change/password') }}"><i class="fa fa-unlock"></i>&nbsp;&nbsp; Change Password</a></li>
             <li class="divider"></li>
             <li>
+                <!-- 
                 <a href="#" onclick="pisLogout()"><i class="fa fa-sign-out"></i>&nbsp;&nbsp; Logout</a>
-                <!-- <form id="logout-form" action="https://pis.cvchd7.com/logout" method="POST" style="display: none;">
+                <form id="logout-form" action="https://pis.cvchd7.com/logout" method="POST" style="display: none;">
                 </form> -->
+                <a href="#" onclick="event.preventDefault();document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i>&nbsp;&nbsp; Logout</a>
+                <form id="logout-form" action="{{ url('logout') }}" method="POST" style="display: none;">
+                </form>
             </li>
         </ul>
     </li>

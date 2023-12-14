@@ -22,7 +22,7 @@
             @foreach($personal_information as $user)
                 <tr>
                     <td>
-                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-link="https://pis.cvchd7.com/pisInfo{{ '/'.$user->userid }}" data-toggle="modal" >
+                        <a href="#pis_info" role="button" class="green" data-backdrop="static" data-link="{{ asset('pisInfo').'/'.$user->userid }}" data-toggle="modal" >
                             <b class="green">
                                 @if(strpos($user->userid,'no_userid'))
                                     NO USERID
@@ -32,7 +32,7 @@
                             </b>
                         </a>
                     </td>
-                    <td><a href="#pis_info" role="button" data-backdrop="static" data-link="https://pis.cvchd7.com/pisInfo{{ '/'.$user->userid }}" data-toggle="modal" ><b class="blue">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a></td>
+                    <td><a href="#pis_info" role="button" data-backdrop="static" data-link="{{ asset('pisInfo').'/'.$user->userid }}" data-toggle="modal" ><b class="blue">@if($user->fname || $user->lname || $user->mname || $user->name_extension) {{ $user->fname.' '.$user->mname.' '.$user->lname.' '.$user->name_extension }} @else <i>NO NAME</i> @endif</b></a></td>
                     <td>
                         @if($designation = \PIS\Designation::find($user->designation_id)) {{ $designation->description }} @else {{ $user->position }} @endif
                     </td>
