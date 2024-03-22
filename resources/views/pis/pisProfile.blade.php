@@ -372,9 +372,9 @@
                         <td class="center td_workDateto"><span class="editable_radio work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'coldate_to"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colposition_title"></span></td>\
                         <td class="center"><span class="editable work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colcompany"></span></td>\
-                        <td class="center monthly_salary"><span class="red" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
-                        if(!Auth::user()->usertype)
-                            echo 'Please go to hr to update your monthly salary';
+                        <td class="center monthly_salary"><span class="<?php if (!Auth::user()->usertype) echo 'editable'; else echo '';?>work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colmonthly_salary"><?php
+//                        if(!Auth::user()->usertype)
+//                            echo 'Please go to hr to update your monthly salary'; <?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?
                         ?></span></td>\
                         <td class="center"><span class="red '+"<?php
                         if(Auth::user()->usertype)
@@ -383,8 +383,8 @@
                             echo '';
                         ?>"+
                     ' work_experience workAdd" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colsalary_grade"><?php
-                        if(!Auth::user()->usertype)
-                            echo 'Please go to hr to update your salary grade';
+//                        if(!Auth::user()->usertype)
+//                            echo 'Please go to hr to update your salary grade';
                         ?>
                         </span></td>\
                         <td class="center"><span class="editable_select work_experience" id="'+'no_id'+"<?php echo str_random(10); ?>"+workCount+'colstatus_of_appointment"></span></td>\

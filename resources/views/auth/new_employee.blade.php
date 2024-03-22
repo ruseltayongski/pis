@@ -69,7 +69,7 @@
                                         <div class="space-6"></div>
 
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" id="inputWarning" name="fname" value="{{ session('fname') }}" placeholder="Firstname" class="width-100" />
                                                     @if ($errors->has('fname'))
@@ -77,7 +77,7 @@
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" value="{{ session('mname') }}" name="mname" class="form-control" placeholder="Middlename" />
                                                     @if ($errors->has('mname'))
@@ -85,7 +85,7 @@
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" value="{{ session('lname') }}" name="lname" class="form-control" placeholder="Lastname" />
                                                     @if ($errors->has('lname'))

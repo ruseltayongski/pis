@@ -158,9 +158,9 @@
                 ?>
                 @foreach(range(0,2) as $index)
                     <tr>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_name[$index] }}">{{ $user->$reference_name[$index] }}</span></td>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_address[$index] }}">{{ $user->$reference_address[$index] }}</span></td>
-                        <td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_tel[$index] }}">{{ $user->$reference_tel[$index] }}</span></td>
+                        {{--<td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_name[$index] }}">{{ $user->$reference_name[$index] }}</span></td>--}}
+                        {{--<td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_address[$index] }}">{{ $user->$reference_address[$index] }}</span></td>--}}
+                        {{--<td><span class="editable survey" id="{{ $user->piUserid }}col{{ $reference_tel[$index] }}">{{ $user->$reference_tel[$index] }}</span></td>--}}
                     </tr>
                 @endforeach
                 </tbody>

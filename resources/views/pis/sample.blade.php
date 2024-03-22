@@ -13,12 +13,13 @@
                     <th class="center" colspan="2">INCLUSIVE DATES (mm/dd/yyyy)</th>
                     <th class="center" rowspan="2">POSITION TITLE (Write in full/Do not abbreviate)</th>
                     <th class="center" rowspan="2">DEPARTMENT / AGENCY / OFFICE / COMPANY (Write in full/Do not abrebiate)</th>
-                    <th class="center" rowspan="2">MONTHLY SALARYadasdadad</th>
+                    <th class="center" rowspan="2">MONTHLY SALARYadsadadsadasd</th>
                     <th class="center" rowspan="2">SALARY/JOB/PAY GRADE(if applicable)(Format *00-0*)/INCREMENT</th>
                     <th class="center" rowspan="2">STATUS OF APPOINTMENT</th>
                     <th class="center" rowspan="2">GOV'T SERVICE(Y/N)</th>
                     <th class="center" rowspan="2">Option</th>
                 </tr>
+
                 <tr class="info">
                     <th class="center">From</th>
                     <th class="center">To</th>
@@ -34,33 +35,32 @@
                         <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                         <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
                         <td class="center">
-                            <span class="editable blue work_experience" id="{{ $row->id.'colmonthly_salary_private' }}" >
-                                @if($row->salary_grade)
-                                    <b><u>{{ $row->monthly_salary }}</u></b>
-                                    @else
-                                    <b><u>{{ $row->monthly_salary }}</u></b>
-                                @endif
+                            <span class="blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
+                                <?php
+                                if(!Auth::user()->usertype && !$row->salary_grade)
+                                    echo "<span class='red'>Please go to hr to update your monthly salary</span>";
+                                else
+                                    echo '<b><u>'.$row->monthly_salary.'</u></b>';
+                                ?>
                             </span>
                         </td>
                         <td class="center">
-                            <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo '';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
+                            <span class="<?php if(Auth::user()->usertype) echo 'editable_radio'; else echo 'editable_radio';?> work_experience" id="{{ $row->id.'colsalary_grade' }}" >
                                 <?php
                                 if(Auth::user()->usertype)
                                     echo $row->salary_grade;
                                 else{
                                     if($row->salary_grade)
                                         echo '<b><u>'.$row->salary_grade.'</u></b>';
-                                    else if(empty($row->salary_grade && !Auth::user()->usertype))
-                                        echo '<span class="red">'.'Edit your salary'.'</p>';
+                                    else
+                                        echo '<span class="red">'.'dsa,ndkan'.'</p>';
                                 }
                                 ?>
                             </span>
                         </td>
                         <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
                         <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
-                        @if($row->date_to != "Present")
-                            <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
-                        @endif
+                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
                     </tr>
                 @endforeach
                 <?php Session::put('workCount',$workCount) ?>
@@ -70,6 +70,3 @@
         </div>
     </div>
 </div><!-- /#Work Experience -->
-<script type="text/javascript">
-
-</script>
