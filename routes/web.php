@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,8 +23,10 @@ Route::get('logout1', function(){
 
 Auth::routes();
 
-
 //Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/login_jwt','HomeController@jwt');
+Route::get('/flush-session-dts', 'HomeController@flushSessionDts');
+  
 Route::get('/','HomeController@login');
 Route::match(['GET','POST'],'/new_employee','Auth\RegisterController@new_employee');
 
@@ -38,7 +39,7 @@ Route::post('/change/password', 'Auth\ResetPasswordController@save_changes');
 //PIS
 Route::match(['GET','POST'],'/pisList', 'PisController@pisList');
 Route::get('/pisForm', 'PisController@pisForm');
-Route::get('pisInfo/{userid}','PisController@pisInfo');
+Route::get('pisInfo/{userid}','PisController@pisInfo')->name('pis.info');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
@@ -83,7 +84,7 @@ Route::get('sync_personalInformation','FileController@sync_personalInformation')
 
 //SALARY GRADE
 Route::match(['GET','POST'],'/salaryList', 'SalaryController@salaryList');
-Route::get('/salaryForm/{tranche}', 'SalaryController@salaryForm');
+Route::get('/salaryForm/{tranche}', 'SalaryController@salaryForm')->name('salary.add');
 Route::match(['GET','POST'],'/salaryGrade', 'SalaryController@salaryGrade');
 Route::post('/salaryAdd', 'SalaryController@salaryAdd');
 Route::post('/salaryDelete', 'SalaryController@salaryDelete');
@@ -130,3 +131,8 @@ Route::get('phpinfo', function () {
     return \PIS\User::get();
 });
 
+Route::get('pisIdArta2024/{userid}/{paper}','pisController@pisIdArta2024');
+
+//JO PRINT ID 2024
+Route::get('pisIdArta2024JOC/{userid}/{paper}','pisController@pisIdArta2024JOC');
+Route::get('/update-all-permanent-salaries', 'PisController@updateAllPermanentSalaries')->name('update.all.permanent.salaries');

@@ -80,4 +80,7 @@
   'myfirstfont' => array(
     'normal' => $fontDir . '\14e5adef184615fc2964b12bf237c1e2',
   ),
+  'barlowfont' => array(
+    'bold' => $fontDir . '/barlowfont-bold_358c0a3a4ade31ae6cf836e9f9ad793b',
+  ),
 ) ?>

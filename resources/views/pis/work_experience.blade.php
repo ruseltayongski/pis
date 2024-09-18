@@ -34,7 +34,7 @@
                         <td class="center"><span class="editable work_experience" id="{{ $row->id.'colposition_title' }}" >{{ $row->position_title }}</span></td>
                         <td><span class="editable work_experience" id="{{ $row->id.'colcompany' }}" >{{ $row->company }}</span></td>
                         <td class="center">
-                            <span class="<?php if(Auth::user()->usertype)echo 'editable'; ?> blue work_experience" id="{{ $row->id.'colmonthly_salary_private' }}" >
+                            <span class="<?php if(Auth::user()->usertype)echo 'editable'; ?> blue work_experience" id="{{ $row->id.'colmonthly_salary' }}" >
                                 @if($row->salary_grade)
                                     <b><u>{{ $row->monthly_salary }}</u></b>
                                 @elseif(!Auth::user()->usertype && !$row->salary_grade)
@@ -70,3 +70,6 @@
         </div>
     </div>
 </div><!-- /#Work Experience -->
+<script type="text/javascript">
+    
+</script>

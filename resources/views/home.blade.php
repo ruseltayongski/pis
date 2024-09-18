@@ -107,7 +107,7 @@
                                             <div class="infobox-content">{{ number_format((float)$dashboard->total_employee, 0, '.', ',') }}</div>
                                         </div>
                                     </div>
-                                    <div class="infobox infobox-blue infobox-small infobox-dark" onclick="window.location='{{ asset('new_employee') }}'" style="cursor: pointer;">
+                                    <div class="infobox infobox-blue infobox-small infobox-dark" onclick="window.location='/pis/new_employee'" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-user-plus"></i>
                                         </div>
@@ -177,7 +177,7 @@
                                                 <div id="member-tab" class="tab-pane">
                                                     <div class="clearfix">
                                                         @foreach($recent as $user)
-                                                            <div class="itemdiv memberdiv" onclick="window.open('{{ asset('pisProfile').'/'.$user->userid }}','new_window');">
+                                                            <div class="itemdiv memberdiv" onclick="window.open('/pis/pisProfile/{{$user->userid}}','new_window');">
                                                                 <div class="user">
                                                                     <?php
                                                                         if(isset($user->picture)){
@@ -241,7 +241,7 @@
 
                                                 <ol class="dd-list">
                                                     @foreach(\PIS\Section::where('division','=',$div->id)->get() as $sec)
-                                                    <li class="dd-item dd2-item" data-id="16" onclick="window.open('{{ asset('filter4/section').'/'.$sec->id }}','new_window');" style="cursor: pointer;">
+                                                    <li class="dd-item dd2-item" data-id="16" onclick="window.open('/pis/filter4/section/{{$sec->id}}', 'new_window');" style="cursor: pointer;">
                                                         <div class="dd-handle dd2-handle">
                                                             <i class="normal-icon ace-icon fa fa-users red bigger-130"></i>
 

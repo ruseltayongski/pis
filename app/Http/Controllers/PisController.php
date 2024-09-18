@@ -1104,6 +1104,167 @@ class PisController extends Controller
         return $nameSize;
     }
 
+    public function nameSize_arta2024($sizeLength){
+        $nameSize['font'] = 10;
+        $nameSize['left'] = 5;
+        $nameSize['top'] = 63;
+        $nameSize['width'] = 1.2;
+        $nameSize['height'] = 6.3;
+        if($sizeLength > 39){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 0;//
+            $nameSize['width'] += 0;//
+            $nameSize['height'] = 3.5;
+        }
+        else if($sizeLength == 39){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 32){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 31){
+            $nameSize['font'] = 11.5;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 30){
+            $nameSize['font'] = 12;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        elseif($sizeLength == 29){
+            $nameSize['font'] = 8.5;
+            $nameSize['left'] += 2.4;//
+            $nameSize['width'] += .6;
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 28){
+            $nameSize['font'] = 11;
+            $nameSize['left'] += 4;
+            $nameSize['width'] += .2;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 27){
+            $nameSize['font'] = 9.5;
+            $nameSize['left'] += 3.4;//
+            $nameSize['width'] += .65;
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 26){
+            $nameSize['font'] = 9;
+            $nameSize['left'] += 6.2;//
+            $nameSize['top'] = 63;
+            $nameSize['width'] += .75;
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 25){
+            $nameSize['font'] = 9;
+            $nameSize['left'] += 7;//
+            $nameSize['width'] += .7;
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 24){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 6.5;
+            $nameSize['width'] += .6;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 23){
+            $nameSize['font'] = 9;
+            $nameSize['left'] += 7.5;
+            $nameSize['width'] += .7;
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 22){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 8.5;
+            $nameSize['width'] += .6;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 21){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9;//
+            $nameSize['width'] += .9;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 20){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9.0;//
+            $nameSize['width'] += .9;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 19){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 9.2;//
+            $nameSize['width'] += .8;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 18){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 10;//
+            $nameSize['width'] += .9;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 17){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 10.4;//
+            $nameSize['width'] += 1.1;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 16){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 11;//
+            $nameSize['width'] += 1.3;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 15){
+            $nameSize['font'] = 9;
+            $nameSize['left'] += 13.0;
+            $nameSize['width'] += 1.5;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 14){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 2;
+            $nameSize['width'] += 1.7;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 13){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 12.8;//
+            $nameSize['width'] += 1.9;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 12){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 13.2;//
+            $nameSize['width'] += 2.1;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength == 11){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 13.6;//
+            $nameSize['width'] += 2.3;//
+            $nameSize['height'] = 3.0;
+        }
+        elseif($sizeLength <= 10){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 14;//
+            $nameSize['width'] += 2.5;//
+            $nameSize['height'] = 3.0;
+        }
+
+        return $nameSize;
+    }
+
     public function pisId($userid = null,$paper = null){
         $user = Personal_Information::where('userid','=',$userid)->first();
         $division['font'] = 19;
@@ -1238,6 +1399,166 @@ class PisController extends Controller
         return $pdf->stream();
     }
 
+    public function pisIdArta2024($userid = null,$paper = null){
+        $user = Personal_Information::where('userid','=',$userid)->first();
+        $designation = Designation::find($user->designation_id);
+        if($designation) {
+            $designation = $designation->description;
+        } else {
+            $designation = "NO DESIGNATION";
+        }
+        $division['font'] = 20;
+        $division['left'] = 2;
+        $division['top'] = 79.5;
+        if($user->division_id){
+            if($user->job_status == 'CBII') {
+                $division['left'] += 6;
+                $division['desc'] = 'GENERAL SERVICES';
+            }
+            elseif($user->division_id == 3) {
+                $division['top'] += 3;
+                $division['font'] -= 2.8;
+                $division['left'] += 2.5;
+                $division['desc'] = \PIS\Division::find($user->division_id)->description;
+            }
+            elseif($user->division_id == 4) {
+                $division['top'] += 3;
+                $division['left'] -= 1;
+                $division['font'] -= 4;
+                $division['desc'] = explode('LHSD - ', \PIS\Division::find($user->division_id)->description)[1];
+            }
+            elseif ($user->division_id == 5) {
+                $division['font'] -= 4;
+                $division['font'] -= 0.1; // New line for font adjustment
+                $division['left'] -= 0.5;
+                $division['top'] += 0.6;
+                $description = explode('RLED - ', \PIS\Division::find($user->division_id)->description)[1];
+                $division['desc'] = $description . "(RLED)";
+            }
+            
+            elseif($user->division_id == 6) {
+                $division['top'] += 3.4;
+                $division['left'] -= 0;
+                $division['font'] -= 5;
+                $division['desc'] =  explode('MSD - ',\PIS\Division::find($user->division_id)->description)[1];
+            }
+        }
+        else
+            $division['desc'] = 'NO DIVISION';
+
+        if($user->mname)
+            $middleName = $user->mname[0].'.';
+        else
+            $middleName = '';
+        $name = $user->fname.' '.$middleName.' '.$user->lname;
+        //$name = substr($name, 0, 18);
+
+        //strlen($name) = 31 DEFAULT formula
+
+        //return strlen($name);
+
+        if($paper == 'landscape'){
+        //    return "nisud diri";
+            $view = view('pis.bigId2024',[
+                "name" => $name,
+                "user" => $user,
+                "division" => $division,
+                "designation" => $designation,
+                "nameSize" => $this->nameSize_arta2024(strlen($name)),
+            ]);
+        }
+        else {
+            $view = view('pis.pisId_portrait',[
+                "user" => $user
+            ]);
+        }
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('a4', $paper);
+        return $pdf->stream();
+    }
+
+    public function pisIdArta2024JOC($userid = null,$paper = null){
+        $user = Personal_Information::where('userid','=',$userid)->first();
+        $designation = Designation::find($user->designation_id);
+        if($designation) {
+            $designation = $designation->description;
+        } else {
+            $designation = "NO DESIGNATION";
+        }
+        $division['font'] = 20;
+        $division['left'] = 2;
+        $division['top'] = 79.5;
+        if($user->division_id){
+            if($user->job_status == 'CBII') {
+                $division['left'] += 6;
+                $division['desc'] = 'GENERAL SERVICES';
+            }
+            elseif($user->division_id == 3) {
+                $division['top'] += 3;
+                $division['font'] -= 2.8;
+                $division['left'] += 2.5;
+                $division['desc'] = \PIS\Division::find($user->division_id)->description;
+            }
+            elseif($user->division_id == 4) {
+                $division['top'] += 3;
+                $division['left'] -= 1;
+                $division['font'] -= 4;
+                $division['desc'] = explode('LHSD - ', \PIS\Division::find($user->division_id)->description)[1];
+            }
+            elseif ($user->division_id == 5) {
+                $division['font'] -= 4;
+                $division['font'] -= 0.1; // New line for font adjustment
+                $division['left'] -= 1;
+                $division['top'] += 1;
+                $description = explode('RLED - ', \PIS\Division::find($user->division_id)->description)[1];
+                $division['desc'] = $description . "(RLED)";
+            }
+            elseif($user->division_id == 6) {
+                $division['top'] += 3.4;
+                $division['left'] -= 0;
+                $division['font'] -= 5;
+                $division['desc'] =  explode('MSD - ',\PIS\Division::find($user->division_id)->description)[1];
+            }
+
+          
+            
+            
+        }
+        else
+            $division['desc'] = 'NO DIVISION';
+
+        if($user->mname)
+            $middleName = $user->mname[0].'.';
+        else
+            $middleName = '';
+        $name = $user->fname.' '.$middleName.' '.$user->lname;
+        //$name = substr($name, 0, 18);
+
+        //strlen($name) = 31 DEFAULT formula
+
+        //return strlen($name);
+
+        if($paper == 'landscape'){
+        //    return "nisud diri";
+            $view = view('pis.bigId2024JOC',[
+                "name" => $name,
+                "user" => $user,
+                "division" => $division,
+                "designation" => $designation,
+                "nameSize" => $this->nameSize_arta2024(strlen($name)),
+            ]);
+        }
+        else {
+            $view = view('pis.pisId_portrait',[
+                "user" => $user
+            ]);
+        }
+
+        $pdf = App::make('dompdf.wrapper');
+        $pdf->loadHTML($view)->setPaper('a4', $paper);
+        return $pdf->stream();
+    }
     public function sirBong(){
         $personal_information = Personal_Information::get();
         return view('welcome',[
@@ -1278,6 +1599,51 @@ class PisController extends Controller
 
         return $data;
 
+    }
+
+    public function updateAllPermanentSalaries()
+    {
+        $permanent_users = Personal_Information::where('job_status', 'Permanent')->get();
+        $work_experiences = Work_Experience::whereIn('userid', $permanent_users->pluck('userid'))->get();
+
+        foreach ($work_experiences as $work_experience) {
+            if ($work_experience->salary_grade) {
+                // Get the salary_grade
+                $salary_grade = $work_experience->salary_grade;
+
+                // Split by '|' to get tranche and salary details
+                $salary_parts = explode('|', $salary_grade);
+                if (count($salary_parts) == 2) {
+                    $tranche = trim($salary_parts[0]);
+                    $salary = trim($salary_parts[1]);
+
+                    // Further split salary (e.g., '15-8') by '-'
+                    $grade_parts = explode('-', $salary);
+                    if (count($grade_parts) == 2) {
+                        $salary_grade = trim($grade_parts[0]);
+                        $salary_step = trim($grade_parts[1]);
+
+                        // Get the salary amount from the SalaryGrade table
+                        $salary = SalaryGrade::select('salary_amount')
+                            ->where('salary_tranche', '=', $tranche)
+                            ->where('salary_grade', '=', $salary_grade)
+                            ->where('salary_step', '=', $salary_step)
+                            ->first();
+
+                        // If salary exists, update the monthly salary for the work experience
+                        if ($salary) {
+                            DB::table('work_experience')
+                                ->join('personal_information', 'work_experience.userid', '=', 'personal_information.userid')
+                                ->where('work_experience.salary_grade', $work_experience->salary_grade)
+                                ->where('personal_information.job_status', 'Permanent')
+                                ->update(['work_experience.monthly_salary' => $salary->salary_amount]);
+
+                        }
+                    }
+                }
+            }
+        }
+        return response()->json(['message' => 'All permanent employees\' salaries updated successfully']);
     }
 
 }

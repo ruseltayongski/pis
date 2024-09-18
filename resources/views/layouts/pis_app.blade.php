@@ -6,7 +6,7 @@
     <title>PIS</title>
     <meta name="description" content="3 styles with inline editable feature" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-    <link rel="icon" href="{{ asset('public/img/favicon.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset ('public/img/favicon.png') }}" type="image/x-icon">
 
     <!-- bootstrap & fontawesome -->
     <link rel="stylesheet" href="{{ asset('public/assets_ace/css/bootstrap.min.css') }}" />
@@ -56,6 +56,25 @@
         body {
             background: url('{{ asset('public/img/backdrop.png') }}'), -webkit-gradient(radial, center center, 0, center center, 460, from(#ccc), to(#ddd));
         }
+  
+        .full-width-container {
+            width: 100%;
+            height: 120px; /* Adjust the height as needed */
+            padding: 10px;
+            background-color: #59ab91;
+            box-sizing: border-box; /* Ensure padding is included in the height */
+            overflow: hidden; /* Hide overflow content if the image is larger */
+        }
+        .full-width-container img {
+            width: auto;
+            height: 100%;
+            max-height: 100%;
+            margin-left: 340px; /* Ensure the image doesn't exceed the container's height */
+        }
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
     </style>
 </head>
 <div class="loading"></div>
@@ -97,9 +116,9 @@
             </div>
             <div class="clearfix"></div>
         </div>
-        <div class="container" style="padding:10px;">
+        <div class="container full-width-container"  style="padding:10px; background-color: #59ab91">
             <a href="{{ asset('/') }}">
-                <img src="{{ asset('public/img/banner_pis2019.png') }}" class="img-responsive" />
+                <img src="{{ asset('public/img/banner_pis_2024.png') }}" class="img-responsive" />
             </a>
         </div>
 
@@ -407,7 +426,7 @@
     //$(".pagination").addClass('pull-right');
 </script>
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('public/assets_ace/js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
+    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('public/assets_ace/js/jquery.mobile.custom.min.js') }}>"+"<"+"/script>");
 </script>
 
 <script src="{{ asset('public/assets_ace/js/bootstrap.min.js') }}"></script>
@@ -439,7 +458,7 @@
 
 
 <script type="text/javascript">
-    if('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+    if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
 </script>
 
 <script src="{{ asset('public/assets_ace/js/wizard.min.js') }}"></script>

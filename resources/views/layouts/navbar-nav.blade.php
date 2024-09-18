@@ -48,6 +48,14 @@
             </li>
         </ul>
     </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-laptop"></i> Systems<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="#" class="system-link" data-system="dts"><i class="fa fa-file-text"></i>&nbsp;&nbsp; Document Tracking System</a></li>
+            <li class="divider"></li>
+            <li><a href="#" class="system-link" data-system="payroll"><i class="fa fa-building"></i>&nbsp;&nbsp; Payroll</a></li>
+        </ul>
+    </li>
 </ul>
 
 <script>
@@ -57,4 +65,14 @@
             window.location.href="https://pis.cvchd7.com/";
         });
     }
+    $(document).ready(function() {
+        $('.system-link').click(function(e) {
+            e.preventDefault(); // Prevent default link behavior
+
+            var systemValue = $(this).data('system'); // Get the system value from data attribute
+
+            // Redirect to the controller route with the system value as a query parameter
+            window.location.href = "{{ url('/flush-session-dts') }}" + "?system=" + systemValue;
+        });
+    });
 </script>

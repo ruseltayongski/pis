@@ -12,6 +12,30 @@ use PIS\Section;
 use PIS\User_dts;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use PIS\User;
+use Illuminate\Support\Facades\Hash;
+use PIS\SalaryGrade;
+use PIS\Survey;
+use PIS\Training_Program;
+use PIS\User_dtr;
+use PIS\Voluntary_Work;
+use PIS\Work_Experience;
+use PIS\Other_Information;
+use PIS\EmployeeStatus;
+use PIS\Children;
+use PIS\Civil_Eligibility;
+use PIS\Educational_Background;
+use PIS\EducationType;
+use PIS\Family_Background;
+use App\Helpers\JwtHelper;
+use Defuse\Crypto\Crypto;
+use Defuse\Crypto\Key;
+use Defuse\Crypto\Exception\EnvironmentIsBrokenException;
+use Defuse\Crypto\Exception\WrongKeyOrModifiedCiphertextException;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+use Exception;
+use Illuminate\Support\Facades\Http; 
 
 class HomeController extends Controller
 {
@@ -25,6 +49,107 @@ class HomeController extends Controller
         return view('home');
     }
 
+    public function jwt(Request $request) {
+        $userid = $request->query('userid');
+        $token = Session::put('token', $userid);
+        if (!$userid) {
+            return response()->json(['error' => 'User ID is required'], 400);
+        }
+        $userid=urlencode($userid);
+        $message = $this->test($userid);
+        if ($message instanceof \Illuminate\Http\RedirectResponse) {
+            return $message;
+        }
+    }
+    
+    public function flushSessionDts(Request $request){
+        $token = Session::get('token');
+        $system = $request->query('system'); // Get the 'system' value from query parameter
+        Session::flush(); // Clear all session data
+    
+        $redirectUrl = '';
+    
+        // Handle different system cases
+        switch ($system) {
+            case 'dts':
+                $redirectUrl = 'https://mis.cvchd7.com/dts/login_jwt?userid='.urlencode($token);
+                break;
+            case 'payroll':
+                $redirectUrl = 'http://192.168.110.43:8083/Account/Login_Jwt?userid='.urlencode($token);
+                break;
+            // Add more cases as needed
+            default:
+                $redirectUrl = 'https://pis.cvchd7.com/default/login_jwt?userid='.urlencode($token);
+                break;
+        }
+    
+        return redirect()->away($redirectUrl);
+        // return redirect()->away('https://mis.cvchd7.com/dts/login_jwt?userid='.urlencode($token));
+    }
+
+    public function test($userid) {
+        $key = 'D65459959AAEF56E'; // Adjust to match your actual 
+
+        if(empty($userid)){
+            echo "nothing";
+        }
+        
+        // dd(urlencode($userid));
+        try {
+            // Attempt AES-128-CBC decryption
+            $decrypted = $this->aes_decrypt($userid, $key, 'AES-128-CBC');
+            if ($decrypted === false) {
+                throw new Exception('AES-128-CBC decryption failed');
+            }
+            // echo 'AES-128-CBC decryption successful: ' . $decrypted . PHP_EOL;
+            $user = User::where('username',"=", $decrypted)->first();
+        } catch (Exception $e) {
+            echo $e->getMessage() . PHP_EOL;
+        }
+       
+        Auth::login($user);
+        if (Auth::check()) {
+            if(Auth::user()->usertype) {
+                return redirect::to('/excel');
+            }
+            else {
+               return redirect::to('/pisProfile');
+            }
+        } else {
+            return 'Authentication failed. Debugging:'. $user->username. $user->password;
+        }
+    }
+
+    private function aes_decrypt($encrypted, $key, $cipherMethod) {
+        // Base64 decode the encrypted data
+        $decoded = urldecode($encrypted);
+
+        // Base64 decode the URL-decoded data
+        $data = base64_decode($decoded);
+
+        // Extract the IV from the decoded data (assuming the first 16 bytes are the IV)
+        $iv = substr($data, 0, 16);
+
+        // Extract the encrypted data (assuming the rest is the encrypted payload)
+        $encryptedData = substr($data, 16);
+
+        // Perform the decryption
+        $decrypted = openssl_decrypt($encryptedData, $cipherMethod, $key, OPENSSL_RAW_DATA, $iv);
+
+        // $data = base64_decode($encrypted);
+
+        // // Extract the IV from the encrypted data (assuming the first 16 bytes are the IV)
+        // $iv = substr($data, 0, 16);
+
+        // // Extract the encrypted data (assuming the rest is the encrypted payload)
+        // $encryptedData = substr($data, 16);
+
+        // // Perform the decryption
+        // $decrypted = openssl_decrypt($encryptedData, $cipherMethod, $key, OPENSSL_RAW_DATA, $iv);
+
+        return $decrypted;
+    }
+    
     public function login()
     {
         $designation = Designation::get();

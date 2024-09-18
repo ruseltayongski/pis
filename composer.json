@@ -10,6 +10,8 @@
         "barryvdh/laravel-dompdf": "^0.8.1",
         "buzz/laravel-google-captcha": "^2.1",
         "codedge/laravel-fpdf": "^1.2",
+        "defuse/php-encryption": "^2.4",
+        "firebase/php-jwt": "^6.10",
         "guidocella/eloquent-insert-on-duplicate-key": "^2.1",
         "laravel/framework": "5.4.*",
         "laravel/tinker": "~1.0",
@@ -28,7 +30,8 @@
             "database"
         ],
         "psr-4": {
-            "PIS\\": "app/"
+            "PIS\\": "app/",
+            "App\\Helpers\\": "app/Helpers/"
         }
     },
     "autoload-dev": {

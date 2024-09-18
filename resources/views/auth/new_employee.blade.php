@@ -125,6 +125,7 @@
                                                     <option value="Job Order" {{ session('job_status') == 'Job Order' ? 'selected' : '' }}>Job Order</option>
                                                     <option value="Permanent" {{ session('job_status') == 'Permanent' ? 'selected' : '' }}>Permanent</option>
                                                     <option value="CBII" {{ session('job_status') == 'CBII' ? 'selected' : '' }}>CBII</option>
+                                                    <option value="OJT" {{ session('job_status') == 'OJT' ? 'selected' : '' }}>OJT</option>
                                                 </select>
                                                 @if ($errors->has('job_status'))
                                                     <small class="red"><b>{{ $errors->first('job_status') }}</b></small>

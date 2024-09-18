@@ -24,7 +24,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
+        //$this->app['request']->server->set('HTTPS', true);
         parent::boot();
     }
 

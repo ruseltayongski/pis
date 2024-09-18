@@ -31,7 +31,7 @@
                                 User Profile Page
                             </h1>
                         </div>
-                        <div class="col-md-9">
+                        <div class="col-md-8">
                             <!--
                                 @if(Auth::user()->usertype)
                                 <div class="col-md-4">
@@ -39,21 +39,39 @@
                                 </div>
                                 @endif
                             -->
-                            <div class="col-md-3">
-                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ID PICTURE | LANDSCAPE</a>
+                       
+                            <!-- <div class="col-md-2" >
+                                <a href="{{ url('pisId').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-info"><i class="fa fa-image"></i> ARTA ID V1</a>
+                            </div> -->
+                            <div class="col-md-2">
+                                <a href="{{ url('pisIdArta').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-primary"><i class="fa fa-image"></i> ARTA ID V2</a>
                             </div>
-                            <div class="col-md-3">
-                                <a href="{{ url('pisIdArta').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> ID PICTURE ARTA | LANDSCAPE</a>
+                            &nbsp;
+                            @if($user->job_status == "Job Order" || $user->job_status == "CBII" || $user->job_status == "Contractual")
+                            <div class="col-md-2" style="margin-right:190px" >
+                                <a href="{{ url('pisIdArta2024JOC').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> JOB ORDER / CONTRACTUAL ARTA ID 2024</a>
                             </div>
-                            <div class="col-md-3 pull-right">
+                            @else
+                            <div class="col-md-2" style="margin-right:75px" >
+                                <a href="{{ url('pisIdArta2024').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> REGULAR ARTA ID 2024</a>
+                            </div>
+                            @endif
+                            
+
+                   
+                            <div class="col-md-2">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
-                                    <button type="submit" class="btn btn-sm btn-warning"><i class="fa fa-image"></i> GENERATE PDS </button>
+                                    <button type="submit" class="btn btn-sm btn-info"><i class="fa fa-image"></i> GENERATE PDS </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                </div><!-- /.page-header -->
+                </div>
+
+                <!-- /.page-header -->
+
+                
 
                 <div class="row">
                     <div class="col-xs-12">
@@ -1549,7 +1567,9 @@
                             {value: "Permanent", text: "Permanent"},
                             {value: "Job Order", text: "Job Order"},
                             {value: "CBII", text: "CBII"},
-                            {value: "Contractual", text: "Contractual"}
+                            {value: "Contractual", text: "Contractual"},
+                            {value: "Regular", text: "Regular"},
+                            {value: "Casual", text: "Casual"}
                         ],
                         "field_status" : [
                             {value: "HRH", text: "HRH"},
