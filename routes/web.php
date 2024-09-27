@@ -136,3 +136,5 @@ Route::get('pisIdArta2024/{userid}/{paper}','pisController@pisIdArta2024');
 //JO PRINT ID 2024
 Route::get('pisIdArta2024JOC/{userid}/{paper}','pisController@pisIdArta2024JOC');
 Route::get('/update-all-permanent-salaries', 'PisController@updateAllPermanentSalaries')->name('update.all.permanent.salaries');
+Route::post('/process-year','PisController@getTranches')->name('process.year');
+

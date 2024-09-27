@@ -1692,7 +1692,6 @@
                                 alert("There was something wrong, will restart your page.");
                                 window.location.reload();
                             });
-
                         },
                         error: function(errors) {
                             alert('slow internet connection..');
@@ -1756,6 +1755,34 @@
 
             }
 
+            //joy
+            function filter_tranche(url,id,year){
+                var source = year;
+                var finalId = id.replace("salary_tranche");
+                var element = $("#"+finalId);
+                var section = element.removeAttr('id').get(0);
+                $(section).clone().attr('id', finalId).text('Select Transasache').editable({
+                    type: 'select2',
+                    value: null,
+                    source: source,
+                    select2: {
+                        'width': 300
+                    },
+                    success: function (data, value) {
+                        json = {
+                            "id" : this.id.split('col')[0],
+                            "column" : this.id.split('col')[1],
+                            "value" : value,
+                            "_token" : "<?php echo csrf_token(); ?>",
+                        };
+                        $.post(url, json, function (result) {
+                            console.log(result);
+                        });
+                    }
+                }).insertAfter(section);
+                $(section).remove();
+
+            }
 
             var source_radio = [{
                 "sex": [
@@ -2018,7 +2045,12 @@
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
 
-                                console.log(monthlySalaryId);
+                                // Check if the user is permanent
+                                if ("<?php echo $user->job_status ?>" === "Permanent") {
+                                    // Add the year parameter only for permanent employees
+                                    json.year = $("#year_"+this.id.split('col')[0]+'colyear').val();
+                                }
+                                console.log("with year",json);
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
                             else if(columnId == 'date_from' || columnId == 'date_to'){
@@ -2190,7 +2222,7 @@
                                         console.log(result);
                                     }
                                     else if (columnId == "salary_grade"){
-                                        console.log(monthlySalaryId);
+                                        console.log("monthly_salary_id",monthlySalaryId);
                                         $("#"+monthlySalaryId).html("<b style='color:#307bff;'>"+result+"</b>");
                                     }
                                 }).fail(function(jqXHR, textStatus, errorThrown) {
@@ -2226,8 +2258,8 @@
             var Radiolist = function (options) {
                 this.init('radiolist', options, Radiolist.defaults);
             };
+            
             $.fn.editableutils.inherit(Radiolist, $.fn.editabletypes.list);
-
             $.extend(Radiolist.prototype, {
                 renderList: function() {
                     var $label;
@@ -2318,7 +2350,6 @@
                             console.log($(this).children('span')[0].id);
                         });
 
-
                         $(function() {
                             $(document).on('click', '.ui-state-disabled', function() {
                                 return false;
@@ -2335,7 +2366,6 @@
                                         $("#"+$(this).children('span')[0].id+"toPresent").prop('disabled',false);
                                     });
                                 }
-
                             });
                         }); // prevent bugs in jquery wew !
 
@@ -2350,10 +2380,16 @@
                     }
                     else if (name.split('col')[1] == 'salary_grade'){
                         var salary_append = this.$tpl;
+                        var uniq = name.split('col')[0];
                         salary_append.append(<?php
-                            $tranche = ["Second","Third","Fourth"];
+                            $tranche = ["Second","Third", "Fourth"];
+
+                            $years = \PIS\SalaryGrade::select('year')
+                                    ->whereNotNull('year')
+                                    ->distinct()
+                                    ->get();        
                             ?>
-                            '<select name="salary_grade" id="salary_tranche" class="form-control" style="width: 100%" required> <option value="">Select Tranche</option>@foreach($tranche as $trancheIndex)<option value="{{ $trancheIndex }}">{{ $trancheIndex }}</option>@endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required>\<option value="">Select Salary Grade\</option>@foreach(range(1,33) as $salaryGradeIndex)\<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}\</option>@endforeach\</select>\<div class="space-6">\</div>\<select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required>\<option value="">Select Salary Step\</option>@foreach(range(1,8) as $salaryStepIndex)\<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}\</option>@endforeach\</select>');
+                            '@if($user->job_status == "Permanent")<select name="year" id="year_' + uniq + 'colyear" class="form-control years" data-uniq="' + uniq + '" onchange="updateYear(this)" style="width: 100%" required><option value="">Past Year</option>@foreach($years as $year) <option value="{{ $year->year }}">{{ $year->year  }}</option> @endforeach @endif</select><div class="space-6"></div><select name="salary_tranche" id="salary_tranche" class="form-control" style="width: 100%" required><option value="">Select Tranche</option>@foreach($tranche as $trancheIndex) <option value="{{ $trancheIndex }}">{{ $trancheIndex  }}</option> @endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required><option value="">Select Salary Grade</option>@foreach(range(1,33) as $salaryGradeIndex)<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>@endforeach</select><div class="space-6"></div><select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required><option value="">Select Salary Step</option>@foreach(range(1,8) as $salaryStepIndex)<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>@endforeach</select>');
                     }
                     else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' || name.split('col')[1] == 'educationDelete' || name.split('col')[1] == 'otherDelete' ){
                         try{
@@ -2506,7 +2542,40 @@
 
         }(window.jQuery));
 
-    </script>
+        console.log('Im in');
+            function updateYear(selected) {
+                var uniq = selected.getAttribute('data-uniq');
+                var yearx = selected.value;
+                console.log('hi im in', uniq+'colyear');
+                $.ajax({
+                    url: "{{ route('process.year') }}",
+                    type: 'POST',
+                    data: {
+                            year: yearx,
+                            _token : "<?php echo csrf_token(); ?>"
+                          },
+                    success: function (response) {
+                        console.log('hi im res', response.tranches);
 
+                        var $salaryTrancheSelect = $('#salary_tranche');
+                        $salaryTrancheSelect.empty();
+                        
+                        $salaryTrancheSelect.append('<option value="">Select Tranche</option>');
+
+                        var tranches = response.tranches;
+                        if (!Array.isArray(tranches)) {
+                            tranches = Object.values(tranches);  // Convert object to array if it's not an array
+                        }
+                        // Append each tranche as an option
+                        tranches.forEach(function(tranche) {
+                            $salaryTrancheSelect.append('<option value="' + tranche + '">' + tranche + '</option>');
+                        });
+                    },
+                    error: function (error) {
+                        console.log('Error fetching salary tranches:', error);
+                    }
+                });
+            }
+    </script>
 @endsection
 

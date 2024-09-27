@@ -536,6 +536,7 @@ class PisController extends Controller
 
 
     public function updateWorkExperience(Request $request){
+        Session::put('year', $request->year);
         if(is_null($request->get('unique_row'))){
             $unique_row = 'no unique row';
         } else {
@@ -543,11 +544,27 @@ class PisController extends Controller
         }
 
         if ($request->get('column') == 'salary_grade'){
-            $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
-                                ->where('salary_grade','=',$request->get('salary_grade'))
-                                ->where('salary_step','=',$request->get('salary_step'))
-                                ->first()
-                                ->salary_amount;
+            $userId = $request->get('userid');
+            $job_status = Personal_Information::select('job_status')
+                ->where('userid','=', $userId )
+                ->first();
+
+            if($job_status == "Permanent") {
+                $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                    ->where('salary_grade','=',$request->get('salary_grade'))
+                    ->where('salary_step','=',$request->get('salary_step'))
+                    ->where('year',"=", $request->get('year'))
+                    ->first()
+                    ->salary_amount;
+            }else {
+                $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                    ->where('salary_grade','=',$request->get('salary_grade'))
+                    ->where('salary_step','=',$request->get('salary_step'))
+                    ->where('year',"=", $request->get('year'))
+                    ->first()
+                    ->salary_amount;
+            }
+
             $work_experience = Work_Experience::where('id','=',$request->get('id'))
                                                 ->orWhere('unique_row',$unique_row)
                                                 ->first();
@@ -1603,7 +1620,7 @@ class PisController extends Controller
 
     public function updateAllPermanentSalaries()
     {
-        $permanent_users = Personal_Information::where('job_status', 'Permanent')->get();
+        $permanent_users = Personal_Information::where('job_status', 'Job Order')->get();
         $work_experiences = Work_Experience::whereIn('userid', $permanent_users->pluck('userid'))->get();
 
         foreach ($work_experiences as $work_experience) {
@@ -1643,7 +1660,68 @@ class PisController extends Controller
                 }
             }
         }
+        // foreach ($work_experiences as $work_experience) {
+        //     if ($work_experience->salary_grade) {
+        //         // Get the salary_grade
+        //         $salary_grade = $work_experience->salary_grade;
+
+        //         // Split by '|' to get tranche and salary details
+        //         $salary_parts = explode('|', $salary_grade);
+        //         if (count($salary_parts) == 2) {
+        //             $tranche = trim($salary_parts[0]);
+        //             $salary = trim($salary_parts[1]);
+
+        //             if($tranche == "Fourth"){
+        //                 $tranche = "First";
+        //             }
+
+        //             // Further split salary (e.g., '15-8') by '-'
+        //             $grade_parts = explode('-', $salary);
+        //             if (count($grade_parts) == 2) {
+        //                 $salary_grade = trim($grade_parts[0]);
+        //                 $salary_step = trim($grade_parts[1]);
+
+        //                 // Get the salary amount from the SalaryGrade table
+        //                 $salary = SalaryGrade::select('salary_amount')
+        //                     ->where('salary_tranche', '=', $tranche)
+        //                     ->where('salary_grade', '=', $salary_grade)
+        //                     ->where('salary_step', '=', $salary_step)
+        //                     ->where('year','=', 2024)
+        //                     ->first();
+
+        //                 // If salary exists, update the salary_grade and monthly salary
+        //                 if ($salary) {
+        //                     // Update the salary_grade in the work_experience table
+        //                     $updated_salary_grade = implode(' | ', [$tranche, $salary_grade . '-' . $salary_step]);
+                            
+        //                     // First, update the salary_grade
+        //                     DB::table('work_experience')
+        //                         ->where('userid', $work_experience->userid)
+        //                         ->update(['salary_grade' => $updated_salary_grade]);
+
+        //                     // Then, update the monthly salary
+        //                     DB::table('work_experience')
+        //                         ->join('personal_information', 'work_experience.userid', '=', 'personal_information.userid')
+        //                         ->where('work_experience.salary_grade', $updated_salary_grade) // use updated salary_grade
+        //                         ->where('personal_information.job_status', 'Permanent')
+        //                         ->update(['work_experience.monthly_salary' => $salary->salary_amount]);
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
         return response()->json(['message' => 'All permanent employees\' salaries updated successfully']);
     }
 
+    public function getTranches(Request $request)
+    {
+        $year = $request->input('year');
+        // Fetch the salary tranches based on the selected year
+        $uniqueTranches = [];
+
+        $tranches = SalaryGrade::where('year', $year)->pluck('salary_tranche')->toArray(); // Adjust based on your model and logic
+        $uniqueTranches = array_unique($tranches);
+
+        return response()->json(['tranches' => $uniqueTranches]);
+    }
 }
