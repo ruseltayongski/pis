@@ -57,7 +57,7 @@
                             </span>
                         </td>
                         <td class="center"><span class="editable_select work_experience" id="{{ $row->id.'colstatus_of_appointment' }}" >{{ $row->status_of_appointment }}</span></td>
-                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></t>
+                        <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colgovernment_service' }}" >{{ $row->government_service }}</span></td>
                             @if($row->date_to != "Present")
                              <td class="center"><span class="editable_radio work_experience" id="{{ $row->id.'colworkDelete' }}"><i class="fa fa-close"></i></span></td>
                             @endif
