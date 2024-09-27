@@ -1122,6 +1122,24 @@ class PisController extends Controller
             $nameSize['width'] += .1;//
             $nameSize['height'] = 2.5;
         }
+        else if($sizeLength == 38){
+            $nameSize['font'] = 11;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 37){
+            $nameSize['font'] = 11;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 36){
+            $nameSize['font'] = 11;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
         else if($sizeLength == 32){
             $nameSize['font'] = 10;
             $nameSize['left'] += 1.4;//
