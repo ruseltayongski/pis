@@ -188,7 +188,7 @@
             position: absolute;
             text-align: center;
             z-index:1;
-            font-size: 15pt;
+            font-size: 13pt;
             padding-top: 10px;
         }
 
@@ -202,7 +202,7 @@
             position: absolute;
             z-index:1;
             text-align: center;
-            font-size: 15pt;
+            font-size: 13pt;
             padding-top: 10px;
         }
         .userid1 {

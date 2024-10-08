@@ -560,7 +560,6 @@ class PisController extends Controller
                 $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
                     ->where('salary_grade','=',$request->get('salary_grade'))
                     ->where('salary_step','=',$request->get('salary_step'))
-                    ->where('year',"=", $request->get('year'))
                     ->first()
                     ->salary_amount;
             }
@@ -1638,7 +1637,7 @@ class PisController extends Controller
 
     public function updateAllPermanentSalaries()
     {
-        $permanent_users = Personal_Information::where('job_status', 'Job Order')->get();
+        $permanent_users = Personal_Information::where('job_status', 'Permanent')->get();
         $work_experiences = Work_Experience::whereIn('userid', $permanent_users->pluck('userid'))->get();
 
         foreach ($work_experiences as $work_experience) {
@@ -1670,7 +1669,7 @@ class PisController extends Controller
                             DB::table('work_experience')
                                 ->join('personal_information', 'work_experience.userid', '=', 'personal_information.userid')
                                 ->where('work_experience.salary_grade', $work_experience->salary_grade)
-                                ->where('personal_information.job_status', 'Permanent')
+                                ->where('personal_information.job_status', 'Job Order')
                                 ->update(['work_experience.monthly_salary' => $salary->salary_amount]);
 
                         }
