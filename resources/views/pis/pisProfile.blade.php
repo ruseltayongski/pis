@@ -2389,7 +2389,7 @@
                                     ->distinct()
                                     ->get();        
                             ?>
-                            '@if($user->job_status == "Permanent")<select name="year" id="year_' + uniq + 'colyear" class="form-control years" data-uniq="' + uniq + '" onchange="updateYear(this)" style="width: 100%" required><option value="">Past Year</option>@foreach($years as $year) <option value="{{ $year->year }}">{{ $year->year  }}</option> @endforeach @endif</select><div class="space-6"></div><select name="salary_tranche" id="salary_tranche" class="form-control" style="width: 100%" required><option value="">Select Tranche</option>@foreach($tranche as $trancheIndex) <option value="{{ $trancheIndex }}">{{ $trancheIndex  }}</option> @endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required><option value="">Select Salary Grade</option>@foreach(range(1,33) as $salaryGradeIndex)<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>@endforeach</select><div class="space-6"></div><select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required><option value="">Select Salary Step</option>@foreach(range(1,8) as $salaryStepIndex)<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>@endforeach</select>');
+                            '@if($user->job_status == "Permanent")<select name="year" id="year_' + uniq + 'colyear" class="form-control years" data-uniq="' + uniq + '" onchange="updateYear(this)" style="width: 100%" required><option value="0">Past Year</option>@foreach($years as $year) <option value="{{ $year->year }}">{{ $year->year  }}</option> @endforeach @endif</select><div class="space-6"></div><select name="salary_tranche" id="salary_tranche" class="form-control" style="width: 100%" required><option value="">Select Tranche</option>@foreach($tranche as $trancheIndex) <option value="{{ $trancheIndex }}">{{ $trancheIndex  }}</option> @endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required><option value="">Select Salary Grade</option>@foreach(range(1,33) as $salaryGradeIndex)<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>@endforeach</select><div class="space-6"></div><select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required><option value="">Select Salary Step</option>@foreach(range(1,8) as $salaryStepIndex)<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>@endforeach</select>');
                     }
                     else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' || name.split('col')[1] == 'educationDelete' || name.split('col')[1] == 'otherDelete' ){
                         try{
@@ -2553,7 +2553,7 @@
                     data: {
                             year: yearx,
                             _token : "<?php echo csrf_token(); ?>"
-                          },
+                        },
                     success: function (response) {
                         console.log('hi im res', response.tranches);
 
