@@ -28,7 +28,7 @@
                             <div class="row">
 
                                 <div class="col-sm-7 infobox-container">
-                                    <div class="infobox infobox-green" onclick="window.open('{{ asset('filter1/Permanent/Male') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-green" onclick="window.open('filter1/Permanent/Male','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -40,7 +40,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-blue" onclick="window.open('{{ asset('filter1/Permanent/Female') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-blue" onclick="window.open('filter1/Permanent/Female','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -52,7 +52,7 @@
 
                                     </div>
 
-                                    <div class="infobox infobox-pink" onclick="window.open('{{ asset('filter1/Job Order/Male') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-pink" onclick="window.open('filter1/Job Order/Male','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-male"></i>
                                         </div>
@@ -63,7 +63,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-red" onclick="window.open('{{ asset('filter1/Job Order/Female') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-red" onclick="window.open('filter1/Job Order/Female','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-female"></i>
                                         </div>
@@ -74,7 +74,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-orange2" onclick="window.open('{{ asset('filter2/employee_status/1') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-orange2" onclick="window.open('filter2/employee_status/1','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-check"></i>
                                         </div>
@@ -85,7 +85,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="infobox infobox-blue2" onclick="window.open('{{ asset('filter2/employee_status/3') }}','new_window');" style="cursor: pointer;">
+                                    <div class="infobox infobox-blue2" onclick="window.open('filter2/employee_status/3','new_window');" style="cursor: pointer;">
                                         <div class="infobox-icon">
                                             <i class="ace-icon fa fa-star"></i>
                                         </div>
@@ -134,7 +134,7 @@
                                                 <div class="hr hr8 hr-double"></div>
 
                                                 <div class="clearfix">
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/3') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('filter3/education/background/3','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-gavel fa-2x" style="color: #68BC31"></i>
                                                             &nbsp; Vocational
@@ -142,7 +142,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/4') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('filter3/education/background/4','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-folder fa-2x " style="color: #2091CF"></i>
                                                             &nbsp; College
@@ -150,7 +150,7 @@
                                                         </span>
                                                     </div>
 
-                                                    <div class="grid3" onclick="window.open('{{ asset('filter3/education/background/5') }}','new_window');" style="cursor: pointer;">
+                                                    <div class="grid3" onclick="window.open('filter3/education/background/5','new_window');" style="cursor: pointer;">
                                                         <span class="grey">
                                                             <i class="ace-icon fa fa-briefcase fa-2x" style="color: #AF4E96"></i>
                                                             &nbsp; Masteral

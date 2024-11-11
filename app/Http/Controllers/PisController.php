@@ -550,17 +550,17 @@ class PisController extends Controller
                 ->first();
 
             if($job_status == "Permanent") {
-                if($request->get('year') == 0) {
+                if($request->get('year') != 0) {
                     $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
                     ->where('salary_grade','=',$request->get('salary_grade'))
                     ->where('salary_step','=',$request->get('salary_step'))
+                    ->where('year',"=", $request->get('year'))
                     ->first()
                     ->salary_amount;
                 }else {
                     $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
                     ->where('salary_grade','=',$request->get('salary_grade'))
                     ->where('salary_step','=',$request->get('salary_step'))
-                    ->where('year',"=", $request->get('year'))
                     ->first()
                     ->salary_amount;
                 }
