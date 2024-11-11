@@ -548,30 +548,30 @@ class PisController extends Controller
             $job_status = Personal_Information::select('job_status')
                 ->where('userid','=', $userId )
                 ->first();
-
-            if($job_status == "Permanent") {
-                if($request->get('year') != 0) {
-                    $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
-                    ->where('salary_grade','=',$request->get('salary_grade'))
-                    ->where('salary_step','=',$request->get('salary_step'))
-                    ->where('year',"=", $request->get('year'))
-                    ->first()
-                    ->salary_amount;
+            
+                if($job_status->job_status == "Permanent") {
+                    if($request->get('year') != 0) {
+                        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                        ->where('salary_grade','=',$request->get('salary_grade'))
+                        ->where('salary_step','=',$request->get('salary_step'))
+                        ->where('year',"=", $request->get('year'))
+                        ->first()
+                        ->salary_amount;
+                    }else {
+                        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                        ->where('salary_grade','=',$request->get('salary_grade'))
+                        ->where('salary_step','=',$request->get('salary_step'))
+                        ->first()
+                        ->salary_amount;
+                    }
                 }else {
                     $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
-                    ->where('salary_grade','=',$request->get('salary_grade'))
-                    ->where('salary_step','=',$request->get('salary_step'))
-                    ->first()
-                    ->salary_amount;
-                }
-            }else {
-                $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
-                    ->where('salary_grade','=',$request->get('salary_grade'))
-                    ->where('salary_step','=',$request->get('salary_step'))
-                    // ->where('year',"=", $request->get('year'))
-                    ->first()
-                    ->salary_amount;
-            }
+                        ->where('salary_grade','=',$request->get('salary_grade'))
+                        ->where('salary_step','=',$request->get('salary_step'))
+                        // ->where('year',"=", $request->get('year'))
+                        ->first()
+                        ->salary_amount;
+                }   
 
             $work_experience = Work_Experience::where('id','=',$request->get('id'))
                                                 ->orWhere('unique_row',$unique_row)
