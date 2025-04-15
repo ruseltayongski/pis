@@ -31,6 +31,8 @@ use File;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class PisController extends Controller
 {
@@ -60,27 +62,178 @@ class PisController extends Controller
         } else {
             $type = 'ALL';
         }
-        if ($type == 'ALL'){
-            $personal_select = Personal_Information::orderBy('fname','asc')->get();
+
+
+        //ALL HRMO
+        if ($type == 'ALL') {
+            $personal_select = Personal_Information::orderBy('fname', 'asc')->get();
+
+            // Base query
+            $query = Personal_Information::where('user_status', '=', '1')
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname, ' ', lname, ', ', mname) like '%$keyword%'")
+                        ->orWhereRaw("concat(fname, ' ', lname) like '%$keyword%'")
+                        ->orWhereRaw("concat(lname, ', ', mname) like '%$keyword%'")
+                        ->orWhereRaw("concat(fname, ', ', mname) like '%$keyword%'");
+                });
+
+            // DISREGARD THE HRH - CARLO
+            $query->where(function($q) {
+                $q->where('section_id', '!=', 31);
+            });
+
+            // Exclude region_12
+            $query->where('region', '!=', 'region_12');
+            
+            // Exclude employees with employee_status = 3
+            $query->where('employee_status', '!=', 3);
+            
+            $personal_information = $query->orderBy('fname', 'asc')->paginate(10);
+        }
+
+
+
+        // ALL HRMO PERMANENT
+        elseif ($type == 'HRMO_PERMANENT') {
             $personal_information = Personal_Information::
-            where('user_status','=','1')
-            ->where(function($q) use ($keyword){
-                $q->where('fname','like',"%$keyword%")
-                    ->orWhere('mname','like',"%$keyword%")
-                    ->orWhere('lname','like',"%$keyword%")
-                    ->orWhere('userid','like',"%$keyword%")
-                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ")
-                    ->orWhereRaw("concat(fname,' ',lname) like '%$keyword%' ")
-                    ->orWhereRaw("concat(lname,', ',mname) like '%$keyword%' ")
-                    ->orWhereRaw("concat(fname,', ',mname) like '%$keyword%' ");
-            })
-                ->orderBy('fname','asc')
+                where('user_status', '=', '1')
+                ->where('job_status', '=', 'Permanent')
+                ->where('region', '=', 'region_7')  // Add condition for region
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where(function($q) {
+                    $q->where('section_id', '!=', 31);  // Add condition for section_id
+                })
+                ->orderBy('fname', 'asc')
                 ->paginate(10);
         }
+
+        // ALL HRMO PERMANENT
+        elseif ($type == 'HRMO_CONTRACTUAL') {
+            $personal_information = Personal_Information::where('user_status', '=', '1')
+                ->where('job_status', '=', 'Contractual')
+                ->where('region', '=', 'region_7')  // Add condition for region
+                ->where('employee_status', '=', '1')  // Add condition for employee_status
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where(function($q) {
+                    $q->where('section_id', '!=', 31);  // Add condition for section_id
+                })
+                ->orderBy('fname', 'asc')
+                ->paginate(10);
+        }
+        
+
+          // ALL HRMO JOB ORDER
+          elseif ($type == 'HRMO_JOB_ORDER') {
+            $personal_information = Personal_Information::where('user_status', '=', '1')
+                ->where('job_status', '=', 'Job Order')
+                ->where('region', '=', 'region_7')  // Add condition for region
+                ->where('employee_status', '=', '1')  // Add condition for employee_status
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where(function($q) {
+                    $q->where('section_id', '!=', 31);  // Add condition for section_id
+                })
+                ->orderBy('fname', 'asc')
+                ->paginate(10);
+        }
+        
+
+  
+       // HRH PERMANENT
+        elseif ($type == 'HRH_PERMANENT') {
+            $personal_information = Personal_Information::
+                where('user_status', '=', '1')
+                ->where(function($q) {
+                    $q->where('section_id', '=', 31);
+                })
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where('job_status', '=', 'Permanent') // Added condition for job_status
+                ->where('region', '=', 'region_7') // Added condition for region
+                ->where('employee_status', '=', '1') // Added condition for employee_status
+                ->orderBy('fname', 'asc')
+                ->paginate(10);
+        }
+
+          // HRH PERMANENT
+          elseif ($type == 'HRH_CONTRACTUAL') {
+            $personal_information = Personal_Information::
+                where('user_status', '=', '1')
+                ->where(function($q) {
+                    $q->where('section_id', '=', 31);
+                })
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where('job_status', '=', 'Contractual') // Added condition for job_status
+                ->where('region', '=', 'region_7') // Added condition for region
+                ->where('employee_status', '=', '1') // Added condition for employee_status
+                ->orderBy('fname', 'asc')
+                ->paginate(10);
+        }
+
+         // HRH PERMANENT
+         elseif ($type == 'HRH_JOB_ORDER') {
+            $personal_information = Personal_Information::
+                where('user_status', '=', '1')
+                ->where(function($q) {
+                    $q->where('section_id', '=', 31);
+                })
+                ->where(function($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->where('job_status', '=', 'Job Order') // Added condition for job_status
+                ->where('region', '=', 'region_7') // Added condition for region
+                ->where('employee_status', '=', '1') // Added condition for employee_status
+                ->orderBy('fname', 'asc')
+                ->paginate(10);
+        }
+
+
+
+        //ALL DUPLICATE NAME
         elseif($type == 'DUPLICATE_NAME'){
             $duplicate_name = collect(\DB::connection('mysql')->select("call duplicateName('$keyword')"));
             $personal_information = $this->paginate($duplicate_name,10);
         }
+
+
+
+        //ALL INACTIVE
         elseif($type == 'INACTIVE'){
             $personal_information = Personal_Information::
             where('user_status','=','0')
@@ -94,6 +247,8 @@ class PisController extends Controller
                 ->orderBy('fname','asc')
                 ->paginate(10);
         }
+
+        //ALL PERMANENT
         elseif ($type == 'PERMANENT'){
             $personal_information = Personal_Information::
             where('user_status','=','1')
@@ -108,6 +263,9 @@ class PisController extends Controller
                 ->orderBy('fname','asc')
                 ->paginate(10);
         }
+
+
+        //ALL JOB ORDER
         elseif ($type == 'JOB_ORDER'){
             $personal_information = Personal_Information::
             where('user_status','=','1')
@@ -123,6 +281,45 @@ class PisController extends Controller
                 ->paginate(10);
         }
 
+            // ALL CONTRACTUAL
+            elseif ($type == 'CONTRACTUAL'){
+            $personal_information = Personal_Information::
+            where('user_status','=','1')
+                ->where('job_status','=','Job Order')
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
+
+
+
+        //FILTER VIA HRH
+        elseif ($type == 'HRH'){
+            $personal_information = Personal_Information::
+            where('user_status','=','1')
+                ->where(function($q) {
+                    $q->where('section_id', '=', 31);
+                     
+                })
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+                })
+                ->orderBy('fname','asc')
+                ->paginate(10);
+        }
+
+      
+
         if ($request->isMethod('post')) {
             return response()->json([
                 "view" => view('pis.pisPagination', [
@@ -132,16 +329,33 @@ class PisController extends Controller
             ]);
         }
 
-        $count_all = Personal_Information::
-            where('user_status','=','1')
-            ->where(function($q) use ($keyword){
-            $q->where('fname','like',"%$keyword%")
-                ->orWhere('mname','like',"%$keyword%")
-                ->orWhere('lname','like',"%$keyword%")
-                ->orWhere('userid','like',"%$keyword%");
-        })->count();
+
+
+        $count_all = Personal_Information::where('user_status', '1')
+        ->where(function($q) use ($keyword) {
+            $q->where('fname', 'like', "%$keyword%")
+                ->orWhere('mname', 'like', "%$keyword%")
+                ->orWhere('lname', 'like', "%$keyword%")
+                ->orWhere('userid', 'like', "%$keyword%")
+                ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+        })
+        // Exclude the count of HRH
+        ->where(function($q) {
+            $q->where('section_id', '!=', 31);
+        })
+        // Exclude records with employee_status = 3
+        ->where('employee_status', '=', 1)
+        // Add region condition
+        ->where('region', '=', 'region_7')
+        ->count();
+    
 
         $count_duplicateName = count(collect(\DB::connection('mysql')->select("call duplicateName('$keyword')")));
+
+        // Get the count of duplicate names with the added conditions
 
         $count_inactive = Personal_Information::
              where('user_status','=','0')
@@ -161,6 +375,7 @@ class PisController extends Controller
                     ->orWhere('lname','like',"%$keyword%")
                     ->orWhere('userid','like',"%$keyword%");
             })->count();
+
         $count_jobOrder = Personal_Information::
         where('user_status','=','1')
             ->where('job_status','=','Job Order')
@@ -171,11 +386,155 @@ class PisController extends Controller
                     ->orWhere('userid','like',"%$keyword%");
             })->count();
 
+        //CARLO
+        $count_hrh = Personal_Information::
+            where('user_status','=','1')
+                ->where(function($q) {
+                    $q->where('section_id', '=', 31);
+                       
+                })
+                ->where(function($q) use ($keyword){
+                    $q->where('fname','like',"%$keyword%")
+                        ->orWhere('mname','like',"%$keyword%")
+                        ->orWhere('lname','like',"%$keyword%")
+                        ->orWhere('userid','like',"%$keyword%");
+                })->count();
+
+
+
+        $count_hrmo_permanent = Personal_Information::where('user_status', '1')
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%")
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+            })
+            // Add the new conditions
+            ->where('employee_status', 1)
+            ->where('job_status', 'Permanent')
+            ->where('region', 'region_7')
+            // Exclude the count of HRH (section_id != 31)
+            ->where(function($q) {
+                $q->where('section_id', '!=', 31);
+            })
+            ->count();
+
+            $count_hrmo_contractual = Personal_Information::where('user_status', '1')
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%")
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+            })
+            // Add the new conditions
+            ->where('employee_status', '=', '1')
+            ->where('job_status', 'Contractual')
+            ->where('region', '!=','region_12')
+            // Exclude the count of HRH (section_id != 31)
+            ->where(function($q) {
+                $q->where('section_id', '!=', 31);
+            })
+            ->count();
+
+            $count_hrmo_job_order = Personal_Information::where('user_status', '1')
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%")
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+                    ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+            })
+            // Add the new conditions
+            ->where('employee_status', '=', '1')
+            ->where('job_status', 'Job Order')
+            ->where('region', '=', 'region_7')
+            // Exclude the count of HRH (section_id != 31)
+            ->where(function($q) {
+                $q->where('section_id', '!=', 31);
+            })
+            ->count();
+
+            
+
+
+        $count_hrh_permanent = Personal_Information:: 
+            where('user_status', '=', '1')
+            ->where(function($q) {
+                $q->where('section_id', '=', 31);
+            })
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%");
+            })
+            ->where('job_status', '=', 'Permanent') // Added condition for job_status
+            ->where('region', '=', 'region_7') // Added condition for region
+            ->where('employee_status', '=', '1') // Added condition for employee_status
+            ->count();
+
+        $count_hrh_contractual = Personal_Information:: 
+            where('user_status', '=', '1')
+            ->where(function($q) {
+                $q->where('section_id', '=', 31);
+            })
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%");
+            })
+            ->where('job_status', '=', 'Contractual') // Added condition for job_status
+            ->where('region', '=', 'region_7') // Added condition for region
+            ->where('employee_status', '=', '1') // Added condition for employee_status
+            ->count();
+        
+
+        $count_hrh_job_order = Personal_Information:: 
+            where('user_status', '=', '1')
+            ->where(function($q) {
+                $q->where('section_id', '=', 31);
+            })
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%");
+            })
+            ->where('job_status', '=', 'Job Order') // Added condition for job_status
+            ->where('region', '=', 'region_7') // Added condition for region
+            ->where('employee_status', '=', '1') // Added condition for employee_status
+            ->count();
+    
+            
+        
+
         $countArray['ALL'] = $count_all;
         $countArray['DUPLICATE_NAME'] = $count_duplicateName;
         $countArray['INACTIVE'] = $count_inactive;
         $countArray['PERMANENT'] = $count_permanent;
         $countArray['JOB_ORDER'] = $count_jobOrder;
+
+        //CARLO
+        $countArray['HRH'] = $count_hrh;
+        $countArray['HRMO_PERMANENT'] = $count_hrmo_permanent;
+        $countArray['HRMO_CONTRACTUAL'] = $count_hrmo_contractual;
+        $countArray['HRMO_JOB_ORDER'] = $count_hrmo_job_order;
+        $countArray['HRH_PERMANENT'] = $count_hrh_permanent;
+        $countArray['HRH_CONTRACTUAL'] = $count_hrh_contractual;
+        $countArray['HRH_JOB_ORDER'] = $count_hrh_job_order;
+
 
 
 
@@ -187,12 +546,32 @@ class PisController extends Controller
         ]);
     }
 
+
+
+
+    public function setInactiveStatus(Request $request)
+    {
+        $userId = $request->userid;
+    
+        $user = PersonalInformation::find($userId);
+        if ($user) {
+            $user->job_status = 2 ;
+            $user->save();
+    
+            return response()->json(['status' => 'success']);
+        }
+    
+        return response()->json(['status' => 'error', 'message' => 'User not found']);
+    }
+
     public function paginate($items, $perPage = null, $page = null, $options = [])
     {
         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
         $items = $items instanceof Collection ? $items : Collection::make($items);
         return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
     }
+
+
 
     public function pisForm(){
         $designation = Designation::get();

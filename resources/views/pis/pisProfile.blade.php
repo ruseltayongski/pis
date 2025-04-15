@@ -55,8 +55,9 @@
                             <div class="col-md-2" style="margin-right:75px" >
                                 <a href="{{ url('pisIdArta2024').'/'.$user->piUserid.'/landscape'  }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> REGULAR ARTA ID 2024</a>
                             </div>
-                            @endif
                             
+                            @endif
+           
 
                    
                             <div class="col-md-2">
@@ -169,8 +170,20 @@
                                         <div class="space-6"></div>
 
                                         <?php $signature_path = str_replace('pis','',url('/')).'/generate_signature/signature.php'.'?path='.$signature; ?>
-                                        <a href="{{ $signature_path }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> DOWNLOAD SIGNATURE</a>
 
+                                        <a href="{{ $signature_path }}" target="_blank" class="btn btn-sm btn-success"><i class="fa fa-image"></i> DOWNLOAD SIGNATURE</a> 
+
+
+                                        <!-- DOWNLOAD 2x2 INCHES IMAGE -->
+                                        <?php 
+                                            $profilePicPath = asset('public/upload_picture/picture').'/'.$user->picture;
+                                        ?>
+                                            
+                                   <a href="javascript:void(0);" onclick="resizeAndDownloadImage('{{ $profilePicPath }}')"  style="margin-top:15px" class="btn btn-sm btn-primary">
+                                            <i class="fa fa-image"></i> DOWNLOAD IMAGE 2x2
+                                        </a>
+
+                                    
                                         <div class="space-6"></div>
                                         <div class="rating inline"></div>
                                         <div class="space-4"></div>
@@ -2576,6 +2589,31 @@
                     }
                 });
             }
+
+            function resizeAndDownloadImage(imageUrl, fileName = "2X2_IMAGE.png") {
+            const img = new Image();
+            img.crossOrigin = "anonymous"; // Prevent CORS issues
+
+            img.onload = function () {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                // Set canvas size to 2x2 inches at 96 DPI (192x192 pixels)
+                canvas.width = 192;
+                canvas.height = 192;
+
+                // Draw the resized image
+                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                // Convert to data URL and trigger download
+                const link = document.createElement("a");
+                link.href = canvas.toDataURL("image/png");
+                link.download = fileName;
+                link.click();
+            };
+
+            img.src = imageUrl;
+        }
     </script>
 @endsection
 

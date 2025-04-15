@@ -38,6 +38,12 @@ Route::post('/change/password', 'Auth\ResetPasswordController@save_changes');
 
 //PIS
 Route::match(['GET','POST'],'/pisList', 'PisController@pisList');
+
+//SET STATUS TO RESIGNED
+Route::post('/setInactiveStatus','PisController@setInactiveStatus');
+
+
+
 Route::get('/pisForm', 'PisController@pisForm');
 Route::get('pisInfo/{userid}','PisController@pisInfo')->name('pis.info');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
@@ -137,4 +143,8 @@ Route::get('pisIdArta2024/{userid}/{paper}','pisController@pisIdArta2024');
 Route::get('pisIdArta2024JOC/{userid}/{paper}','pisController@pisIdArta2024JOC');
 Route::get('/update-all-permanent-salaries', 'PisController@updateAllPermanentSalaries')->name('update.all.permanent.salaries');
 Route::post('/process-year','PisController@getTranches')->name('process.year');
+
+
+
+
 
