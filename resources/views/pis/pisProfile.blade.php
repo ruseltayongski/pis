@@ -1546,24 +1546,63 @@
                             // {value: "2018 CO EAO CONAP", text: "2018 CO EAO CONAP" },
                             // {value: "SAA No. 2018-02-0203", text: "SAA No. 2018-02-0203" },
                             // {value: "Public Health Management Chief", text: "Public Health Management Chief" },
-                                {value:"    2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    ", text:"   2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    "},
-                                {value:"    2022 HEPR FUNDS ", text:"   2022 HEPR FUNDS "},
-                                {value:"    2022 PHM CHIEF  ", text:"   2022 PHM CHIEF  "},
+
+                                //{value:"    2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    ", text:"   2022 EPIDEMIOLOGY AND SURVEILLANCE FUNDS    "},
+                                {value:"    2025 EPIDEMIOLOGY & SURVEILLANCE FUNDS    ", text:"   2025 EPIDEMIOLOGY & SURVEILLANCE FUNDS   "},
+
+                                //{value:"    2022 HEPR FUNDS ", text:"   2022 HEPR FUNDS "},
+                                {value:"     HEPR  ", text:"    HEPR  "},
+
+                                //{value:"    2022 PHM CHIEF  ", text:"   2022 PHM CHIEF  "},
+                                {value:"    DISEASE PREVENTION AND CONTROL  ", text:"   DISEASE PREVENTION AND CONTROL  "},
+
                                 {value:"    CONAPP SAA NO. 2021-02-0628 ", text:"   CONAPP SAA NO. 2021-02-0628 "},
                                 {value:"    CONAPP SAA NO. 2022-03-1597 ", text:"   CONAPP SAA NO. 2022-03-1597 "},
                                 {value:"    HEALTH SECTOR RESEARCH AND DEVELOPMENT FUNDS    ", text:"   HEALTH SECTOR RESEARCH AND DEVELOPMENT FUNDS    "},
-                                {value:"    LHSDA FUNDS ", text:"   LHSDA FUNDS "},
+
+                                //{value:"    LHSDA FUNDS ", text:"   LHSDA FUNDS "},
+                                {value:"    LHSDA  ", text:"   LHSDA "},
+
                                 {value:"    OBCNVBSP    ", text:"   OBCNVBSP    "},
                                 {value:"    PHILHEALTH TRUST FUNDS VER. 01  ", text:"   PHILHEALTH TRUST FUNDS VER. 01  "},
                                 {value:"    PHILHEALTH TRUST FUNDS VER. 3   ", text:"   PHILHEALTH TRUST FUNDS VER. 3   "},
                                 {value:"    RRHFS   ", text:"   RRHFS   "},
-                                {value:"    SAA NO. 2022-01-0179    ", text:"   SAA NO. 2022-01-0179    "},
+
+                                //{value:"    SAA NO. 2022-01-0179    ", text:"   SAA NO. 2022-01-0179    "},
+                                {value:"   HEALTH INFORMATION TECHNOLOGY    ", text:"   HEALTH INFORMATION TECHNOLOGY    "},
+
+
                                 {value:"    SAA NO. 2022-01-0197    ", text:"   SAA NO. 2022-01-0197    "},
                                 {value:"    SAA NO. 2022-02-0424    ", text:"   SAA NO. 2022-02-0424    "},
                                 {value:"    SAA NO. 2022-03-0993    ", text:"   SAA NO. 2022-03-0993    "},
-                                {value:"    SAA NO. 2022-03-1486    ", text:"   SAA NO. 2022-03-1486    "},
+
+                                //{value:"    SAA NO. 2022-03-1486    ", text:"   SAA NO. 2022-03-1486    "},
+                                {value:"    CONAP HEALTH PROMOTION    ", text:"   CONAP HEALTH PROMOTION     "},
+
                                 {value:"    SAA NO. 2022-04-2028    ", text:"   SAA NO. 2022-04-2028    "},
-                                {value:"    STO OPERATIONS OF REGIONAL OFFICES  ", text:"   STO OPERATIONS OF REGIONAL OFFICES  "},
+
+                                //{value:"    STO OPERATIONS OF REGIONAL OFFICES  ", text:"   STO OPERATIONS OF REGIONAL OFFICES  "},
+                                {value:"    GENERAL MANAGEMENT SUPERVISION  ", text:"   GENERAL MANAGEMENT SUPERVISION  "},
+
+
+                                {value:"    SAA NO. 2024-04-001823  ", text:"   SAA NO. 2024-04-001823  "},
+                                {value:"    GENERAL MANAGEMENT AND SUPERVISION-AUDITING SERVICES  ", text:"   GENERAL MANAGEMENT AND SUPERVISION-AUDITING SERVICES  "},
+                                {value:"    SAA NO. 2024-001773  ", text:"   SAA NO. 2024-001773   "},
+                                {value:"    HFDS-HFPPD  ", text:"   HFDS-HFPPD   "},
+                                {value:"    SAA 2024-03-001121  ", text:"   SAA 2024-03-001121  "},
+                                {value:"    2025 HRH ICM  ", text:"   2025 HRH ICM  "},
+                                {value:"    CONAP SAA 2024-03-001219  ", text:"   CONAP SAA 2024-03-001219  "},
+                                {value:"    SAA NO. 2025-01-00250  ", text:"   SAA NO. 2025-01-00250  "},
+                                {value:"    CONAP SAA NO. 2024-03-001097  ", text:"   CONAP SAA NO. 2024-03-001097  "},
+                                {value:"    CONAP SAA NO. 2024-12-006155  ", text:"   CONAP SAA NO. 2024-12-006155  "},
+                                {value:"    PMF 2025  ", text:"   PMF 2025  "},
+                                {value:"    SAA NO. 2025-01-000038  ", text:"   SAA NO. 2025-01-000038  "},
+                                {value:"    SAA NO. 2025-02-000339  ", text:"   SAA NO. 2025-02-000339  "},
+                                {value:"    SAA NO. 2025-02-000522  ", text:"   SAA NO. 2025-02-000522  "},
+                                {value:"    SAA NO. 2024-02-000614  ", text:"   SAA NO. 2024-02-000614  "},
+                                {value:"    SAA NO. 25-01-00000010  ", text:"   SAA NO. 25-01-00000010  "},
+                                {value:"    CONAP SAA 2024-03-001279  ", text:"   CONAP SAA 2024-03-001279  "},
+                                {value:"    SNBCV TRUST FUND  ", text:"   SNBCV TRUST FUND  "},
                                                 
 
                         ],
