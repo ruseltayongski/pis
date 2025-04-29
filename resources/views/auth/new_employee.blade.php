@@ -37,9 +37,8 @@
                                     <fieldset>
                                         <div class="space-6"></div>
                                         <p class="purple">Employee Information (Required)</p>
-
                                         <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <select name="region" class="select2" onchange="filterUserid($(this))" data-placeholder="Select Work Region.">
                                                     <option value="{{ session('region') }}">{{ session('region') ? "Region ".explode('_',session('region'))[1] : '' }}</option>
                                                     <option value="region_7">Region 7</option>
@@ -51,7 +50,7 @@
                                                     <small class="red"><b>{{ $errors->first('region') }}</b></small>
                                                 @endif
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <select name="field_status" class="select2" data-placeholder="Select Work Field Status. " >
                                                     <?php $field_personnel = ["Office Personnel","HRH"]; ?>
                                                     <option value="{{ session('field_status') }}">{{ session('field_status') }}</option>
@@ -65,11 +64,14 @@
                                                     <small class="red"><b>{{ $errors->first('field_status') }}</b></small>
                                                 @endif
                                             </div>
+                                            <div class="col-sm-4">
+                                                <input type="date" name="entrance_of_duty" id="entrance_of_duty" class="form-control" placeholder="Entrance of Duty" required>
+                                            </div>
                                         </div>
                                         <div class="space-6"></div>
 
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" id="inputWarning" name="fname" value="{{ session('fname') }}" placeholder="Firstname" class="width-100" />
                                                     @if ($errors->has('fname'))
@@ -77,7 +79,7 @@
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" value="{{ session('mname') }}" name="mname" class="form-control" placeholder="Middlename" />
                                                     @if ($errors->has('mname'))
@@ -85,7 +87,7 @@
                                                     @endif
                                                 </label>
                                             </div>
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <input type="text" value="{{ session('lname') }}" name="lname" class="form-control" placeholder="Lastname" />
                                                     @if ($errors->has('lname'))
@@ -93,6 +95,20 @@
                                                     @endif
                                                 </label>
                                             </div>
+
+                                            <div class="col-sm-3">
+                                                <label class="block clearfix">
+                                                    <select name="sex" class="form-control" required>
+                                                        <option value="" disabled selected>Select Gender</option>
+                                                        <option value="Male" {{ session('sex') == 'Male' ? 'selected' : '' }}>Male</option>
+                                                        <option value="Female" {{ session('sex') == 'Female' ? 'selected' : '' }}>Female</option>
+                                                    </select>
+                                                    @if ($errors->has('sex'))
+                                                        <small class="red"><b>{{ $errors->first('sex') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+
                                         </div>
 
                                         <div class="row">
@@ -226,6 +242,25 @@
                                                     @endif
                                                 </label>
                                             </div>
+
+                                            <div class="col-sm-6 mt-2">
+                                                <label class="block clearfix">
+                                                    <span class="block input-icon input-icon-right">
+                                                        <select name="education" class="form-control">
+                                                            <option value="" disabled selected> Highest Educational Attainment </option>
+                                                            <option value="Elementary" {{ session('education') == 'Elementary' ? 'selected' : '' }}>Elementary</option>
+                                                            <option value="High School" {{ session('education') == 'High School' ? 'selected' : '' }}>High School</option>
+                                                            <option value="Vocational" {{ session('education') == 'Vocational' ? 'selected' : '' }}>Vocational</option>
+                                                            <option value="College" {{ session('education') == 'College' ? 'selected' : '' }}>College</option>
+                                                            <option value="Post Graduate" {{ session('education') == 'Post Graduate' ? 'selected' : '' }}>Post Graduate</option>
+                                                        </select>
+                                                    </span>
+                                                    @if ($errors->has('education'))
+                                                        <small class="red"><b>{{ $errors->first('education') }}</b></small>
+                                                    @endif
+                                                </label>
+                                            </div>
+                                            
                                         </div>
 
                                         <div class="space-6"></div>

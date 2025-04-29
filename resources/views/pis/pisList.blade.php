@@ -96,7 +96,6 @@
     </div>
 
 
-
     <div id="dialog-confirm" class="hide">
         <div class="alert alert-info bigger-110">
             This employee will be deleted
@@ -347,7 +346,7 @@
 
         
 
-        @if(session()->has('addUserid'))
+       /* @if(session()->has('addUserid'))
             Lobibox.notify('success',{
                 msg:"<?php echo session()->get('addUserid'); ?>"
             });
@@ -356,6 +355,7 @@
         Lobibox.notify('success',{
             msg:"<?php echo session()->get('addUser'); ?>"
         });
-        @endif
+        @endif */
+
     </script>
 @endsection

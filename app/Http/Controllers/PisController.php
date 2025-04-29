@@ -27,12 +27,15 @@ use PIS\Section;
 use PIS\EmployeeStatus;
 use PIS\User_dts;
 use Illuminate\Support\Facades\App;
-use File;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+
+
+
 
 class PisController extends Controller
 {
@@ -87,10 +90,9 @@ class PisController extends Controller
             });
 
             // Exclude region_12
-            $query->where('region', '!=', 'region_12');
-            
-            // Exclude employees with employee_status = 3
-            $query->where('employee_status', '!=', 3);
+            $query->where('region', '=', 'region_7');
+
+            $query->where('employee_status', '=', '1');
             
             $personal_information = $query->orderBy('fname', 'asc')->paginate(10);
         }
@@ -227,7 +229,9 @@ class PisController extends Controller
 
         //ALL DUPLICATE NAME
         elseif($type == 'DUPLICATE_NAME'){
-            $duplicate_name = collect(\DB::connection('mysql')->select("call duplicateName('$keyword')"));
+            //$duplicate_name = collect(\DB::connection('mysql')->select("call duplicateName('$keyword')"));
+            $duplicate_name = collect(DB::connection('mysql')->select("call duplicateName(?)", [$keyword]));
+
             $personal_information = $this->paginate($duplicate_name,10);
         }
 
@@ -353,7 +357,9 @@ class PisController extends Controller
         ->count();
     
 
-        $count_duplicateName = count(collect(\DB::connection('mysql')->select("call duplicateName('$keyword')")));
+        //$count_duplicateName = count(collect(\DB::connection('mysql')->select("call duplicateName('$keyword')")));
+        $count_duplicateName = count(collect(DB::connection('mysql')->select("call duplicateName(?)", [$keyword])));
+
 
         // Get the count of duplicate names with the added conditions
 
@@ -517,8 +523,6 @@ class PisController extends Controller
             ->where('employee_status', '=', '1') // Added condition for employee_status
             ->count();
     
-            
-        
 
         $countArray['ALL'] = $count_all;
         $countArray['DUPLICATE_NAME'] = $count_duplicateName;
@@ -535,9 +539,6 @@ class PisController extends Controller
         $countArray['HRH_CONTRACTUAL'] = $count_hrh_contractual;
         $countArray['HRH_JOB_ORDER'] = $count_hrh_job_order;
 
-
-
-
         return view('pis.pisList',[
             "personal_information" => $personal_information,
             "type" => $type,
@@ -553,7 +554,9 @@ class PisController extends Controller
     {
         $userId = $request->userid;
     
-        $user = PersonalInformation::find($userId);
+       // $user = PersonalInformation::find($userId);
+       $user = Personal_Information::find($userId);
+
         if ($user) {
             $user->job_status = 2 ;
             $user->save();
@@ -643,9 +646,16 @@ class PisController extends Controller
         $educationalBackground = Educational_Background::where("userid",'=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $children = Children::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $civil_eligibility = Civil_Eligibility::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
-        $work_experience = \DB::connection('mysql')->select("SELECT * FROM `work_experience` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
+       // $work_experience = \DB::connection('mysql')->select("SELECT * FROM `work_experience` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
+        $work_experience = Work_Experience::where('userid', $finalId)
+        ->orderByRaw("STR_TO_DATE(date_from, '%m/%d/%Y') DESC")
+        ->get();
         $voluntary_work = Voluntary_Work::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
-        $training_program = \DB::connection('mysql')->select("SELECT * FROM `training_program` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
+       // $training_program = \DB::connection('mysql')->select("SELECT * FROM `training_program` WHERE userid = '$finalId' order by STR_TO_DATE(date_from,'%m/%d/%Y') DESC");
+
+        $training_program = Training_Program::where('userid', $finalId)
+        ->orderByRaw("STR_TO_DATE(date_from, '%m/%d/%Y') DESC")
+        ->get();
         $other_information = Other_Information::where('userid','=',$user[0]->piUserid)->orderBy('id','ASC')->get();
         $designation = Designation::orderBy('description')->get();
 
@@ -698,7 +708,7 @@ class PisController extends Controller
         return "Successfully Updated";
     }
 
-    public function updatePersonalInformation(Request $request){
+    public function updatePersonalInformation(Request $request){ 
 
         $id = $request->get('id');
         $column = $request->get('column');
