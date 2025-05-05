@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use PIS\WorkSched;
 use Illuminate\Support\Facades\DB;
-
+use PIS\EducationType;
 
 class RegisterController extends Controller
 {
@@ -209,10 +209,12 @@ class RegisterController extends Controller
             $designation = Designation::get();
             $division = Division::get();
             $section = Section::get();
+            $education_type = EducationType::get();
             return view('auth.new_employee',[
                 "designation" => $designation,
                 "division" => $division,
                 "section" => $section,
+                "education_type" => $education_type,
                 "last_userid7" => $last_userid7,
                 "last_userid8" => $last_userid8,
                 "last_userid10" => $last_userid10,
@@ -255,6 +257,9 @@ class RegisterController extends Controller
             'case_name' => 'required_without',
             'case_address' => 'required_without',
             'case_contact' => 'required_without',
+            'entrance_of_duty' => 'required_without',
+            'sex' => 'required_without',
+            'e_background_id' => 'required_without',
         ];
         $message = [
             'captcha' => 'Invalid Captcha',
@@ -316,6 +321,9 @@ class RegisterController extends Controller
             $personal_information->user_status = 1;
             $personal_information->region = $request->region;
             $personal_information->field_status = $request->field_status;
+            $personal_information->entrance_of_duty = $request->entrance_of_duty;
+            $personal_information->sex = $request->sex;
+            $personal_information->e_background_id = $request->e_background_id;
             $personal_information->save();
 
             User::insertIgnore([

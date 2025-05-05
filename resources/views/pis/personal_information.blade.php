@@ -136,12 +136,22 @@
                 </div>
             </div>
 
-            <div class="profile-info-row">
+            <!-- <div class="profile-info-row">
                 <div class="profile-info-name"> DATE OF BIRTH </div>
                 <div class="profile-info-value">
                     <span class="editable_radio personal_information" id="{{ $user->piId }}colpdate_of_birth">{{ $user->date_of_birth }}</span>
                 </div>
+            </div> -->
+
+            <div class="profile-info-row">
+                <div class="profile-info-name"> DATE OF BIRTH </div>
+                <div class="profile-info-value">
+                    <span class="editable_radio personal_information" id="{{ $user->piId }}colpdate_of_birth">
+                        {{ \Carbon\Carbon::parse($user->date_of_birth)->format('m/d/Y') }}
+                    </span>
+                </div>
             </div>
+
 
             <div class="profile-info-row">
                 <div class="profile-info-name"> PLACE OF BIRTH </div>

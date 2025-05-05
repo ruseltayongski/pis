@@ -10,7 +10,7 @@
         </div><!-- /.page-header -->
         <div class="space-10"></div>
         <div class="clearfix">
-        <ul class="nav nav-tabs padding-18" id="myTab">
+        <!-- <ul class="nav nav-tabs padding-18" id="myTab">
             <?php
             $statusCount = 0;
             $counter = 0;
@@ -54,7 +54,63 @@
                     </a>
                 </li>
             @endforeach
+        </ul> -->
+
+        <ul class="nav nav-tabs padding-18" id="myTab">
+            <?php
+            $statusCount = 0;
+            $counter = 0;
+            $badge = ['success', 'warning', 'danger', 'success', 'success', 'success', 'success', 'primary', 'primary', 'primary', 'primary'];  // Default badge colors
+            $status = ["ALL", "DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER", "HRMO_PERMANENT", "HRMO_CONTRACTUAL", "HRMO_JOB_ORDER", "HRH", "HRH_PERMANENT", "HRH_CONTRACTUAL", "HRH_JOB_ORDER"];
+        
+            // Statuses to hide
+            $hideStatus = ["DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER"];
+            ?>
+            @foreach($status as $row)
+                <?php 
+                // Skip hidden statuses
+                if (in_array($row, $hideStatus)) {
+                    $counter++; // Still increment counter to maintain color sequence
+                    continue;
+                }
+        
+                $statusCount++; 
+        
+                // Set specific colors for certain statuses
+                if (in_array($row, ['DUPLICATE_NAME', 'INACTIVE', 'PERMANENT', 'JOB_ORDER'])) {
+                    $badge[$counter] = 'warning';
+                }
+        
+                // Set badge color for HRMO statuses
+                if (strpos($row, 'HRMO') !== false) {
+                    $badge[$counter] = 'success';
+                }
+        
+                // Set badge color for HRH statuses
+                if (strpos($row, 'HRH') !== false) {
+                    $badge[$counter] = 'primary';
+                }
+                ?>
+                <li class="@if($statusCount == 1){{ 'active' }}@endif">
+                    <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
+                        {{ $row === 'HRH' ? 'ALL HRH' : 
+                        ($row === 'ALL' ? 'ALL HRMO' : 
+                        ($row === 'HRMO_PERMANENT' ? 'HRMO PERMANENT' : 
+                        ($row === 'HRMO_JOB_ORDER' ? 'HRMO JOB ORDER' : 
+                        ($row === 'HRMO_CONTRACTUAL' ? 'HRMO CONTRACTUAL' : 
+                        ($row === 'HRH_PERMANENT' ? 'HRH PERMANENT' : 
+                        ($row === 'HRH_CONTRACTUAL' ? 'HRH CONTRACTUAL' : 
+                        ($row === 'HRH_JOB_ORDER' ? 'HRH JOB ORDER' : $row))))))) }} 
+                        <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}" id="count_{{ $row }}">{{ $countArray[$row] }}</span>
+                        <?php
+                        $counter++;
+                        if($counter > 9) $counter = 0;  // Reset if counter exceeds index
+                        ?>
+                    </a>
+                </li>
+            @endforeach
         </ul>
+        
     </div>
 
     
@@ -97,9 +153,9 @@
 
 
     <div id="dialog-confirm" class="hide">
-        <div class="alert alert-info bigger-110">
+        {{-- <div class="alert alert-info bigger-110">
             This employee will be deleted
-        </div>
+        </div> --}}
 
         <div class="space-6"></div>
 
@@ -183,7 +239,7 @@
                             resizable: false,
                             width: '320',
                             modal: true,
-                            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i></h4></div>",
+                            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i>Confirm Delete</h4></div>",
                             title_html: true,
                             buttons: [
                                 {
@@ -234,7 +290,7 @@
                             resizable: false,
                             width: '320',
                             modal: true,
-                            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Confirm Action</h4></div>",
+                            title: "<div class='widget-header'><h4 class='smaller'><i class='ace-icon fa fa-exclamation-triangle red'></i> Set InActive </h4></div>",
                             title_html: true,
                             buttons: [
                                 {

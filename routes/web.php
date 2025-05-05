@@ -48,6 +48,12 @@ Route::get('/pisForm', 'PisController@pisForm');
 Route::get('pisInfo/{userid}','PisController@pisInfo')->name('pis.info');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
+
+
+Route::post('/pis/save-etd', 'PisController@saveEtd')->name('pis.saveEtd');
+
+
+
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
 Route::post('/updateSurvey','PisController@updateSurvey');
 Route::post('/updateEmployeeStatus','PisController@updateEmployeeStatus');

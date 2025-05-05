@@ -58,8 +58,6 @@
                             
                             @endif
            
-
-                   
                             <div class="col-md-2">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
                                     <input type="hidden" name="userid" value="{{ $user->piUserid }}">
@@ -99,7 +97,7 @@
                             <li>
                                 <a data-toggle="tab" href="#service_eligibility">
                                     <i class="pink ace-icon fa fa-certificate bigger-120"></i>
-                                    Civil Service Eligibility
+                                    Civil Service Eligibility 
                                 </a>
                             </li>
                             <li>
@@ -218,10 +216,15 @@
                                         <div class="profile-contact-links align-left">
                                             <a class="btn btn-link">
                                                 <i id="color-i" class="ace-icon fa fa-sun-o bigger-120 {{ $user->employee_status }}"></i>
+                                                
                                                 <label id="color-label" class="{{ $user->employee_status }}">
-                                                    <span class="effective-status">{{ $user->employee_status_description }}</span> - <span class="effective-date">{{ date("m-d-Y",strtotime($user->resigned_effectivity)) }}</span>
+                                                    <span>ENTRANCE OF DUTY:</span>
+                                                    @if($user->entrance_of_duty && $user->entrance_of_duty != 'N/A')
+                                                        <span class="effective-date"><b>{{ date('d/m/Y', strtotime($user->entrance_of_duty)) }}</b></span>
+                                                    @endif
                                                 </label>
                                             </a>
+                                            
                                             <a href="http://ro7.doh.gov.ph/" target="_blank" class="btn btn-link">
                                                 <i class="ace-icon fa fa-globe bigger-125 blue"></i>
                                                 www.ro7.doh.gov.ph

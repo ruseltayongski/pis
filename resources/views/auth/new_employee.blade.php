@@ -36,7 +36,9 @@
                                     <input type="hidden" value="Active" name="employee_status">
                                     <fieldset>
                                         <div class="space-6"></div>
-                                        <p class="purple">Employee Information (Required)</p>
+                                        <p class="purple">
+                                            Employee Information (Required) <span style="margin-left: 395px;">Entrance of Duty</span>
+                                            </p>
                                         <div class="row">
                                             <div class="col-sm-4">
                                                 <select name="region" class="select2" onchange="filterUserid($(this))" data-placeholder="Select Work Region.">
@@ -204,7 +206,7 @@
                                             <div class="col-sm-3">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <input value="{{ session('date_of_birth') ? date('m/d/Y',strtotime(session('date_of_birth'))) : '' }}" name="date_of_birth" placeholder="Date of birth" class="form-control" type="text" onfocus="(this.type='date')" />
+                                                        <input value="{{ session('date_of_birth') ? date('m/d/Y',strtotime(session('date_of_birth'))) : '' }}" name="date_of_birth" placeholder="Date of birth" class="form-control" type="text" onfocus="(this.type='date')" required />
                                                         <i class="ace-icon fa fa-calendar"></i>
                                                     </span>
                                                     @if ($errors->has('date_of_birth'))
@@ -246,21 +248,22 @@
                                             <div class="col-sm-6 mt-2">
                                                 <label class="block clearfix">
                                                     <span class="block input-icon input-icon-right">
-                                                        <select name="education" class="form-control">
-                                                            <option value="" disabled selected> Highest Educational Attainment </option>
-                                                            <option value="Elementary" {{ session('education') == 'Elementary' ? 'selected' : '' }}>Elementary</option>
-                                                            <option value="High School" {{ session('education') == 'High School' ? 'selected' : '' }}>High School</option>
-                                                            <option value="Vocational" {{ session('education') == 'Vocational' ? 'selected' : '' }}>Vocational</option>
-                                                            <option value="College" {{ session('education') == 'College' ? 'selected' : '' }}>College</option>
-                                                            <option value="Post Graduate" {{ session('education') == 'Post Graduate' ? 'selected' : '' }}>Post Graduate</option>
-                                                        </select>
-                                                    </span>
-                                                    @if ($errors->has('education'))
-                                                        <small class="red"><b>{{ $errors->first('education') }}</b></small>
+                                                        
+                                                      <select name="e_background_id" class="select2"  data-placeholder="Select Highest Educational Attainment" required >
+                                                        @if( session('id') )
+                                                        <option value="{{ session('id') }}">{{ \PIS\Education_Type::find(session('id'))->description }}</option>
+                                                        @else
+                                                        <option value=""></option>
+                                                        @endif
+                                                        @foreach($education_type as $row)
+                                                            <option value="{{ $row->id }}">{{ $row->description }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    @if ($errors->has('id'))
+                                                        <small class="red"><b>{{ $errors->first('id') }}</b></small>
                                                     @endif
                                                 </label>
-                                            </div>
-                                            
+                                            </div>                                          
                                         </div>
 
                                         <div class="space-6"></div>
