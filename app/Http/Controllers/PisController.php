@@ -55,6 +55,29 @@ class PisController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+     public function saveEtd(Request $request)
+     {
+         $request->validate([
+             'userid' => 'required',
+             'etd' => 'nullable|date',
+         ]);
+ 
+         // Find employee record
+         $user = Personal_Information::where('userid', $request->userid)->first();
+ 
+         if (!$user) {
+             return response()->json(['message' => 'User not found!'], 404);
+         }
+ 
+         // Save ETD date
+         $user->entrance_of_duty = $request->etd;
+         $user->save();
+ 
+         return response()->json(['message' => 'ETD saved successfully!']);
+     }
+
+
     public function pisList(Request $request)
     {
         Session::put('keyword',$request->input('keyword'));
@@ -305,22 +328,22 @@ class PisController extends Controller
 
         //FILTER VIA HRH
         elseif ($type == 'HRH'){
-            $personal_information = Personal_Information::
-            where('user_status','=','1')
-                ->where(function($q) {
-                    $q->where('section_id', '=', 31);
-                     
-                })
-                ->where(function($q) use ($keyword){
-                    $q->where('fname','like',"%$keyword%")
-                        ->orWhere('mname','like',"%$keyword%")
-                        ->orWhere('lname','like',"%$keyword%")
-                        ->orWhere('userid','like',"%$keyword%")
-                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
-                })
-                ->orderBy('fname','asc')
-                ->paginate(10);
-        }
+        $personal_information = Personal_Information::
+        where('user_status','=','1')
+            ->where(function($q) {
+                $q->where('section_id', '=', 31);
+                    
+            })
+            ->where(function($q) use ($keyword){
+                $q->where('fname','like',"%$keyword%")
+                    ->orWhere('mname','like',"%$keyword%")
+                    ->orWhere('lname','like',"%$keyword%")
+                    ->orWhere('userid','like',"%$keyword%")
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+            })
+            ->orderBy('fname','asc')
+            ->paginate(10);
+    }
 
       
 
