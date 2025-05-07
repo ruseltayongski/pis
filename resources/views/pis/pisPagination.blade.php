@@ -3,6 +3,11 @@
     use PIS\Division;
 
 ?>
+
+<head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+</head>
+
 @if(isset($personal_information) and count($personal_information) > 0)
     <div class="table-responsive">
         <table id="simple-table" class="table table-bordered table-hover">
@@ -76,8 +81,9 @@
                     <td>
                         <input type="date" class="form-control etd-input" 
                                data-userid="{{ $user->userid }}" 
+                               data-current="{{ $user->entrance_of_duty ? \Carbon\Carbon::parse($user->entrance_of_duty)->format('Y-m-d') : '' }}"
                                value="{{ $user->entrance_of_duty ? \Carbon\Carbon::parse($user->entrance_of_duty)->format('Y-m-d') : '' }}"
-                               style="border: none; outline: none;">
+                               style="border: none; outline: none;" disabled>
                     </td>
 
                     <!-- <td class="center">
@@ -102,14 +108,12 @@
                                 <a href="#" class="set-inactive" id="{{ $type.'inactive'.$user->userid }}" title="INACTIVE">
                                     <i class="ace-icon fa fa-eye-slash bigger-150 text-warning"></i>
                                 </a>
-                                <a href="#" title="PRINT COE" onclick="openPrintPage(); return false;">
+                                <a href="#" title="PRINT COE" onclick="openPrintPage('{{ $user->userid }}'); return false;">
                                     <i class="ace-icon fa fa-file-pdf-o bigger-150"></i>
                                 </a>
                             </div>
                         @endif
                     </td>
-                    
-
                 </tr>
             @endforeach
             </tbody>
@@ -117,7 +121,7 @@
     </div>
     {{ $personal_information->links() }}
 @else
-    <div class="alert alert-danger" role="alert">PIS records are empty.</div>
+    <div class="alert alert-danger" role="alert">PIS records are empty.</div> 
 @endif
 
 <script>
@@ -137,90 +141,261 @@
             });
         },700);
     });
-
-    function openPrintPage() {
-    // Open a blank page (simulate a PDF view for testing)
+    function openPrintPage(userid) {
     var newWindow = window.open('', '_blank');
     
-    newWindow.document.write('<html><head><title>Certificate of Employment (COE)</title>');
+    newWindow.document.write('<html><head><title>Certification of Employment</title>');
     
-    // Add some styling to center the content
     newWindow.document.write(`
         <style>
+            @page {
+                size: A4;
+                margin: 0;
+            }
+            
+            @media print {
+                body {
+                    width: 210mm;
+                    height: 297mm;
+                    margin: 0;
+                    padding: 0;
+                }
+                .certificate-container {
+                    box-shadow: none;
+                    border: none;
+                    padding: 20mm;
+                }
+                .print-button {
+                    display: none;
+                }
+            }
+            
             body {
                 font-family: 'Times New Roman', serif;
-                text-align: center;
                 margin: 0;
                 padding: 0;
+                background-color: #f0f0f0;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                height: 100vh;
-                background-color: #f4f4f4;
+                min-height: 100vh;
             }
+            
+            .page-wrapper {
+                width: 210mm;
+                height: 297mm;
+                margin: 20px auto;
+                background: white;
+                box-shadow: 0 0 10px rgba(0,0,0,0.2);
+                position: relative;
+            }
+            
+            .footer {
+                position: absolute;
+                bottom: 10mm;
+                left: 15mm;
+                right: 15mm;
+                font-size: 8px;
+                text-align: center;
+                border-top: 1px solid #888;
+                padding-top: 3mm;
+                line-height: 1.3;
+            }
+            
             .certificate-container {
-                border: 2px solid #000;
-                padding: 30px;
-                width: 80%;
-                max-width: 800px;
-                background-color: #fff;
+                width: 100%;
+                height: 100%;
+                box-sizing: border-box;
+                padding: 20mm 20mm 30mm 20mm;
+                text-align: center;
+                position: relative;
             }
-            h1 {
-                font-size: 24px;
+            
+            .header {
+                text-align: center;
+                margin-bottom: 20px;
+            }
+            
+            .header-logos {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+            }
+            
+            .logo-and-text-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;  /* Align items to the top */
+                margin-bottom: 10px;
+            }
+            
+            .logo {
+                width: 100px;
+                height: auto;
+                object-fit: contain;
+            }
+            
+            .center-content {
+                flex-grow: 1;
+                text-align: center;
+                margin: 0 15px;
+            }
+            
+            .header-text {
+                font-size: 14px;
+                line-height: 1.4;
+                margin-top: 10px;
+            }
+            
+            .title {
+                font-weight: bold;
+                font-size: 22px;
+                letter-spacing: 6px;
+                margin: 30px 0;
+            }
+            
+            .content {
+                font-size: 16px;
+                line-height: 1.6;
+                text-align: justify;
+                margin: 30px 0;
+            }
+            
+            .signature {
+                margin-top: 60px;
+                text-align: right;
+                font-size: 16px;
+            }
+            
+            .signatory {
                 font-weight: bold;
                 text-decoration: underline;
+                margin-top: 40px;
             }
-            .content {
-                font-size: 18px;
-                margin-top: 20px;
-                line-height: 1.5;
+            
+            .designation {
+                margin-top: 5px;
+            }
+            
+            .print-button {
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 10px 15px;
+                background: #0066cc;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 14px;
+                z-index: 100;
+            }
+            
+            .print-button:hover {
+                background: #0052a3;
             }
         </style>
     `);
     
     newWindow.document.write('</head><body>');
     
-    // COE content
+    // Add print button
     newWindow.document.write(`
-        <div class="certificate-container">
-            <h1>Certificate of Employment - Test</h1>
-            <div class="content">
-                <p>This is to certify that</p>
-                <p><strong>[Employee Name]</strong>, holder of ID number <strong>[ID Number]</strong>, has been employed with our company since <strong>[Start Date]</strong> and is currently serving as <strong>[Job Title]</strong>.</p>
-                <p>Issued this <strong>[Date]</strong> at <strong>[Company Location]</strong>.</p>
-                <p><strong>[Company Name]</strong><br>
-                   <strong>[Company Address]</strong><br>
-                   <strong>[Authorized Signatory]</strong><br>
-                   [Designation]</p>
+        <button class="print-button" onclick="window.print()">Print Certificate</button>
+    `);
+    
+    newWindow.document.write(`
+        <div class="page-wrapper">
+            <div class="certificate-container">
+                <div class="header">
+                    <div class="logo-and-text-container">
+                        <img class="logo" src="/pis/public/img/coe-logo/doh.png" alt="DOH Logo">
+                        <div class="center-content">
+                            <div class="header-text">
+                                Republic of the Philippines<br>
+                                <strong>DEPARTMENT OF HEALTH</strong><br>
+                                Central Visayas Center for Health Development
+                            </div>
+                        </div>
+                        <img class="logo" src="/pis/public/img/coe-logo/bp.png" alt="BP Logo">
+                    </div>
+                </div>
+                
+                <div class="title">C E R T I F I C A T I O N</div>
+                <div class="content">
+                    <p>This is to certify that MR. JUAN B. DELA CRUZ is connected with the Department of Health Central Visayas Center for Health Development from February 12, 2025 up to present as Health Program Officer I (Job Order).</p>
+                    
+                    <p>This is to certify further Mr. Dela Cruz is receiving a monthly salary of Thirty Thousand Twenty-Four Pesos (Php 30,024.00).</p>
+                    
+                    <p>This Certification is being issued upon the request of Mr. Dela Cruz for whatever purpose this may serve.</p>
+                    
+                    <p>Given this 23rd day of April, 2025 in Cebu City, Philippines.</p>
+                </div>
+                
+                <div class="signature">
+                    <div class="signatory">RAMIL R. ABREA, CPA, MBA</div>
+                    <div class="designation">Chief Administrative Officer</div>
+                </div>
+                
+                <div class="footer">
+                    Osmeña Boulevard, Sambag II, Cebu City, 6000 Philippines ● Trunk Line (032) 260-9740 local 101, 102, 201, 301, 401<br>
+                    Website: http://www.ro7.doh.gov.ph ● Email Address: centralvisayas@ro7.doh.gov.ph ● Social Media: @DOH7govph<br>
+                    Human Resource Management Office Landline No: (032) 260-9740 loc. 412 Human Resource Management Office E-mail Address:<br>
+                    hrmo@ro7.doh.gov.ph
+                </div>
             </div>
         </div>
     `);
     
     newWindow.document.write('</body></html>');
+    
+    // Close the document write stream
+    newWindow.document.close();
 }
+
 
 $(document).ready(function() {
     $('.etd-input').on('change', function() {
         let userid = $(this).data('userid');
         let etd = $(this).val();
+        let currentVal = $(this).attr('data-current');
+
+        // Optional: prevent save if no real change
+        if (etd === currentVal) {
+            alert('No change detected.');
+            return;
+        }
 
         $.ajax({
-            url: '{{ route("pis.saveEtd") }}',  // Generate correct URL using Laravel route()
+            url: '{{ url("/pis/save-etd") }}',
             method: 'POST',
             data: {
-                _token: $('meta[name="csrf-token"]').attr('content'), // CSRF token
+                _token: $('meta[name="csrf-token"]').attr('content'),
                 userid: userid,
-                etd: etd
+                entrance_of_duty: etd // FIXED: must match Laravel field
             },
             success: function(response) {
                 alert(response.message);
+
+                // Optional: highlight saved input green
+                let input = $('.etd-input[data-userid="' + userid + '"]');
+                input.css('background-color', '#d4edda');
+                setTimeout(() => {
+                    input.css('background-color', '');
+                }, 1000);
+
+                // Update current value tracker
+                input.attr('data-current', etd);
             },
             error: function(xhr) {
-                alert('Failed to save ETD!');
+                alert('Failed to save ETD! Check console.');
+                console.log(xhr.responseText);
             }
         });
     });
 });
+
 
 
 
