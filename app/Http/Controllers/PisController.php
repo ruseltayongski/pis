@@ -190,7 +190,7 @@ class PisController extends Controller
             $personal_information = Personal_Information::
                 where('user_status', '=', '1')
                 ->where(function($q) {
-                    $q->where('section_id', '=', 31);
+                    $q->where('field_status', '=', "HRH");
                 })
                 ->where(function($q) use ($keyword) {
                     $q->where('fname', 'like', "%$keyword%")
@@ -211,7 +211,7 @@ class PisController extends Controller
             $personal_information = Personal_Information::
                 where('user_status', '=', '1')
                 ->where(function($q) {
-                    $q->where('section_id', '=', 31);
+                     $q->where('field_status', '=', "HRH");
                 })
                 ->where(function($q) use ($keyword) {
                     $q->where('fname', 'like', "%$keyword%")
@@ -232,7 +232,7 @@ class PisController extends Controller
             $personal_information = Personal_Information::
                 where('user_status', '=', '1')
                 ->where(function($q) {
-                    $q->where('section_id', '=', 31);
+                    $q->where('field_status', '=', "HRH");
                 })
                 ->where(function($q) use ($keyword) {
                     $q->where('fname', 'like', "%$keyword%")
@@ -331,7 +331,7 @@ class PisController extends Controller
         $personal_information = Personal_Information::
         where('user_status','=','1')
             ->where(function($q) {
-                $q->where('section_id', '=', 31);
+                $q->where('field_status', '=', "HRH");
                     
             })
             ->where(function($q) use ($keyword){
@@ -417,17 +417,18 @@ class PisController extends Controller
 
         //CARLO
         $count_hrh = Personal_Information::
-            where('user_status','=','1')
-                ->where(function($q) {
-                    $q->where('section_id', '=', 31);
-                       
-                })
-                ->where(function($q) use ($keyword){
-                    $q->where('fname','like',"%$keyword%")
-                        ->orWhere('mname','like',"%$keyword%")
-                        ->orWhere('lname','like',"%$keyword%")
-                        ->orWhere('userid','like',"%$keyword%");
-                })->count();
+            where('user_status', '=', '1')
+            ->where('employee_status',  1)
+            ->where(function($q) {
+                $q->where('field_status', '=', "HRH");
+            })
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%");
+            })->count();
+        
 
 
 
@@ -500,7 +501,7 @@ class PisController extends Controller
         $count_hrh_permanent = Personal_Information:: 
             where('user_status', '=', '1')
             ->where(function($q) {
-                $q->where('section_id', '=', 31);
+                $q->where('field_status', '=', "HRH");
             })
             ->where(function($q) use ($keyword) {
                 $q->where('fname', 'like', "%$keyword%")
@@ -516,7 +517,7 @@ class PisController extends Controller
         $count_hrh_contractual = Personal_Information:: 
             where('user_status', '=', '1')
             ->where(function($q) {
-                $q->where('section_id', '=', 31);
+                $q->where('field_status', '=', "HRH");
             })
             ->where(function($q) use ($keyword) {
                 $q->where('fname', 'like', "%$keyword%")
@@ -533,7 +534,7 @@ class PisController extends Controller
         $count_hrh_job_order = Personal_Information:: 
             where('user_status', '=', '1')
             ->where(function($q) {
-                $q->where('section_id', '=', 31);
+                $q->where('field_status', '=', "HRH");
             })
             ->where(function($q) use ($keyword) {
                 $q->where('fname', 'like', "%$keyword%")
