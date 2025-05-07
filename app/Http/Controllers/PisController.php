@@ -60,22 +60,25 @@ class PisController extends Controller
      {
          $request->validate([
              'userid' => 'required',
-             'etd' => 'nullable|date',
+             'entrance_of_duty' => 'nullable|date',
          ]);
- 
+     
          // Find employee record
-         $user = Personal_Information::where('userid', $request->userid)->first();
- 
+         $user = Personal_Information::where('userid', $request->userid)->first(); // Fixed from Personal*Information
+         
          if (!$user) {
              return response()->json(['message' => 'User not found!'], 404);
          }
- 
+     
          // Save ETD date
-         $user->entrance_of_duty = $request->etd;
+         $user->entrance_of_duty = $request->entrance_of_duty;
          $user->save();
- 
+         
          return response()->json(['message' => 'ETD saved successfully!']);
      }
+
+     
+     
 
 
     public function pisList(Request $request)
@@ -211,7 +214,7 @@ class PisController extends Controller
             $personal_information = Personal_Information::
                 where('user_status', '=', '1')
                 ->where(function($q) {
-                    $q->where('section_id', '=', 31);
+                    $q->where('field_status', '=', "HRH");
                 })
                 ->where(function($q) use ($keyword) {
                     $q->where('fname', 'like', "%$keyword%")
@@ -222,7 +225,7 @@ class PisController extends Controller
                 })
                 ->where('job_status', '=', 'Contractual') // Added condition for job_status
                 ->where('region', '=', 'region_7') // Added condition for region
-                ->where('employee_status', '=', '1') // Added condition for employee_status
+                ->where('employee_status', '=', "1") // Added condition for employee_status
                 ->orderBy('fname', 'asc')
                 ->paginate(10);
         }
@@ -232,7 +235,7 @@ class PisController extends Controller
             $personal_information = Personal_Information::
                 where('user_status', '=', '1')
                 ->where(function($q) {
-                    $q->where('section_id', '=', 31);
+                  $q->where('field_status', '=', "HRH");
                 })
                 ->where(function($q) use ($keyword) {
                     $q->where('fname', 'like', "%$keyword%")
