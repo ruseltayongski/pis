@@ -50,7 +50,7 @@ Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
 
 
-Route::post('/pis/save-etd', 'PisController@saveEtd')->name('pis.saveEtd');
+Route::post('/pis/save-etd', [PisController::class, 'saveEtd'])->name('pis.saveEtd');
 
 
 

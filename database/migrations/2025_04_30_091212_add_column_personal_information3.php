@@ -14,7 +14,7 @@ class AddColumnPersonalInformation3 extends Migration
     public function up()
     {
         Schema::table('personal_information', function (Blueprint $table) {
-            $table->date('entrance_of_duty',255)->nullable();
+            $table->date('entrance_of_duty')->nullable();
             $table->integer('e_background_id')->nullable();
         });
     }
