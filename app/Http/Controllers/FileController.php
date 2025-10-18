@@ -136,7 +136,14 @@ class FileController extends Controller {
                                 'job_status' => $value->job_status,
                                 'inactive_area' => $value->inactive_area,
                                 'remarks' => 'PIS',
-                                'user_status' => "1"
+                                'user_status' => "1",
+                                'ice_name' => $value->ice_name,
+                                'ice_address' => $value->ice_address,
+                                'ice_contact_no' => $value->ice_contact_no,
+                                'ice_donate_organ' => $value->ice_donate_organ,
+                                'ice_specific_organ' => $value->ice_specific_organ,
+    
+                                
                             ]);
                         }
                     } else {
@@ -187,7 +194,13 @@ class FileController extends Controller {
                             'job_status' => $value->job_status,
                             'inactive_area' => $value->inactive_area,
                             'remarks' => 'PIS',
-                            'user_status' => "1"
+                            'user_status' => "1",
+                            'ice_name' => $value->ice_name,
+                            'ice_address' => $value->ice_address,
+                            'ice_contact_no' => $value->ice_contact_no,
+                            'ice_donate_organ' => $value->ice_donate_organ,
+                            'ice_specific_organ' => $value->ice_specific_organ,
+
                         ];
                     }
 

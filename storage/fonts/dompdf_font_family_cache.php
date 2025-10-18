@@ -83,4 +83,12 @@
   'barlowfont' => array(
     'bold' => $fontDir . '/barlowfont-bold_358c0a3a4ade31ae6cf836e9f9ad793b',
   ),
+  'barlow semi condensed' => array(
+    'normal' => $fontDir . '/barlow-semi-condensed-normal_119a7fed0483e639781858dcebc7c5fc',
+  ),
+  'barlowsemicondensed' => array(
+    'normal' => $fontDir . '/barlowsemicondensed-normal_119a7fed0483e639781858dcebc7c5fc',
+    '600' => $fontDir . '/barlowsemicondensed-600_f887eeac9f4f67d9d145f26de49aa16b',
+    'bold' => $fontDir . '/barlowsemicondensed-bold_5ba6a8a2a5fe02c9b16d34289336dec3',
+  ),
 ) ?>

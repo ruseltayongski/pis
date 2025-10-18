@@ -10,16 +10,29 @@
         </div><!-- /.page-header -->
         <div class="space-10"></div>
         <div class="clearfix">
+ 
+
         <!-- <ul class="nav nav-tabs padding-18" id="myTab">
             <?php
             $statusCount = 0;
             $counter = 0;
             $badge = ['success', 'warning', 'danger', 'success', 'success', 'success', 'success', 'primary', 'primary', 'primary', 'primary'];  // Default badge colors
-            $status = ["ALL", "DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER", "HRMO_PERMANENT", "HRMO_CONTRACTUAL", "HRMO_JOB_ORDER" , "HRH", "HRH_PERMANENT", "HRH_CONTRACTUAL", "HRH_JOB_ORDER"];
+            $status = ["ALL", "DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER", "HRMO_PERMANENT", "HRMO_CONTRACTUAL", "HRMO_JOB_ORDER", "HRH", "HRH_PERMANENT", "HRH_CONTRACTUAL", "HRH_JOB_ORDER"];
+
+            // Statuses to hide (added HRH_PERMANENT here)
+            $hideStatus = ["DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER", "HRH_PERMANENT"];
             ?>
             @foreach($status as $row)
-                <?php 
-                $statusCount++; 
+            <?php 
+            // Skip hidden statuses
+            if (in_array($row, $hideStatus)) {
+                $counter++; // Still increment counter to maintain color sequence
+            ?>
+                @continue
+            <?php 
+            }
+
+            $statusCount++; 
 
                 // Set specific colors for certain statuses
                 if (in_array($row, ['DUPLICATE_NAME', 'INACTIVE', 'PERMANENT', 'JOB_ORDER'])) {
@@ -38,14 +51,14 @@
                 ?>
                 <li class="@if($statusCount == 1){{ 'active' }}@endif">
                     <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
-                        {{ $row === 'HRH' ? 'ALL HRH' : 
+                        {{ $row === 'HRH' ? 'ALL HHRDU' : 
                         ($row === 'ALL' ? 'ALL HRMO' : 
                         ($row === 'HRMO_PERMANENT' ? 'HRMO PERMANENT' : 
                         ($row === 'HRMO_JOB_ORDER' ? 'HRMO JOB ORDER' : 
                         ($row === 'HRMO_CONTRACTUAL' ? 'HRMO CONTRACTUAL' : 
                         ($row === 'HRH_PERMANENT' ? 'HRH PERMANENT' : 
-                        ($row === 'HRH_CONTRACTUAL' ? 'HRH CONTRACTUAL' : 
-                        ($row === 'HRH_JOB_ORDER' ? 'HRH JOB ORDER' : $row))))))) }} 
+                        ($row === 'HRH_CONTRACTUAL' ? 'HHRDU CONTRACTUAL' : 
+                        ($row === 'HRH_JOB_ORDER' ? 'HHRDU JOB ORDER' : $row))))))) }} 
                         <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}" id="count_{{ $row }}">{{ $countArray[$row] }}</span>
                         <?php
                         $counter++;
@@ -55,37 +68,38 @@
                 </li>
             @endforeach
         </ul> -->
-
         <ul class="nav nav-tabs padding-18" id="myTab">
             <?php
             $statusCount = 0;
             $counter = 0;
             $badge = ['success', 'warning', 'danger', 'success', 'success', 'success', 'success', 'primary', 'primary', 'primary', 'primary'];  // Default badge colors
             $status = ["ALL", "DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER", "HRMO_PERMANENT", "HRMO_CONTRACTUAL", "HRMO_JOB_ORDER", "HRH", "HRH_PERMANENT", "HRH_CONTRACTUAL", "HRH_JOB_ORDER"];
-        
-            // Statuses to hide
-            $hideStatus = ["DUPLICATE_NAME", "INACTIVE", "PERMANENT", "JOB_ORDER"];
+
+            // Statuses to hide (removed INACTIVE here)
+            $hideStatus = ["DUPLICATE_NAME", "PERMANENT", "JOB_ORDER", "HRH_PERMANENT"];
             ?>
-            @foreach($status as $row)
+                @foreach($status as $row)
                 <?php 
                 // Skip hidden statuses
                 if (in_array($row, $hideStatus)) {
                     $counter++; // Still increment counter to maintain color sequence
-                    continue;
-                }
-        
+                ?>
+                    @continue
+                <?php 
+               }
+
                 $statusCount++; 
-        
+
                 // Set specific colors for certain statuses
                 if (in_array($row, ['DUPLICATE_NAME', 'INACTIVE', 'PERMANENT', 'JOB_ORDER'])) {
                     $badge[$counter] = 'warning';
                 }
-        
+
                 // Set badge color for HRMO statuses
                 if (strpos($row, 'HRMO') !== false) {
                     $badge[$counter] = 'success';
                 }
-        
+
                 // Set badge color for HRH statuses
                 if (strpos($row, 'HRH') !== false) {
                     $badge[$counter] = 'primary';
@@ -93,14 +107,15 @@
                 ?>
                 <li class="@if($statusCount == 1){{ 'active' }}@endif">
                     <a data-toggle="tab" class="m-tab" href="#{{ $row }}">
-                        {{ $row === 'HRH' ? 'ALL HRH' : 
+                        {{ $row === 'HRH' ? 'ALL HHRDU' : 
                         ($row === 'ALL' ? 'ALL HRMO' : 
                         ($row === 'HRMO_PERMANENT' ? 'HRMO PERMANENT' : 
                         ($row === 'HRMO_JOB_ORDER' ? 'HRMO JOB ORDER' : 
                         ($row === 'HRMO_CONTRACTUAL' ? 'HRMO CONTRACTUAL' : 
                         ($row === 'HRH_PERMANENT' ? 'HRH PERMANENT' : 
-                        ($row === 'HRH_CONTRACTUAL' ? 'HRH CONTRACTUAL' : 
-                        ($row === 'HRH_JOB_ORDER' ? 'HRH JOB ORDER' : $row))))))) }} 
+                        ($row === 'HRH_CONTRACTUAL' ? 'HHRDU CONTRACTUAL' : 
+                         ($row === 'HRH_JOB_ORDER' ? 'HHRDU JOB ORDER' : 
+                         ($row === 'INACTIVE' ? 'EMPLOYMENT STATUS' : $row)))))))) }}
                         <span class="badge badge-{{ $badge[$counter] }} badge-{{ $statusCount }}" id="count_{{ $row }}">{{ $countArray[$row] }}</span>
                         <?php
                         $counter++;
@@ -110,7 +125,7 @@
                 </li>
             @endforeach
         </ul>
-        
+                
     </div>
 
     
@@ -164,6 +179,36 @@
             Are you sure?
         </p>
     </div>
+
+    <div id="dialog-set-actions" class="hide">
+    <form id="setActionForm">
+        <input type="hidden" id="selectedUserIdAction" name="userid">
+        <input type="hidden" id="selectedAction" name="action_status">
+
+        <div class="text-center">
+            <button type="button" class="btn btn-sm btn-warning action-button" data-action="inactive">
+                <i class="fa fa-ban"></i> Set Inactive
+            </button>
+            <button type="button" class="btn btn-sm btn-primary action-button" data-action="resigned">
+                <i class="fa fa-sign-out"></i> Set Resigned
+            </button>
+            <button type="button" class="btn btn-sm btn-danger action-button" data-action="retired">
+                <i class="fa fa-briefcase"></i> Set Retired
+            </button>
+        </div>
+
+        <div style="height: 10px;"></div>
+        <div id="actionDateGroup" class="form-group" style="display: none; text-align: center;">
+            <label for="actionDate">Select Date:</label>
+            <input type="date" class="form-control" id="actionDate" name="action_date" required style="max-width: 300px; margin: 0 auto;">
+            <hr>
+        </div>
+
+        <div id="submitActionGroup" style="display: none; margin-top: 15px; text-align: right;">
+            <button type="submit" class="btn btn-success btn-sm">Submit</button>
+        </div>
+    </form>
+</div>
 
 @endsection
 @section('js')
@@ -277,6 +322,9 @@
                 });
             }
 
+            
+
+
             set_inactive_row();
             function set_inactive_row() {
                 $(".set-inactive").each(function(index){
@@ -326,6 +374,58 @@
                     });
                 });
             }
+
+            $(document).ready(function () {
+        const actionMap = { inactive: 1, resigned: 2, retired: 3 };
+
+        
+        // Open dialog
+        $(document).on('click', '.set-actions', function (e) {
+            e.preventDefault();
+            $('#selectedUserIdAction').val(this.id.split('actions')[1]);
+            $('#selectedAction, #actionDate').val('');
+            $('#actionDateGroup, #submitActionGroup').hide();
+
+            $("#dialog-set-actions").removeClass('hide').dialog({
+                resizable: false, width: 400, modal: true,
+                title: "<div class='widget-header'><h4 class='smaller'><i class='ace-ic on fa fa-cogs blue'></i> Actions </h4></div>",
+                title_html: true
+            });
+        });
+
+        // Pick action
+        $(document).on('click', '.action-button', function () {
+            $('#selectedAction').val(actionMap[$(this).data('action')]);
+            $('#actionDateGroup').slideDown();
+        });
+
+        // Show submit after picking date
+        $(document).on('change', '#actionDate', function () {
+            if (this.value) $('#submitActionGroup').slideDown();
+        });
+
+        // Submit form
+        $('#setActionForm').on('submit', function (e) {
+            e.preventDefault();
+
+            const data = {
+                userid: $('#selectedUserIdAction').val(),
+                action_status: $('#selectedAction').val(),
+                action_date: $('#actionDate').val(),
+                _token: "{{ csrf_token() }}"
+            };
+
+            if (!data.action_status || !data.action_date) return alert('Please select an action and a date.');
+            $("#dialog-set-actions").dialog("close");
+
+            $.post("{{ route('setUserAction') }}", data)
+                .done(res => {
+                    alert(res.message || 'Action saved.');
+                    if (res.success) getPosts(1, keyword);
+                })
+                .fail(xhr => alert('Server error: ' + xhr.status));
+        });
+    });
 
 
             $("a[href='#document_form']").on('click',function(e){
@@ -398,8 +498,9 @@
             }
 
         });
-        
 
+        
+    
         
 
        /* @if(session()->has('addUserid'))

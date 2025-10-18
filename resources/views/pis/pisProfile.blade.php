@@ -57,6 +57,16 @@
                             </div>
                             
                             @endif
+
+                            @if(auth()->user() && auth()->user()->username === 'admin')
+                                <div class="col-md-2">
+                                    <a href="{{ url('pisSmall_Id').'/'.$user->piUserid.'/landscape' }}" 
+                                    target="_blank" 
+                                    class="btn btn-sm btn-default">
+                                    <i class="fa fa-image"></i> SMALL ID
+                                    </a>
+                                </div>
+                            @endif
            
                             <div class="col-md-2">
                                 <form action="{{ url('print').'/print_pdf.php' }}" method="POST" target="_blank">
@@ -144,7 +154,8 @@
                                                 if(isset($user->picture)){
                                                     $profilePic = asset('public/upload_picture/picture').'/'.$user->picture;
                                                 } else {
-                                                    if($user->sex == 'Female')
+                                                    if($user->sex == 'F var source_radio 
+                                                    le')
                                                         $profilePic = asset('public/assets_ace/images/avatars/female1.png');
                                                     else
                                                         $profilePic = asset('public/assets_ace/images/avatars/male1.png');
@@ -213,23 +224,22 @@
 
                                     <div class="space-6"></div>
                                     <div class="profile-contact-info">
-                                        <div class="profile-contact-links align-left">
-                                            <a class="btn btn-link">
-                                                <i id="color-i" class="ace-icon fa fa-sun-o bigger-120 {{ $user->employee_status }}"></i>
-                                                
-                                                <label id="color-label" class="{{ $user->employee_status }}">
-                                                    <span>ENTRANCE OF DUTY:</span>
-                                                    @if($user->entrance_of_duty && $user->entrance_of_duty != 'N/A')
-                                                        <span class="effective-date"><b>{{ date('d/m/Y', strtotime($user->entrance_of_duty)) }}</b></span>
-                                                    @endif
-                                                </label>
-                                            </a>
-                                            
-                                            <a href="http://ro7.doh.gov.ph/" target="_blank" class="btn btn-link">
+                            <div class="profile-contact-links d-flex flex-column align-items-center text-center">
+                                <a class="btn btn-link">
+                                    <i id="color-i" class="ace-icon fa fa-calendar bigger-100 {{ $user->employee_status }}"></i>
+
+                                    <label id="color-label" class="{{ $user->employee_status }}">
+                                        <span>ETD: </span>
+                                        @if($user->entrance_of_duty && $user->entrance_of_duty != 'N/A')
+                                            <span class="effective-date"><b>{{ date('F d, Y', strtotime($user->entrance_of_duty)) }}</b></span>
+                                        @endif
+                                    </label>
+                                </a>
+                                  <!-- <a href="http://ro7.doh.gov.ph/" target="_blank" class="btn btn-link">
                                                 <i class="ace-icon fa fa-globe bigger-125 blue"></i>
                                                 www.ro7.doh.gov.ph
-                                            </a>
-                                        </div>
+                                            </a>  -->
+                            </div>
                                     </div>
 
                                     <div class="space-4"></div>
@@ -543,7 +553,7 @@
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colunits_earned"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colyear_graduated"></span></td>\
                         <td class="center"><span class="editable educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'colscholarship"></span></td>\
-                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'coleducationDelete"><i class="fa fa-close"></i></span></td>\
+                        <td class="center"><span class="editable_radio educational_background" id="'+'no_id'+"<?php echo str_random(10); ?>"+educationCount+'editable_radioducationDelete"><i class="fa fa-close"></i></span></td>\
                     </tr>';
                 $("#education_append").append(educationAppend);
                 $("#"+educationUnique_row).hide().fadeIn();
@@ -1154,7 +1164,7 @@
                             "                                                                        </div>\n" +
                             "                                                                    </div><!-- PAGE CONTENT ENDS -->\n" +
                             "                                                                </div><!-- /.col -->\n" +
-                            "                                     </div><div class='alert alert-warning certificate-link'>Link</div><!-- /.row -->";
+                            "                                     </div><div class='alert alert-warning certificate-link' style='word-break:break-all; white-space:normal;'>Link</div><!-- /.row -->";
 
 
                         var modal =
@@ -1357,6 +1367,7 @@
                                     "value" : value,
                                     "_token" : "<?php echo csrf_token(); ?>",
                                 };
+                                console.log('pis', json);
                                 url = "{!! asset('updatePersonalInformation') !!}";
                             }
                             else if(Class.includes('survey')){
@@ -1595,7 +1606,7 @@
                                 {value:"    SAA 2024-03-001121  ", text:"   SAA 2024-03-001121  "},
                                 {value:"    2025 HRH ICM  ", text:"   2025 HRH ICM  "},
                                 {value:"    CONAP SAA 2024-03-001219  ", text:"   CONAP SAA 2024-03-001219  "},
-                                {value:"    SAA NO. 2025-01-00250  ", text:"   SAA NO. 2025-01-00250  "},
+                                {value:"    SAA NO. 2025-01-000250  ", text:"   SAA NO. 2025-01-000250  "},
                                 {value:"    CONAP SAA NO. 2024-03-001097  ", text:"   CONAP SAA NO. 2024-03-001097  "},
                                 {value:"    CONAP SAA NO. 2024-12-006155  ", text:"   CONAP SAA NO. 2024-12-006155  "},
                                 {value:"    PMF 2025  ", text:"   PMF 2025  "},
@@ -1606,6 +1617,17 @@
                                 {value:"    SAA NO. 25-01-00000010  ", text:"   SAA NO. 25-01-00000010  "},
                                 {value:"    CONAP SAA 2024-03-001279  ", text:"   CONAP SAA 2024-03-001279  "},
                                 {value:"    SNBCV TRUST FUND  ", text:"   SNBCV TRUST FUND  "},
+                                {value:"    SAA NO. 2025-02-000355  ", text:"   SAA NO. 2025-02-000355  "},
+                                {value:"    SAA NO. 2025-04-002506  ", text:"   SAA NO. 2025-04-002506  "},
+                                {value:"    SAA NO. 2025-03-001318  ", text:"   SAA NO. 2025-03-001318  "},
+                                {value:"    2025 HFPPD  ", text:"   2025 HFPPD  "},
+                                {value:"    SAA NO. 2025-03-001279  ", text:"   SAA NO. 2025-03-001279  "},
+                                {value:"    SAA NO. 2025-02-000936  ", text:"   SAA NO. 2025-02-000936  "},
+                                {value:"    SAA NO. 2025-03-001961  ", text:"   SAA NO. 2025-03-001961  "},
+                                {value:"    HEALTH PROMOTION  ", text:"   HEALTH PROMOTION  "},
+                                {value:"    CONAP 2024 HEPR  ", text:"   CONAP 2024 HEPR  "},
+                                {value:"    SAA NO. 25-06-00000565  ", text:"   SAA NO. 25-06-00000565  "},
+      
                                                 
 
                         ],
@@ -1844,6 +1866,10 @@
                     {value: 'Male', text: 'Male'},
                     {value: 'Female', text: 'Female'}
                 ],
+                "ice_donate_organ": [
+                    {value: 'Yes', text: 'Yes'},
+                    {value: 'No', text: 'No'}
+                ],
                 "civil_status": [
                     {value: 'Single', text: 'Single'},
                     {value: 'Widowed', text: 'Widowed'},
@@ -1978,7 +2004,7 @@
                             columnId = this.id.split('col')[1];
                             radioClassname = this.className;
                             $("#"+this.id).css('color','#393939');
-                            if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status') ){ //personal information sex,citizenship,civil_status
+                            if( value != null && (columnId == 'sex' || columnId == 'citizenship' || columnId == 'civil_status' || columnId == 'ice_donate_organ') ){ //personal information sex,citizenship,civil_status
                                 $("#"+this.id).html(value);
                                 json = {
                                     "id" : "<?php echo $user->piId; ?>",
@@ -2101,10 +2127,10 @@
                                 };
 
                                 // Check if the user is permanent
-                                if ("<?php echo $user->job_status ?>" === "Permanent") {
+                                // if ("<?php echo $user->job_status ?>" === "Permanent") {
                                     // Add the year parameter only for permanent employees
                                     json.year = $("#year_"+this.id.split('col')[0]+'colyear').val();
-                                }
+                                // }
                                 console.log("with year",json);
                                 url = "{!! asset('updateWorkExperience') !!}";
                             }
@@ -2327,7 +2353,7 @@
                         //var name = this.$input.closest('.editable_radio').find("[data-type='radiolist']").attr('id'); way gamit undefined
                         name = this.options.scope.id;
                         $value = $("#"+name).text();
-                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status'
+                        if(name.split('col')[1] == 'citizenship' || name.split('col')[1] == 'sex' || name.split('col')[1] == 'civil_status'  || name.split('col')[1] == 'ice_donate_organ'  
                             || name.split('col')[1] == 'government_service' || name.split('col')[1] == 'consanguinity_a'
                             || name.split('col')[1] == 'consanguinity_b' || name.split('col')[1] == 'offense_a' || name.split('col')[1] == 'offense_b'
                             || name.split('col')[1] == 'convicted' || name.split('col')[1] == 'separated' || name.split('col')[1] == 'government_a'
@@ -2444,7 +2470,7 @@
                                     ->distinct()
                                     ->get();        
                             ?>
-                            '@if($user->job_status == "Permanent")<select name="year" id="year_' + uniq + 'colyear" class="form-control years" data-uniq="' + uniq + '" onchange="updateYear(this)" style="width: 100%" required><option value="0">Past Year</option>@foreach($years as $year) <option value="{{ $year->year }}">{{ $year->year  }}</option> @endforeach @endif</select><div class="space-6"></div><select name="salary_tranche" id="salary_tranche" class="form-control" style="width: 100%" required><option value="">Select Tranche</option>@foreach($tranche as $trancheIndex) <option value="{{ $trancheIndex }}">{{ $trancheIndex  }}</option> @endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required><option value="">Select Salary Grade</option>@foreach(range(1,33) as $salaryGradeIndex)<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>@endforeach</select><div class="space-6"></div><select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required><option value="">Select Salary Step</option>@foreach(range(1,8) as $salaryStepIndex)<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>@endforeach</select>');
+                            '<select name="year" id="year_' + uniq + 'colyear" class="form-control years" data-uniq="' + uniq + '" onchange="updateYear(this)" style="width: 100%" required><option value="0">Past Year</option>@foreach($years as $year) <option value="{{ $year->year }}">{{ $year->year  }}</option> @endforeach </select><div class="space-6"></div><select name="salary_tranche" id="salary_tranche" class="form-control" style="width: 100%" required><option value="">Select Tranche</option>@foreach($tranche as $trancheIndex) <option value="{{ $trancheIndex }}">{{ $trancheIndex  }}</option> @endforeach</select> <div class="space-6"></div><select name="salary_grade" id="salary_grade" class="form-control" style="width: 100%" required><option value="">Select Salary Grade</option>@foreach(range(1,33) as $salaryGradeIndex)<option value="{{ $salaryGradeIndex }}">{{ $salaryGradeIndex }}</option>@endforeach</select><div class="space-6"></div><select name="salary_step" id="salary_step" class="form-control" style="width: 100%" required><option value="">Select Salary Step</option>@foreach(range(1,8) as $salaryStepIndex)<option value="{{ $salaryStepIndex }}">{{ $salaryStepIndex }}</option>@endforeach</select>');
                     }
                     else if( name.split('col')[1] == 'workDelete' || name.split('col')[1] == 'childrenDelete' || name.split('col')[1] == 'civilDelete' || name.split('col')[1] == 'voluntaryDelete' || name.split('col')[1] == 'trainingDelete' || name.split('col')[1] == 'educationDelete' || name.split('col')[1] == 'otherDelete' ){
                         try{

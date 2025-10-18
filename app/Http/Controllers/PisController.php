@@ -33,6 +33,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
+use Dompdf\Options;
 
 
 
@@ -56,25 +57,188 @@ class PisController extends Controller
      */
 
 
+     public function getUserData($userid)
+     {
+         try {
+             \Log::info("Trying to fetch user ID: " . $userid);
+
+             $user = Personal_Information::where('userid', $userid)->first();
+
+             if (!$user) {
+                 \Log::warning("User not found for ID: " . $userid);
+                 return response()->json(['error' => 'User not found'], 404);
+             }
+
+             // Get latest work experience monthly salary
+             $salaryAmount = null;
+
+             $latestWork = Work_Experience::where('userid', $userid)
+                 ->where(function($query) {
+                     $query->whereNotNull('monthly_salary')
+                         ->where('monthly_salary', '!=', '');
+                 })
+                 ->orderByDesc('id') // make sure latest is used
+                 ->first();
+
+             if ($latestWork && is_numeric($latestWork->monthly_salary)) {
+                 $salaryAmount = $latestWork->monthly_salary;
+             }
+
+             return response()->json([
+                 'userid' => $user->userid,
+                 'fname' => $user->fname,
+                 'lname' => $user->lname,
+                 'mname' => $user->mname,
+                 'name_extension' => $user->name_extension,
+                 'sex' => $user->sex,
+                 'civil_status' => $user->civil_status,
+                 'entrance_of_duty' => $user->entrance_of_duty,
+                 'position' => $user->position,
+                 'job_status' => $user->job_status,
+                 'salary_amount' => $salaryAmount,
+             ]);
+         } catch (\Exception $e) {
+             \Log::error("Error fetching user data: " . $e->getMessage());
+             return response()->json(['error' => 'Server error occurred. Check logs.'], 500);
+         }
+     }
+
+     public function setUserAction(Request $request)
+     {
+         try {
+             // Validation
+             $this->validate($request, [
+                 'userid'        => 'required|integer|exists:Personal_Information,userid',
+                 'action_status' => 'required|integer|in:1,2,3',
+                 'action_date'   => 'required|date',
+             ]);
+ 
+         $user = Personal_Information::where('userid', $request->userid)->first();
+             if (!$user) {
+                 return response()->json(['success' => false, 'message' => 'User not found.']);
+             }
+ 
+             // Save values
+             $user->action_status = $request->action_status;
+             $user->action_date   = $request->action_date;
+             $user->save();
+ 
+             return response()->json([
+                 'success' => true,
+                 'message' => 'User action updated successfully.'
+             ]);
+ 
+         } catch (\Exception $e) {
+             return response()->json([
+                 'success' => false,
+                 'message' => 'Error: ' . $e->getMessage()
+             ], 500);
+         }
+     }
+ 
+
+     public function pisSmall_Id($userid = null, $paper = null)
+     {
+         $user = Personal_Information::where('userid', '=', $userid)->first();
+     
+         // Get designation
+         $designation = Designation::find($user->designation_id);
+         $designation = $designation ? $designation->description : "NO DESIGNATION";
+     
+         // Prepare division defaults
+         $division = [
+             'font' => 20,
+             'left' => 2,
+             'top' => 79.5,
+             'desc' => 'NO DIVISION',
+         ];
+     
+         // Format name
+         $middleName = $user->mname ? $user->mname[0] . '.' : '';
+         $name = $user->fname . ' ' . $middleName . ' ' . $user->lname;
+     
+         // Combine residential address components
+         $residential_address = trim(collect([
+             $user->RHouseNo,
+             $user->Rstreet,
+             $user->RSubdivision,
+             $user->RBarangay,
+             $user->RMunicipality,
+             $user->RProvince,
+             $user->RZip_code
+         ])->filter()->implode(', '));
+     
+         // ==== Set font directory (where you placed your fonts) ====
+         $fontDir = public_path('fonts');
+     
+         // ==== Configure Dompdf options ====
+         $options = new Options();
+         $options->set('defaultFont', 'BarlowCondensed');
+         $options->set('chroot', public_path());
+         $options->set('isHtml5ParserEnabled', true);
+         $options->set('isRemoteEnabled', true);
+     
+         // ==== Generate PDF ====
+         $pdf = App::make('dompdf.wrapper', ['options' => $options]);
+     
+         // Render HTML view
+         $view = view('pis.small_id', [
+             "name" => $name,
+             "user" => $user,
+             "division" => $division,
+             "designation" => $designation,
+             "nameSize" => $this->nameSize_arta2024(strlen($name)),
+             "phicno" => $user->phicno,
+             "tin_no" => $user->tin_no,
+             "blood_type" => $user->blood_type,
+             "date_of_birth" => $user->date_of_birth,
+             "residential_address" => $residential_address,
+             "userid" => $user->userid,
+             "created_at" => $user->created_at,
+             "ice_name" => $user->ice_name,
+             "ice_address" => $user->ice_address,
+             "ice_contact_no" => $user->ice_contact_no,
+             "ice_donate_organ" => $user->ice_donate_organ,
+             "ice_specific_organ" => $user->ice_specific_organ
+         ])->render();
+     
+         // Load HTML into Dompdf
+         $pdf->loadHTML($view)->setWarnings(false);
+     
+         return $pdf->stream('small_id.pdf');
+     }
+     
      public function saveEtd(Request $request)
      {
-         $request->validate([
+         $this->validate($request, [
              'userid' => 'required',
-             'entrance_of_duty' => 'nullable|date',
+             'entrance_of_duty' => 'nullable|date'
          ]);
-     
-         // Find employee record
-         $user = Personal_Information::where('userid', $request->userid)->first(); // Fixed from Personal*Information
-         
-         if (!$user) {
-             return response()->json(['message' => 'User not found!'], 404);
+ 
+         $pis = Personal_Information::where('userid', $request->userid)->first();
+ 
+         if (!$pis) {
+             return response()->json([
+                 'status' => 'error',
+                 'message' => 'User not found.'
+             ], 404);
          }
-     
-         // Save ETD date
-         $user->entrance_of_duty = $request->entrance_of_duty;
-         $user->save();
-         
-         return response()->json(['message' => 'ETD saved successfully!']);
+ 
+         try {
+             $pis->entrance_of_duty = $request->entrance_of_duty;
+             $pis->save();
+ 
+             return response()->json([
+                 'status' => 'success',
+                 'message' => 'Entrance of Duty updated.',
+                 'entrance_of_duty' => $pis->entrance_of_duty
+             ]);
+         } catch (\Exception $e) {
+             return response()->json([
+                 'status' => 'error',
+                 'message' => 'Update failed: ' . $e->getMessage()
+             ], 500);
+         }
      }
 
      
@@ -117,7 +281,7 @@ class PisController extends Controller
 
             // Exclude region_12
             $query->where('region', '=', 'region_7');
-
+            $query->where('userid', '!=', 2764);
             $query->where('employee_status', '=', '1');
             
             $personal_information = $query->orderBy('fname', 'asc')->paginate(10);
@@ -139,7 +303,8 @@ class PisController extends Controller
                         ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
                 })
                 ->where(function($q) {
-                    $q->where('section_id', '!=', 31);  // Add condition for section_id
+                    $q->where('section_id', '!=', 31); 
+                    $q->where('userid', '!=', 2764); // Add condition for section_id
                 })
                 ->orderBy('fname', 'asc')
                 ->paginate(10);
@@ -148,22 +313,22 @@ class PisController extends Controller
         // ALL HRMO PERMANENT
         elseif ($type == 'HRMO_CONTRACTUAL') {
             $personal_information = Personal_Information::where('user_status', '=', '1')
-                ->where('job_status', '=', 'Contractual')
-                ->where('region', '=', 'region_7')  // Add condition for region
-                ->where('employee_status', '=', '1')  // Add condition for employee_status
-                ->where(function($q) use ($keyword) {
-                    $q->where('fname', 'like', "%$keyword%")
-                        ->orWhere('mname', 'like', "%$keyword%")
-                        ->orWhere('lname', 'like', "%$keyword%")
-                        ->orWhere('userid', 'like', "%$keyword%")
-                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
-                })
-                ->where(function($q) {
-                    $q->where('section_id', '!=', 31);  // Add condition for section_id
-                })
-                ->orderBy('fname', 'asc')
-                ->paginate(10);
-        }
+            ->where('job_status', '=', 'Contractual')
+            ->where('region', '=', 'region_7')  
+            ->where('employee_status', '=', '1')  
+            ->whereIn('userid', ['1572', '0005', '1127']) 
+            ->where(function($q) use ($keyword) {
+                $q->where('fname', 'like', "%$keyword%")
+                    ->orWhere('mname', 'like', "%$keyword%")
+                    ->orWhere('lname', 'like', "%$keyword%")
+                    ->orWhere('userid', 'like', "%$keyword%")
+                    ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+            })
+    
+            ->orderBy('fname', 'asc')
+            ->paginate(10);
+    }
+
         
 
           // ALL HRMO JOB ORDER
@@ -180,7 +345,7 @@ class PisController extends Controller
                         ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
                 })
                 ->where(function($q) {
-                    $q->where('section_id', '!=', 31);  // Add condition for section_id
+                    $q->where('field_status', '!=', "HRH"); // Add condition for section_id
                 })
                 ->orderBy('fname', 'asc')
                 ->paginate(10);
@@ -262,21 +427,34 @@ class PisController extends Controller
         }
 
 
-
-        //ALL INACTIVE
-        elseif($type == 'INACTIVE'){
-            $personal_information = Personal_Information::
-            where('user_status','=','0')
-                ->where(function($q) use ($keyword){
-                    $q->where('fname','like',"%$keyword%")
-                        ->orWhere('mname','like',"%$keyword%")
-                        ->orWhere('lname','like',"%$keyword%")
-                        ->orWhere('userid','like',"%$keyword%")
-                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+        // //ALL INACTIVE
+        // elseif($type == 'INACTIVE'){
+        //     $personal_information = Personal_Information::
+        //     where('user_status','=','0')
+        //         ->where(function($q) use ($keyword){
+        //             $q->where('fname','like',"%$keyword%")
+        //                 ->orWhere('mname','like',"%$keyword%")
+        //                 ->orWhere('lname','like',"%$keyword%")
+        //                 ->orWhere('userid','like',"%$keyword%")
+        //                 ->orWhereRaw("concat(fname,' ',lname,', ',mname) like '%$keyword%' ");
+        //         })
+        //         ->orderBy('fname','asc')
+        //         ->paginate(10);
+        // }
+        elseif ($type == 'INACTIVE') {
+            $personal_information = Personal_Information::where('user_status', '=', '1')
+                ->whereNotNull('action_status')
+                ->whereNotNull('action_date')
+                ->where(function ($q) use ($keyword) {
+                    $q->where('fname', 'like', "%$keyword%")
+                        ->orWhere('mname', 'like', "%$keyword%")
+                        ->orWhere('lname', 'like', "%$keyword%")
+                        ->orWhere('userid', 'like', "%$keyword%")
+                        ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"]);
                 })
-                ->orderBy('fname','asc')
+                ->orderBy('fname', 'asc')
                 ->paginate(10);
-        }
+    }
 
         //ALL PERMANENT
         elseif ($type == 'PERMANENT'){
@@ -374,7 +552,7 @@ class PisController extends Controller
         })
         // Exclude the count of HRH
         ->where(function($q) {
-            $q->where('section_id', '!=', 31);
+            $q->where('field_status', '!=', "HRH");
         })
         // Exclude records with employee_status = 3
         ->where('employee_status', '=', 1)
@@ -418,23 +596,29 @@ class PisController extends Controller
                     ->orWhere('userid','like',"%$keyword%");
             })->count();
 
-        //CARLO
-        $count_hrh = Personal_Information::
-            where('user_status', '=', '1')
-            ->where('employee_status',  1)
-            ->where(function($q) {
-                $q->where('field_status', '=', "HRH");
-            })
-            ->where(function($q) use ($keyword) {
-                $q->where('fname', 'like', "%$keyword%")
-                    ->orWhere('mname', 'like', "%$keyword%")
-                    ->orWhere('lname', 'like', "%$keyword%")
-                    ->orWhere('userid', 'like', "%$keyword%");
-            })->count();
+ 
+            
+        $count_hrh = Personal_Information::where('user_status', '1')
+        ->where(function($q) use ($keyword) {
+            $q->where('fname', 'like', "%$keyword%")
+                ->orWhere('mname', 'like', "%$keyword%")
+                ->orWhere('lname', 'like', "%$keyword%")
+                ->orWhere('userid', 'like', "%$keyword%")
+                ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+                ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+        })
+        // Add the new conditions
+        ->where('employee_status', 1)
+        ->where('region', '=', 'region_7')
+        // Exclude the count of HRH (section_id != 31)
+        ->where(function($q) {
+            $q->where('field_status', '=', "HRH");
+        })
+        ->count();
+
         
-
-
-
         $count_hrmo_permanent = Personal_Information::where('user_status', '1')
             ->where(function($q) use ($keyword) {
                 $q->where('fname', 'like', "%$keyword%")
@@ -456,6 +640,27 @@ class PisController extends Controller
             })
             ->count();
 
+            // $count_hrmo_contractual = Personal_Information::where('user_status', '1')
+            // ->where(function($q) use ($keyword) {
+            //     $q->where('fname', 'like', "%$keyword%")
+            //         ->orWhere('mname', 'like', "%$keyword%")
+            //         ->orWhere('lname', 'like', "%$keyword%")
+            //         ->orWhere('userid', 'like', "%$keyword%")
+            //         ->orWhereRaw("concat(fname,' ',lname,', ',mname) like ?", ["%$keyword%"])
+            //         ->orWhereRaw("concat(fname,' ',lname) like ?", ["%$keyword%"])
+            //         ->orWhereRaw("concat(lname,', ',mname) like ?", ["%$keyword%"])
+            //         ->orWhereRaw("concat(fname,', ',mname) like ?", ["%$keyword%"]);
+            // })
+            // // Add the new conditions
+            // ->where('employee_status', '=', '1')
+            // ->where('job_status', 'Contractual')
+            // ->where('region', '=','region_7')
+            // // Exclude the count of HRH (section_id != 31)
+            // ->where(function($q) {
+            //     $q->where('field_status', '!=', "HRH");
+            // })
+            // ->count();
+
             $count_hrmo_contractual = Personal_Information::where('user_status', '1')
             ->where(function($q) use ($keyword) {
                 $q->where('fname', 'like', "%$keyword%")
@@ -470,12 +675,13 @@ class PisController extends Controller
             // Add the new conditions
             ->where('employee_status', '=', '1')
             ->where('job_status', 'Contractual')
-            ->where('region', '!=','region_12')
+            ->where('region', '=','region_7')
             // Exclude the count of HRH (section_id != 31)
-            ->where(function($q) {
-                $q->where('section_id', '!=', 31);
-            })
+     
+            // Filter only these userids
+            ->whereIn('userid', ['1572', '0005', '1127'])
             ->count();
+
 
             $count_hrmo_job_order = Personal_Information::where('user_status', '1')
             ->where(function($q) use ($keyword) {
@@ -494,7 +700,7 @@ class PisController extends Controller
             ->where('region', '=', 'region_7')
             // Exclude the count of HRH (section_id != 31)
             ->where(function($q) {
-                $q->where('section_id', '!=', 31);
+                $q->where('field_status', '!=', "HRH");
             })
             ->count();
 
@@ -532,7 +738,9 @@ class PisController extends Controller
             ->where('region', '=', 'region_7') // Added condition for region
             ->where('employee_status', '=', '1') // Added condition for employee_status
             ->count();
-        
+
+            
+
 
         $count_hrh_job_order = Personal_Information:: 
             where('user_status', '=', '1')
@@ -663,7 +871,7 @@ class PisController extends Controller
             ->select('pi.id as piId','pi.*','pi.userid as piUserid','family_background.*','family_background.userid as fbUserid',
             'survey.*','survey.userid as surveyUserid','children.id as cId','children.userid as cUserid','children.name as cname',
             'children.date_of_birth as cdate_of_birth','es.description as employee_status_description','es.status as employee_status',
-            'pi.Rsitio','pi.Psitio','pi.field_status')
+            'pi.Rsitio','pi.Psitio','pi.field_status','pi.ice_name','pi.ice_address', 'pi.ice_contact_no', 'pi.ice_donate_organ', 'pi.ice_specific_organ')
             ->get();
 
 
@@ -981,12 +1189,20 @@ class PisController extends Controller
                         ->salary_amount;
                     }
                 }else {
-                    $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                    if($request->get('year') != 0) {
+                        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
                         ->where('salary_grade','=',$request->get('salary_grade'))
                         ->where('salary_step','=',$request->get('salary_step'))
-                        // ->where('year',"=", $request->get('year'))
+                        ->where('year',"=", $request->get('year'))
                         ->first()
                         ->salary_amount;
+                    }else {
+                        $salary_amount = SalaryGrade::where('salary_tranche','=',$request->get('salary_tranche'))
+                        ->where('salary_grade','=',$request->get('salary_grade'))
+                        ->where('salary_step','=',$request->get('salary_step'))
+                        ->first()
+                        ->salary_amount;
+                    }
                 }   
 
             $work_experience = Work_Experience::where('id','=',$request->get('id'))
@@ -1570,13 +1786,31 @@ class PisController extends Controller
             $nameSize['height'] = 2.5;
         }
         else if($sizeLength == 37){
-            $nameSize['font'] = 11;
+            $nameSize['font'] = 10;
             $nameSize['left'] += 1.4;//
             $nameSize['width'] += .1;//
             $nameSize['height'] = 2.5;
         }
         else if($sizeLength == 36){
-            $nameSize['font'] = 11;
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 35){
+            $nameSize['font'] = 10;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 34){
+            $nameSize['font'] = 9.5;
+            $nameSize['left'] += 1.4;//
+            $nameSize['width'] += .1;//
+            $nameSize['height'] = 2.5;
+        }
+        else if($sizeLength == 33){
+            $nameSize['font'] = 10;
             $nameSize['left'] += 1.4;//
             $nameSize['width'] += .1;//
             $nameSize['height'] = 2.5;

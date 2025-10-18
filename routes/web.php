@@ -42,17 +42,15 @@ Route::match(['GET','POST'],'/pisList', 'PisController@pisList');
 //SET STATUS TO RESIGNED
 Route::post('/setInactiveStatus','PisController@setInactiveStatus');
 
-
+Route::post('/setUserAction', 'PisController@setUserAction')->name('setUserAction');
 
 Route::get('/pisForm', 'PisController@pisForm');
 Route::get('pisInfo/{userid}','PisController@pisInfo')->name('pis.info');
 Route::get('/pisProfile/{userid}', 'PisController@pisProfile');
 Route::get('/pisProfile', 'PisController@pisProfile');
 
-
-Route::post('/pis/save-etd', [PisController::class, 'saveEtd'])->name('pis.saveEtd');
-
-
+Route::post('/saveEtd','PisController@saveEtd');
+Route::get('/getUserData/{userid}', 'PisController@getUserData');
 
 Route::post('/updatePersonalInformation','PisController@updatePersonalInformation');
 Route::post('/updateSurvey','PisController@updateSurvey');
@@ -107,6 +105,9 @@ Route::match(['GET','POST'],'salary/grade/{tranche}', 'SalaryController@salaryGr
 Route::match(['GET','POST'],'/section/filter_employee', 'SectionController@filterEmployee');
 
 Route::get('/sirBong','PisController@sirBong');
+
+//SMALL ID PRINT
+Route::get('pisSmall_Id/{userid}/{paper}','pisController@pisSmall_Id');
 
 ///PDF
 Route::get('pdf','PdfController@pdf');

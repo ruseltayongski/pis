@@ -286,6 +286,44 @@
                 </div>
             </div>
 
+            <div class="profile-info-row">
+                <div class="profile-info-name"> IN CASE OF EMERGENCY CONTACT NAME </div>
+                <div class="profile-info-value">
+                    <span class="editable personal_information" id="{{ $user->piId }}colice_name">{{ $user->ice_name }}</span>
+                </div>
+            </div>
+
+             <div class="profile-info-row">
+                <div class="profile-info-name"> ADDRESS </div>
+                <div class="profile-info-value">
+                    <span class="editable personal_information" id="{{ $user->piId }}colice_address">{{ $user->ice_address }}</span>
+                </div>
+            </div>
+
+            
+             <div class="profile-info-row">
+                <div class="profile-info-name"> CONTACT NO </div>
+                <div class="profile-info-value">
+                    <span class="editable personal_information" id="{{ $user->piId }}colice_contact_no">{{ $user->ice_contact_no }}</span>
+                </div>
+            </div>
+
+             <div class="profile-info-row">
+                <div class="profile-info-name" style="font-size: 7.5pt"> I GIVE MY CONSENT TO DONATE ANY ORGAN UPON MY DEATH </div>
+                <div class="profile-info-value">
+                    <span class="editable_radio personal_information" id="{{ $user->piId }}colice_donate_organ">{{ $user->ice_donate_organ }}</span>
+                </div>
+            </div>
+
+
+             <div class="profile-info-row">
+                <div class="profile-info-name"> SPECIFIC ORGAN </div>
+                <div class="profile-info-value">
+                    <span class="editable personal_information" id="{{ $user->piId }}colice_specific_organ">{{ $user->ice_specific_organ }}</span>
+                </div>
+            </div>
+
+
         </div>
     </div>
 

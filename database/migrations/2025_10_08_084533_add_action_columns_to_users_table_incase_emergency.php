@@ -17,7 +17,7 @@ class AddActionColumnsToUsersTableIncaseEmergency extends Migration
            $table->string('ice_name')->nullable();
             $table->string('ice_address')->nullable();
             $table->string('ice_contact_no')->nullable();
-            $table->boolean('ice_donate_organ')->default(false);
+            $table->string('ice_donate_organ')->nullable();
             $table->string('ice_specific_organ')->nullable();
         });
     }
